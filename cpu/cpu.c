@@ -8,31 +8,17 @@
  ============================================================================
  */
 
-#include "proyectoPractica.h"
-
-
-
-
-
+#include "cpu.h"
 
 ///////////////////////////////////////////////////////////////
 //////////////////////////Main principal ////////////////////////
 ///////////////////////////////////////////////////////////////////
 
-
 int main(int argc, char** argv) {
 
 
 	logs = log_create("log", "CPU.c", 1, LOG_LEVEL_TRACE);
-
-	if (argc < 2){
-			log_error(logs, "No se pasaron parametros.");
-			log_destroy(logs);
-			return 0;
-		}
-
-
-	config = config_create(argv[1]);
+	config = config_create("cpu.conf");
 
 	diccionarioDeVariables = dictionary_create();
 
@@ -46,12 +32,12 @@ conctarse,abortara su ejecucion informando por pantalla y el log del motivo*/
 
 	socketKernel = conectar_kernel();
 	socketMSP =conectar_MSP();
-		if(socketKernel < 0 || socketMSP < 0){
-			log_error(logs, "El programa tuvo que finalizar insatisfactoriamente porque fallo alguna conexion");
-			//liberar_estructuras();
-			return 0;}
 
-
+	if(socketKernel < 0 || socketMSP < 0){
+		log_error(logs, "El programa tuvo que finalizar insatisfactoriamente porque fallo alguna conexion");
+		//liberar_estructuras();
+		return EXIT_FAILURE;
+	}
 
 	return EXIT_SUCCESS;
 }
