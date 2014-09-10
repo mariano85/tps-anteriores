@@ -42,10 +42,9 @@ int main(void) {
 	switch(opcion){
 	case CREAR_SEGMENTO:
 
-//		int base = crear_agregar_segmento(argumento[2], argumento[3]);
-		log_info(logs,string_from_format("Se creo el segmento: %d, con base: %d, tamanio: %d",argumento[2],base,argumento[3]));
-
-		puts("Comando para crear segmento.");
+//		int base = crear_agregar_segmento(texto_a_numero(argumento[2]),texto_a_numero(argumento[3]));
+		log_info(logs,string_from_format("Se creo el segmento: %d, con base: %d, tamanio: %d",texto_a_numero(argumento[2]),base,texto_a_numero(argumento[3])));
+		puts("Segmento creado");
 		break;
 	case DESTRUIR_SEGMENTO:
 		puts("Comando para destruir segmento.");
@@ -175,4 +174,22 @@ t_comando buscar_comando(char* texto){
 			return EXIT;
 		}
 	return ERROR;
+}
+
+int texto_a_numero(char* texto){
+	int resultado=0;
+	int numero;
+	int mult=1;
+	int i=0;
+	while(texto[i]!='\0'){
+		i++;
+	}
+	i--;
+	while(i!=-1){
+		numero = (texto[i]-48)*mult;
+		resultado = resultado + numero;
+		mult=mult*10;
+		i--;
+	}
+	return resultado;
 }

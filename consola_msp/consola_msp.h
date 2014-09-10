@@ -22,7 +22,7 @@ typedef enum Comandos {
 }t_comando;
 
 t_comando buscar_comando(char* texto);
-
+int texto_a_numero(char* texto);
 
 
 #endif /* CONSOLA_MSP_H_ */
