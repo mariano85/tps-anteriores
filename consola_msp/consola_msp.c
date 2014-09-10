@@ -32,13 +32,19 @@ int main(void) {
 	scanf("%[^\n]",&texto_entrada);
 
 	opcion = buscar_comando(texto_entrada);
+	char** argumento = string_split(texto_entrada," ");
 
 //	ESTO ES DE TEST
 	printf("[TEST] Esa es la opcion: %d.\n\n",opcion);
+	int base=0;
 //  -----------
 
 	switch(opcion){
 	case CREAR_SEGMENTO:
+
+//		int base = crear_agregar_segmento(argumento[2], argumento[3]);
+		log_info(logs,string_from_format("Se creo el segmento: %d, con base: %d, tamanio: %d",argumento[2],base,argumento[3]));
+
 		puts("Comando para crear segmento.");
 		break;
 	case DESTRUIR_SEGMENTO:
