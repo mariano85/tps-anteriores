@@ -32,6 +32,7 @@ t_dictionary* diccionarioDeVariables;
 //Registro CPU despues veremos como los agrupamos
 
 int  *A,*B,*C,*D,*E;
+char *EFLAG;
 
 int socketKernel;
 int socketMSP;
@@ -52,6 +53,24 @@ void LOAD(int *Registro,int Numero);
 void GETM(int *Registro1,int *Registro2);
 
 void ADDR(int *Registro1,int *Registro2);
+
+void SUBR(int *Registro1,int *Registro2);
+
+void MULR(int *Registro1,int *Registro2);
+
+void MODR(int *Registro1,int *Registro2);
+
+void DIVR(int *Registro1,int *Registro2);
+
+void INCR(int *Registro1);
+
+void DECR(int *Registro1);
+
+void COMP(int *Registro1,int *Registro2);
+
+void CGEQ(int *Registro1,int *Registro2);
+
+void CLEQ(int *Registro1,int *Registro2);
 
 void *manejo_consola(); //Voy a crear una mini consola para probar las cosas
 
