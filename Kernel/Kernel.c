@@ -8,9 +8,21 @@
 
 #include "global.h"
 
+	TCB p1;
+
 int main(){
 
-	inicializar_Kernel_comunicacion_CPU();
+	p1.PID = 32;
+
+	p1.TID = 2;
+
+	//p_HILO = pthread_create(&pthread_Proceso_Consola,NULL,(void*)inicializar_Kernel_comunicacion_PROCESO_CONSOLA(),NULL);
+
+	//pthread_join(pthread_Proceso_Consola,NULL);
+
+	p_HILO_CONSOLA = pthread_create(&pthread_Proceso_Consola,NULL,(void*)inicializar_Kernel_comunicacion_CPU(),NULL);
+
+	pthread_join(pthread_CPU,NULL);
 
 	return 0;
 
@@ -21,77 +33,101 @@ int main(){
 
 int inicializar_Kernel_comunicacion_CPU(){
 
-
-	/*
-	 *  ¿Quien soy? ¿Donde estoy? ¿Existo?
-	 *
-	 *  Estas y otras preguntas existenciales son resueltas getaddrinfo();
-	 *
-	 *  Obtiene los datos de la direccion de red y lo guarda en serverInfo.
-	 *
-	 */
 	struct addrinfo hints;
 	struct addrinfo *serverInfo;
 
 	memset(&hints, 0, sizeof(hints));
-	hints.ai_family = AF_UNSPEC;		// Permite que la maquina se encargue de verificar si usamos IPv4 o IPv6
-	hints.ai_socktype = SOCK_STREAM;	// Indica que usaremos el protocolo TCP
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
 
-	getaddrinfo(IP, PUERTO, &hints, &serverInfo);	// Carga en serverInfo los datos de la conexion
+	getaddrinfo(IP, PUERTO, &hints, &serverInfo);
 
 
-	/*
-	 * 	Ya se quien y a donde me tengo que conectar... ¿Y ahora?
-	 *	Tengo que encontrar una forma por la que conectarme al server... Ya se! Un socket!
-	 *
-	 * 	Obtiene un socket (un file descriptor -todo en linux es un archivo-), utilizando la estructura serverInfo que generamos antes.
-	 *
-	 */
+
 	int serverSocket;
 	serverSocket = socket(serverInfo->ai_family, serverInfo->ai_socktype, serverInfo->ai_protocol);
 
-	/*
-	 * 	Perfecto, ya tengo el medio para conectarme (el archivo), y ya se lo pedi al sistema.
-	 * 	Ahora me conecto!
-	 *
-	 */
-	connect(serverSocket, serverInfo->ai_addr, serverInfo->ai_addrlen);
-	freeaddrinfo(serverInfo);	// No lo necesitamos mas
 
-	/*
-	 *	Estoy conectado! Ya solo me queda una cosa:
-	 *
-	 *	Enviar datos!
-	 *
-	 *	Vamos a crear un paquete (en este caso solo un conjunto de caracteres) de size PACKAGESIZE, que le enviare al servidor.
-	 *
-	 *	Aprovechando el standard immput/output, guardamos en el paquete las cosas que ingrese el usuario en la consola.
-	 *	Ademas, contamos con la verificacion de que el usuario escriba "exit" para dejar de transmitir.
-	 *
-	 */
+	connect(serverSocket, serverInfo->ai_addr, serverInfo->ai_addrlen);
+	freeaddrinfo(serverInfo);
+
 	int enviar = 1;
-	char message[PACKAGESIZE];
+
+	puntero_estructura_a_mandar = malloc(sizeof(TCB));
+
+	*puntero_estructura_a_mandar = p1.PID;
+	*(puntero_estructura_a_mandar + 4) = p1.TID;
+
+
 
 	printf("Conectado al servidor. Bienvenido al sistema, ya puede enviar mensajes. Escriba 'exit' para salir\n");
 
 	while(enviar){
-		fgets(message, PACKAGESIZE, stdin);			// Lee una linea en el stdin (lo que escribimos en la consola) hasta encontrar un \n (y lo incluye) o llegar a PACKAGESIZE.
-		if (!strcmp(message,"exit\n")) enviar = 0;			// Chequeo que el usuario no quiera salir
-		if (enviar) send(serverSocket, message, strlen(message) + 1, 0); 	// Solo envio si el usuario no quiere salir.
+
+		send(serverSocket,puntero_estructura_a_mandar,sizeof(TCB),0);
+
+		enviar = 0;
+
 	}
 
-
-	/*
-	 *	Listo! Cree un medio de comunicacion con el servidor, me conecte con y le envie cosas...
-	 *
-	 *	...Pero me aburri. Era de esperarse, ¿No?
-	 *
-	 *	Asique ahora solo me queda cerrar la conexion con un close();
-	 */
 
 	close(serverSocket);
 	return 0;
 
-	/* ADIO'! */
+
 }
+
+int inicializar_Kernel_comunicacion_PROCESO_CONSOLA(){
+
+
+	struct addrinfo hints;
+	struct addrinfo *serverInfo;
+
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_flags = AI_PASSIVE;
+	hints.ai_socktype = SOCK_STREAM;
+
+	getaddrinfo(NULL, PUERTO_CONEXION, &hints, &serverInfo);
+
+
+
+	int listenningSocket;
+	listenningSocket = socket(serverInfo->ai_family, serverInfo->ai_socktype, serverInfo->ai_protocol);
+
+
+	bind(listenningSocket,serverInfo->ai_addr, serverInfo->ai_addrlen);
+	freeaddrinfo(serverInfo); // Ya no lo vamos a necesitar
+
+
+	listen(listenningSocket, BACKLOG);
+
+
+	struct sockaddr_in addr;
+	socklen_t addrlen = sizeof(addr);
+
+	int socketCliente = accept(listenningSocket, (struct sockaddr *) &addr, &addrlen);
+
+
+	int package[PACKAGESIZE];
+	int status = 1;
+	printf("Cliente conectado. Esperando mensajes:\n");
+
+	while (status != 0){
+		status = recv(socketCliente, (void*) package, PACKAGESIZE, 0);
+		if (status != 0) printf("%d",*package);
+
+	}
+
+
+	close(socketCliente);
+	close(listenningSocket);
+
+
+
+	return 0;
+}
+
+
+
 

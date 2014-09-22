@@ -16,9 +16,21 @@
 #include <sys/socket.h>
 #include <commons/config.h>
 #include <commons/log.h>
+#include <sys/types.h>
+#include <netdb.h>
+#include <unistd.h>
+
+#define PACKAGESIZE 1024
+#define IP_CONEXION "127.0.0.1"
+#define PUERTO_CONEXION "6668"
+
+
 
 t_log *logs;
 t_config *config;
+
+
+
 
 int socketKernel;
 
@@ -27,6 +39,8 @@ int conectar_Kernel();
 void enviar_archivo_al_kernel(char* archivo);
 void liberar_estructuras();
 int archivo_de_configuracion_valido();
+int conectar_cliente();
+void cerrarSocket(int socketKernel);
 
 
 #endif /* VARIAABLES_GLOBALES_H_ */
