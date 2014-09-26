@@ -26,6 +26,18 @@
 
 
 
+typedef struct
+{
+	int puerto_kernel;
+	char* ip_kernel;
+} t_configuracion;
+
+
+t_configuracion configuracion;
+
+t_configuracion levantarArchivoDeConfiguracion();
+
+
 t_log *logs;
 t_config *config;
 

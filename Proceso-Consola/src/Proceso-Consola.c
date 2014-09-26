@@ -20,10 +20,10 @@ int main(int argc, char **argv){
 		if (argc < 2){
 			log_error(logs, "No se paso el archivo con el codigo BESO");
 			liberar_estructuras();
-			return 0;*
-		}
+			return 0;
+		} */
 
-		if (!archivo_de_configuracion_valido()){
+/*		if (!archivo_de_configuracion_valido()){
 				log_error(logs, "Archivo de configuracion incompleto");
 			liberar_estructuras();
 				return 0;
@@ -48,6 +48,8 @@ int main(int argc, char **argv){
 		liberar_estructuras();*/
 
 
+	//configuracion = levantarArchivoDeConfiguracion();
+
 	conectar_cliente();
 
 
@@ -58,6 +60,59 @@ int main(int argc, char **argv){
 ///////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////Funciones/////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
+
+t_configuracion levantarArchivoDeConfiguracion()
+{
+ 	int puerto_kernel;
+	char* ip_kernel;
+	t_configuracion configuracion;
+
+
+	/*Compruebo si existe el archivo (tal vez no sea la manera más
+	 * eficiente).
+	 */
+	FILE* file;
+
+	file = fopen("ESO_CONFIG", "r");
+
+	if(file == NULL )
+	{
+		puts("El archivo no existe!");
+		exit(0);
+
+	}
+	else
+	{
+		puts("El archivo existe!");
+		fclose(file);
+	}
+
+
+	//Abro el archivo de configuracion
+	t_config *config;
+
+	config = malloc(sizeof(t_config));
+
+	char* path = "ESO_CONFIG";
+
+	config = config_create(path);
+
+	//Pido los valores de configuracion y los vuelco en una estructura
+	puerto_kernel = config_get_int_value(config, "PUERTO_KERNEL");
+	ip_kernel = config_get_string_value(config, "IP_KERNEL");
+
+	configuracion.puerto_kernel = puerto_kernel;
+	configuracion.ip_kernel = ip_kernel;
+
+
+	free(config);
+
+	printf("ip kernel: %s\n", configuracion.ip_kernel);
+	printf("puerto kernel: %d\n", configuracion.puerto_kernel);
+
+	//Devuelvo la estructura cuyos campos son los parametros de configuracion
+	return configuracion;
+}
 
 int conectar_Kernel(){
 
@@ -96,6 +151,7 @@ int archivo_de_configuracion_valido(){
 
 int conectar_cliente(){
 
+
 	/*
 		 *  ¿Quien soy? ¿Donde estoy? ¿Existo?
 		 *
@@ -111,7 +167,7 @@ int conectar_cliente(){
 		hints.ai_family = AF_UNSPEC;		// Permite que la maquina se encargue de verificar si usamos IPv4 o IPv6
 		hints.ai_socktype = SOCK_STREAM;	// Indica que usaremos el protocolo TCP
 
-		getaddrinfo(IP_CONEXION, PUERTO_CONEXION, &hints, &serverInfo);	// Carga en serverInfo los datos de la conexion
+		getaddrinfo(IP_CONEXION,PUERTO_CONEXION, &hints, &serverInfo);	// Carga en serverInfo los datos de la conexion
 
 
 		/*
@@ -169,11 +225,3 @@ int conectar_cliente(){
 		/* ADIO'! */
 	}
 
-
-void cerrarSocket(int socketKernel){
-
-	close(socketKernel);
-
-
-
-}
