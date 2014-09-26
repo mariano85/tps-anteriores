@@ -9,11 +9,13 @@
  */
 
 
-#include "variablesGlobales_Funciones.h"
-
+#include "cpu.h"
+#include <commons/config.h>
 TCB p1;
 
 int main(int argc, char** argv) {
+
+//	configuracion = levantarArchivoDeConfiguracion();
 
 /*	argc = 2; //Le paso un parametro asi no pincha
 	**argv = 'a';
@@ -33,12 +35,6 @@ int main(int argc, char** argv) {
 		E = malloc(sizeof(int));
 		EFLAG = malloc(sizeof(char));
 
-
-	////////////////////////////////////////////////////////////////////////////////////////////////
-	////////////// Falta verificar que el archivo de configuracion sea valido //////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 	/*Al iniciar,intentara conectarse a los procesos kernel y msp,en caso de no poder
 conctarse,abortara su ejecucion informando por pantalla y el log del motivo*/
 
@@ -50,29 +46,8 @@ conctarse,abortara su ejecucion informando por pantalla y el log del motivo*/
 			return 0;}
 
 
-		//Creo el hilo para atender la consola
-
-//	p_HILO = pthread_create(&pthread_Consola,NULL,(void*)manejo_consola,NULL);
-
 	p_HILO = pthread_create(&pthread_Consola,NULL,(void*)inicializar_CPU_conexion_kernel,NULL);
 	pthread_join(pthread_Consola,NULL);
-
-	printf("El valor del hilo CONSOLA es %d\n",p_HILO);
-
-
-
-		LOAD(A,12);
-		printf("%d\n",*A);
-		GETM(D,A);
-		printf("%d\n",*D);
-		ADDR(D,A);
-		printf("%d\n",*D);
-		SUBR(D,A);
-		printf("%d\n",*D);
-		MULR(A,D);
-		printf("%d\n",*A);
-		MODR(A,D);
-		printf("%d\n",*A);
 
 		free(A);
 		free(B);
@@ -91,6 +66,77 @@ conctarse,abortara su ejecucion informando por pantalla y el log del motivo*/
 ///////////////////////////////////////////////////////////////////
 //////////////////////// Funciones ///////////////////////////////////
 ///////////////////////////////////////////////////////////////////
+
+t_configuracion levantarArchivoDeConfiguracion()
+{
+	//Levanto archivo de configuracion
+		char* ip_kernel;
+		int puerto_kernel;
+		char* ip_msp;
+		int puerto_msp;
+		int retardo;
+
+		t_configuracion configuracion;
+
+
+		/*Compruebo si existe el archivo (tal vez no sea la manera más
+		 * eficiente).
+		 */
+		FILE* file;
+
+		file = fopen("configuracion", "r");
+
+		if(file == NULL )
+		{
+			puts("El archivo no existe!");
+			exit(0);
+
+		}
+		else
+		{
+			puts("El archivo existe!");
+			fclose(file);
+		}
+
+
+		//Abro el archivo de configuracion
+		t_config *config;
+
+		config = malloc(sizeof(t_config));
+
+		char* path = "configuracion";
+
+		config = config_create(path);
+
+		//Pido los valores de configuracion y los vuelco en una estructura
+		ip_kernel = config_get_string_value(config, "IP_KERNEL");
+		ip_msp = config_get_string_value(config, "IP_MSP");
+		puerto_kernel = config_get_int_value(config, "PUERTO_KERNEL");
+		puerto_msp = config_get_int_value(config, "PUERTO_MSP");
+		retardo = config_get_int_value(config, "RETARDO");
+
+		configuracion.ip_kernel = ip_kernel;
+		configuracion.puerto_kernel = puerto_kernel;
+		configuracion.puerto_msp = puerto_msp;
+		configuracion.retardo = retardo;
+		configuracion.ip_msp = ip_msp;
+
+		free(config);
+
+		printf("ip kernel: %s\n", configuracion.ip_kernel);
+		printf("ip msp: %s\n", configuracion.ip_msp);
+		printf("puerto kernel: %d\n", configuracion.puerto_kernel);
+		printf("puerto msp: %d\n", configuracion.puerto_msp);
+		printf("retardo: %d\n", configuracion.retardo);
+
+
+	//termine de levantar archivo de configuracion
+
+
+	return configuracion;
+}
+
+
 
 void LOAD(int *Registro,int Numero){
 
@@ -222,37 +268,7 @@ void GOTO(int *Registro){
 
 }
 
-void manejo_consola(){
 
-	while(1){
-			consola();
-			printf("===========================================================\n");
-		}
-}
-
-
-void consola(){
-
-		puts("Ingrese una instruccion o 'help' para ver la lista.");
-		printf("\n> ");
-
-		scanf("%s\n",&texto_entrada);
-
-		switch(texto_entrada){
-
-		case 'L' :
-
-			scanf("%d",&aux);
-
-			LOAD(A,aux);
-
-			printf("Tu Load es %d",*A);
-		break;
-
-
-
-}
-	}
 
 int conectar_MSP(){
 
@@ -273,14 +289,6 @@ int conectar_kernel(){
 
 int inicializar_CPU_conexion_kernel(){
 
-	/*
-		 *  ¿Quien soy? ¿Donde estoy? ¿Existo?
-		 *
-		 *  Estas y otras preguntas existenciales son resueltas getaddrinfo();
-		 *
-		 *  Obtiene los datos de la direccion de red y lo guarda en serverInfo.
-		 *
-		 */
 		struct addrinfo hints;
 		struct addrinfo *serverInfo;
 
@@ -291,17 +299,6 @@ int inicializar_CPU_conexion_kernel(){
 
 		getaddrinfo(NULL, PUERTO, &hints, &serverInfo); // Notar que le pasamos NULL como IP, ya que le indicamos que use localhost en AI_PASSIVE
 
-
-		/*
-		 * 	Descubiertos los misterios de la vida (por lo menos, para la conexion de red actual), necesito enterarme de alguna forma
-		 * 	cuales son las conexiones que quieren establecer conmigo.
-		 *
-		 * 	Para ello, y basandome en el postulado de que en Linux TODO es un archivo, voy a utilizar... Si, un archivo!
-		 *
-		 * 	Mediante socket(), obtengo el File Descriptor que me proporciona el sistema (un integer identificador).
-		 *
-		 */
-		/* Necesitamos un socket que escuche las conecciones entrantes */
 		int listenningSocket;
 		listenningSocket = socket(serverInfo->ai_family, serverInfo->ai_socktype, serverInfo->ai_protocol);
 
@@ -322,24 +319,26 @@ int inicializar_CPU_conexion_kernel(){
 
 
 
-		puntero_estructura_a_recibir = malloc(sizeof(TCB));
-
-
+		puntero_estructura_a_recibir = malloc(12);
 
 		printf("CPU conectado a kernel, esperando por mensajes. Esperando mensajes:\n");
 
 		while (status != 0){
-			status = recv(socketCliente, (void*) puntero_estructura_a_recibir,sizeof(TCB), 0);
-			p1.PID = *puntero_estructura_a_recibir;
-			p1.TID = *(puntero_estructura_a_recibir + 4);
+			status = recv(socketCliente, (void*) puntero_estructura_a_recibir,12, 0);
+			memcpy(&p1.PID,puntero_estructura_a_recibir,4);
+			memcpy(&p1.TID,puntero_estructura_a_recibir + 4,4);
+			memcpy(&p1.KM,puntero_estructura_a_recibir + 8,4);
+			memcpy(&p1.M,puntero_estructura_a_recibir + 12,4);
 
 			status = 0; // Lo pongo porque lo repite nose porque no sale
 
-			printf("%d",p1.PID);
-			printf("%d",p1.TID);
-			//		if (status != 0) printf("%s", package);
+			printf("el PID es %d\n",p1.PID);
+			printf("el TID es %d\n",p1.TID);
+			printf("el KM es %d\n",p1.KM);
+
 
 		}
+
 
 		close(socketCliente);
 		close(listenningSocket);

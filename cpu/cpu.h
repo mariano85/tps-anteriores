@@ -28,9 +28,9 @@
 typedef struct TCB{
 	int32_t PID; //Identificador del proceso
 	int32_t TID; // Identificador del hilo del proceso
-	/*int32_t KM;  //Indicador de Modo
-	int32_t *M;   // Base del segmento de codigo
-	int32_t T;   //  Tamaño del segmento de codigo
+	int32_t KM;  //Indicador de Modo
+	int32_t M;   // Base del segmento de codigo
+/*	int32_t T;   //  Tamaño del segmento de codigo
 	int32_t *P;   // Puntero de instruccion
 	int32_t *X;	// Base del stack
 	int32_t *S;	// Cursor del stack
@@ -68,6 +68,20 @@ int  p_HILO;
 int aux = 32;
 
 char texto_entrada;
+
+typedef struct
+{
+	char* ip_msp;
+	int puerto_kernel;
+	int puerto_msp;
+	char* ip_kernel;
+	int retardo;
+} t_configuracion;
+
+
+t_configuracion configuracion;
+
+t_configuracion levantarArchivoDeConfiguracion();
 
 void inicializar_Configuracion();
 
