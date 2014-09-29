@@ -25,24 +25,21 @@
 
 pthread_t pthread_CPU,pthread_Proceso_Consola;
 
+
+
+int32_t aux_1 ;
+
 typedef struct TCB{
-	int32_t PID; //Identificador del proceso
-	int32_t TID; // Identificador del hilo del proceso
-	/*int32_t KM;  //Indicador de Modo
-	int32_t *M;   // Base del segmento de codigo
-	int32_t T;   //  Tamaño del segmento de codigo
-	int32_t *P;   // Puntero de instruccion
-	int32_t *X;	// Base del stack
-	int32_t *S;	// Cursor del stack
-	int32_t A;	// Registros de programacion
-	int32_t B;
-	int32_t C;
-	int32_t D;
-	int32_t E;*/
+	int32_t PID;
+	int32_t TID;
+	int32_t KM;
+	int32_t M;
+
 } TCB;
 
+TCB p1;
 
-char *puntero_estructura_a_mandar;
+void *puntero_estructura_a_mandar;
 
 
 
