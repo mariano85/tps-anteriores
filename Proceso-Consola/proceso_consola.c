@@ -29,7 +29,8 @@ int main(int argc, char *argv[]) {
 		return EXIT_FAILURE;
 	}
 
-	char *literal = getLiteralFromFile(entrada);
+	size_t cantBytes = 0;
+	char *literal = getBytesFromFile(entrada, &cantBytes);
 
 	puts("aca deberia mandarlo al Kernel");
 
@@ -44,7 +45,7 @@ int main(int argc, char *argv[]) {
 
 	printf("ip: %s; puerto: %d; socket del servidor: %d\n", getIpKernel(), getPuertoKernel(), socketServer);
 
-	enviar(socketServer, literal, strlen(literal) + 1);
+	enviar(socketServer, literal, cantBytes);
 	enviar(socketServer, "\n************* PRUEBA SERVIDOR*******", strlen("\n************* PRUEBA SERVIDOR*******") + 1);
 
 	free(literal);
@@ -55,25 +56,10 @@ int main(int argc, char *argv[]) {
 	return EXIT_SUCCESS;
 }
 
-char* getLiteralFromFile(FILE* entrada){
-
-	char linea[LONG_MAX_LINEA];
+char* getBytesFromFile(FILE* entrada, size_t *tam_archivo){
 	fseek(entrada, 0L, SEEK_END);
-	uint32_t tam_archivo = ftell(entrada);
-	char * literal = calloc(1, tam_archivo);
-	fseek(entrada, 0L, 0L);
-
-	while (fgets(linea, LONG_MAX_LINEA, entrada) != NULL){
-		strcat(literal, linea);
-	}
-
-	return literal;
-}
-
-char* getBytesFromFile(FILE* entrada){
-	fseek(entrada, 0L, SEEK_END);
-	uint32_t tam_archivo = ftell(entrada);
-	char * literal = calloc(1, tam_archivo);
+	*tam_archivo = ftell(entrada);
+	char * literal = (char*)calloc(1, *tam_archivo);
 	fseek(entrada, 0L, 0L);
 
 	fgets(literal, LONG_MAX_LINEA, entrada);
@@ -90,13 +76,13 @@ void iniciarPrograma(){
 		exit(-1);
 	}
 
-	if(!config_has_property(CONFIG, "IP_KERNEL")){
+	if(!config_has_property(CONFIG, IP_SERVER_KEY)){
 		puts("ERROR! FALTA EL PUERTO DEL SERVER!");
 		config_destroy(CONFIG);
 		exit(-1);
 	}
 
-	if(!config_has_property(CONFIG, "PUERTO_KERNEL")){
+	if(!config_has_property(CONFIG, PORT_SERVER_KEY)){
 		puts("ERROR! FALTA EL PUERTO DEL SERVER!");
 		config_destroy(CONFIG);
 		exit(-1);

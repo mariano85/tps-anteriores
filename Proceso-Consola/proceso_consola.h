@@ -26,8 +26,8 @@
 #define SALUDO "!!!Hola, soy un programa!!!"
 #define LONG_MAX_LINEA  1024
 #define LONG_IP 15+1
-#define IP_SERVER_KEY "ip_kernel"
-#define PORT_SERVER_KEY "puerto_kernel"
+#define IP_SERVER_KEY "IP_KERNEL"
+#define PORT_SERVER_KEY "PUERTO_KERNEL"
 
 // variables globales del proceso
 t_log *logger;
@@ -39,7 +39,7 @@ FILE * ARCHIVO_ANSISOP;
 // firma de las funciones
 
 void iniciarPrograma();
-char* getLiteralFromFile(FILE* entrada);
+char* getBytesFromFile(FILE* entrada, uint32_t *tam_archivo);
 char *getIpKernel();
 int32_t getPuertoKernel();
 void finalizarPrograma();
