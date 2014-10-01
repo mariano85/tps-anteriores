@@ -19,7 +19,12 @@
 #include <pthread.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <commons/config.h>
+#include  <commons/log.h>
 
+#define PROGRAMA_CONF_PATH "configuracion.conf"
+#define PUERTOKERNEL "PUERTO_KERNEL"
+#define IP_KERNEL "IP_KERNEL"
 #define PUERTO "6667"
 #define BACKLOG 5			// Define cuantas conexiones vamos a mantener pendientes al mismo tiempo
 #define PACKAGESIZE 1024// Define cual va a ser el size maximo del paquete a enviar
@@ -44,9 +49,11 @@ typedef struct TCB{
 
 char *puntero_estructura_a_recibir;
 
+TCB p1;
 
-//t_log *logs;
-//t_config* config;
+t_log *logs;
+t_config* config;
+t_log * LOGGER;
 //t_dictionary* diccionarioDeVariables;
 
 //Registro CPU despues veremos como los agrupamos
@@ -59,13 +66,14 @@ int socketKernel;
 int socketMSP;
 int PUERTO_KERNEL,PUERTO_MSP;
 
+
 pthread_t pthread_Consola;
 
 int conectar_kernel();
 int conectar_MSP();
 int  p_HILO;
 
-int aux = 32;
+
 
 char texto_entrada;
 
@@ -81,38 +89,6 @@ typedef struct
 
 t_configuracion configuracion;
 
-t_configuracion levantarArchivoDeConfiguracion();
 
-void inicializar_Configuracion();
-
-void LOAD(int *Registro,int Numero);
-
-void GETM(int *Registro1,int *Registro2);
-
-void ADDR(int *Registro1,int *Registro2);
-
-void SUBR(int *Registro1,int *Registro2);
-
-void MULR(int *Registro1,int *Registro2);
-
-void MODR(int *Registro1,int *Registro2);
-
-void DIVR(int *Registro1,int *Registro2);
-
-void INCR(int *Registro1);
-
-void DECR(int *Registro1);
-
-void COMP(int *Registro1,int *Registro2);
-
-void CGEQ(int *Registro1,int *Registro2);
-
-void GOTO(int *Registro);
-
-void manejo_consola(); //Voy a crear una mini consola para probar las cosas
-
-void consola();
-
-int inicializar_CPU_conexion_kernel();
 
 #endif /* VARIABLESGLOBALES_FUNCIONES_H_ */
