@@ -13,13 +13,24 @@
 #include "msp.h"
 
 int main(void) {
-	configuracion = levantarArchivoDeConfiguracion();
 
-	puts("////////IMPRIMO LOS VALORES//////////");
-	printf ("aLGORITMO = %s\n", configuracion.sust_pags);
-	printf ("tamaño msp = %d\n", configuracion.cantidad_memoria);
-	printf ("tamaño swap = %d\n", configuracion.cantidad_swap);
-	printf ("puerto = %d\n", configuracion.puerto);
+	inicializarMSP();
+
+	//listarMarcos();
+
+
+	//crearSegmento(1234, 513);
+
+	crearSegmento(5678, 1536);
+
+	puts("TABLA SEGMENTOS");
+
+	tablaSegmentos();
+
+	puts("TABLA PAGINA");
+	tablaPaginas(5678);
+
+	puts("gola");
 
 	return 0;
 
