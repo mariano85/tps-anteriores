@@ -10,10 +10,11 @@
 #include <commons/collections/list.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 
 
 #define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 3
-#define CANTIDAD_MAX_PAGINAS_TOTAL 10
+
 
 t_configuracion levantarArchivoDeConfiguracion()
 {
@@ -69,24 +70,21 @@ t_configuracion levantarArchivoDeConfiguracion()
 
 void crearTablaDeMarcos()
 {
-	//Creo la tabla de marcos. En realidad es una lista, porque el tamaño lo obtengo
-	//en tiempo de ejecucion. La cantidad de filas es igual a la cantidad maxima de marcos
-	//que puede tener la memoria teniendo en cuenta el tamaño seteado.
+	tablaMarcos = calloc(CANTIDAD_MAX_PAGINAS_TOTAL, sizeof(t_marco));
 
-	listaMarcos = list_create();
-
-	long i;
-	for (i = 1; i <= CANTIDAD_MAX_PAGINAS_TOTAL; i++)
+	if (tablaMarcos == NULL)
 	{
-		nodo_marcos* nodo;
-		nodo = malloc(sizeof(nodo_marcos));
-
-		nodo -> nro_segmento = 0;
-		nodo -> nro_pagina = 0;
-		nodo -> pid = 0;
-		nodo -> nro_marco = i;
-		list_add(listaMarcos, nodo);
+		puts("Error, no se pudo crear la tabla de marcos");
+		log_trace(logs, "ERROR: no se pudo crear la tabla de marcos.");
+		abort();
 	}
+
+	int i;
+	for (i=0; i<CANTIDAD_MAX_PAGINAS_TOTAL; i++)
+	{
+		tablaMarcos[i].nro_marco = i;
+	}
+
 
 }
 
@@ -95,12 +93,7 @@ void listarMarcos()
 	int i;
 	for (i=0; i<CANTIDAD_MAX_PAGINAS_TOTAL; i++)
 	{
-		nodo_marcos *nodoMarco;
-		nodoMarco = malloc(sizeof(nodoMarco));
-		nodoMarco = list_get(listaMarcos, i);
-
-		printf("N° marco: %ld     PID: %d    N° segmento: %d    N° pagina: %d\n", nodoMarco->nro_marco, nodoMarco->pid, nodoMarco->nro_segmento, nodoMarco->nro_pagina);
-		free(nodoMarco);
+		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d\n", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
 	}
 }
 
@@ -125,23 +118,26 @@ void inicializarMSP()
 	//ABRIR CONEXIONES CON CPU
 
 	//Reservo el gran bloque de memoria que va a actuar como MP
-	//ptoMP = malloc(configuracion.cantidad_memoria);
+	ptoMP = malloc(configuracion.cantidad_memoria);
+	if (ptoMP == NULL)
+	{
+		log_trace(logs, "No es posible alocar memoria principal");
+		abort();
+	}
 
 
 	//free(ptoMP);
 }
 
-void agregarSegmentoALista(int cantidadDePaginas, int pid)
+void agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento)
 {
 	nodo_segmento *nodoSegmento;
 	nodoSegmento = malloc(sizeof(nodo_segmento));
 
-	int cantidadActualSegmentos = list_size(listaSegmentos);
-
 	t_list *listaPaginas;
 	listaPaginas = crearListaPaginas(cantidadDePaginas);
 
-	nodoSegmento->numeroSegmento = cantidadActualSegmentos;
+	nodoSegmento->numeroSegmento = numeroSegmento;
 	nodoSegmento->pid = pid;
 	nodoSegmento->listaPaginas = listaPaginas;
 
@@ -150,21 +146,24 @@ void agregarSegmentoALista(int cantidadDePaginas, int pid)
 
 	printf("Nro seg: %d    PID: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid);
 
+	uint32_t direccion = generarDireccionLogica(nodoSegmento->numeroSegmento, 0, 0);
+
 	int i;
 	for(i=0; i<cantidadDePaginas; i++)
 	{
 		nodo_paginas *nodoPagina;
 		nodoPagina = list_get(listaPaginas, i);
 
-		printf("		 Nro pag: %ld      presencia: %ld\n",  nodoPagina->nro_pagina, nodoPagina->presencia);
+		printf("		 Nro pag: %d      presencia: %d       direccion: %d\n",  nodoPagina->nro_pagina, nodoPagina->presencia, direccion);
 
 	}
+
 }
 
 void crearSegmento(int pid, long tamanio)
 {
 
-	int contadorSegmentos;
+	int contadorSegmentos = 0;
 	int cantidadTotalDePaginas;
 
 	cantidadTotalDePaginas = tamanio / 256;
@@ -175,19 +174,20 @@ void crearSegmento(int pid, long tamanio)
 	{
 		for (contadorSegmentos=0; contadorSegmentos<cantidadDeSegmentosEnteros; contadorSegmentos++)
 		{
-			agregarSegmentoALista(CANTIDAD_MAX_PAGINAS_POR_SEGMENTO, pid);
+			agregarSegmentoALista(CANTIDAD_MAX_PAGINAS_POR_SEGMENTO, pid, contadorSegmentos);
 		}
 	}
 	else
 	{
-		agregarSegmentoALista(cantidadTotalDePaginas, pid);
+		agregarSegmentoALista(cantidadTotalDePaginas, pid, 0);
+		contadorSegmentos = 1;
 	}
 
 	int paginasQueFaltan = tamanio % 256;
 
 	if (paginasQueFaltan > 0)
 	{
-		agregarSegmentoALista(paginasQueFaltan, pid);
+		agregarSegmentoALista(paginasQueFaltan, pid, contadorSegmentos);
 	}
 }
 
@@ -204,6 +204,7 @@ t_list* crearListaPaginas(int cantidadDePaginas)
 		nodo_paginas* nodoPagina = malloc(sizeof(nodo_paginas));
 		nodoPagina->nro_pagina = i;
 		nodoPagina->presencia = 0;
+		nodoPagina->dirFisica = NULL;
 
 		list_add(listaPaginas, nodoPagina);
 	}
@@ -262,10 +263,22 @@ void tablaPaginas(int pid)
 		{
 			nodo_paginas *nodoPagina;
 			nodoPagina = list_get(listaPaginas, j);
-			printf("Nro segmento :%d     PID: %d    N° pagina: %ld     Presencia: %ld\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
+			printf("Nro segmento :%d     PID: %d    N° pagina: %d     Presencia: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
 
 		}
 
 	}
+
+}
+
+uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset)
+{
+	uint32_t direccion = numeroSegmento;
+	direccion = direccion << 12;
+	direccion = direccion | numeroPagina;
+	direccion = direccion << 12;
+	direccion = direccion | offset;
+
+	return direccion;
 
 }
