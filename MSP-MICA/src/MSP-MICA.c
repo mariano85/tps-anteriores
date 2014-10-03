@@ -19,13 +19,19 @@ int main() {
 	//listarMarcos();
 
 
-	crearSegmento(1234, 513);
+	crearSegmento(1234, 778);
 
-	crearSegmento(5678, 1537);
+	crearSegmento(5678, 1589);
 
-	//puts("TABLA SEGMENTOS");
+	puts("TABLA SEGMENTOS ANTES");
 
-	//tablaSegmentos();
+	tablaSegmentos();
+
+	destruirSegmento(5678, 4097);
+
+	puts("TABLA SEGMENTOS DESPUES");
+
+	tablaSegmentos();
 
 	//puts("TABLA PAGINA");
 	//tablaPaginas(5678);

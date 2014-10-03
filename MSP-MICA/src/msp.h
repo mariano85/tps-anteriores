@@ -17,7 +17,6 @@
 
 
 
-#define CANTIDAD_MAX_PAGINAS_TOTAL 100
 
 
 //ESTRUCTURAS
@@ -45,13 +44,13 @@ typedef struct
 	int pid;
 	int nro_segmento;
 	int nro_pagina;
+	void* dirFisica;
 } t_marco;
 
 typedef struct
 {
 	uint32_t nro_pagina;
 	uint32_t presencia;	//si vale -1, esta en swap, si no indica numero de marco
-	void* dirFisica;
 } nodo_paginas;
 
 
@@ -71,6 +70,10 @@ t_log *logs;
 void* ptoMP;
 
 t_marco *tablaMarcos;
+
+int memoriaRestante;
+
+int swapRestante;
 
 
 
@@ -98,6 +101,11 @@ void crearTablaDeMarcos();
 
 uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset);
 
+void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset);
+
+void destruirSegmento(int pid, uint32_t base);
+
+void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 
 
 

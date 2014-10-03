@@ -14,6 +14,8 @@
 
 
 #define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 3
+#define CANTIDAD_MAX_PAGINAS_TOTAL 100
+
 
 
 t_configuracion levantarArchivoDeConfiguracion()
@@ -83,6 +85,7 @@ void crearTablaDeMarcos()
 	for (i=0; i<CANTIDAD_MAX_PAGINAS_TOTAL; i++)
 	{
 		tablaMarcos[i].nro_marco = i;
+		tablaMarcos[i].dirFisica = NULL;
 	}
 
 
@@ -106,6 +109,10 @@ void inicializarMSP()
 
 	//Obtengo los parametros de configuracion del archivo de configuracion.
 	configuracion = levantarArchivoDeConfiguracion();
+
+
+	memoriaRestante = configuracion.cantidad_memoria;
+	swapRestante = configuracion.cantidad_swap;
 
 	//Creo la tabla de marcos
 	crearTablaDeMarcos();
@@ -146,7 +153,7 @@ void agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento)
 
 	printf("Nro seg: %d    PID: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid);
 
-	uint32_t direccion = generarDireccionLogica(nodoSegmento->numeroSegmento, 0, 0);
+	uint32_t direccion = generarDireccionLogica(nodoSegmento->numeroSegmento, 1, 0);
 
 	int i;
 	for(i=0; i<cantidadDePaginas; i++)
@@ -154,7 +161,7 @@ void agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento)
 		nodo_paginas *nodoPagina;
 		nodoPagina = list_get(listaPaginas, i);
 
-		printf("		 Nro pag: %d      presencia: %d       direccion: %d\n",  nodoPagina->nro_pagina, nodoPagina->presencia, direccion);
+		printf("		 Nro pag: %d      presencia: %d       direccion: %zu\n",  nodoPagina->nro_pagina, nodoPagina->presencia, direccion);
 
 	}
 
@@ -166,7 +173,19 @@ void crearSegmento(int pid, long tamanio)
 	int contadorSegmentos = 0;
 	int cantidadTotalDePaginas;
 
-	cantidadTotalDePaginas = tamanio / 256;
+	if (memoriaRestante < tamanio && swapRestante < tamanio)
+	{
+		printf("Error, no hay memoria ni espacio de swap suficiente.\n");
+	}
+
+	if (tamanio % 256 == 0)
+	{
+		cantidadTotalDePaginas = tamanio / 256;
+	}
+	else
+	{
+		cantidadTotalDePaginas = tamanio / 256 + 1;
+	}
 
 	int cantidadDeSegmentosEnteros = cantidadTotalDePaginas / CANTIDAD_MAX_PAGINAS_POR_SEGMENTO;
 
@@ -183,13 +202,40 @@ void crearSegmento(int pid, long tamanio)
 		contadorSegmentos = 1;
 	}
 
-	int paginasQueFaltan = tamanio % 256;
+	int paginasQueFaltan = cantidadTotalDePaginas - cantidadDeSegmentosEnteros * CANTIDAD_MAX_PAGINAS_POR_SEGMENTO;
 
 	if (paginasQueFaltan > 0)
 	{
 		agregarSegmentoALista(paginasQueFaltan, pid, contadorSegmentos);
 	}
 }
+
+void destruirSegmento(int pid, uint32_t base)
+{
+	int numeroSegmento, numeroPagina, offset;
+
+	obtenerUbicacionLogica(base, &numeroSegmento, &numeroPagina, &offset);
+
+	bool _pidYSegmentoCorresponde(nodo_segmento *p) {
+		return (p->pid == pid && p->numeroSegmento == numeroSegmento);
+	}
+
+	nodo_segmento * nodo;
+
+
+	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
+	{
+		printf("Error, pid invalido\n");
+	}
+	else
+	{
+		nodo = list_remove_by_condition(listaSegmentos, (void*)_pidYSegmentoCorresponde);
+		free(nodo);
+	}
+
+
+}
+
 
 t_list* crearListaPaginas(int cantidadDePaginas)
 {
@@ -204,7 +250,7 @@ t_list* crearListaPaginas(int cantidadDePaginas)
 		nodo_paginas* nodoPagina = malloc(sizeof(nodo_paginas));
 		nodoPagina->nro_pagina = i;
 		nodoPagina->presencia = 0;
-		nodoPagina->dirFisica = NULL;
+
 
 		list_add(listaPaginas, nodoPagina);
 	}
@@ -273,12 +319,18 @@ void tablaPaginas(int pid)
 
 uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset)
 {
-	uint32_t direccion = numeroSegmento;
+	uint32_t direccion = offset;
 	direccion = direccion << 12;
 	direccion = direccion | numeroPagina;
 	direccion = direccion << 12;
-	direccion = direccion | offset;
+	direccion = direccion | numeroSegmento;
 
 	return direccion;
+}
 
+void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset)
+{
+	*numeroSegmento = direccion & 0xFFF;
+	*numeroPagina = (direccion >> 12) & 0xFFF;
+	*offset = (direccion >> 24) & 0xFF;
 }
