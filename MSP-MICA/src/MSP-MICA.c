@@ -19,22 +19,31 @@ int main() {
 	//listarMarcos();
 
 
-	crearSegmento(1234, 778);
+	/*crearSegmento(1234, 778);
 
-	crearSegmento(5678, 1589);
+	crearSegmento(5678, 258);
+
+	crearSegmento(1234, 778);
 
 	puts("TABLA SEGMENTOS ANTES");
 
 	tablaSegmentos();
 
-	destruirSegmento(5678, 4097);
+	destruirSegmento(1234, 1);
 
 	puts("TABLA SEGMENTOS DESPUES");
 
 	tablaSegmentos();
 
-	//puts("TABLA PAGINA");
-	//tablaPaginas(5678);
+	puts("TABLA PAGINA");
+	tablaPaginas(1234);*/
+
+	int numeroSegmento, numeroPagina, offset;
+
+	obtenerUbicacionLogica(12289, &numeroSegmento, &numeroPagina, &offset);
+
+	printf("Numero segmento: %d    numero pagina: %d     offset: %d", numeroSegmento, numeroPagina, offset);
+
 
 	puts("gola");
 

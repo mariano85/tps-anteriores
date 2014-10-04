@@ -45,12 +45,13 @@ typedef struct
 	int nro_segmento;
 	int nro_pagina;
 	void* dirFisica;
+	int libre; //si vale 0, el marco está ocupado, si vale 1 está libre
 } t_marco;
 
 typedef struct
 {
-	uint32_t nro_pagina;
-	uint32_t presencia;	//si vale -1, esta en swap, si no indica numero de marco
+	int nro_pagina;
+	int presencia;	//si vale -1, no se le asignó ningun marco o está en swap, si no indica numero de marco
 } nodo_paginas;
 
 
@@ -74,6 +75,8 @@ t_marco *tablaMarcos;
 int memoriaRestante;
 
 int swapRestante;
+
+int cantidadMarcos;
 
 
 
@@ -105,7 +108,7 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 
 void destruirSegmento(int pid, uint32_t base);
 
-void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
 
 
 
