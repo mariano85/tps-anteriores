@@ -90,10 +90,18 @@ void crearTablaDeMarcos()
 		//Y setteo los datos de la estructura. Antes de este setteo, todos los campos valen el caracter nulo,
 		//gracias a calloc. Pero igualmente necesito algunos datos para empezar a usar esta tabla.
 		tablaMarcos[i].nro_marco = i;
-		//Este es un puntero al bloque de memoria de 256 bytes al que apunta cada entrada de la tabla.
-		//a.k.a "mallocs bebes". El gran bloque de memoria principal va a estar entonces formado por todos los bloquecitos
+		//Este es un puntero al bloque de memoria de 256 bytes al que apunta cada entrada de la tabla,
+		//a.k.a. "mallocs bebés". El gran bloque de memoria principal va a estar entonces formado por todos los bloquecitos
 		//a los que apunta cada entrada de la tabla.
-		tablaMarcos[i].dirFisica = NULL;
+		tablaMarcos[i].dirFisica = malloc(256);
+		//Si después de hacer el malloc, la entrada de la tabla apunta a NULL, significa que no pudo alocar el bloquecito,
+		//y si no hay malloc bebé, no hay MP, así que chau proceso.
+		if(tablaMarcos[i].dirFisica == NULL)
+		{
+			log_error(logs, "Error, no se pudo alocar el espacio necesario para la memoria principal del sistema.");
+			puts("Error, no se pudo alocar el espacio necesario para la memoria principal del sistema.");
+			abort();
+		}
 		//Cuando recién se crea la tabla, todos los marcos están libres.
 		tablaMarcos[i].libre = 1;
 	}
@@ -138,19 +146,6 @@ void inicializarMSP()
 	//Registro el inicio de ejecucion de la MSP
 	log_trace(logs, "MSP inicio su ejecucion. Tamaño memoria: %d", configuracion.cantidad_memoria, "Tamaño swap: %d", configuracion.cantidad_swap);
 
-	//Reservo el gran bloque de memoria que va a actuar como MP
-	ptoMP = malloc(configuracion.cantidad_memoria);
-	if (ptoMP == NULL)
-	{
-		log_error(logs, "No es posible alocar memoria principal.");
-		puts("Error, no es posible alocar memoria principal.");
-		abort();
-	}
-
-
-
-
-	free(ptoMP);
 }
 
 void agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegmentosDeEstePid)
@@ -171,12 +166,9 @@ void agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegmentos
 	//Agrego el segmento a la lista
 	list_add(listaSegmentos, nodoSegmento);
 
-	//Ordeno la lista de segmentos para que cuando pida la tabla de segmentos se imprima lindo
 
-
-
+	//Esta es una impresion de prueba.
 	printf("Nro seg: %d    PID: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid);
-
 	int i;
 	for(i=0; i<cantidadDePaginas; i++)
 	{
@@ -240,6 +232,15 @@ void crearSegmento(int pid, long tamanio)
 	//Agrego el segmento a la lista de segmentos.
 	agregarSegmentoALista(cantidadTotalDePaginas, pid, cantidadSegmentosDeEstePid);
 
+	//Ordeno la lista de segmentos para que cuando pida la tabla de segmentos se imprima lindo
+	bool _ordenar(nodo_segmento *seg1, nodo_segmento *seg2)	{
+		return (seg1->pid <= seg2->pid);
+	}
+	list_sort(listaSegmentos,(void*)_ordenar);
+
+
+	return;
+
 }
 
 void destruirSegmento(int pid, uint32_t base)
@@ -251,14 +252,23 @@ void destruirSegmento(int pid, uint32_t base)
 	//no los necesito porque ambos son 0, debido a que se trata de la base del segmento.
 	obtenerUbicacionLogica(base, &numeroSegmento, &numeroPagina, &offset);
 
+	//Peero, si con la dirección que me dieron, el número de pagina y/o el offset que me devuelve
+	//la función no son 0, significa que esa dirección no es base, así que error.
+	if (numeroPagina != 0 || offset != 0)
+	{
+		log_error(logs, "Error, la dirección proporcionada no es una dirección base.");
+		puts("Error, la dirección proporcionada no es una dirección base.");
+		return;
+	}
+
 	//Esta es la función con la que opero la lista, me fijo que exista el PID que me mandan por parámetro
 	//y también que ese pid tenga un segmento con el número correspondiente a la base.
 	bool _pidYSegmentoCorresponde(nodo_segmento *p) {
 		return (p->pid == pid && p->numeroSegmento == numeroSegmento);
 	}
 
+	//En este nodo voy a guardar el nodo que saque de la lista, para luego liberarlo.
 	nodo_segmento * nodo;
-
 
 	//Si ninguna lista satisface la condición anterior, error.
 	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
@@ -378,7 +388,155 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 	*offset = (direccion >> 24) & 0xFF;
 }
 
-void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid)
+{
+	bool _pidCorresponde(nodo_segmento *p) {
+		return (p->pid == pid);
+	}
+
+	t_list *listaFiltrada;
+
+	listaFiltrada = list_filter(listaSegmentos, (void*)_pidCorresponde);
+
+	return listaFiltrada;
+}
+
+void validarLecturaOEscritura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+{
+	//Si el tamanio de lo que tengo que guardar es mayor que el tamanio libre en memoria, error
+	if (tamanio > memoriaRestante)
+	{
+		log_error(logs, "Error, no hay espacio suficiente en la memoria.");
+		puts("Error, no hay espacio suficiente en la memoria.");
+		return;
+	}
+
+	//Filtro la lista para buscar todos los segmentos correspondientes al proceso pid
+	t_list* listaFiltradaPorPid = filtrarListaSegmentosPorPid(listaSegmentos, pid);
+
+	//Si listaFiltrada está vacía, significa que el pid ingresado es inválido
+	if (list_size(listaFiltradaPorPid) == 0)
+	{
+		log_error(logs, "Error, el pid ingresado no existe.");
+		puts("Error, el pid ingresado no existe.");
+		return;
+	}
+
+	//Me fijo si el offset proporcionado por la dirección es mayor de 255
+	int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
+	if (offset > 256)
+	{
+		log_error(logs, "Error, la dirección ingresada es inválida.");
+		puts("Error, la dirección ingresada es inválida.");
+		return;
+	}
+
+	//Ahora de la lista de los segmentos correspondientes a este pid, quiero el segmento
+	//que me dice la dirección lógica. La función find me devuelve el primer resultado que encuentra,
+	//pero en este caso eso está bien porque hay un sólo segmento de número numeroSegmento en el espacio de
+	//direcciones del proceso pid.
+	nodo_segmento *nodoSegmento;
+	bool _segmentoCorresponde(nodo_segmento *p){
+		return(p->numeroSegmento == numeroSegmento);
+	}
+	nodoSegmento = list_find(listaFiltradaPorPid, (void*)_segmentoCorresponde);
+
+	//Si la función find no encontró el segmento, error.
+	if (nodoSegmento == NULL)
+	{
+		log_error(logs, "Error, la dirección ingresada es inválida.");
+		puts("Error, la dirección ingresada es inválida.");
+		return;
+	}
+
+	//Extraigo del segmento la lista de páginas
+	t_list* listaPaginas = nodoSegmento->listaPaginas;
+
+	//De la lista de páginas, tengo que comprobar si existe la página especificada por la dirección.
+	//Hago lo mismo que con el segmento.
+	nodo_paginas *nodoPagina;
+	bool _paginaCorresponde(nodo_paginas *p){
+		return(p->nro_pagina == numeroPagina);
+	}
+	nodoPagina = list_find(listaPaginas, (void*)_paginaCorresponde);
+
+	//Si la función find no encontró el segmento, error.
+	if (nodoPagina == NULL)
+	{
+		log_error(logs, "Error, la dirección ingresada es inválida.");
+		puts("Error, la dirección ingresada es inválida.");
+		return;
+	}
+
+	uint32_t direccion = obtenerUltimaDireccionSegmento(nodoSegmento);
+
+	printf("Direccion logica: %zu\n", direccion);
+
+	//Si la dirección que resulta de la dirección lógica más el tamaño excede la última dirección del segmento, error.
+}
+
+/*void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
 
+
+
+	//Ahora, en nodoPagina tengo, en el campo presencia, lo siguiente:
+		//-1 indica que todavía no le asigné ningún marco
+		//-2 indica que está en swap (esto por ahora lo ignoro)
+		//otro número indica el número de marco
+	//Si presencia es -1, busco un marco libre y se lo asigno a la página
+	if (nodoPagina->presencia == -1)
+	{
+		//Esta es la dirección donde empieza el bloque de memoria al que apunta el marco
+		void *direccionComienzoBloque;
+		direccionComienzoBloque = buscarYAsignarMarcoLibre(pid, nodoSegmento, nodoPagina);
+		//A la dirección, le tengo que agregar el offset, para posicionarme en la dirección en la cual
+		//voy a empezar a escribir la memoria
+		void *direccionDestino = direccionComienzoBloque + offset;
+		//Ahora sí, escribo en esa dirección de memoria el contenido del buffer
+		memcpy(direccionDestino, bytesAEscribir, tamanio);
+	}
+
+	printf("Numero segmento: %d    pid: %d     \n", nodoSegmento->numeroSegmento, nodoSegmento->pid);
+
+
 }
+*/
+
+uint32_t obtenerUltimaDireccionSegmento(nodo_segmento* nodoSegmento)
+{
+	//Obtengo la cantidad de páginas del segmento en cuestión
+	int cantidadPaginas = list_size(nodoSegmento->listaPaginas);
+
+	//La últma dirección lógica del segmento va a ser la dirección del offset 255 (porque empiezo a contar desde el byte 0),
+	//de la última página del segmento. La última página del segmento es la página de número cantidadPaginas-1 porque
+	//las páginas también se empiezan a contar desde 0.
+	uint32_t ultimaDireccion = generarDireccionLogica(nodoSegmento->numeroSegmento, cantidadPaginas - 1, 255);
+
+	return ultimaDireccion;
+}
+
+/*void* buscarYAsignarMarcoLibre(int pid, nodo_segmento nodoSegmento, nodo_paginas nodoPagina)
+{
+	int i;
+	//Recorro la tabla de marcos
+	for (i = 0; i<cantidadMarcos; i++)
+	{
+		//Uso el primer marco libre que encuentro
+		if (tablaMarcos[i].libre == 1)
+		{
+			//Setteo los nuevos valores del marco, para que ahora aloje a la página en cuestión
+			tablaMarcos[i].libre = 0;
+			tablaMarcos[i].nro_pagina = nodoPagina->nro_pagina;
+			tablaMarcos[i].nro_segmento = nodoSegmento->numeroSegmento;
+			tablaMarcos[i].pid = nodoSegmento->pid;
+			//Ahora, la página está presente en el número de marco, y el número de marco es i
+			nodoPagina->presencia = i;
+			//Devuelvo la dirección de memoria a la que apunta el marco, que es el bloque
+			//de 256 bytes de tamaño.
+			return (tablaMarcos[i].dirFisica);
+		}
+	}
+	return NULL;
+}*/

@@ -51,7 +51,7 @@ typedef struct
 typedef struct
 {
 	int nro_pagina;
-	int presencia;	//si vale -1, no se le asignó ningun marco o está en swap, si no indica numero de marco
+	int presencia;	//si vale -1, no se le asignó ningun marco, si vale -2 está en swap, si no indica numero de marco
 } nodo_paginas;
 
 
@@ -108,7 +108,15 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 
 void destruirSegmento(int pid, uint32_t base);
 
-void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
+//void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
+
+t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid);
+
+void* buscarYAsignarMarcoLibre(int pid, nodo_segmento nodoSegmento, nodo_paginas nodoPagina);
+
+uint32_t obtenerUltimaDireccionSegmento(nodo_segmento* nodoSegmento);
+
+void validarLecturaOEscritura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
 
 
 

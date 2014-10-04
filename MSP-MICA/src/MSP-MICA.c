@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "msp.h"
 
 int main() {
@@ -19,7 +20,7 @@ int main() {
 	//listarMarcos();
 
 
-	/*crearSegmento(1234, 778);
+	crearSegmento(1234, 778);
 
 	crearSegmento(5678, 258);
 
@@ -29,20 +30,28 @@ int main() {
 
 	tablaSegmentos();
 
-	destruirSegmento(1234, 1);
+	//destruirSegmento(1234, 1);
 
-	puts("TABLA SEGMENTOS DESPUES");
+	//puts("TABLA SEGMENTOS DESPUES");
 
-	tablaSegmentos();
+	//tablaSegmentos();
 
-	puts("TABLA PAGINA");
-	tablaPaginas(1234);*/
+	//puts("TABLA PAGINA");
+	//tablaPaginas(1234);/*
 
-	int numeroSegmento, numeroPagina, offset;
+	//puts("ESCRIBIR MEMEMEMME");
+
+	validarLecturaOEscritura(1234, 4097, "hola", 12);
+
+	//puts("LISTA MARCOS");
+	//listarMarcos();
+
+
+	/*int numeroSegmento, numeroPagina, offset;
 
 	obtenerUbicacionLogica(12289, &numeroSegmento, &numeroPagina, &offset);
 
-	printf("Numero segmento: %d    numero pagina: %d     offset: %d", numeroSegmento, numeroPagina, offset);
+	printf("Numero segmento: %d    numero pagina: %d     offset: %d", numeroSegmento, numeroPagina, offset);*/
 
 
 	puts("gola");
