@@ -68,7 +68,7 @@ t_configuracion configuracion;
 
 t_log *logs;
 
-void* ptoMP;
+void* memoriaPrincipal;
 
 t_marco *tablaMarcos;
 
@@ -88,9 +88,9 @@ void tablaPaginas(int pid);
 
 t_list* crearListaPaginas(int cantidadDePaginas);
 
-void crearSegmento(int pid, long tamanio);
+uint32_t crearSegmento(int pid, long tamanio);
 
-void agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento);
+uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento);
 
 void tablaSegmentos();
 

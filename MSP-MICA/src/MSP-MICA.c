@@ -20,15 +20,15 @@ int main() {
 	//listarMarcos();
 
 
-	crearSegmento(1234, 778);
+	/*printf("%d \n", crearSegmento(1234, 778));
 
-	crearSegmento(5678, 258);
+	printf("%d\n", crearSegmento(5678, 258));
 
-	crearSegmento(1234, 778);
+	printf("%d\n", crearSegmento(1234, 778));
 
 	puts("TABLA SEGMENTOS ANTES");
 
-	tablaSegmentos();
+	tablaSegmentos();*/
 
 	//destruirSegmento(1234, 1);
 
@@ -41,9 +41,9 @@ int main() {
 
 	//puts("ESCRIBIR MEMEMEMME");
 
-	validarLecturaOEscritura(1234, 4097, "hola", 12);
+	//validarLecturaOEscritura(1234, 4097, "hola", 12);
 
-	//puts("LISTA MARCOS");
+	puts("LISTA MARCOS");
 	//listarMarcos();
 
 
