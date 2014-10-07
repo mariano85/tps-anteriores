@@ -89,7 +89,6 @@ void crearTablaDeMarcos()
 		tablaMarcos[i].nro_marco = i;
 
 		tablaMarcos[i].dirFisica = memoriaPrincipal + i*256;
-		printf("direccion fisica = %p\n", tablaMarcos[i].dirFisica);
 
 		//Cuando recién se crea la tabla, todos los marcos están libres.
 		tablaMarcos[i].libre = 1;
@@ -361,13 +360,13 @@ t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid)
 	return listaFiltrada;
 }
 
-void validarLecturaOEscritura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
 	if (tamanio > memoriaRestante)
 	{
 		log_error(logs, "Error, no hay espacio suficiente en la memoria.");
 		puts("Error, no hay espacio suficiente en la memoria.");
-		return;
+		return false;
 	}
 
 	t_list* listaFiltradaPorPid = filtrarListaSegmentosPorPid(listaSegmentos, pid);
@@ -376,17 +375,16 @@ void validarLecturaOEscritura(int pid, uint32_t direccionLogica, void* bytesAEsc
 	{
 		log_error(logs, "Error, el pid ingresado no existe.");
 		puts("Error, el pid ingresado no existe.");
-		return;
+		return false;
 	}
 
-	//Me fijo si el offset proporcionado por la dirección es mayor de 255
 	int numeroSegmento, numeroPagina, offset;
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
-	if (offset > 256)
+	if (offset > 255)
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
-		return;
+		return false;
 	}
 
 	//Ahora de la lista de los segmentos correspondientes a este pid, quiero el segmento
@@ -399,39 +397,59 @@ void validarLecturaOEscritura(int pid, uint32_t direccionLogica, void* bytesAEsc
 	}
 	nodoSegmento = list_find(listaFiltradaPorPid, (void*)_segmentoCorresponde);
 
-	//Si la función find no encontró el segmento, error.
 	if (nodoSegmento == NULL)
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
-		return;
+		return false;
 	}
 
-	//Extraigo del segmento la lista de páginas
 	t_list* listaPaginas = nodoSegmento->listaPaginas;
 
-	//De la lista de páginas, tengo que comprobar si existe la página especificada por la dirección.
-	//Hago lo mismo que con el segmento.
 	nodo_paginas *nodoPagina;
 	bool _paginaCorresponde(nodo_paginas *p){
 		return(p->nro_pagina == numeroPagina);
 	}
 	nodoPagina = list_find(listaPaginas, (void*)_paginaCorresponde);
 
-	//Si la función find no encontró el segmento, error.
 	if (nodoPagina == NULL)
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
-		return;
+		return false;
 	}
 
-	uint32_t direccion = obtenerUltimaDireccionSegmento(nodoSegmento);
+	//Tengo que transformar el tamanio en paginas, para ver si el segmneto tiene esa cantidad de paginas
+	int faltaParaCompletarPagina = 256 - offset;
+	int quedaDelTamanio = tamanio - faltaParaCompletarPagina;
+	int cantidadPaginasEnterasQueQuedan = quedaDelTamanio / 256;
+	//Me fijo si necesito una pagina para alojar el remanente
+	int cantidadPaginasQueOcupaTamanio;
+	if (quedaDelTamanio % 256 != 0)
+	{
+		cantidadPaginasQueOcupaTamanio = cantidadPaginasEnterasQueQuedan + 1;
+	}
+	else
+	{
+		cantidadPaginasQueOcupaTamanio = cantidadPaginasEnterasQueQuedan;
+	}
+	//Ahora, cantidadPaginasQueOcupaTamanio representa, a partir de la pagina dedse donde empiezo a escribir (y sin contarla) las páginas que
+	//tendría que tener el segmento para que tamanio entre
+	int cantidadPaginasSegmento = list_size(listaPaginas);
+	if ((nodoPagina->nro_pagina + cantidadPaginasQueOcupaTamanio) > (cantidadPaginasSegmento -1))
+	{
+		log_error(logs, "Error, violación de segmento.");
+		puts("Error, violacion de segmento.");
+		return false;
+	}
 
-	printf("Direccion logica: %zu\n", direccion);
+	printf("pagina final: %d\n", nodoPagina->nro_pagina + cantidadPaginasQueOcupaTamanio);
+	printf("termino\n");
+	return true;
 
-	//Si la dirección que resulta de la dirección lógica más el tamaño excede la última dirección del segmento, error.
+
 }
+
 
 /*void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
@@ -461,18 +479,6 @@ void validarLecturaOEscritura(int pid, uint32_t direccionLogica, void* bytesAEsc
 }
 */
 
-uint32_t obtenerUltimaDireccionSegmento(nodo_segmento* nodoSegmento)
-{
-	//Obtengo la cantidad de páginas del segmento en cuestión
-	int cantidadPaginas = list_size(nodoSegmento->listaPaginas);
-
-	//La últma dirección lógica del segmento va a ser la dirección del offset 255 (porque empiezo a contar desde el byte 0),
-	//de la última página del segmento. La última página del segmento es la página de número cantidadPaginas-1 porque
-	//las páginas también se empiezan a contar desde 0.
-	uint32_t ultimaDireccion = generarDireccionLogica(nodoSegmento->numeroSegmento, cantidadPaginas - 1, 255);
-
-	return ultimaDireccion;
-}
 
 /*void* buscarYAsignarMarcoLibre(int pid, nodo_segmento nodoSegmento, nodo_paginas nodoPagina)
 {

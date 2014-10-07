@@ -20,7 +20,7 @@ int main() {
 	//listarMarcos();
 
 
-	/*printf("%d \n", crearSegmento(1234, 778));
+	printf("%d \n", crearSegmento(1234, 778));
 
 	printf("%d\n", crearSegmento(5678, 258));
 
@@ -28,7 +28,16 @@ int main() {
 
 	puts("TABLA SEGMENTOS ANTES");
 
-	tablaSegmentos();*/
+	tablaSegmentos();
+
+	validarEscrituraOLectura(1234, 4278202368, "hola", 128);
+
+	int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica(4278202368, &numeroSegmento, &numeroPagina, &offset);
+	printf("numero segmento: %d    numero pagina: %d    offset: %d  \n", numeroSegmento, numeroPagina, offset);
+
+	printf("pisobis: %zu\n", generarDireccionLogica(0, 3, 255));
+
 
 	//destruirSegmento(1234, 1);
 

@@ -116,7 +116,7 @@ void* buscarYAsignarMarcoLibre(int pid, nodo_segmento nodoSegmento, nodo_paginas
 
 uint32_t obtenerUltimaDireccionSegmento(nodo_segmento* nodoSegmento);
 
-void validarLecturaOEscritura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
+bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
 
 
 
