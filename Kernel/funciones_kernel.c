@@ -10,7 +10,7 @@
 
 int inicializar_Kernel_comunicacion_CPU(){
 
-	struct addrinfo hints;
+	 struct addrinfo hints;
 	struct addrinfo *serverInfo;
 
 	memset(&hints, 0, sizeof(hints));
