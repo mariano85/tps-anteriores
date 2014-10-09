@@ -296,8 +296,6 @@ void tablaSegmentos()
 void tablaPaginas(int pid)
 {
 	t_list *listaFiltrada = filtrarListaSegmentosPorPid(listaSegmentos, pid);
-	t_list *listaPaginas;
-
 
 	if(list_is_empty(listaFiltrada))
 	{
@@ -306,45 +304,37 @@ void tablaPaginas(int pid)
 		abort();
 	}
 
-	int sizeListaPaginas;
-	int cantidadSegmentosFiltrados = list_size(listaFiltrada);
-	int i, j;
-
-	for(i = 0; i<cantidadSegmentosFiltrados; i++)
+	void imprimirDatosSegmento(nodo_segmento *nodoSegmento)
 	{
-		nodo_segmento *nodoSegmento;
-		nodoSegmento = list_get(listaFiltrada, i);
 
-		listaPaginas = nodoSegmento->listaPaginas;
-		sizeListaPaginas = list_size(listaPaginas);
-
-		for (j=0; j<sizeListaPaginas; j++)
+		void imprimirDatosPaginas(nodo_paginas *nodoPagina)
 		{
-			nodo_paginas *nodoPagina;
-			nodoPagina = list_get(listaPaginas, j);
-			printf("Nro segmento :%d     PID: %d    N° pagina: %d     Presencia: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
+			printf("Nro segmento: %d\tPID: %d\tNro Pagina: %d\tPresencia: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
 		}
 
+		list_iterate(nodoSegmento->listaPaginas, (void*)imprimirDatosPaginas);
 	}
+
+	list_iterate(listaFiltrada, (void*)imprimirDatosSegmento);
 
 }
 
 uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset)
 {
-	uint32_t direccion = offset;
+	uint32_t direccion = numeroSegmento;
 	direccion = direccion << 12;
 	direccion = direccion | numeroPagina;
-	direccion = direccion << 12;
-	direccion = direccion | numeroSegmento;
+	direccion = direccion << 8;
+	direccion = direccion | offset;
 
 	return direccion;
 }
 
 void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset)
 {
-	*numeroSegmento = direccion & 0xFFF;
-	*numeroPagina = (direccion >> 12) & 0xFFF;
-	*offset = (direccion >> 24) & 0xFF;
+	*offset = direccion & 0xFF;
+	*numeroPagina = (direccion >> 8) & 0xFFF;
+	*numeroSegmento = (direccion >> 20) & 0xFFF;
 }
 
 t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid)
@@ -360,14 +350,8 @@ t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid)
 	return listaFiltrada;
 }
 
-bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 {
-	if (tamanio > memoriaRestante)
-	{
-		log_error(logs, "Error, no hay espacio suficiente en la memoria.");
-		puts("Error, no hay espacio suficiente en la memoria.");
-		return false;
-	}
 
 	t_list* listaFiltradaPorPid = filtrarListaSegmentosPorPid(listaSegmentos, pid);
 
@@ -375,7 +359,7 @@ bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEsc
 	{
 		log_error(logs, "Error, el pid ingresado no existe.");
 		puts("Error, el pid ingresado no existe.");
-		return false;
+		return NULL;
 	}
 
 	int numeroSegmento, numeroPagina, offset;
@@ -384,7 +368,7 @@ bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEsc
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
-		return false;
+		return NULL;
 	}
 
 	//Ahora de la lista de los segmentos correspondientes a este pid, quiero el segmento
@@ -401,7 +385,7 @@ bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEsc
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
-		return false;
+		return NULL;
 	}
 
 	t_list* listaPaginas = nodoSegmento->listaPaginas;
@@ -416,71 +400,137 @@ bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEsc
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
-		return false;
+		return NULL;
 	}
 
 	//Tengo que transformar el tamanio en paginas, para ver si el segmneto tiene esa cantidad de paginas
+	t_list* paginasQueNecesito;
+	int cantidadPaginasQueOcupaTamanio;
 	int faltaParaCompletarPagina = 256 - offset;
 	int quedaDelTamanio = tamanio - faltaParaCompletarPagina;
-	int cantidadPaginasEnterasQueQuedan = quedaDelTamanio / 256;
-	//Me fijo si necesito una pagina para alojar el remanente
-	int cantidadPaginasQueOcupaTamanio;
-	if (quedaDelTamanio % 256 != 0)
+	if (quedaDelTamanio < 0)
 	{
-		cantidadPaginasQueOcupaTamanio = cantidadPaginasEnterasQueQuedan + 1;
+		cantidadPaginasQueOcupaTamanio = 1;
+		paginasQueNecesito = paginasQueVoyAUsar(nodoSegmento, nodoPagina->nro_pagina, cantidadPaginasQueOcupaTamanio);
 	}
 	else
 	{
-		cantidadPaginasQueOcupaTamanio = cantidadPaginasEnterasQueQuedan;
+		int cantidadPaginasEnterasQueQuedan = quedaDelTamanio / 256;
+		//Me fijo si necesito una pagina para alojar el remanente
+		if (quedaDelTamanio % 256 != 0)
+		{
+			cantidadPaginasQueOcupaTamanio = cantidadPaginasEnterasQueQuedan + 1;
+		}
+		else
+		{
+			cantidadPaginasQueOcupaTamanio = cantidadPaginasEnterasQueQuedan;
+		}
+		//Ahora, cantidadPaginasQueOcupaTamanio representa, a partir de la pagina dedse donde empiezo a escribir (y sin contarla) las páginas que
+		//tendría que tener el segmento para que tamanio entre
+		int cantidadPaginasSegmento = list_size(listaPaginas);
+		if ((nodoPagina->nro_pagina + cantidadPaginasQueOcupaTamanio) > (cantidadPaginasSegmento -1))
+		{
+			log_error(logs, "Error, violación de segmento.");
+			puts("Error, violacion de segmento.");
+			return NULL;
+		}
+
+		printf("cantidad pags que ocupa: %d\n", cantidadPaginasQueOcupaTamanio);
+		printf("cantidad pags enteras %d\n", cantidadPaginasEnterasQueQuedan);
+		printf("queda del tamaño: %d\n", quedaDelTamanio);
+		printf("falta para compelate %d\n", faltaParaCompletarPagina);
+		printf("offset %d\n", offset);
+
+
+
+		paginasQueNecesito = paginasQueVoyAUsar(nodoSegmento, nodoPagina->nro_pagina, cantidadPaginasQueOcupaTamanio+1);
 	}
-	//Ahora, cantidadPaginasQueOcupaTamanio representa, a partir de la pagina dedse donde empiezo a escribir (y sin contarla) las páginas que
-	//tendría que tener el segmento para que tamanio entre
-	int cantidadPaginasSegmento = list_size(listaPaginas);
-	if ((nodoPagina->nro_pagina + cantidadPaginasQueOcupaTamanio) > (cantidadPaginasSegmento -1))
+
+
+	void _imprimirNumeroPagina(nodo_paginas *nodoPagina)
 	{
-		log_error(logs, "Error, violación de segmento.");
-		puts("Error, violacion de segmento.");
-		return false;
+		printf("voy a usar pagina: %d\n", nodoPagina->nro_pagina);
 	}
 
-	printf("pagina final: %d\n", nodoPagina->nro_pagina + cantidadPaginasQueOcupaTamanio);
-	printf("termino\n");
-	return true;
+	list_iterate(paginasQueNecesito, (void*)_imprimirNumeroPagina);
 
+	printf("termino\n");
+	return paginasQueNecesito;
 
 }
 
 
-/*void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+{
+	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
+
+	if (paginasQueNecesito == NULL) return;
+
+	if (tamanio > memoriaRestante)
+	{
+		log_error(logs, "Error, no hay espacio suficiente en la memoria.");
+		puts("Error, no hay espacio suficiente en la memoria.");
+		return;
+	}
+
+	memoriaRestante = memoriaRestante - tamanio;
+
+	int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica(45435435, &numeroSegmento, &numeroPagina, &offset);
+
+	int cantidadPaginasQueNecesito = list_size(paginasQueNecesito);
+	int i;
+
+	for (i=0; i<cantidadPaginasQueNecesito; i++)
+	{
+		nodo_paginas* nodoPagina = list_get(paginasQueNecesito, i);
+
+		if (nodoPagina->presencia == -1)
+		{
+			buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
+		}
+
+
+
+
+	}
+
+
+
+}
+
+void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset)
 {
 
+}
 
+t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
+{
+	t_list* paginasQueNecesito;
 
-	//Ahora, en nodoPagina tengo, en el campo presencia, lo siguiente:
-		//-1 indica que todavía no le asigné ningún marco
-		//-2 indica que está en swap (esto por ahora lo ignoro)
-		//otro número indica el número de marco
-	//Si presencia es -1, busco un marco libre y se lo asigno a la página
-	if (nodoPagina->presencia == -1)
+	paginasQueNecesito = list_create();
+
+	int i, ultimaPagina;
+
+	ultimaPagina = numeroPagina + cantidadPaginas;
+
+	for (i=numeroPagina; i<ultimaPagina; i++)
 	{
-		//Esta es la dirección donde empieza el bloque de memoria al que apunta el marco
-		void *direccionComienzoBloque;
-		direccionComienzoBloque = buscarYAsignarMarcoLibre(pid, nodoSegmento, nodoPagina);
-		//A la dirección, le tengo que agregar el offset, para posicionarme en la dirección en la cual
-		//voy a empezar a escribir la memoria
-		void *direccionDestino = direccionComienzoBloque + offset;
-		//Ahora sí, escribo en esa dirección de memoria el contenido del buffer
-		memcpy(direccionDestino, bytesAEscribir, tamanio);
+		nodo_paginas* nodoPagina;
+
+		nodoPagina = list_get(nodoSegmento->listaPaginas, i);
+
+		list_add(paginasQueNecesito, nodoPagina);
+
 	}
 
-	printf("Numero segmento: %d    pid: %d     \n", nodoSegmento->numeroSegmento, nodoSegmento->pid);
-
-
+	return paginasQueNecesito;
 }
-*/
 
 
-/*void* buscarYAsignarMarcoLibre(int pid, nodo_segmento nodoSegmento, nodo_paginas nodoPagina)
+
+
+void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
 {
 	int i;
 	//Recorro la tabla de marcos
@@ -492,8 +542,8 @@ bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEsc
 			//Setteo los nuevos valores del marco, para que ahora aloje a la página en cuestión
 			tablaMarcos[i].libre = 0;
 			tablaMarcos[i].nro_pagina = nodoPagina->nro_pagina;
-			tablaMarcos[i].nro_segmento = nodoSegmento->numeroSegmento;
-			tablaMarcos[i].pid = nodoSegmento->pid;
+			tablaMarcos[i].nro_segmento = numeroSegmento;
+			tablaMarcos[i].pid = pid;
 			//Ahora, la página está presente en el número de marco, y el número de marco es i
 			nodoPagina->presencia = i;
 			//Devuelvo la dirección de memoria a la que apunta el marco, que es el bloque
@@ -502,4 +552,4 @@ bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEsc
 		}
 	}
 	return NULL;
-}*/
+}

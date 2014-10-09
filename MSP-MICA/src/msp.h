@@ -62,8 +62,6 @@ typedef struct
 
 t_list* listaSegmentos;
 
-t_list* listaMarcos;
-
 t_configuracion configuracion;
 
 t_log *logs;
@@ -112,11 +110,15 @@ void destruirSegmento(int pid, uint32_t base);
 
 t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid);
 
-void* buscarYAsignarMarcoLibre(int pid, nodo_segmento nodoSegmento, nodo_paginas nodoPagina);
+void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
 
 uint32_t obtenerUltimaDireccionSegmento(nodo_segmento* nodoSegmento);
 
-bool validarEscrituraOLectura(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
+t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio);
+
+t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas);
+
+void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
 
 
 
