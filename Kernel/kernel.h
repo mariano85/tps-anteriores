@@ -14,6 +14,7 @@
 #include <commons/log.h>
 #include <commons/config.h>
 #include <commons/collections/queue.h>
+#include <commons/collections/list.h>
 #include <semaphore.h>
 
 #define KERNEL_CONF "config.conf"
@@ -29,9 +30,12 @@ sem_t mutexEXEC;
 sem_t mutexEXIT;
 sem_t mutexBLOCK;
 
+sem_t mutexCPUDISP;
 t_log *archivo_logs;
 t_log *queue_log;
 t_config *config;
+
+t_list *cpu_disponibles_list;
 
 bool archivo_configuracion_valido();
 void conectarse_Planificador();
@@ -47,7 +51,7 @@ typedef struct t_semaforos {
 } t_semaforos;
 
 typedef struct TCB{
-	 int pid;
+	 	 int pid;
 
 		int tid;
 
@@ -61,6 +65,16 @@ typedef struct TCB{
 		int cursor_stack;
 		int reg_programacion;
 } TCB;
+
+typedef struct s_client_cpu{
+	int32_t processFd;
+	int32_t processPID;
+	int32_t cpuPID;
+	int32_t cpuFD;
+	bool ocupado;
+}t_client_cpu;
+
+
 
 
 

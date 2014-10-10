@@ -120,4 +120,12 @@ void conectarse_Planificador(){
 
 }
 
+bool _cpuLibre(void* element){
+
+		if(((t_client_cpu*)element)->ocupado == false){
+			return true;
+		}
+		return false;
+	}
+
 

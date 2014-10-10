@@ -40,7 +40,7 @@ void agregarProceso(TCB* aProcess) {
 
 }
 
-void agregarColaListos(TCB* aProcess) {
+void agregarColaNew(TCB* aProcess) {
 	TCB* process_aux;
 
 	if(aProcess != NULL){
@@ -105,6 +105,52 @@ void agregarColaListos(TCB* aProcess) {
 		}
 		else{
 			log_info(logger, "There is any process here yet!\n");
+		}
+	}
+
+	void agregarProcesoColaExec(){
+
+			t_client_cpu* aCpu;
+			TCB* aProcess;
+			bool disponible = false;
+
+			sem_close(&mutexCPUDISP);
+		//	log_debug(kernelLog, "BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!");
+			//if(list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)){
+				//aCpu = list_find(cpu_disponibles_list, (void*) _cpuLibre);
+				//disponible = true;
+			//}
+			sem_post(&mutexCPUDISP);
+
+
+		if(disponible){
+			sem_close(&mutexREADY);
+
+				aProcess = queue_pop(READY);
+			sem_post (&mutexREADY);
+
+			if(aProcess != NULL){
+
+				sem_close (&mutexEXEC);
+					queue_push(EXEC, aProcess);
+				sem_post (&mutexEXEC);
+
+
+				aCpu->ocupado = true;
+				aCpu->processPID = aProcess->pid;
+	//			log_info(archivo_logs, string_from_format("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->pid, aCpu->cpuPID));
+
+			//	enviarAEjecutar(aCpu->cpuFD, 10, aProcess); //DEJO 10 para poner un quantum
+
+				mostrarColas();
+			}
+			else{
+				log_info(archivo_logs, "Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/");
+				//log_info(archivo_logs, string_from_format("CPU (PID: %d) aguarda instrucciones!", aCpu->cpuPID));
+			}
+		}
+		else{
+			//log_info(archivo_logs, string_from_format("Se intentó poner en ejecución un nuevo programa, pero no había ningun CPU libre o activo! :/"));
 		}
 	}
 
