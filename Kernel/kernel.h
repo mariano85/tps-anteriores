@@ -25,16 +25,17 @@ t_queue *EXIT;
 t_queue *BLOCK;
 sem_t mutexNEW;
 sem_t mutexREADY;
-sem_t mutexREADY;
 sem_t mutexEXEC;
 sem_t mutexEXIT;
 sem_t mutexBLOCK;
 
 t_log *archivo_logs;
+t_log *queue_log;
 t_config *config;
 
 bool archivo_configuracion_valido();
 void conectarse_Planificador();
+
 
 t_dictionary *semaforos;
 
@@ -44,6 +45,24 @@ typedef struct t_semaforos {
 	sem_t hayAlgo;
 	sem_t mutex;
 } t_semaforos;
+
+typedef struct TCB{
+	 int pid;
+
+		int tid;
+
+		int indicador_modo_kernel;
+		int base_segmento_codigo;
+		int tamanio_indice_codigo ;
+		int indice_codigo;
+		int program_counter;
+		int puntero_instruccion;
+		int base_stack;
+		int cursor_stack;
+		int reg_programacion;
+} TCB;
+
+
 
 
 

@@ -14,7 +14,8 @@
 
 int main(int argc, char **argv){
 
-	archivo_logs = log_create("log_Principal", "kernel.c",1, LOG_LEVEL_TRACE); //LOG
+	archivo_logs = log_create("log_Principal", "kernel.c",1, LOG_LEVEL_TRACE);
+	queue_log = log_create("queue_log", "kernel.c",1, LOG_LEVEL_TRACE);//LOG
 
 		 if (argc < 2){
 			 log_error(archivo_logs, "No se pasaron parametros.");
@@ -38,6 +39,7 @@ int main(int argc, char **argv){
 			BLOCK = queue_create();
 
 			log_debug(archivo_logs, "colas creadas");
+			log_debug(queue_log, "prueba");
 
 				sem_init(&mutexNEW, 0, 1);
 				sem_init(&mutexREADY, 0, 1);
@@ -48,6 +50,7 @@ int main(int argc, char **argv){
 				semaforos = dictionary_create();
 
 				log_info(archivo_logs, "Conectandose con la MSP...");
+
 					//socket_MSP=conectarseMSP();
 
 			//	pthread_t thread1; Seria el hilo para manejar LOADER MARIANO - MARIANO - MARIANO - MARIANO
@@ -75,6 +78,7 @@ int main(int argc, char **argv){
 					pthread_join(thread3,NULL);
 
 					puts("hola");
+
 
 					return 0;
 
@@ -109,6 +113,7 @@ void conectarse_Planificador(){
 
 
 	puts("Hola soy un hilo y ando jajajaj");
+
 
 
 
