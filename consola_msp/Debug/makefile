@@ -8,8 +8,9 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include src/commons/collections/subdir.mk
--include src/commons/subdir.mk
+-include src/consola/commons/collections/subdir.mk
+-include src/consola/commons/subdir.mk
+-include src/consola/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -25,22 +26,26 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: consola_2
+all: consola_msp
+
+dependents:
+	-cd /home/alphard/workspace/commons/Debug && $(MAKE) all
 
 # Tool invocations
-consola_2: $(OBJS) $(USER_OBJS)
+consola_msp: $(OBJS) $(USER_OBJS) /home/alphard/workspace/commons/Debug/libcommons.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc  -o "consola_2" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -lpthread -pthread -L"/home/alphard/workspace/commons/Debug" -o "consola_msp" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) consola_2
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) consola_msp
 	-@echo ' '
 
 .PHONY: all clean dependents
 .SECONDARY:
+/home/alphard/workspace/commons/Debug/libcommons.so:
 
 -include ../makefile.targets

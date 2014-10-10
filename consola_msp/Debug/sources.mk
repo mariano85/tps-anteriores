@@ -14,6 +14,7 @@ EXECUTABLES :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 src \
-src/commons \
-src/commons/collections \
+src/consola \
+src/consola/commons \
+src/consola/commons/collections \
 
