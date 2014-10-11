@@ -26,7 +26,13 @@ void ponerCola(registroPCB *unPCB, t_queue* cola_actual, sem_t *mutex, sem_t *ha
 }
 
 void agregarProceso(TCB* aProcess) {
+		int32_t SystemProcessCounter = 0;
+		SystemProcessCounter = 5; //cantDeProcesosEnSistema() PERO NO ANDA ¬¬
 
+		if(10 > SystemProcessCounter){ //PONEMOS UN NUMERO PERO IRIA config_kernel.MULTIPROG
+				agregarProcesoColaReady(aProcess);
+			}
+		else{
 
 		sem_close(&mutexNEW);
 		queue_push(NEW, aProcess);
@@ -35,12 +41,16 @@ void agregarProceso(TCB* aProcess) {
 		log_info(archivo_logs, "Se intentó encolar un nuevo proceso listo(Ready), pero el Sistema alcanzó el máximo de programas según grado de multiprogramación.");
 		log_info(archivo_logs, "Un nuevo proceso se insertó en la cola de listos!");
 
+		// mostrarColas(); TAMPOCO ANDA !
+
+		}
+
 
 
 
 }
 
-void agregarColaNew(TCB* aProcess) {
+void agregarProcesoColaReady(TCB* aProcess) {
 	TCB* process_aux;
 
 	if(aProcess != NULL){
@@ -52,7 +62,7 @@ void agregarColaNew(TCB* aProcess) {
 
 			t_list* list_aux;
 			list_aux =  NEW->elements;
-			// VER EL ORDEN QUE VAMOS A USAR list_sort(list_aux, (void*)ProcessLessWeightComparator);
+	//		list_sort(list_aux, (void*)ordernRoundRobin);   ///////// VER EL ORDEN QUE VAMOS A USAR
 
 			NEW->elements = list_aux;
 
@@ -63,9 +73,9 @@ void agregarColaNew(TCB* aProcess) {
 
 	void mostrarColas(){
 
-		log_debug(queueLog, "NEW QUEUE -");
+		log_info(queueLog, "NEW QUEUE -");
 		mostrarCola(NEW, mutexNEW, queueLog);
-	/*	log_info(queueLog, " ");
+		log_info(queueLog, " ");
 		log_info(queueLog, "READY QUEUE -");
 		mostrarCola(READY, mutexREADY, queueLog);
 		log_info(queueLog, " ");
@@ -78,8 +88,16 @@ void agregarColaNew(TCB* aProcess) {
 		log_info(queueLog, "EXIT QUEUE -");
 		mostrarCola(EXIT, mutexEXIT, queueLog);
 		log_info(queueLog, " ");
-		*/
 
+
+
+	}
+
+	bool ordernRoundRobin(void* p1, void* p2){
+		TCB* processA_aux = (TCB*)p1;
+		TCB* processB_aux = (TCB*)p2;
+
+		return processA_aux->pid < processB_aux->pid;
 	}
 
 
@@ -154,7 +172,46 @@ void agregarColaNew(TCB* aProcess) {
 		}
 	}
 
+	void chequearProcesos(){
+		//if(config_kernel.MULTIPROG > ObtenerCantidadDeProcesosEnSistema()){
+			if(queue_size(NEW) > 0){
+				agregarProcesoColaReady(NULL);
+			}
+			else{
+				log_info(archivo_logs, "La cola de procesos nuevos (New-Queue) se encuentra vacía...");
+			}
+		//}
+	}
 
+	int32_t cantDeProcesosEnSistema(){
 
+			int32_t counter = 0;
+
+			sem_close (&mutexBLOCK);
+			sem_close (&mutexREADY);
+			sem_close (&mutexEXEC);
+				counter += READY->elements->elements_count;
+				counter += EXEC->elements->elements_count;
+				counter += BLOCK->elements->elements_count;
+			sem_post  (&mutexEXEC);
+			sem_post  (&mutexREADY);
+			sem_post  (&mutexBLOCK);
+
+			//log_debug(archivo_logs, ("Cantidad de procesos en el sistema: %d", counter));
+
+			return counter;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

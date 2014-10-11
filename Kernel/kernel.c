@@ -51,6 +51,8 @@ int main(int argc, char **argv){
 
 				log_info(archivo_logs, "Conectandose con la MSP...");
 
+
+
 					//socket_MSP=conectarseMSP();
 
 			//	pthread_t thread1; Seria el hilo para manejar LOADER MARIANO - MARIANO - MARIANO - MARIANO
@@ -80,7 +82,7 @@ int main(int argc, char **argv){
 					puts("hola");
 
 
-					return 0;
+
 
 }
 
@@ -104,6 +106,8 @@ bool archivo_configuracion_valido(){
 	if (!config_has_property(config, "QUANTUM"))
 					return 0;
 
+	if (!config_has_property(config, "MULTIPROG"))
+						return 0;
 
 	return 1;
 }
@@ -127,5 +131,7 @@ bool _cpuLibre(void* element){
 		}
 		return false;
 	}
+
+
 
 

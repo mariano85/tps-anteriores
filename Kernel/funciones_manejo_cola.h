@@ -10,7 +10,15 @@ void ponerCola(registroPCB *unPCB, t_queue* cola_actual, sem_t *mutex, sem_t *ha
 
 void mostrarColas();
 void mostrarCola(t_queue* aQueue, sem_t queueMutex, t_log* logger);
-void agregarProcesoColaExec();
-void agregarColaNew(TCB* aProcess);
+
+
 void agregarProceso(TCB* aProcess);
+void agregarProcesoColaReady(TCB* aProcess);
+void agregarProcesoColaExec();
+void manejo_cola_ready(void);
+void chequearProcesos();
+int32_t cantDeProcesosEnSistema();
+
+pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, condpBlockedProcess;
+
 
