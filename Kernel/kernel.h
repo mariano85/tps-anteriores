@@ -8,30 +8,34 @@
 #ifndef KERNEL_H_
 #define KERNEL_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include<pthread.h>
-#include <commons/log.h>
-#include <commons/config.h>
-#include <commons/collections/queue.h>
-#include <commons/collections/list.h>
-#include <semaphore.h>
+#include "funciones_manejo_cola.h"
+#include "global.h"
+
 
 #define KERNEL_CONF "config.conf"
+#define MSG_SIZE 256
+#define QUANTUM "QUANTUM"
 
 t_queue *NEW;
 t_queue *READY;
 t_queue * EXEC;
 t_queue *EXIT;
 t_queue *BLOCK;
+
 sem_t mutexNEW;
 sem_t mutexREADY;
 sem_t mutexEXEC;
 sem_t mutexEXIT;
 sem_t mutexBLOCK;
-
 sem_t mutexCPUDISP;
-t_log *archivo_logs;
+
+pthread_mutex_t mutex_new_queue;
+pthread_mutex_t mutex_ready_queue;
+pthread_mutex_t mutex_block_queue;
+pthread_mutex_t mutex_exec_queue;
+pthread_mutex_t mutex_exit_queue;
+
+t_log *kernel_log;
 t_log *queue_log;
 t_config *config;
 
@@ -39,6 +43,7 @@ t_list *cpu_disponibles_list;
 
 bool archivo_configuracion_valido();
 void conectarse_Planificador();
+
 
 
 t_dictionary *semaforos;
@@ -50,21 +55,7 @@ typedef struct t_semaforos {
 	sem_t mutex;
 } t_semaforos;
 
-typedef struct TCB{
-	 	 int pid;
 
-		int tid;
-
-		int indicador_modo_kernel;
-		int base_segmento_codigo;
-		int tamanio_indice_codigo ;
-		int indice_codigo;
-		int program_counter;
-		int puntero_instruccion;
-		int base_stack;
-		int cursor_stack;
-		int reg_programacion;
-} TCB;
 
 typedef struct s_client_cpu{
 	int32_t processFd;
@@ -74,10 +65,11 @@ typedef struct s_client_cpu{
 	bool ocupado;
 }t_client_cpu;
 
+typedef char t_contenido[MSG_SIZE];
 
+// PRUEBA
 
-
-
+TCB *tcb1,*tcb2,*tcb3,*tcb4;
 
 
 
