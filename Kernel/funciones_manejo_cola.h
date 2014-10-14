@@ -26,6 +26,7 @@ void manejo_cola_ready(void);
 void chequearProcesos();
 int32_t cantDeProcesosEnSistema();
 void manejo_cola_ready(void);
+void manejo_cola_exit(void);
 
 pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, condpBlockedProcess;
 

@@ -48,6 +48,8 @@ void agregarProcesoColaReady(TCB* aProcess) {
 			process_aux = queue_pop(NEW);
 			pthread_mutex_unlock (&mutex_new_queue);
 	}
+
+	queue_push(READY,aProcess);
 }
 
 	void mostrarColas(){
@@ -126,7 +128,7 @@ void agregarProcesoColaReady(TCB* aProcess) {
 				aCpu = list_find(cpu_disponibles_list, (void*) _cpuLibre);
 				disponible = true;
 			}
-			sem_post(&mutexCPUDISP);
+			pthread_mutex_unlock(&mutexCPUDISP);
 
 
 		if(disponible){
@@ -145,9 +147,9 @@ void agregarProcesoColaReady(TCB* aProcess) {
 
 				aCpu->ocupado = true;
 				aCpu->processPID = aProcess->pid;
-				log_info(kernel_log, string_from_format("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->pid, aCpu->cpuPID));
+			//	log_info(kernel_log, string_from_format("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->pid, aCpu->cpuPID));
 
-				enviarAEjecutar(aCpu->cpuFD, 10, aProcess); //DEJO 10 para poner un quantum
+			//	enviarAEjecutar(aCpu->cpuFD, 10, aProcess); //DEJO 10 para poner un quantum
 
 				mostrarColas();
 			}
@@ -213,7 +215,7 @@ void agregarProcesoColaReady(TCB* aProcess) {
 
 
 
-void removeProcess(int32_t processPID, bool someoneKilledHim){
+void removeProcess(int32_t processPID, bool matarBoolean){
 
 	bool _match_process_pid(void* element) {
 		if (((TCB*)element)->pid== processPID) {
@@ -226,33 +228,33 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 	pthread_mutex_lock (&mutex_ready_queue);
 	pthread_mutex_lock (&mutex_exec_queue);
 	pthread_mutex_lock (&mutex_new_queue);
-	bool wasNew = false;
+	bool esNuevo = false;
 
 
 
 	/*Busco en qué cola está!*/
 	TCB* aProcess;
-	bool Hit = false; //Verifica si no se mato el proceso mientras lo buscaba
+	bool encontrado = false; //Verifica si no se mato el proceso mientras lo buscaba
 
 	if((aProcess = (TCB*)list_find(READY->elements, (void*)_match_process_pid)) != NULL){
-		Hit = true;
+		encontrado = true;
 		list_remove_by_condition(READY->elements, (void*)_match_process_pid);
 	}
 	else if((aProcess = (TCB*)list_find(NEW->elements, (void*)_match_process_pid)) != NULL){
-		wasNew = true;
-		Hit = true;
+		esNuevo = true;
+		encontrado = true;
 		list_remove_by_condition(NEW->elements, (void*)_match_process_pid);
 	}
 	else if((aProcess = (TCB*)list_find(BLOCK->elements, (void*)_match_process_pid)) != NULL){
-		Hit = true;
+		encontrado = true;
 		list_remove_by_condition(BLOCK->elements, (void*)_match_process_pid);
 	}
 	else if((aProcess = (TCB*)list_find(EXEC->elements, (void*)_match_process_pid)) != NULL){
-		Hit = true;
+		encontrado = true;
 		list_remove_by_condition(EXEC->elements, (void*)_match_process_pid);
 	}
 	else if((aProcess = (TCB*)list_find(EXIT->elements, (void*)_match_process_pid)) != NULL){
-		Hit = true;
+		encontrado = true;
 		list_remove_by_condition(EXIT->elements, (void*)_match_process_pid);
 	}
 	pthread_mutex_unlock (&mutex_new_queue);
@@ -260,12 +262,12 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 	pthread_mutex_unlock (&mutex_ready_queue);
 	pthread_mutex_unlock (&mutex_block_queue);
 
-	if(Hit){
-		if(!someoneKilledHim){/*Si nadie lo mató, entonces entró en la cola de EXIT y el PLP lo está expulsando del sistema*/
+	if(encontrado){
+		if(!matarBoolean){/*Si nadie lo mató, entonces entró en la cola de EXIT y el PLP lo está expulsando del sistema*/
 			//ComunicarMuertePrograma(aProcess->pid);
 		}
 		/*Si el proceso que murió no era uno nuevo, entonces veo si por el gr. de multiprog puedo meter uno nuevo!*/
-		if(!wasNew){
+		if(!esNuevo){
 			chequearProcesos();
 		}
 

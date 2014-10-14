@@ -65,3 +65,20 @@
 [INFO] 17:34:07:334 kernel.c/(10834:10834): Conectandose con la MSP...
 [INFO] 17:34:07:337 kernel.c/(10834:10834): Un nuevo proceso se insertó en la cola NEW!
 [INFO] 17:34:07:338 kernel.c/(10834:10834): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 17:38:58:21 kernel.c/(10897:10897): inicia kernel
+[DEBUG] 17:38:58:26 kernel.c/(10897:10897): colas creadas
+[INFO] 17:38:58:32 kernel.c/(10897:10897): Conectandose con la MSP...
+[INFO] 17:38:58:33 kernel.c/(10897:10897): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 17:38:58:34 kernel.c/(10897:10897): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 17:47:43:374 kernel.c/(11044:11044): inicia kernel
+[DEBUG] 17:47:43:384 kernel.c/(11044:11044): colas creadas
+[INFO] 17:47:43:385 kernel.c/(11044:11044): Conectandose con la MSP...
+[INFO] 17:47:43:386 kernel.c/(11044:11044): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 17:47:43:387 kernel.c/(11044:11044): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 14:35:13:857 kernel.c/(2236:2236): inicia kernel
+[DEBUG] 14:35:13:877 kernel.c/(2236:2236): colas creadas
+[INFO] 14:35:13:898 kernel.c/(2236:2236): Conectandose con la MSP...
+[INFO] 14:35:13:899 kernel.c/(2236:2236): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 14:35:13:900 kernel.c/(2236:2236): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 14:35:13:924 kernel.c/(2236:2244): ************** Exit Manager Thread Started (PID: 0) ***************
+[INFO] 14:35:13:924 kernel.c/(2236:2243): **************Ready Queue Manager Thread Started (PID: 1) ***************

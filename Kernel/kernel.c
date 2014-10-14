@@ -79,12 +79,18 @@ int main(int argc, char **argv){
 			// Esta hilo seria para manejar lo que es el planificador
 
 				pthread_t thread3;
+				pthread_t thread4;
+				pthread_t thread5;
 
 			//	int puerto_CONSOLA = config_get_int_value(config, "PUERTO_PROG");
 				int puerto_CPU =config_get_int_value(config,"PUERTO_CPU");
 
 
 				int	iret3 = pthread_create(&thread3,NULL, (void*)conectarse_Planificador,(void*)puerto_CPU); //HILO PCP
+				int	iret4 = pthread_create(&thread4,NULL, (void*)manejo_cola_ready,(void*)puerto_CPU);
+				int	iret5 = pthread_create(&thread5,NULL, (void*)manejo_cola_exit,(void*)puerto_CPU);
+
+
 
 					if (iret3) {
 						log_error(kernel_log, "Error en la creacion del hilo Planificador");
@@ -94,8 +100,27 @@ int main(int argc, char **argv){
 
 					}
 
+					if (iret4) {
+						log_error(kernel_log, "Error en la creacion del hilo manejo cola ready");
+						log_destroy(kernel_log);
+
+											exit(EXIT_FAILURE);
+
+										}
+
+												if (iret5) {
+													log_error(kernel_log, "Error en la creacion del hilo manejo cola exit");
+													log_destroy(kernel_log);
+
+													exit(EXIT_FAILURE);
+
+															}
+
+
 
 					pthread_join(thread3,NULL);
+					pthread_join(thread4,NULL);
+					pthread_join(thread5,NULL);
 
 					puts("hola");
 					mostrarColas();

@@ -27,13 +27,15 @@ sem_t mutexREADY;
 sem_t mutexEXEC;
 sem_t mutexEXIT;
 sem_t mutexBLOCK;
-sem_t mutexCPUDISP;
+
 
 pthread_mutex_t mutex_new_queue;
 pthread_mutex_t mutex_ready_queue;
 pthread_mutex_t mutex_block_queue;
 pthread_mutex_t mutex_exec_queue;
 pthread_mutex_t mutex_exit_queue;
+
+pthread_mutex_t mutexCPUDISP;
 
 t_log *kernel_log;
 t_log *queue_log;
