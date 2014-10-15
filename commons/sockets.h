@@ -16,8 +16,9 @@
 #include <unistd.h>
 
 /*Commons includes*/
-#include "string.h"
-#include "log.h"
+#include <string.h>
+#include  <commons/log.h>
+#include <commons/string.h>
 
 #define MSG_SIZE 256
 #define STRUCT_SIZE (MSG_SIZE + sizeof(t_header))
@@ -64,7 +65,7 @@ typedef enum {
 
 	/*Enviados desde el kernel*/
 	KRN_TO_CPU_HANDSHAKE,
-	KRN_TO_CPU_PCB,
+	KRN_TO_CPU_TCB,
 	KRN_TO_CPU_VAR_COMPARTIDA_OK,
 	KRN_TO_CPU_VAR_COMPARTIDA_ERROR,
 	KRN_TO_CPU_ASIGNAR_OK,
@@ -72,11 +73,11 @@ typedef enum {
 	KRN_TO_CPU_OK,
 	KRN_TO_CPU_PCB_QUANTUM,
 
-	KRN_TO_CON_IMPR_PANTALLA,  // imprimir en pantalla
-	KRN_TO_CON_IMPR_IMPRESORA, // imprimir en impresora
-	KRN_TO_CON_IMPR_VARIABLES, // imprimir valores finales de variables
-	KRN_TO_CON_END_CON,
-	KRN_TO_CON_NO_MEMORY,
+	KRN_TO_PRG_IMPR_PANTALLA,  // imprimir en pantalla
+	KRN_TO_PRG_IMPR_IMPRESORA, // imprimir en impresora
+	KRN_TO_PRG_IMPR_VARIABLES, // imprimir valores finales de variables
+	KRN_TO_PRG_END_PRG,
+	KRN_TO_PRG_NO_MEMORY,
 
 	KRN_TO_MSP_MEM_REQ,
 	KRN_TO_MSP_ELIMINAR_SEGMENTOS,
@@ -86,9 +87,9 @@ typedef enum {
 	KRN_TO_MSP_SOLICITAR_BYTES,
 
 	/*Enviados desde el programa*/
-	CON_TO_KRN_HANDSHAKE,
-	CON_TO_KRN_CODE,		   // codigo BESO
-	CON_TO_KRN_OK,
+	PRG_TO_KRN_HANDSHAKE,
+	PRG_TO_KRN_CODE,		   // codigo Ansisop
+	PRG_TO_KRN_OK,
 
 	/*Enviados desde el cpu*/
 	CPU_TO_MSP_INDICEYLINEA,
@@ -109,16 +110,16 @@ typedef enum {
 	CPU_TO_KRN_IMPRIMIR_TEXTO,
 	CPU_TO_KRN_OK,
 
-	/*Enviados desde el MSP*/
-	MSP_TO_KRN_MEMORY_OVERLOAD, // No existe espacio suficiente para crear un segmento
-	MSP_TO_KRN_SEGMENTO_CREADO,
-	MSP_TO_KRN_ENVIO_BYTES,
-	MSP_TO_KRN_HANDSHAKE_OK,
-	MSP_TO_CPU_BYTES_ENVIADOS,
-	MSP_TO_CPU_BYTES_RECIBIDOS,
+	/*Enviados desde el umv*/
+	UMV_TO_KRN_MEMORY_OVERLOAD, // No existe espacio suficiente para crear un segmento
+	UMV_TO_KRN_SEGMENTO_CREADO,
+	UMV_TO_KRN_ENVIO_BYTES,
+	UMV_TO_KRN_HANDSHAKE_OK,
+	UMV_TO_CPU_BYTES_ENVIADOS,
+	UMV_TO_CPU_BYTES_RECIBIDOS,
 
-	MSP_TO_CPU_SENTENCE,
-	MSP_TO_CPU_SEGM_FAULT,     // El acceso a memoria esta por fuera de los rangos permitidos.
+	UMV_TO_CPU_SENTENCE,
+	UMV_TO_CPU_SEGM_FAULT,     // El acceso a memoria esta por fuera de los rangos permitidos.
 
 	/*Para comunicacion entre CPU -> KERNEL SYSTEM CALLS*/
 	SYSCALL_IO_REQUEST,
