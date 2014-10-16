@@ -1,136 +1,174 @@
 /*
  * kernel.c
  *
- *  Created on: 08/10/2014
+ *  Created on: 11/10/2014
  *      Author: utnso
  */
 
-
 #include "kernel.h"
+extern t_log* logKernel;
+t_log* queueLog;
 
+int main(){
 
+	//Crea un archivo de log para el kernel
+	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", true, LOG_LEVEL_DEBUG);
+	//Crea un archivo para log de colas
+	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", false, LOG_LEVEL_INFO);
 
+	// Hello Kernel!
+	system("clear");
+	int kernel_pid = getpid();
+	log_info(logKernel, "************** WELCOME TO KERNEL V1.0! (PID: %d) ***************\n", kernel_pid);
 
-int main(int argc, char **argv){
+	initKernel();
 
-	archivo_logs = log_create("log_Principal", "kernel.c",1, LOG_LEVEL_TRACE);
-	queue_log = log_create("queue_log", "kernel.c",1, LOG_LEVEL_TRACE);//LOG
+	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
+	pthread_join(loaderThread.tid, NULL);
 
-		 if (argc < 2){
-			 log_error(archivo_logs, "No se pasaron parametros.");
-			 log_destroy(archivo_logs);
-			 return 0;
-		 }
-
-		 if (!archivo_configuracion_valido()){
-		 	 log_error(archivo_logs, "El archivo de configuracion no tiene todos los campos necesarios");
-		 	 config_destroy(config);
-		 	 return 0;
-		 	 }
-
-
-		 	log_debug(archivo_logs, "inicia kernel");
-
-			NEW = queue_create(); //COLAS
-			READY = queue_create();
-			EXIT = queue_create();
-			EXEC = queue_create();
-			BLOCK = queue_create();
-
-			log_debug(archivo_logs, "colas creadas");
-			log_debug(queue_log, "prueba");
-
-				sem_init(&mutexNEW, 0, 1);
-				sem_init(&mutexREADY, 0, 1);
-				sem_init(&mutexEXEC, 0, 1);
-				sem_init(&mutexEXIT, 0, 1);
-				sem_init(&mutexBLOCK, 0, 1);
-
-				semaforos = dictionary_create();
-
-				log_info(archivo_logs, "Conectandose con la MSP...");
-
-
-
-					//socket_MSP=conectarseMSP();
-
-			//	pthread_t thread1; Seria el hilo para manejar LOADER MARIANO - MARIANO - MARIANO - MARIANO
-			//	pthread_t thread2; Seria un hilo para pasar de new a ready - Despues verificamos si lo necesitamos
-
-			// Esta hilo seria para manejar lo que es el planificador
-
-				pthread_t thread3;
-
-			//	int puerto_CONSOLA = config_get_int_value(config, "PUERTO_PROG");
-				int puerto_CPU =config_get_int_value(config,"PUERTO_CPU");
-
-
-				int	iret3 = pthread_create(&thread3,NULL, (void*)conectarse_Planificador,(void*)puerto_CPU); //HILO PCP
-
-					if (iret3) {
-						log_error(archivo_logs, "Error en la creacion del hilo Planificador");
-						log_destroy(archivo_logs);
-
-						exit(EXIT_FAILURE);
-
-					}
-
-
-					pthread_join(thread3,NULL);
-
-					puts("hola");
-
+	finishKernel();
 
 	return EXIT_SUCCESS;
+}
+
+void finishKernel(){
+	log_destroy(logKernel);
+	log_destroy(queueLog);
+}
+
+void initKernel(){
+
+	loadConfig();
+
+	//Inicializa lista de Cpu's
+	cpu_client_list = list_create();
+
+	pthread_mutex_init(&mutex_cpu_list, NULL);
+
+	//Inicializa colas
+	new_queue = queue_create();
+	ready_queue = queue_create();
+	block_queue = queue_create();
+	exec_queue = queue_create();
+	exit_queue = queue_create();
+
+	//Inicializa semaforo de colas
+	pthread_mutex_init(&mutex_new_queue, NULL );
+	pthread_mutex_init(&mutex_ready_queue, NULL );
+	pthread_mutex_init(&mutex_block_queue, NULL );
+	pthread_mutex_init(&mutex_exec_queue, NULL );
+	pthread_mutex_init(&mutex_exit_queue, NULL );
+
+	/*Se valida que en el sistema exista una instancia de la UMV levantada. Esto es indispensable
+	 * para lograr reservar segmentos para posibles clientes programas*/
+	 socketUMV = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+
+	 while (socketUMV == EXIT_FAILURE) {
+		 log_info(logKernel, "Despierten a la MSP! Se reintenta conexion en unos segundos ;) \n");
+		 sleep(5);
+		 socketUMV = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+	 }
+
+	 handshakeMSP();
+
+	 log_info(logKernel, "Se ha establecido conexion con el proceso MSP\n");
 
 }
 
-bool archivo_configuracion_valido(){
+void handshakeMSP() {
 
-
-	config = config_create(KERNEL_CONF);
-
-	if (!config_has_property(config, "PUERTO_CONSOLA"))
-		return 0;
-
-	if (!config_has_property(config, "PUERTO_CPU"))
-			return 0;
-
-	if (!config_has_property(config, "PUERTO_MSP"))
-			return 0;
-
-	if (!config_has_property(config, "IP"))
-				return 0;
-
-	if (!config_has_property(config, "QUANTUM"))
-					return 0;
-
-	if (!config_has_property(config, "MULTIPROG"))
-						return 0;
-
-	return 1;
-}
-
-
-void conectarse_Planificador(){
-
-
-	puts("Hola soy un hilo y ando jajajaj");
-
-
-
-
+	t_contenido mensaje;
+	// deberiamos formatear el mensaje todo en 0's
+	enviarMensaje(socketUMV, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
 
 }
 
-bool _cpuLibre(void* element){
+void loadConfig(){
 
-		if(((t_client_cpu*)element)->ocupado == false){
-			return true;
-		}
-		return false;
+	log_info(logKernel, "Se inicializa el kernel con parametros desde: %s", KERNEL_CONFIG_PATH);
+	t_config* kernelConfig = config_create(KERNEL_CONFIG_PATH);
+
+	if (config_has_property(kernelConfig, "PUERTO")) {
+		//strcpy(PUERTO_PROG, (char*) config_get_string_value(configPath, "PUERTO_PROG"));
+		config_kernel.PUERTO = config_get_int_value(kernelConfig,
+				"PUERTO");
+	} else {
+		log_error(logKernel,
+				"No se encontro la key 'PUERTO' en el archivo de configuracion");
+		config_destroy(kernelConfig);
+		exit(EXIT_FAILURE);
 	}
 
+	if (config_has_property(kernelConfig, "IP_MSP")) {
+		config_kernel.IP_MSP = string_duplicate(
+				config_get_string_value(kernelConfig, "IP_MSP"));
+	} else {
+		log_error(logKernel,
+				"No se encontro la key 'IP_MSP' en el archivo de configuracion");
+		config_destroy(kernelConfig);
+		exit(EXIT_FAILURE);
+	}
 
+	if (config_has_property(kernelConfig, "PUERTO_MSP")) {
+		config_kernel.PUERTO_MSP = config_get_int_value(kernelConfig,
+				"PUERTO_MSP");
+	} else {
+		log_error(logKernel,
+				"No se encontro la key 'PUERTO_MSP' en el archivo de configuracion");
+		config_destroy(kernelConfig);
+		exit(EXIT_FAILURE);
+	}
 
+	if (config_has_property(kernelConfig, "IP_CPU")) {
+		config_kernel.IP_CPU = string_duplicate(
+				config_get_string_value(kernelConfig, "IP_CPU"));
+	} else {
+		log_error(logKernel,
+				"No se encontro la key 'IP_CPU' en el archivo de configuracion");
+		config_destroy(kernelConfig);
+		exit(EXIT_FAILURE);
+	}
 
+	if (config_has_property(kernelConfig, "PUERTO_CPU")) {
+		config_kernel.PUERTO_CPU = config_get_int_value(kernelConfig,
+				"PUERTO_CPU");
+	} else {
+		log_error(logKernel,
+				"No se encontro la key 'PUERTO_CPU' en el archivo de configuracion");
+		config_destroy(kernelConfig);
+		exit(EXIT_FAILURE);
+	}
+
+	if (config_has_property(kernelConfig, "QUANTUM")) {
+		config_kernel.PUERTO_CPU = config_get_int_value(kernelConfig,
+				"QUANTUM");
+	} else {
+		log_error(logKernel,
+				"No se encontro la key 'QUANTUM' en el archivo de configuracion");
+		config_destroy(kernelConfig);
+		exit(EXIT_FAILURE);
+	}
+
+	if (config_has_property(kernelConfig, "SYSCALLS")) {
+		config_kernel.SYSCALLS = string_duplicate(
+				config_get_string_value(kernelConfig, "SYSCALLS"));
+	} else {
+		log_error(logKernel,
+				"No se encontro la key 'SYSCALLS' en el archivo de configuracion");
+		config_destroy(kernelConfig);
+		exit(EXIT_FAILURE);
+	}
+
+}
+
+void comunicarMuertePrograma(int32_t pid, bool wasInMsp){
+	log_info(logKernel, "implementar comunicarMuertePrograma( pid: %d, estabaEnLaMSP: %d", pid, wasInMsp);
+}
+
+void eliminarSegmentos(int32_t pid){
+	log_info(logKernel, "implementar eliminarSegmentos pid: %d", pid);
+}
+
+void killProcess(t_process* aProcess){
+	log_info(logKernel, "implementar killProcess pid: %d", aProcess->tcb->pid);
+}
