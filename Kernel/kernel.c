@@ -1,5 +1,5 @@
 /*
-* kernel.c
+ * kernel.c
  *
  *  Created on: 08/10/2014
  *      Author: utnso
@@ -11,33 +11,25 @@
 
 
 
-
 int main(int argc, char **argv){
 
-	tcb1 = malloc(sizeof(TCB));
-	tcb1->pid = 32;
-	tcb2 = malloc(sizeof(TCB));
-	tcb2->pid = 35;
-
-
-
-	kernel_log = log_create("log_Principal", "kernel.c",1, LOG_LEVEL_TRACE);
+	archivo_logs = log_create("log_Principal", "kernel.c",1, LOG_LEVEL_TRACE);
 	queue_log = log_create("queue_log", "kernel.c",1, LOG_LEVEL_TRACE);//LOG
 
 		 if (argc < 2){
-			 log_error(kernel_log, "No se pasaron parametros.");
-			 log_destroy(kernel_log);
+			 log_error(archivo_logs, "No se pasaron parametros.");
+			 log_destroy(archivo_logs);
 			 return 0;
 		 }
 
 		 if (!archivo_configuracion_valido()){
-		 	 log_error(kernel_log, "El archivo de configuracion no tiene todos los campos necesarios");
+		 	 log_error(archivo_logs, "El archivo de configuracion no tiene todos los campos necesarios");
 		 	 config_destroy(config);
 		 	 return 0;
 		 	 }
 
 
-		 	log_debug(kernel_log, "inicia kernel");
+		 	log_debug(archivo_logs, "inicia kernel");
 
 			NEW = queue_create(); //COLAS
 			READY = queue_create();
@@ -45,7 +37,7 @@ int main(int argc, char **argv){
 			EXEC = queue_create();
 			BLOCK = queue_create();
 
-			log_debug(kernel_log, "colas creadas");
+			log_debug(archivo_logs, "colas creadas");
 			log_debug(queue_log, "prueba");
 
 				sem_init(&mutexNEW, 0, 1);
@@ -54,21 +46,10 @@ int main(int argc, char **argv){
 				sem_init(&mutexEXIT, 0, 1);
 				sem_init(&mutexBLOCK, 0, 1);
 
-					pthread_mutex_init(&mutex_new_queue, NULL );
-					pthread_mutex_init(&mutex_ready_queue, NULL );
-					pthread_mutex_init(&mutex_block_queue, NULL );
-					pthread_mutex_init(&mutex_exec_queue, NULL );
-					pthread_mutex_init(&mutex_exit_queue, NULL );
-
 				semaforos = dictionary_create();
 
-				log_info(kernel_log, "Conectandose con la MSP...");
+				log_info(archivo_logs, "Conectandose con la MSP...");
 
-				agregarProcesoColaNew(tcb1);
-				agregarProcesoColaReady(tcb1);
-				agregarProcesoColaNew(tcb2);
-				agregarProcesoColaReady(tcb2);
-				mostrarColas();
 
 
 					//socket_MSP=conectarseMSP();
@@ -79,56 +60,28 @@ int main(int argc, char **argv){
 			// Esta hilo seria para manejar lo que es el planificador
 
 				pthread_t thread3;
-				pthread_t thread4;
-				pthread_t thread5;
 
 			//	int puerto_CONSOLA = config_get_int_value(config, "PUERTO_PROG");
 				int puerto_CPU =config_get_int_value(config,"PUERTO_CPU");
 
 
 				int	iret3 = pthread_create(&thread3,NULL, (void*)conectarse_Planificador,(void*)puerto_CPU); //HILO PCP
-				int	iret4 = pthread_create(&thread4,NULL, (void*)manejo_cola_ready,(void*)puerto_CPU);
-				int	iret5 = pthread_create(&thread5,NULL, (void*)manejo_cola_exit,(void*)puerto_CPU);
-
-
 
 					if (iret3) {
-						log_error(kernel_log, "Error en la creacion del hilo Planificador");
-						log_destroy(kernel_log);
+						log_error(archivo_logs, "Error en la creacion del hilo Planificador");
+						log_destroy(archivo_logs);
 
 						exit(EXIT_FAILURE);
 
 					}
 
-					if (iret4) {
-						log_error(kernel_log, "Error en la creacion del hilo manejo cola ready");
-						log_destroy(kernel_log);
-
-											exit(EXIT_FAILURE);
-
-										}
-
-												if (iret5) {
-													log_error(kernel_log, "Error en la creacion del hilo manejo cola exit");
-													log_destroy(kernel_log);
-
-													exit(EXIT_FAILURE);
-
-															}
-
-
 
 					pthread_join(thread3,NULL);
-					pthread_join(thread4,NULL);
-					pthread_join(thread5,NULL);
 
 					puts("hola");
-					mostrarColas();
-					free(tcb1);
-					return EXIT_SUCCESS;
 
 
-
+	return EXIT_SUCCESS;
 
 }
 
@@ -152,7 +105,8 @@ bool archivo_configuracion_valido(){
 	if (!config_has_property(config, "QUANTUM"))
 					return 0;
 
-
+	if (!config_has_property(config, "MULTIPROG"))
+						return 0;
 
 	return 1;
 }
@@ -169,39 +123,14 @@ void conectarse_Planificador(){
 
 }
 
+bool _cpuLibre(void* element){
 
-
-
-void ComunicarMuertePrograma(int32_t processFd) {
-
-
-
-}
-
-/*void matarProceso(TCB* aProcess){
-
-	if(StillInside(aProcess->pid)){
-		//log_debug(kernel_log, ("Se elimina del sistema las estructuras asociadas al proceso con PID: %d", aProcess->pid));
-
-		free(aProcess);
-	}
-	else{
-		aProcess->pid = 0;
+		if(((t_client_cpu*)element)->ocupado == false){
+			return true;
+		}
+		return false;
 	}
 
-}
 
-*/
 
-void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, TCB* aProcess){
 
-		int32_t v1 = aProcess->pid;
-
-		t_contenido mensaje;
-		memset(mensaje, 0, sizeof(t_contenido));
-		int quantumss = config_get_int_value(config,QUANTUM);
-		strcpy(mensaje, string_from_format("[%d, %d]", v1,quantumss));
-	//	enviarMensaje(socketCPU, KRN_TO_CPU_PCB, mensaje, kernel_log); NICO HACE ALGO
-		log_info(kernel_log, "Se envía un PCB al CPU libre elegido");
-
-}
