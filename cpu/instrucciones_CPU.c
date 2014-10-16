@@ -210,6 +210,8 @@ void instruccion_JPNZ(int Direccion){
 
 void instruccion_INTE(int32_t Direccion){
 
+	systemCall = 1; //Se produjo un llamado al sistema
+
 	char* rutina_del_kernel = solicitar_rutina_kernel(Direccion);
 
 	if(string_equals_ignore_case(MALC,rutina_del_kernel)){
@@ -220,26 +222,206 @@ void instruccion_INTE(int32_t Direccion){
 
 	}
 
+	if(string_equals_ignore_case(FREE,rutina_del_kernel)){
+
+						int32_t direccion = solicitar_direccion();
+
+						instruccion_FREE(direccion);
+
+		}
+
+
+	if(string_equals_ignore_case(INNN,rutina_del_kernel)){
+
+						int32_t direccion = solicitar_direccion();
+
+						instruccion_INNN(direccion);
+
+		}
+
+	if(string_equals_ignore_case(INNC,rutina_del_kernel)){
+
+							int32_t direccion = solicitar_direccion();
+
+							instruccion_INNC(direccion);
+
+			}
+
+	if(string_equals_ignore_case(OUTN,rutina_del_kernel)){
+
+								int32_t direccion = solicitar_direccion();
+
+								instruccion_OUTN(direccion);
+
+				}
+
+	if(string_equals_ignore_case(CREA,rutina_del_kernel)){
+
+									int32_t direccion = solicitar_direccion();
+
+									instruccion_CREA(direccion);
+
+					}
+
+	if(string_equals_ignore_case(JOIN,rutina_del_kernel)){
+
+										int32_t direccion = solicitar_direccion();
+
+										instruccion_JOIN(direccion);
+
+						}
+
+	if(string_equals_ignore_case(BLOK,rutina_del_kernel)){
+
+											int32_t direccion = solicitar_direccion();
+
+											instruccion_BLOK(direccion);
+
+
+			}
+
+	if(string_equals_ignore_case(WAKE,rutina_del_kernel)){
+
+												int32_t direccion = solicitar_direccion();
+
+												instruccion_WAKE(direccion);
+
+
+				}
+
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void instruccion_MALC(int32_t direccion){
 
+	devolver_TCB();
+
+	// Cargo el resto de la info del TCB y se lo paso al KERNEL
+
 	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
 	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
-	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack)));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
 	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_MALC_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
 
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
-void instruccion_FLCL(){
+void instruccion_FREE(int32_t direccion){
 
-	EFLAG = FLAG_VACIO;
+	devolver_TCB();
+	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_FREE_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_INNN(int32_t direccion){
+
+	devolver_TCB();
+	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_INNN_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_INNC(int32_t direccion){
+
+	devolver_TCB();
+	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_INNC_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_OUTN(int32_t direccion){
+
+	devolver_TCB();
+	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_OUTN_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_CREA(int32_t direccion){
+
+	devolver_TCB();
+	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_CREA_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_JOIN(int32_t direccion){
+
+	devolver_TCB();
+	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_JOIN_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_BLOK(int32_t direccion){
+
+	devolver_TCB();
+	t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+	memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_BLOK_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_XXXX(){
+
+	systemCall = 0; //Se supone que las instrucciones privilegiadas y las que no terminan con la instruccion XXXX entonces lo que hago es poner la system = 0 asi la privilegiada sale del while
+
+	devolver_TCB();
+		t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+		memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+		strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E)));
+		enviarMensaje(socketKernel,CPU_TO_KERNEL_END_PROC,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void instruccion_WAKE(int32_t direccion){
+
+		devolver_TCB();
+		t_contenido mensaje_para_devolverle_el_TCB_al_kernel;
+		memset(mensaje_para_devolverle_el_TCB_al_kernel,0,sizeof(t_contenido));
+		strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
+		enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_WAKE_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
+
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 char* solicitar_rutina_kernel(int32_t Direccion){
+
+
 
 
 
@@ -251,5 +433,19 @@ char* solicitar_rutina_kernel(int32_t Direccion){
 
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
+void devolver_TCB(){
+
+	// Cargo los registros de programacion del TCB con los valores de los registros de la CPU
+
+		TCB->registros_de_programacion.A = A;
+		TCB->registros_de_programacion.B = B;
+		TCB->registros_de_programacion.C = C;
+		TCB->registros_de_programacion.D = D;
+		TCB->registros_de_programacion.E = E;
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

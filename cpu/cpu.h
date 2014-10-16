@@ -42,6 +42,15 @@
 #define ZERO_DIV 1
 #define FLAG_VACIO 0
 
+typedef struct{
+
+	int32_t A;
+	int32_t B;
+	int32_t C;
+	int32_t D;
+	int32_t E;
+
+}t_registros_de_programacion;
 
 typedef struct{
     int pid;
@@ -56,12 +65,14 @@ typedef struct{
 	int base_stack;
 	int cursor_stack;
 
-	int reg_programacion;
+	t_registros_de_programacion registros_de_programacion;
 
 
 }registro_TCB;
 
 registro_TCB *TCB;
+
+
 
 t_dictionary *diccionarioDeVariables;
 t_log *logs;

@@ -11,10 +11,6 @@
 
 #include "cpu.h"
 
-
-
-
-
 int main(int argc, char *argv[]) {
 
 		int32_t mi_pid = 32;
@@ -63,7 +59,7 @@ int main(int argc, char *argv[]) {
 		strcpy(mensaje_para_enviar_al_kernel_con_el_pid, string_from_format("%d", mi_pid));
 		enviarMensaje(socketKernel,CPU_TO_KERNEL_HANDSHAKE,mensaje_para_enviar_al_kernel_con_el_pid,logs);
 
-		//conexion a UMV
+		//conexion a MSP
 			socketMSP = conectarAServidor(ipMSP, puertoMSP);
 			while (socketMSP == EXIT_FAILURE) {
 				log_info(logs,
@@ -118,6 +114,14 @@ int main(int argc, char *argv[]) {
 				TCB->base_stack = atoi(array_para_recibir_el_TCB[6]);
 				TCB->cursor_stack = atoi(array_para_recibir_el_TCB[7]);
 
+				// Cargo los registros del TCB en los registros de la CPU, no estoy seguso si es asi
+
+				A = TCB->registros_de_programacion.A;
+				B = TCB->registros_de_programacion.B;
+				C = TCB->registros_de_programacion.C;
+				D = TCB->registros_de_programacion.D;
+				E = TCB->registros_de_programacion.E;
+
 				int32_t quantum = atoi(array_para_recibir_el_TCB[8]);
 				int32_t offset = TCB->cursor_stack - TCB->base_stack;
 
@@ -148,9 +152,11 @@ int main(int argc, char *argv[]) {
 
 				systemCall = 0;
 
+
 				while(contador < quantum && !systemCall){
 
-					//Pido la instruccion a la MSP
+					//Pido la instruccion a la MSP --> Me debera pasar solo los primero 4 bytes EJ : "LOAD"
+
 					t_contenido mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP;
 					memset(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,0,sizeof(t_contenido));
 					strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",TCB->pid,TCB->indice_codigo,TCB->puntero_instruccion));
@@ -164,9 +170,6 @@ int main(int argc, char *argv[]) {
 					}
 
 					program_counter = TCB->puntero_instruccion;
-		//			char* etiqueta_Instruccion = recibir_Instruccion();
-
-					// zaraza que pasa de cadena de string a entero
 
 					char* instruccion;
 
@@ -183,6 +186,36 @@ int main(int argc, char *argv[]) {
 						}
 
 				}//Fin del while(contador < quantum && !systemCall)
+
+				while(systemCall){ //Para salir modifico en la instruccion XXXX el systemCall = 0
+
+					//Pido la instruccion a la MSP
+									t_contenido mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP;
+									memset(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,0,sizeof(t_contenido));
+									strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",TCB->pid,TCB->indice_codigo,TCB->puntero_instruccion));
+									enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);
+
+									t_header mensaje_recibido_de_la_MSP_a_la_solicitud_de_la_instruccion = recibirMensaje(socketMSP,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);
+
+									if(mensaje_recibido_de_la_MSP_a_la_solicitud_de_la_instruccion == ERR_CONEXION_CERRADA){
+										log_info(logs, "Se cerró la conexion con la MSP");
+										exit(EXIT_FAILURE);
+									}
+
+									program_counter = TCB->puntero_instruccion;
+
+									char* instruccion;
+
+									instruccion = "LOAD";
+
+									buscador_de_instruccion(instruccion);
+
+									if (program_counter == TCB->puntero_instruccion) //Por si hay un llamado al sistema no aumentar el program_counter para no pisar la primer intruccion
+										TCB->puntero_instruccion++;
+
+
+				}//Fin while(systemCall)
+
 
 			}//Fin del if(encabezado_recibido_por_el_kernel == KRN_TO_CPU_TCB)
 

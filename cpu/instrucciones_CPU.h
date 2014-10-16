@@ -11,7 +11,14 @@
 #include "cpu.h"
 
 #define MALC "MALC"
-
+#define FREE "FREE"
+#define INNN "INNN"
+#define INNC "INNC"
+#define OUTN "OUTN"
+#define CREA "CREA"
+#define JOIN "JOIN"
+#define BLOK "BLOK"
+#define WAKE "WAKE"
 
 void instruccion_LOAD(int32_t Registro,int32_t Numero);
 
@@ -49,12 +56,28 @@ void instruccion_JPNZ(int32_t Direccion);
 
 void instruccion_INTE(int32_t Direccion);
 
-void instruccion_FLCL();
+void instruccion_MALC(int32_t direccion);
 
-void instruccion_MALC();
+void instruccion_FREE(int32_t direccion);
+
+void instruccion_INNN(int32_t direccion);
+
+void instruccion_INNC(int32_t direccion);
+
+void instruccion_OUTN(int32_t direccion);
+
+void instruccion_CREA(int32_t direccion);
+
+void instruccion_JOIN(int32_t direccion);
+
+void instruccion_BLOK(int32_t direccion);
+
+void instruccion_XXXX();
+
+void instruccion_WAKE(int32_t direccion);
 
 char* solicitar_rutina_kernel(int32_t Direccion);
 
-
+void devolver_TCB();
 
 #endif /* INSTRUCCIONES_CPU_H_ */
