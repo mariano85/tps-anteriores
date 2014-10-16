@@ -16,9 +16,8 @@
 #include <unistd.h>
 
 /*Commons includes*/
-#include <string.h>
-#include  <commons/log.h>
-#include <commons/string.h>
+#include "string.h"
+#include "log.h"
 
 #define MSG_SIZE 256
 #define STRUCT_SIZE (MSG_SIZE + sizeof(t_header))
@@ -81,15 +80,15 @@ typedef enum {
 
 	KERNEL_TO_MSP_MEM_REQ,
 	KERNEL_TO_MSP_ELIMINAR_SEGMENTOS,
-	KERNEL_TO_MSP_HANDHAKE,
+	KERNEL_TO_MSP_HANDSHAKE,
 	KERNEL_TO_MSP_ENVIAR_BYTES,
 	KERNEL_TO_MSP_ENVIAR_ETIQUETAS,
 	KERNEL_TO_MSP_SOLICITAR_BYTES,
 
 	/*Enviados desde el programa*/
-	PRG_TO_KRN_HANDSHAKE,
-	PRG_TO_KRN_CODE,		   // codigo Ansisop
-	PRG_TO_KRN_OK,
+	CON_TO_KRN_HANDSHAKE,
+	CON_TO_KRN_CODE,		   // codigo Ansisop
+	CON_TO_KRN_OK,
 
 	/*Enviados desde el cpu*/
 	CPU_TO_MSP_INDICEYLINEA,
