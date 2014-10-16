@@ -1,0 +1,79 @@
+[ERROR] 23:24:12:912 CPU.c/(1784:1784): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 23:24:23:272 CPU.c/(1808:1808): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 23:26:36:543 CPU.c/(1881:1881): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 23:29:15:521 CPU.c/(2057:2057): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 23:30:09:494 CPU.c/(2079:2079): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 08:58:38:388 CPU.c/(1702:1702): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 08:58:48:9 CPU.c/(1722:1722): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 09:01:18:805 CPU.c/(1855:1855): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 09:02:28:783 CPU.c/(1935:1935): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 09:03:17:153 CPU.c/(2014:2014): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 09:04:24:365 CPU.c/(2095:2095): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 09:28:28:617 CPU.c/(2784:2784): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 09:33:25:110 CPU.c/(2957:2957): El archivo de configuracion no tiene todos los campos necesarios
+[ERROR] 09:40:18:58 CPU.c/(3150:3150): El archivo de configuracion no tiene todos los campos necesarios
+[INFO] 10:00:51:603 CPU.c/(4488:4488): Archivo de configuracion levantado correctamente
+[INFO] 10:06:16:347 CPU.c/(4616:4616): Archivo de configuracion levantado correctamente
+[INFO] 10:15:39:959 CPU.c/(4993:4993): Archivo de configuracion levantado correctamente
+[INFO] 10:32:40:433 CPU.c/(5279:5279): Archivo de configuracion levantado correctamente
+[INFO] 10:47:01:596 CPU.c/(5774:5774): Archivo de configuracion levantado correctamente
+[INFO] 10:49:47:643 CPU.c/(5962:5962): Archivo de configuracion levantado correctamente
+[INFO] 10:50:47:52 CPU.c/(6037:6037): Archivo de configuracion levantado correctamente
+[INFO] 11:09:53:70 CPU.c/(6560:6560): Archivo de configuracion levantado correctamente
+[INFO] 11:11:14:910 CPU.c/(6655:6655): Archivo de configuracion levantado correctamente
+[INFO] 11:11:51:747 CPU.c/(6730:6730): Archivo de configuracion levantado correctamente
+[INFO] 11:13:16:404 CPU.c/(6834:6834): Archivo de configuracion levantado correctamente
+[INFO] 11:15:25:110 CPU.c/(6900:6900): Archivo de configuracion levantado correctamente
+[INFO] 11:18:41:852 CPU.c/(7027:7027): Archivo de configuracion levantado correctamente
+[INFO] 11:28:11:421 CPU.c/(7223:7223): Archivo de configuracion levantado correctamente
+[INFO] 11:29:14:570 CPU.c/(7223:7223): Se conecto con la UMV correctamente
+[INFO] 11:32:03:147 CPU.c/(7367:7367): Archivo de configuracion levantado correctamente
+[INFO] 11:34:17:864 CPU.c/(7484:7484): Archivo de configuracion levantado correctamente
+[INFO] 11:36:50:832 CPU.c/(7605:7605): Archivo de configuracion levantado correctamente
+[INFO] 11:41:25:218 CPU.c/(7819:7819): Archivo de configuracion levantado correctamente
+[INFO] 11:51:06:772 CPU.c/(8044:8044): Archivo de configuracion levantado correctamente
+[ERROR] 11:52:09:927 CPU.c/(8044:8044): No se pudo conectar a la MSP correctamente
+[INFO] 16:46:07:948 CPU.c/(3297:3297): Archivo de configuracion levantado correctamente
+[ERROR] 16:47:11:118 CPU.c/(3297:3297): No se pudo conectar al Kernel correctamente
+[ERROR] 16:48:14:222 CPU.c/(3297:3297): No se pudo conectar a la MSP correctamente
+[INFO] 17:20:36:875 CPU.c/(4361:4361): Archivo de configuracion levantado correctamente
+[ERROR] 17:21:39:979 CPU.c/(4361:4361): No se pudo conectar al Kernel correctamente
+[ERROR] 17:22:43:84 CPU.c/(4361:4361): No se pudo conectar a la MSP correctamente
+[INFO] 10:55:03:427 CPU.c/(2202:2202): Archivo de configuracion levantado correctamente
+[INFO] 10:56:07:421 CPU.c/(2303:2303): Archivo de configuracion levantado correctamente
+[ERROR] 10:57:10:518 CPU.c/(2303:2303): No se pudo conectar al Kernel correctamente
+[ERROR] 10:58:13:621 CPU.c/(2303:2303): No se pudo conectar a la MSP correctamente
+[ERROR] 10:58:13:624 CPU.c/(2303:2303): [Problema de envio - Sockets] Se produjo un problema al enviar el menu
+[ERROR] 10:58:13:625 CPU.c/(2303:2303): [Problema de envio - Sockets] Se produjo un problema al recibir el tamanio del dato
+[ERROR] 10:58:13:627 CPU.c/(2303:2303): Se produjo un error al recibir el quantum del kernel
+[INFO] 13:13:54:507 CPU.c/(5129:5129): Archivo de configuracion levantado correctamente
+[ERROR] 13:14:57:662 CPU.c/(5129:5129): No se pudo conectar al Kernel correctamente
+[ERROR] 13:16:00:763 CPU.c/(5129:5129): No se pudo conectar a la MSP correctamente
+[ERROR] 13:16:00:765 CPU.c/(5129:5129): [Problema de envio - Sockets] Se produjo un problema al enviar el menu
+[ERROR] 13:16:00:766 CPU.c/(5129:5129): [Problema de envio - Sockets] Se produjo un problema al recibir el tamanio del dato
+[ERROR] 13:16:00:768 CPU.c/(5129:5129): Se produjo un error al recibir el quantum del kernel
+[INFO] 16:43:49:265 CPU.c/(8197:8197): Archivo de configuracion levantado correctamente
+[ERROR] 16:44:52:414 CPU.c/(8197:8197): No se pudo conectar al Kernel correctamente
+[ERROR] 16:45:55:578 CPU.c/(8197:8197): No se pudo conectar a la MSP correctamente
+[ERROR] 16:45:55:580 CPU.c/(8197:8197): [Problema de envio - Sockets] Se produjo un problema al enviar el menu
+[ERROR] 16:45:55:582 CPU.c/(8197:8197): [Problema de envio - Sockets] Se produjo un problema al recibir el tamanio del dato
+[ERROR] 16:45:55:584 CPU.c/(8197:8197): Se produjo un error al recibir el quantum del kernel
+[INFO] 19:55:21:654 CPU.c/(11007:11007): Archivo de configuracion levantado correctamente
+[ERROR] 19:56:24:763 CPU.c/(11007:11007): No se pudo conectar al Kernel correctamente
+[ERROR] 19:57:27:930 CPU.c/(11007:11007): No se pudo conectar a la MSP correctamente
+[ERROR] 19:57:27:932 CPU.c/(11007:11007): [Problema de envio - Sockets] Se produjo un problema al enviar el menu
+[ERROR] 19:57:27:934 CPU.c/(11007:11007): [Problema de envio - Sockets] Se produjo un problema al recibir el tamanio del dato
+[ERROR] 19:57:27:936 CPU.c/(11007:11007): Se produjo un error al recibir el quantum del kernel
+[INFO] 20:01:38:75 CPU.c/(11195:11195): Archivo de configuracion levantado correctamente
+[ERROR] 20:02:41:210 CPU.c/(11195:11195): No se pudo conectar al Kernel correctamente
+[ERROR] 20:03:44:380 CPU.c/(11195:11195): No se pudo conectar a la MSP correctamente
+[ERROR] 20:03:44:382 CPU.c/(11195:11195): [Problema de envio - Sockets] Se produjo un problema al enviar el menu
+[ERROR] 20:03:44:388 CPU.c/(11195:11195): [Problema de envio - Sockets] Se produjo un problema al recibir el tamanio del dato
+[ERROR] 20:03:44:390 CPU.c/(11195:11195): Se produjo un error al recibir el quantum del kernel
+[INFO] 20:19:04:85 CPU.c/(12012:12012): Archivo de configuracion levantado correctamente
+[ERROR] 20:20:07:227 CPU.c/(12012:12012): No se pudo conectar al Kernel correctamente
+[ERROR] 20:21:10:396 CPU.c/(12012:12012): No se pudo conectar a la MSP correctamente
+[ERROR] 20:21:10:396 CPU.c/(12012:12012): [Problema de envio - Sockets] Se produjo un problema al enviar el menu
+[ERROR] 20:21:10:398 CPU.c/(12012:12012): [Problema de envio - Sockets] Se produjo un problema al recibir el tamanio del dato
+[ERROR] 20:21:10:399 CPU.c/(12012:12012): Se produjo un error al recibir el quantum del kernel
+[INFO] 20:37:41:164 CPU.c/(12835:12835): Archivo de configuracion levantado correctamente
