@@ -80,4 +80,6 @@ char* solicitar_rutina_kernel(int32_t Direccion);
 
 void devolver_TCB();
 
+void recibir_el_TCB_modo_Kernel();
+
 #endif /* INSTRUCCIONES_CPU_H_ */

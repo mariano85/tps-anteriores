@@ -58,4 +58,6 @@ int32_t solicitar_numero();
 
 int32_t solicitar_direccion();
 
+void manejar_senial(int n);
+
 #endif /* FUNCIONES_CPU_H_ */

@@ -39,7 +39,13 @@ int main(int argc, char *argv[]) {
 		//creo diccionario de variables
 		diccionarioDeVariables = dictionary_create();
 
-		// me conecto al kernel y memoria
+			// signals
+				signal(SIGINT,manejar_senial);
+				signal(SIGTERM,manejar_senial);
+				signal(SIGUSR1,manejar_senial);
+
+
+		// me conecto al kernel y MSP
 		log_info(logs, "Conexion a kernel ip:%s y puerto:%d", ipKernel, puertoKernel);
 		log_info(logs, "Conexion a MSP ip:%s y puerto:%d", ipMSP, puertoMSP);
 
@@ -72,7 +78,7 @@ int main(int argc, char *argv[]) {
 		//Hago el handshake con la MSP
 		enviarMensaje(socketMSP,CPU_TO_MSP_HANDSHAKE,"",logs);
 
-		int seguir = 1;
+		 seguir = 1;
 
 		while(seguir){ //Este while sirve para que quede en la espera de nuevos cpu's sino haria el ciclo de ejecucion de uno solo y se me cerraria
 
@@ -124,6 +130,7 @@ int main(int argc, char *argv[]) {
 
 				int32_t quantum = atoi(array_para_recibir_el_TCB[8]);
 				int32_t offset = TCB->cursor_stack - TCB->base_stack;
+				int32_t Modo = TCB->indicador_modo_kernel;
 
 				t_contenido mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario;
 
@@ -153,7 +160,7 @@ int main(int argc, char *argv[]) {
 				systemCall = 0;
 
 
-				while(contador < quantum && !systemCall){
+				while(contador < quantum && !systemCall && Modo == MODO_USUARIO){
 
 					//Pido la instruccion a la MSP --> Me debera pasar solo los primero 4 bytes EJ : "LOAD"
 
@@ -187,7 +194,7 @@ int main(int argc, char *argv[]) {
 
 				}//Fin del while(contador < quantum && !systemCall)
 
-				while(systemCall){ //Para salir modifico en la instruccion XXXX el systemCall = 0
+				while(systemCall && TCB->indicador_modo_kernel == MODO_KERNEL ){ //Para salir modifico en la instruccion XXXX el systemCall = 0
 
 					//Pido la instruccion a la MSP
 									t_contenido mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP;
@@ -216,6 +223,7 @@ int main(int argc, char *argv[]) {
 
 				}//Fin while(systemCall)
 
+				ejecutando = 0;
 
 			}//Fin del if(encabezado_recibido_por_el_kernel == KRN_TO_CPU_TCB)
 
@@ -229,7 +237,15 @@ int main(int argc, char *argv[]) {
 				strcpy(mensaje_para_avisarle_al_kernel_que_finalizo_QUANTUM_le_envio_TCB, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack));
 				enviarMensaje(socketKernel,CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE,mensaje_para_avisarle_al_kernel_que_finalizo_QUANTUM_le_envio_TCB,logs);
 
-			//	t_header mensaje_respuesta_al_envio_del_TCB = recibirMensaje(socketKernel,KERNEL_TO_CPU_OK,logs);
+				t_header mensaje_respuesta_al_envio_del_TCB = recibirMensaje(socketKernel,"",logs);
+
+				if(mensaje_respuesta_al_envio_del_TCB == ERR_ERROR_AL_ENVIAR_MSG){
+					log_info(logs,"El kernel no recibio el TCB");
+					exit(EXIT_FAILURE);
+
+				}
+
+				free(TCB);
 
 			}
 
@@ -243,6 +259,34 @@ int main(int argc, char *argv[]) {
 
 			return EXIT_SUCCESS;
 }
+
+void manejar_senial(int senial){
+
+	switch(senial){
+
+	case SIGTERM:
+	case SIGUSR1:
+	case SIGINT:
+
+		if(!ejecutando){
+						log_info(logs, "Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]");
+						exit(0);
+					}
+					else if(!seguir) {
+						log_info(logs, "Se recibio SIGINT por SEGUNDA vez, cierro el CPU [FIN]");
+						exit(0);
+					}
+					else{
+						log_info(logs, "Se recibio SIGINT, termino el CPU despues de concluir ejecucion de quantum");
+						seguir = false;
+					}
+					break;
+				default:
+					log_warning(logs, "Se recibio una señal no manejada..");
+					break;
+			}
+		}
+
 
 
 

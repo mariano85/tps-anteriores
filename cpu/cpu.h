@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <signal.h>
 #include <string.h>
 
 #include <netdb.h>
@@ -28,6 +28,9 @@
 #include "funciones_CPU.h"
 #include "instrucciones_CPU.h"
 #include "sockets.h"
+
+#define MODO_KERNEL 0
+#define MODO_USUARIO 1
 
 
 #define PROGRAMA_CONF_PATH "configuracion.conf"
@@ -77,7 +80,7 @@ registro_TCB *TCB;
 t_dictionary *diccionarioDeVariables;
 t_log *logs;
 t_config* config;
-
+int seguir;
 
 
 //Registro CPU despues veremos como los agrupamos

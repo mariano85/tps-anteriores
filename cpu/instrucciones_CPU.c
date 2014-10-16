@@ -305,6 +305,10 @@ void instruccion_MALC(int32_t direccion){
 	strcpy(mensaje_para_devolverle_el_TCB_al_kernel,strcpy(mensaje_para_devolverle_el_TCB_al_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_indice_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,direccion)));
 	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION_POR_MALC_BLOQUEAR_PROCESO,mensaje_para_devolverle_el_TCB_al_kernel,logs);
 
+	//Necesito que me mande el TCB del Kernel
+
+	recibir_el_TCB_modo_Kernel();
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -448,4 +452,18 @@ void devolver_TCB(){
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void recibir_el_TCB_modo_Kernel(){
+
+	//Me preparo para recbir el TCB KERNEL y volveria a la ejecucion del programa pero como estoy en modo kernel y systemcall = 1 paso al while de abajo en cpu.c
+
+		t_contenido mensaje_para_recibir_el_TCB_del_kernel;
+
+		t_header mensaje_del_kernel_que_me_mando_el_TCB_modo_kernel = recibirMensaje(socketKernel,mensaje_para_recibir_el_TCB_del_kernel,logs);
+
+		if(mensaje_del_kernel_que_me_mando_el_TCB_modo_kernel!= KERNEL_TO_CPU_TCB_MODO_KERNEL){
+							log_info(logs, "Se cerró la conexion con el KERNEL");
+							exit(EXIT_FAILURE);
+						}
+}
 
