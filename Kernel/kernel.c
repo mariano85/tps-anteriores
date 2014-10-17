@@ -6,8 +6,7 @@
  */
 
 #include "kernel.h"
-extern t_log* logKernel;
-t_log* queueLog;
+
 
 int main(){
 
@@ -23,8 +22,15 @@ int main(){
 
 	initKernel();
 
-	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
-	pthread_join(loaderThread.tid, NULL);
+	//pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
+	pthread_create(&conectarsePlanificadorThread.tid, NULL, (void*) conectarse_Planificador, (void*) &loaderThread);
+	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
+
+	//pthread_join(loaderThread.tid, NULL);
+	pthread_join(conectarsePlanificadorThread.tid, NULL);
+	pthread_join(manejoColaReadyThread.tid, NULL);
+	pthread_join(manejoColaExitThread.tid, NULL);
 
 	finishKernel();
 
@@ -46,11 +52,11 @@ void initKernel(){
 	pthread_mutex_init(&mutex_cpu_list, NULL);
 
 	//Inicializa colas
-	new_queue = queue_create();
-	ready_queue = queue_create();
-	block_queue = queue_create();
-	exec_queue = queue_create();
-	exit_queue = queue_create();
+	NEW= queue_create();
+	READY= queue_create();
+	BLOCK= queue_create();
+	EXEC= queue_create();
+	EXIT= queue_create();
 
 	//Inicializa semaforo de colas
 	pthread_mutex_init(&mutex_new_queue, NULL );
@@ -61,12 +67,12 @@ void initKernel(){
 
 	/*Se valida que en el sistema exista una instancia de la UMV levantada. Esto es indispensable
 	 * para lograr reservar segmentos para posibles clientes programas*/
-	 socketUMV = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+	 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
 
-	 while (socketUMV == EXIT_FAILURE) {
+	 while (socketMSP == EXIT_FAILURE) {
 		 log_info(logKernel, "Despierten a la MSP! Se reintenta conexion en unos segundos ;) \n");
 		 sleep(5);
-		 socketUMV = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+		 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
 	 }
 
 	 handshakeMSP();
@@ -79,7 +85,7 @@ void handshakeMSP() {
 
 	t_contenido mensaje;
 	// deberiamos formatear el mensaje todo en 0's
-	enviarMensaje(socketUMV, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
+	//enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
 
 }
 
@@ -170,5 +176,63 @@ void eliminarSegmentos(int32_t pid){
 }
 
 void killProcess(t_process* aProcess){
+
+	if(stillInside(aProcess->process_fd)){
+			log_info(logKernel, string_from_format("Se elimina del sistema las estructuras asociadas al proceso con PID: %d", aProcess->tcb->pid));
+			free(aProcess->tcb);
+			free(aProcess);
+		}
+		else{
+			aProcess->process_fd = 0;
+		}
 	log_info(logKernel, "implementar killProcess pid: %d", aProcess->tcb->pid);
+}
+
+
+
+
+void conectarse_Planificador(){
+
+
+	puts("Hola soy un hilo y ando jajajaj");
+
+
+
+
+
+}
+
+
+t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
+
+	bool _match_cpu_fd(void* element){
+		if(((t_client_cpu*)element)->cpuFD == cpuFd){
+			return true;
+		}
+		return false;
+	}
+
+	return list_find(cpu_client_list, (void*)_match_cpu_fd);
+}
+
+
+t_process* getProcessStructureByBESOCode(char* code, int32_t pid, int32_t fd){
+
+
+
+		t_process* proceso = malloc(sizeof(t_process));
+		t_tcb* process_pcb = malloc(sizeof(t_tcb));
+		proceso->tcb = process_pcb;
+		proceso->tcb->pid = pid;
+
+
+		strcpy(proceso->blockedBySemaphore, NO_SEMAPHORE);
+		proceso->process_fd = fd;
+
+
+
+
+
+
+	return proceso;
 }

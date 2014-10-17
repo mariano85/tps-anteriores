@@ -8,6 +8,8 @@
 #ifndef KERNEL_H_
 #define KERNEL_H_
 
+
+
 /*System includes*/
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,6 +41,10 @@
 #define MODO_KERNEL 1
 #define MODO_USUARIO 0
 
+t_log* queueLog;
+t_log* logKernel;
+
+
 typedef struct s_tcb{
     int32_t pid;
 	int32_t tid;
@@ -50,6 +56,7 @@ typedef struct s_tcb{
 	int32_t puntero_instruccion;
 	int32_t base_stack;
 	int32_t cursor_stack;
+	int32_t instruction;
 
 	int reg_programacion;
 } t_tcb;
@@ -57,7 +64,8 @@ typedef struct s_tcb{
 typedef struct s_thread {
 	t_tcb* tcb;
 	int32_t process_fd;
-	bool in_umv;
+	char blockedBySemaphore[100];
+	bool existe_msp;
 } t_process;
 
 typedef struct s_config_kernel{
@@ -70,16 +78,18 @@ typedef struct s_config_kernel{
 	char* SYSCALLS;
 } t_config_kernel;
 
+
+
 t_config_kernel config_kernel;
 
-int32_t socketUMV;
+int32_t socketMSP;
 t_list *cpu_client_list;
 
-t_queue *new_queue;
-t_queue *ready_queue;
-t_queue *block_queue;
-t_queue *exec_queue;
-t_queue *exit_queue;
+t_queue *NEW;
+t_queue *READY;
+t_queue *BLOCK;
+t_queue *EXEC;
+t_queue *EXIT;
 
 pthread_mutex_t mutex_new_queue;
 pthread_mutex_t mutex_ready_queue;
@@ -88,7 +98,7 @@ pthread_mutex_t mutex_exec_queue;
 pthread_mutex_t mutex_exit_queue;
 
 pthread_mutex_t mutex_cpu_list;
-
+pthread_mutex_t mutexCPUDISP;
 
 /*
  * hilo loader
@@ -98,7 +108,22 @@ typedef struct loader {
 	//int32_t fdPipe[2];  fdPipe[0] de lectura/ fdPipe[1] de escritura (Prueba)
 } t_loaderThread;
 
+typedef struct s_client_cpu{
+	int32_t processFd;
+	int32_t processPID;
+	int32_t cpuPID;
+	int32_t cpuFD;
+	bool ocupado;
+}t_client_cpu;
+
+t_list *cpu_disponibles_list;
+
+
+
 t_loaderThread loaderThread;
+t_loaderThread conectarsePlanificadorThread;
+t_loaderThread manejoColaReadyThread;
+t_loaderThread manejoColaExitThread;
 
 // funciones del kernel
 void finishKernel();
@@ -108,26 +133,53 @@ void loadConfig();
 void comunicarMuertePrograma(int32_t processFd, bool wasInUmv);
 void eliminarSegmentos(int32_t pID) ;
 void killProcess(t_process* aProcess);
+void conectarse_Planificador();
+t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
+void *get_in_addr(struct sockaddr *sa);
 
-//Metodos process_queue_manager
+
+
+
+
+
+
+
+
+
+
+
+/* FUNCIONES MANEJO COLA
+ *
+ */
+t_log* queueLog;
+
+
+void mostrarColas();
+void mostrarCola(t_queue* aQueue, pthread_mutex_t queueMutex, t_log* logger);
+void agregarProcesoColaNew(t_process* aProcess);
+void agregarProcesoColaReady(t_process* aProcess);
+void agregarProcesoColaExec();
+void agregarProcesoColaExit(t_process* aProcess);
+void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey, char* ioKey, int32_t io_tiempo);
+void manejo_cola_ready(void);
+void manejo_cola_exit(void);
+void chequearProcesos();
+int32_t cantDeProcesosEnSistema();
+bool NoBodyHereBySemaphore(t_list* aList);
+void removeProcess(int32_t processPID, bool someoneKilledHim);
+
 bool stillInside(int32_t processFd);
 int32_t getProcessPidByFd(int32_t fd);
 t_process* getProcessStructureByBESOCode(char* stringCode, int32_t PID, int32_t fd);
+pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, condpBlockedProcess;
 
-void checkNewProcesses();
 
-void printQueues();
-void printQueue(t_queue* aQueue, pthread_mutex_t queueMutex, t_log* logger);
+char* NO_SEMAPHORE;
 
-void addNewProcess(t_process* aProcess);
-void addReadyProcess(t_process* aProcess);
-void addExecProcess();
-void addExitProcess(t_process* aProcess);
-void addBlockedProcess(int32_t processFd, char* semaphoreKey, char* ioKey, int32_t io_tiempo);
-void removeProcess(int32_t processPID, bool someoneKilledHim);
+
 
 #endif /* KERNEL_H_ */
 
