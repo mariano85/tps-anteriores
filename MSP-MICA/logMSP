@@ -1,218 +1,408 @@
 [TRACE] 01:23:13:469 MSP/(16467:16467): MSP inicio su ejecucion
-[TRACE] 01:23:13:477 MSP/(16467:16467): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 01:23:13:477 MSP/(16467:16467): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 01:36:49:117 MSP/(16672:16672): MSP inicio su ejecucion
-[TRACE] 01:36:49:129 MSP/(16672:16672): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 01:36:49:129 MSP/(16672:16672): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 04:42:19:116 MSP/(19470:19470): MSP inicio su ejecucion
-[TRACE] 04:42:19:125 MSP/(19470:19470): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 04:42:19:125 MSP/(19470:19470): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 04:45:01:568 MSP/(19562:19562): MSP inicio su ejecucion
-[TRACE] 04:45:01:585 MSP/(19562:19562): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 04:45:01:585 MSP/(19562:19562): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 04:45:26:777 MSP/(19602:19602): MSP inicio su ejecucion
-[TRACE] 04:45:26:790 MSP/(19602:19602): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 04:45:26:790 MSP/(19602:19602): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 04:45:41:574 MSP/(19641:19641): MSP inicio su ejecucion
-[TRACE] 04:45:41:580 MSP/(19641:19641): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 04:45:41:580 MSP/(19641:19641): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 04:46:01:896 MSP/(19677:19677): MSP inicio su ejecucion
-[TRACE] 04:46:01:917 MSP/(19677:19677): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 04:46:01:917 MSP/(19677:19677): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 04:46:18:553 MSP/(19713:19713): MSP inicio su ejecucion
-[TRACE] 04:46:18:557 MSP/(19713:19713): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 04:46:18:557 MSP/(19713:19713): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 04:48:43:619 MSP/(19760:19760): MSP inicio su ejecucion
-[TRACE] 04:48:43:628 MSP/(19760:19760): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 04:48:43:628 MSP/(19760:19760): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 04:48:43:632 MSP/(19760:19760): Error, la dirección ingresada es inválida.
 [TRACE] 06:18:27:567 MSP/(21116:21116): MSP inicio su ejecucion
-[TRACE] 06:18:27:573 MSP/(21116:21116): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 06:18:27:573 MSP/(21116:21116): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 06:20:00:156 MSP/(21164:21164): MSP inicio su ejecucion
-[TRACE] 06:20:00:163 MSP/(21164:21164): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 06:20:00:163 MSP/(21164:21164): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 17:37:47:354 MSP/(21705:21705): MSP inicio su ejecucion
-[TRACE] 17:37:47:363 MSP/(21705:21705): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 17:37:47:363 MSP/(21705:21705): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 17:54:47:235 MSP/(21903:21903): MSP inicio su ejecucion
-[TRACE] 17:54:47:246 MSP/(21903:21903): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 17:54:47:246 MSP/(21903:21903): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:13:54:625 MSP/(22112:22112): MSP inicio su ejecucion
-[TRACE] 18:13:54:642 MSP/(22112:22112): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:13:54:642 MSP/(22112:22112): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:14:18:716 MSP/(22157:22157): MSP inicio su ejecucion
-[TRACE] 18:14:18:726 MSP/(22157:22157): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:14:18:726 MSP/(22157:22157): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 11:53:09:792 MSP/(23162:23162): MSP inicio su ejecucion
-[TRACE] 11:53:09:799 MSP/(23162:23162): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 11:53:09:799 MSP/(23162:23162): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:02:54:601 MSP/(23289:23289): MSP inicio su ejecucion
-[TRACE] 12:02:54:613 MSP/(23289:23289): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:02:54:613 MSP/(23289:23289): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 12:02:54:617 MSP/(23289:23289): Error, la dirección ingresada es inválida.
 [TRACE] 12:02:56:782 MSP/(23303:23303): MSP inicio su ejecucion
-[TRACE] 12:02:56:785 MSP/(23303:23303): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:02:56:785 MSP/(23303:23303): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 12:02:56:808 MSP/(23303:23303): Error, la dirección ingresada es inválida.
 [TRACE] 12:03:30:517 MSP/(23347:23347): MSP inicio su ejecucion
-[TRACE] 12:03:30:520 MSP/(23347:23347): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:03:30:520 MSP/(23347:23347): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:10:52:80 MSP/(23453:23453): MSP inicio su ejecucion
-[TRACE] 12:10:52:95 MSP/(23453:23453): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:10:52:95 MSP/(23453:23453): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:11:23:388 MSP/(23490:23490): MSP inicio su ejecucion
-[TRACE] 12:11:23:391 MSP/(23490:23490): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:11:23:391 MSP/(23490:23490): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:12:07:300 MSP/(23524:23524): MSP inicio su ejecucion
-[TRACE] 12:12:07:302 MSP/(23524:23524): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:12:07:302 MSP/(23524:23524): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:13:05:243 MSP/(23574:23574): MSP inicio su ejecucion
-[TRACE] 12:13:05:265 MSP/(23574:23574): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:13:05:265 MSP/(23574:23574): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:14:03:466 MSP/(23609:23609): MSP inicio su ejecucion
-[TRACE] 12:14:03:469 MSP/(23609:23609): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:14:03:469 MSP/(23609:23609): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:14:30:181 MSP/(23654:23654): MSP inicio su ejecucion
-[TRACE] 12:14:30:202 MSP/(23654:23654): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:14:30:202 MSP/(23654:23654): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:17:47:468 MSP/(23705:23705): MSP inicio su ejecucion
-[TRACE] 12:17:47:471 MSP/(23705:23705): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:17:47:471 MSP/(23705:23705): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:20:14:678 MSP/(23756:23756): MSP inicio su ejecucion
-[TRACE] 12:20:14:680 MSP/(23756:23756): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:20:14:680 MSP/(23756:23756): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:22:31:192 MSP/(23801:23801): MSP inicio su ejecucion
-[TRACE] 12:22:31:199 MSP/(23801:23801): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:22:31:199 MSP/(23801:23801): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:22:33:685 MSP/(23815:23815): MSP inicio su ejecucion
-[TRACE] 12:22:33:699 MSP/(23815:23815): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:22:33:699 MSP/(23815:23815): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:23:55:1 MSP/(23855:23855): MSP inicio su ejecucion
-[TRACE] 12:23:55:3 MSP/(23855:23855): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:23:55:3 MSP/(23855:23855): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:27:23:126 MSP/(23947:23947): MSP inicio su ejecucion
-[TRACE] 12:27:23:129 MSP/(23947:23947): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:27:23:129 MSP/(23947:23947): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:29:20:848 MSP/(23999:23999): MSP inicio su ejecucion
-[TRACE] 12:29:20:853 MSP/(23999:23999): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:29:20:853 MSP/(23999:23999): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:32:33:614 MSP/(24056:24056): MSP inicio su ejecucion
-[TRACE] 12:32:33:617 MSP/(24056:24056): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:32:33:617 MSP/(24056:24056): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:33:41:381 MSP/(24096:24096): MSP inicio su ejecucion
-[TRACE] 12:33:41:383 MSP/(24096:24096): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:33:41:383 MSP/(24096:24096): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 12:34:22:845 MSP/(24146:24146): MSP inicio su ejecucion
-[TRACE] 12:34:22:879 MSP/(24146:24146): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 12:34:22:879 MSP/(24146:24146): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 15:45:29:282 MSP/(25872:25872): MSP inicio su ejecucion
-[TRACE] 15:45:29:291 MSP/(25872:25872): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:45:29:291 MSP/(25872:25872): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 15:45:29:299 MSP/(25872:25872): Error, violación de segmento.
 [TRACE] 15:46:47:631 MSP/(26101:26101): MSP inicio su ejecucion
-[TRACE] 15:46:47:633 MSP/(26101:26101): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:46:47:633 MSP/(26101:26101): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 15:46:47:654 MSP/(26101:26101): Error, violación de segmento.
 [TRACE] 15:47:57:916 MSP/(26248:26248): MSP inicio su ejecucion
-[TRACE] 15:47:57:919 MSP/(26248:26248): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:47:57:919 MSP/(26248:26248): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 15:49:08:957 MSP/(26301:26301): MSP inicio su ejecucion
-[TRACE] 15:49:08:959 MSP/(26301:26301): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:49:08:959 MSP/(26301:26301): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 15:51:04:237 MSP/(26358:26358): MSP inicio su ejecucion
-[TRACE] 15:51:04:240 MSP/(26358:26358): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:51:04:240 MSP/(26358:26358): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 15:51:16:305 MSP/(26377:26377): MSP inicio su ejecucion
-[TRACE] 15:51:16:306 MSP/(26377:26377): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:51:16:306 MSP/(26377:26377): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 15:51:17:736 MSP/(26383:26383): MSP inicio su ejecucion
-[TRACE] 15:51:17:738 MSP/(26383:26383): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:51:17:738 MSP/(26383:26383): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 15:53:52:267 MSP/(26585:26585): MSP inicio su ejecucion
-[TRACE] 15:53:52:277 MSP/(26585:26585): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:53:52:277 MSP/(26585:26585): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 15:54:22:81 MSP/(26620:26620): MSP inicio su ejecucion
-[TRACE] 15:54:22:96 MSP/(26620:26620): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:54:22:96 MSP/(26620:26620): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 15:54:22:97 MSP/(26620:26620): Error, violación de segmento.
 [TRACE] 15:55:57:545 MSP/(26659:26659): MSP inicio su ejecucion
-[TRACE] 15:55:57:559 MSP/(26659:26659): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 15:55:57:559 MSP/(26659:26659): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 16:46:45:656 MSP/(26892:26892): MSP inicio su ejecucion
-[TRACE] 16:46:45:659 MSP/(26892:26892): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 16:46:45:659 MSP/(26892:26892): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 16:46:45:671 MSP/(26892:26892): Error, violación de segmento.
 [TRACE] 22:18:07:26 MSP/(27510:27510): MSP inicio su ejecucion
-[TRACE] 22:18:07:28 MSP/(27510:27510): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 22:18:07:28 MSP/(27510:27510): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 22:18:07:43 MSP/(27510:27510): Error, violación de segmento.
 [TRACE] 22:18:57:966 MSP/(27565:27565): MSP inicio su ejecucion
-[TRACE] 22:18:57:969 MSP/(27565:27565): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 22:18:57:969 MSP/(27565:27565): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 22:19:00:415 MSP/(27573:27573): MSP inicio su ejecucion
-[TRACE] 22:19:00:415 MSP/(27573:27573): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 22:19:00:415 MSP/(27573:27573): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:07:52:531 MSP/(28791:28791): MSP inicio su ejecucion
-[TRACE] 18:07:52:537 MSP/(28791:28791): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:07:52:537 MSP/(28791:28791): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:18:55:104 MSP/(28920:28920): MSP inicio su ejecucion
-[TRACE] 18:18:55:107 MSP/(28920:28920): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:18:55:107 MSP/(28920:28920): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:20:46:143 MSP/(28989:28989): MSP inicio su ejecucion
-[TRACE] 18:20:46:144 MSP/(28989:28989): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:20:46:144 MSP/(28989:28989): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:21:25:556 MSP/(29034:29034): MSP inicio su ejecucion
-[TRACE] 18:21:25:559 MSP/(29034:29034): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:21:25:559 MSP/(29034:29034): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:24:07:708 MSP/(29114:29114): MSP inicio su ejecucion
-[TRACE] 18:24:07:720 MSP/(29114:29114): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:24:07:720 MSP/(29114:29114): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:24:47:805 MSP/(29159:29159): MSP inicio su ejecucion
-[TRACE] 18:24:47:817 MSP/(29159:29159): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:24:47:817 MSP/(29159:29159): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:26:01:28 MSP/(29223:29223): MSP inicio su ejecucion
-[TRACE] 18:26:01:43 MSP/(29223:29223): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:26:01:43 MSP/(29223:29223): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:30:35:705 MSP/(29293:29293): MSP inicio su ejecucion
-[TRACE] 18:30:35:720 MSP/(29293:29293): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:30:35:720 MSP/(29293:29293): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:31:40:194 MSP/(29339:29339): MSP inicio su ejecucion
-[TRACE] 18:31:40:203 MSP/(29339:29339): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:31:40:203 MSP/(29339:29339): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:32:42:828 MSP/(29387:29387): MSP inicio su ejecucion
-[TRACE] 18:32:42:830 MSP/(29387:29387): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:32:42:830 MSP/(29387:29387): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:33:37:991 MSP/(29433:29433): MSP inicio su ejecucion
-[TRACE] 18:33:37:995 MSP/(29433:29433): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:33:37:995 MSP/(29433:29433): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:35:35:813 MSP/(29475:29475): MSP inicio su ejecucion
-[TRACE] 18:35:35:821 MSP/(29475:29475): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:35:35:821 MSP/(29475:29475): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:36:01:550 MSP/(29515:29515): MSP inicio su ejecucion
-[TRACE] 18:36:01:560 MSP/(29515:29515): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:36:01:560 MSP/(29515:29515): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:36:21:657 MSP/(29553:29553): MSP inicio su ejecucion
-[TRACE] 18:36:21:660 MSP/(29553:29553): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:36:21:660 MSP/(29553:29553): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 18:36:21:671 MSP/(29553:29553): Error, violación de segmento.
 [TRACE] 18:36:59:786 MSP/(29597:29597): MSP inicio su ejecucion
-[TRACE] 18:36:59:792 MSP/(29597:29597): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:36:59:792 MSP/(29597:29597): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 18:36:59:798 MSP/(29597:29597): Error, violación de segmento.
 [TRACE] 18:38:37:251 MSP/(29644:29644): MSP inicio su ejecucion
-[TRACE] 18:38:37:258 MSP/(29644:29644): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:38:37:258 MSP/(29644:29644): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:39:49:978 MSP/(29685:29685): MSP inicio su ejecucion
-[TRACE] 18:39:49:988 MSP/(29685:29685): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:39:49:988 MSP/(29685:29685): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:40:04:164 MSP/(29733:29733): MSP inicio su ejecucion
-[TRACE] 18:40:04:176 MSP/(29733:29733): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:40:04:176 MSP/(29733:29733): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:40:04:266 MSP/(29734:29734): MSP inicio su ejecucion
-[TRACE] 18:40:04:293 MSP/(29734:29734): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:40:04:293 MSP/(29734:29734): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:41:45:614 MSP/(29786:29786): MSP inicio su ejecucion
-[TRACE] 18:41:45:617 MSP/(29786:29786): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:41:45:617 MSP/(29786:29786): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 18:42:06:950 MSP/(29829:29829): MSP inicio su ejecucion
-[TRACE] 18:42:06:953 MSP/(29829:29829): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:42:06:953 MSP/(29829:29829): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 18:42:06:960 MSP/(29829:29829): Error, violación de segmento.
 [TRACE] 18:42:54:546 MSP/(29866:29866): MSP inicio su ejecucion
-[TRACE] 18:42:54:549 MSP/(29866:29866): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:42:54:549 MSP/(29866:29866): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 18:42:54:556 MSP/(29866:29866): Error, violación de segmento.
 [TRACE] 18:43:16:992 MSP/(29901:29901): MSP inicio su ejecucion
-[TRACE] 18:43:16:996 MSP/(29901:29901): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 18:43:16:996 MSP/(29901:29901): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 18:43:16:2 MSP/(29901:29901): Error, la dirección ingresada es inválida.
 [TRACE] 19:02:41:797 MSP/(30264:30264): MSP inicio su ejecucion
-[TRACE] 19:02:41:808 MSP/(30264:30264): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:02:41:808 MSP/(30264:30264): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 19:02:41:821 MSP/(30264:30264): Error, la dirección ingresada es inválida.
 [ERROR] 19:02:41:821 MSP/(30264:30264): Error, la dirección ingresada es inválida.
 [TRACE] 19:03:50:309 MSP/(30313:30313): MSP inicio su ejecucion
-[TRACE] 19:03:50:309 MSP/(30313:30313): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:03:50:309 MSP/(30313:30313): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [ERROR] 19:03:50:311 MSP/(30313:30313): Error, la dirección ingresada es inválida.
 [TRACE] 19:06:40:776 MSP/(30376:30376): MSP inicio su ejecucion
-[TRACE] 19:06:40:779 MSP/(30376:30376): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:06:40:779 MSP/(30376:30376): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:14:58:940 MSP/(30437:30437): MSP inicio su ejecucion
-[TRACE] 19:14:58:947 MSP/(30437:30437): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:14:58:947 MSP/(30437:30437): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:16:36:763 MSP/(30471:30471): MSP inicio su ejecucion
-[TRACE] 19:18:07:49 MSP/(30471:30471): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:18:07:49 MSP/(30471:30471): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:20:55:890 MSP/(30670:30670): MSP inicio su ejecucion
-[TRACE] 19:20:55:900 MSP/(30670:30670): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:20:55:900 MSP/(30670:30670): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:23:51:584 MSP/(30737:30737): MSP inicio su ejecucion
-[TRACE] 19:23:51:601 MSP/(30737:30737): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:23:51:601 MSP/(30737:30737): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:24:25:700 MSP/(30778:30778): MSP inicio su ejecucion
-[TRACE] 19:24:25:702 MSP/(30778:30778): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:24:25:702 MSP/(30778:30778): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:25:59:781 MSP/(30830:30830): MSP inicio su ejecucion
-[TRACE] 19:25:59:783 MSP/(30830:30830): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:25:59:783 MSP/(30830:30830): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:29:54:609 MSP/(30906:30906): MSP inicio su ejecucion
-[TRACE] 19:29:54:611 MSP/(30906:30906): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:29:54:611 MSP/(30906:30906): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:30:18:905 MSP/(30942:30942): MSP inicio su ejecucion
-[TRACE] 19:30:18:922 MSP/(30942:30942): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:30:18:922 MSP/(30942:30942): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:31:15:958 MSP/(30990:30990): MSP inicio su ejecucion
-[TRACE] 19:31:15:962 MSP/(30990:30990): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:31:15:962 MSP/(30990:30990): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:31:48:820 MSP/(31028:31028): MSP inicio su ejecucion
-[TRACE] 19:31:48:825 MSP/(31028:31028): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:31:48:825 MSP/(31028:31028): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 19:52:59:943 MSP/(31246:31246): MSP inicio su ejecucion
-[TRACE] 19:52:59:951 MSP/(31246:31246): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 19:52:59:951 MSP/(31246:31246): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:03:44:14 MSP/(32000:32000): MSP inicio su ejecucion
-[TRACE] 20:03:45:25 MSP/(32000:32000): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:03:45:25 MSP/(32000:32000): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:05:16:172 MSP/(32043:32043): MSP inicio su ejecucion
-[TRACE] 20:05:16:178 MSP/(32043:32043): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:05:16:178 MSP/(32043:32043): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:06:42:579 MSP/(32087:32087): MSP inicio su ejecucion
-[TRACE] 20:06:42:582 MSP/(32087:32087): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:06:42:582 MSP/(32087:32087): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:07:51:489 MSP/(32151:32151): MSP inicio su ejecucion
-[TRACE] 20:07:51:493 MSP/(32151:32151): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:07:51:493 MSP/(32151:32151): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:09:59:35 MSP/(32208:32208): MSP inicio su ejecucion
-[TRACE] 20:09:59:38 MSP/(32208:32208): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:09:59:38 MSP/(32208:32208): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:10:20:331 MSP/(32236:32236): MSP inicio su ejecucion
-[TRACE] 20:10:20:334 MSP/(32236:32236): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:10:20:334 MSP/(32236:32236): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:11:20:153 MSP/(32290:32290): MSP inicio su ejecucion
-[TRACE] 20:11:20:156 MSP/(32290:32290): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:11:20:156 MSP/(32290:32290): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:11:41:566 MSP/(32328:32328): MSP inicio su ejecucion
-[TRACE] 20:11:41:575 MSP/(32328:32328): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:11:41:575 MSP/(32328:32328): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:12:34:396 MSP/(32376:32376): MSP inicio su ejecucion
-[TRACE] 20:12:34:403 MSP/(32376:32376): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:12:34:403 MSP/(32376:32376): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:12:59:590 MSP/(32411:32411): MSP inicio su ejecucion
-[TRACE] 20:12:59:596 MSP/(32411:32411): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:12:59:596 MSP/(32411:32411): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:13:27:877 MSP/(32458:32458): MSP inicio su ejecucion
-[TRACE] 20:13:27:888 MSP/(32458:32458): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:13:27:888 MSP/(32458:32458): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:44:14:382 MSP/(371:371): MSP inicio su ejecucion
-[TRACE] 20:44:14:385 MSP/(371:371): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:44:14:385 MSP/(371:371): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:50:13:962 MSP/(515:515): MSP inicio su ejecucion
-[TRACE] 20:50:13:972 MSP/(515:515): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:50:13:972 MSP/(515:515): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 20:51:31:820 MSP/(571:571): MSP inicio su ejecucion
-[TRACE] 20:51:31:822 MSP/(571:571): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 20:51:31:822 MSP/(571:571): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
 [TRACE] 21:01:50:369 MSP/(667:667): MSP inicio su ejecucion
-[TRACE] 21:01:50:371 MSP/(667:667): MSP inicio su ejecucion. Tamaño memoria: 25600
+[TRACE] 21:01:50:371 MSP/(667:667): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 15:27:32:314 MSP/(4662:4662): MSP inicio su ejecucion
+[TRACE] 15:27:32:316 MSP/(4662:4662): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 15:28:42:407 MSP/(4719:4719): MSP inicio su ejecucion
+[TRACE] 15:28:42:410 MSP/(4719:4719): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 15:30:23:190 MSP/(4758:4758): MSP inicio su ejecucion
+[TRACE] 15:30:23:202 MSP/(4758:4758): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 15:31:42:617 MSP/(4802:4802): MSP inicio su ejecucion
+[TRACE] 15:31:42:628 MSP/(4802:4802): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 15:33:32:442 MSP/(4825:4825): MSP inicio su ejecucion
+[TRACE] 15:33:32:460 MSP/(4825:4825): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 15:33:55:188 MSP/(4861:4861): MSP inicio su ejecucion
+[TRACE] 15:33:55:191 MSP/(4861:4861): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 15:34:21:811 MSP/(4898:4898): MSP inicio su ejecucion
+[TRACE] 15:34:21:827 MSP/(4898:4898): MSP inicio su ejecucion. Tamaño memoria: TAMANIO_PAGINA00
+[TRACE] 16:45:32:237 MSP/(5308:5308): MSP inicio su ejecucion
+[TRACE] 16:45:32:238 MSP/(5308:5308): MSP inicio su ejecucion. Tamaño memoria: 0
+[TRACE] 16:45:32:249 MSP/(5308:5308): Error, no hay memoria ni espacio de swap suficiente.
+[TRACE] 16:46:24:70 MSP/(5329:5329): MSP inicio su ejecucion
+[TRACE] 16:46:24:73 MSP/(5329:5329): MSP inicio su ejecucion. Tamaño memoria: 0
+[TRACE] 16:46:24:74 MSP/(5329:5329): Error, no hay memoria ni espacio de swap suficiente.
+[TRACE] 16:48:13:724 MSP/(5381:5381): MSP inicio su ejecucion
+[TRACE] 16:48:13:739 MSP/(5381:5381): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 16:48:13:749 MSP/(5381:5381): Error, violación de segmento.
+[TRACE] 16:50:24:352 MSP/(5433:5433): MSP inicio su ejecucion
+[TRACE] 16:50:24:361 MSP/(5433:5433): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 16:56:04:601 MSP/(5593:5593): MSP inicio su ejecucion
+[TRACE] 16:56:04:605 MSP/(5593:5593): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:07:07:415 MSP/(5637:5637): MSP inicio su ejecucion
+[TRACE] 17:07:07:416 MSP/(5637:5637): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:12:46:782 MSP/(5671:5671): MSP inicio su ejecucion
+[TRACE] 17:12:46:783 MSP/(5671:5671): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:16:04:690 MSP/(5744:5744): MSP inicio su ejecucion
+[TRACE] 17:16:04:693 MSP/(5744:5744): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:19:45:205 MSP/(5800:5800): MSP inicio su ejecucion
+[TRACE] 17:19:45:210 MSP/(5800:5800): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:20:37:22 MSP/(5846:5846): MSP inicio su ejecucion
+[TRACE] 17:20:37:24 MSP/(5846:5846): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:21:16:650 MSP/(5883:5883): MSP inicio su ejecucion
+[TRACE] 17:21:16:672 MSP/(5883:5883): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:21:44:886 MSP/(5920:5920): MSP inicio su ejecucion
+[TRACE] 17:21:44:918 MSP/(5920:5920): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:23:43:475 MSP/(5979:5979): MSP inicio su ejecucion
+[TRACE] 17:23:43:480 MSP/(5979:5979): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:24:20:812 MSP/(6025:6025): MSP inicio su ejecucion
+[TRACE] 17:24:20:820 MSP/(6025:6025): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:26:17:454 MSP/(6153:6153): MSP inicio su ejecucion
+[TRACE] 17:26:17:468 MSP/(6153:6153): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:33:42:677 MSP/(6212:6212): MSP inicio su ejecucion
+[TRACE] 17:33:42:677 MSP/(6212:6212): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:34:45:457 MSP/(6262:6262): MSP inicio su ejecucion
+[TRACE] 17:34:45:459 MSP/(6262:6262): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:45:26:273 MSP/(6310:6310): MSP inicio su ejecucion
+[TRACE] 17:45:26:276 MSP/(6310:6310): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:47:18:121 MSP/(6362:6362): MSP inicio su ejecucion
+[TRACE] 17:47:18:128 MSP/(6362:6362): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 17:50:56:473 MSP/(6436:6436): MSP inicio su ejecucion
+[TRACE] 17:50:56:486 MSP/(6436:6436): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 18:00:35:370 MSP/(6506:6506): MSP inicio su ejecucion
+[TRACE] 18:00:35:372 MSP/(6506:6506): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 18:02:20:886 MSP/(6554:6554): MSP inicio su ejecucion
+[TRACE] 18:02:20:888 MSP/(6554:6554): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 18:04:03:746 MSP/(6604:6604): MSP inicio su ejecucion
+[TRACE] 18:04:03:752 MSP/(6604:6604): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 18:04:03:756 MSP/(6604:6604): Error, violación de segmento.
+[TRACE] 18:04:52:421 MSP/(6642:6642): MSP inicio su ejecucion
+[TRACE] 18:04:52:426 MSP/(6642:6642): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 18:04:52:429 MSP/(6642:6642): Error, el pid ingresado no existe.
+[TRACE] 18:05:21:815 MSP/(6687:6687): MSP inicio su ejecucion
+[TRACE] 18:05:21:825 MSP/(6687:6687): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 18:07:18:803 MSP/(6748:6748): MSP inicio su ejecucion
+[TRACE] 18:07:18:805 MSP/(6748:6748): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 18:07:46:796 MSP/(6793:6793): MSP inicio su ejecucion
+[TRACE] 18:07:46:798 MSP/(6793:6793): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 22:25:39:208 MSP/(7609:7609): MSP inicio su ejecucion
+[TRACE] 22:25:39:210 MSP/(7609:7609): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 20:46:42:425 MSP/(7907:7907): MSP inicio su ejecucion
+[TRACE] 20:46:42:432 MSP/(7907:7907): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 21:27:30:305 MSP/(8195:8195): MSP inicio su ejecucion
+[TRACE] 21:27:30:307 MSP/(8195:8195): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 21:32:10:448 MSP/(8263:8263): MSP inicio su ejecucion
+[TRACE] 21:32:10:450 MSP/(8263:8263): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 21:33:02:393 MSP/(8301:8301): MSP inicio su ejecucion
+[TRACE] 21:33:02:399 MSP/(8301:8301): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 22:48:52:435 MSP/(8782:8782): MSP inicio su ejecucion
+[TRACE] 22:48:52:457 MSP/(8782:8782): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 22:50:03:797 MSP/(8807:8807): MSP inicio su ejecucion
+[TRACE] 22:50:03:797 MSP/(8807:8807): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:06:33:480 MSP/(9049:9049): MSP inicio su ejecucion
+[TRACE] 23:06:33:485 MSP/(9049:9049): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:07:51:263 MSP/(9086:9086): MSP inicio su ejecucion
+[TRACE] 23:07:51:265 MSP/(9086:9086): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:08:35:813 MSP/(9135:9135): MSP inicio su ejecucion
+[TRACE] 23:08:35:829 MSP/(9135:9135): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:11:22:977 MSP/(9204:9204): MSP inicio su ejecucion
+[TRACE] 23:11:22:981 MSP/(9204:9204): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:16:12:102 MSP/(9257:9257): MSP inicio su ejecucion
+[TRACE] 23:16:12:121 MSP/(9257:9257): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:20:16:449 MSP/(9333:9333): MSP inicio su ejecucion
+[TRACE] 23:20:16:451 MSP/(9333:9333): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:21:49:289 MSP/(9374:9374): MSP inicio su ejecucion
+[TRACE] 23:21:49:289 MSP/(9374:9374): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:44:31:843 MSP/(9477:9477): MSP inicio su ejecucion
+[TRACE] 23:44:31:845 MSP/(9477:9477): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:47:00:956 MSP/(9530:9530): MSP inicio su ejecucion
+[TRACE] 23:47:00:956 MSP/(9530:9530): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 23:47:27:654 MSP/(9569:9569): MSP inicio su ejecucion
+[TRACE] 23:47:27:662 MSP/(9569:9569): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:13:24:653 MSP/(9678:9678): MSP inicio su ejecucion
+[TRACE] 00:13:24:664 MSP/(9678:9678): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:16:46:138 MSP/(9723:9723): MSP inicio su ejecucion
+[TRACE] 00:16:46:195 MSP/(9723:9723): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:26:28:47 MSP/(9786:9786): MSP inicio su ejecucion
+[TRACE] 00:26:28:57 MSP/(9786:9786): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 00:26:28:58 MSP/(9786:9786): Error, violación de segmento.
+[TRACE] 00:27:41:16 MSP/(9837:9837): MSP inicio su ejecucion
+[TRACE] 00:27:42:19 MSP/(9837:9837): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 00:27:42:26 MSP/(9837:9837): Error, violación de segmento.
+[TRACE] 00:28:22:860 MSP/(9880:9880): MSP inicio su ejecucion
+[TRACE] 00:28:22:864 MSP/(9880:9880): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:30:52:946 MSP/(9923:9923): MSP inicio su ejecucion
+[TRACE] 00:30:52:948 MSP/(9923:9923): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:31:21:890 MSP/(9961:9961): MSP inicio su ejecucion
+[TRACE] 00:31:21:900 MSP/(9961:9961): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:31:45:900 MSP/(9998:9998): MSP inicio su ejecucion
+[TRACE] 00:31:45:910 MSP/(9998:9998): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:32:30:571 MSP/(10039:10039): MSP inicio su ejecucion
+[TRACE] 00:32:30:574 MSP/(10039:10039): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:32:53:198 MSP/(10074:10074): MSP inicio su ejecucion
+[TRACE] 00:32:53:212 MSP/(10074:10074): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:37:29:668 MSP/(10116:10116): MSP inicio su ejecucion
+[TRACE] 00:37:29:670 MSP/(10116:10116): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:37:52:529 MSP/(10164:10164): MSP inicio su ejecucion
+[TRACE] 00:37:52:533 MSP/(10164:10164): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:38:12:942 MSP/(10208:10208): MSP inicio su ejecucion
+[TRACE] 00:38:12:949 MSP/(10208:10208): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:38:32:260 MSP/(10246:10246): MSP inicio su ejecucion
+[TRACE] 00:38:32:271 MSP/(10246:10246): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:38:54:518 MSP/(10284:10284): MSP inicio su ejecucion
+[TRACE] 00:38:54:519 MSP/(10284:10284): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:39:11:696 MSP/(10321:10321): MSP inicio su ejecucion
+[TRACE] 00:39:11:712 MSP/(10321:10321): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:39:57:146 MSP/(10358:10358): MSP inicio su ejecucion
+[TRACE] 00:39:57:150 MSP/(10358:10358): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:40:25:468 MSP/(10395:10395): MSP inicio su ejecucion
+[TRACE] 00:40:25:482 MSP/(10395:10395): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:40:36:980 MSP/(10430:10430): MSP inicio su ejecucion
+[TRACE] 00:40:36:983 MSP/(10430:10430): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 00:40:36:989 MSP/(10430:10430): Error, violación de segmento.
+[TRACE] 00:43:59:4 MSP/(10471:10471): MSP inicio su ejecucion
+[TRACE] 00:44:00:6 MSP/(10471:10471): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 00:46:06:531 MSP/(10493:10493): MSP inicio su ejecucion
+[TRACE] 00:46:06:538 MSP/(10493:10493): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 00:47:34:709 MSP/(10542:10542): MSP inicio su ejecucion
+[TRACE] 00:47:34:711 MSP/(10542:10542): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 00:48:02:192 MSP/(10580:10580): MSP inicio su ejecucion
+[TRACE] 00:48:02:202 MSP/(10580:10580): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 00:48:02:209 MSP/(10580:10580): Error, no hay espacio suficiente en la memoria.
+[ERROR] 00:48:02:209 MSP/(10580:10580): Error, no hay espacio suficiente en la memoria.
+[ERROR] 00:48:02:209 MSP/(10580:10580): Error, no hay espacio suficiente en la memoria.
+[ERROR] 00:48:02:209 MSP/(10580:10580): Error, no hay espacio suficiente en la memoria.
+[TRACE] 00:49:09:871 MSP/(10624:10624): MSP inicio su ejecucion
+[TRACE] 00:49:09:873 MSP/(10624:10624): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 00:49:09:883 MSP/(10624:10624): Error, no hay espacio suficiente en la memoria.
+[TRACE] 01:13:36:178 MSP/(10723:10723): MSP inicio su ejecucion
+[TRACE] 01:13:36:184 MSP/(10723:10723): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 01:17:38:219 MSP/(10803:10803): MSP inicio su ejecucion
+[TRACE] 01:17:38:220 MSP/(10803:10803): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 01:17:38:230 MSP/(10803:10803): Error, la dirección ingresada es inválida.
+[TRACE] 01:18:13:745 MSP/(10842:10842): MSP inicio su ejecucion
+[TRACE] 01:18:13:747 MSP/(10842:10842): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 01:18:13:768 MSP/(10842:10842): Error, la dirección ingresada es inválida.
+[TRACE] 01:18:37:798 MSP/(10880:10880): MSP inicio su ejecucion
+[TRACE] 01:18:37:809 MSP/(10880:10880): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 01:18:37:818 MSP/(10880:10880): Error, la dirección ingresada es inválida.
+[TRACE] 01:19:02:664 MSP/(10918:10918): MSP inicio su ejecucion
+[TRACE] 01:19:02:667 MSP/(10918:10918): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 01:19:02:684 MSP/(10918:10918): Error, la dirección ingresada es inválida.
+[ERROR] 01:19:02:684 MSP/(10918:10918): Error, no hay espacio suficiente en la memoria.
+[TRACE] 01:20:20:571 MSP/(10955:10955): MSP inicio su ejecucion
+[TRACE] 01:20:20:573 MSP/(10955:10955): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 01:20:20:581 MSP/(10955:10955): Error, la dirección ingresada es inválida.
+[ERROR] 01:20:20:582 MSP/(10955:10955): Error, no hay espacio suficiente en la memoria.
+[ERROR] 01:20:20:582 MSP/(10955:10955): Error, no hay espacio suficiente en la memoria.
+[TRACE] 01:28:57:0 MSP/(11033:11033): MSP inicio su ejecucion
+[TRACE] 01:28:58:11 MSP/(11033:11033): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 01:28:58:17 MSP/(11033:11033): Error, la dirección ingresada es inválida.
+[ERROR] 01:28:58:17 MSP/(11033:11033): Error, no hay espacio suficiente en la memoria.
+[TRACE] 20:19:29:27 MSP/(13276:13276): MSP inicio su ejecucion
+[TRACE] 20:19:29:29 MSP/(13276:13276): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 20:19:29:30 MSP/(13276:13276): A la espera de nuevas conexiones

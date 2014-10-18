@@ -11,10 +11,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
+#include <commons/sockets.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <sys/types.h>
 
 
 #define CANTIDAD_MAX_SEGMENTOS_POR_PID 3
 #define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 5
+#define TAMANIO_PAGINA 10
 
 
 t_configuracion levantarArchivoDeConfiguracion()
@@ -60,14 +66,14 @@ t_configuracion levantarArchivoDeConfiguracion()
 
 void crearTablaDeMarcos()
 {
-	if (configuracion.cantidad_memoria % 256 == 0)
+	if (configuracion.cantidad_memoria % TAMANIO_PAGINA == 0)
 	{
-		cantidadMarcos = configuracion.cantidad_memoria / 256;
+		cantidadMarcos = configuracion.cantidad_memoria / TAMANIO_PAGINA;
 	}
 	else
 	{
 		//Si la división no es exacta, necesito un marco más para alojar lo que queda de la memoria.
-		cantidadMarcos = configuracion.cantidad_memoria / 256 + 1;
+		cantidadMarcos = configuracion.cantidad_memoria / TAMANIO_PAGINA + 1;
 	}
 
 	//Aloco espacio de memoria para una tabla que va tener toda la información de los marcos de memoria.
@@ -88,7 +94,7 @@ void crearTablaDeMarcos()
 
 		tablaMarcos[i].nro_marco = i;
 
-		tablaMarcos[i].dirFisica = memoriaPrincipal + i*256;
+		tablaMarcos[i].dirFisica = memoriaPrincipal + i*TAMANIO_PAGINA;
 
 		//Cuando recién se crea la tabla, todos los marcos están libres.
 		tablaMarcos[i].libre = 1;
@@ -100,7 +106,8 @@ void listarMarcos()
 	int i;
 	for (i=0; i<cantidadMarcos; i++)
 	{
-		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d\n", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
+		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d		", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
+		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);
 	}
 }
 
@@ -195,17 +202,17 @@ uint32_t crearSegmento(int pid, long tamanio)
 		return -1;
 	}
 
-	//Si el resto de la división entre el tamaño y 256 (que es el tamaño máximo de la pagina) da 0...
-	if (tamanio % 256 == 0)
+	//Si el resto de la división entre el tamaño y TAMANIO_PAGINA (que es el tamaño máximo de la pagina) da 0...
+	if (tamanio % TAMANIO_PAGINA == 0)
 	{
 		//...entonces la cantiadad de páginas es el resultado de la división, si no...
-		cantidadTotalDePaginas = tamanio / 256;
+		cantidadTotalDePaginas = tamanio / TAMANIO_PAGINA;
 	}
 	else
 	{
 		//...la cantidad total de páginas es el resultado de la división más 1, para agregar en una página lo que
 		//queda del tamaño, por supuesto, esta última página no estará completa.
-		cantidadTotalDePaginas = tamanio / 256 + 1;
+		cantidadTotalDePaginas = tamanio / TAMANIO_PAGINA + 1;
 	}
 
 	if (cantidadTotalDePaginas > CANTIDAD_MAX_PAGINAS_POR_SEGMENTO)
@@ -364,7 +371,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 
 	int numeroSegmento, numeroPagina, offset;
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
-	if (offset > 255)
+	if (offset > TAMANIO_PAGINA - 1)
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
@@ -406,7 +413,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	//Tengo que transformar el tamanio en paginas, para ver si el segmneto tiene esa cantidad de paginas
 	t_list* paginasQueNecesito;
 	int cantidadPaginasQueOcupaTamanio;
-	int faltaParaCompletarPagina = 256 - offset;
+	int faltaParaCompletarPagina = TAMANIO_PAGINA - offset;
 	int quedaDelTamanio = tamanio - faltaParaCompletarPagina;
 	if (quedaDelTamanio < 0)
 	{
@@ -415,9 +422,9 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	}
 	else
 	{
-		int cantidadPaginasEnterasQueQuedan = quedaDelTamanio / 256;
+		int cantidadPaginasEnterasQueQuedan = quedaDelTamanio / TAMANIO_PAGINA;
 		//Me fijo si necesito una pagina para alojar el remanente
-		if (quedaDelTamanio % 256 != 0)
+		if (quedaDelTamanio % TAMANIO_PAGINA != 0)
 		{
 			cantidadPaginasQueOcupaTamanio = cantidadPaginasEnterasQueQuedan + 1;
 		}
@@ -435,63 +442,108 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 			return NULL;
 		}
 
-		printf("cantidad pags que ocupa: %d\n", cantidadPaginasQueOcupaTamanio);
-		printf("cantidad pags enteras %d\n", cantidadPaginasEnterasQueQuedan);
-		printf("queda del tamaño: %d\n", quedaDelTamanio);
-		printf("falta para compelate %d\n", faltaParaCompletarPagina);
-		printf("offset %d\n", offset);
-
-
-
 		paginasQueNecesito = paginasQueVoyAUsar(nodoSegmento, nodoPagina->nro_pagina, cantidadPaginasQueOcupaTamanio+1);
 	}
 
 
-	void _imprimirNumeroPagina(nodo_paginas *nodoPagina)
+	/*void _imprimirNumeroPagina(nodo_paginas *nodoPagina)
 	{
 		printf("voy a usar pagina: %d\n", nodoPagina->nro_pagina);
 	}
 
-	list_iterate(paginasQueNecesito, (void*)_imprimirNumeroPagina);
+	list_iterate(paginasQueNecesito, (void*)_imprimirNumeroPagina);*/
 
-	printf("termino\n");
 	return paginasQueNecesito;
 
 }
 
 
+void solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
+{
+	//t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
+
+
+}
+
 void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
+
 	if (paginasQueNecesito == NULL) return;
 
-	if (tamanio > memoriaRestante)
-	{
-		log_error(logs, "Error, no hay espacio suficiente en la memoria.");
-		puts("Error, no hay espacio suficiente en la memoria.");
-		return;
-	}
 
-	memoriaRestante = memoriaRestante - tamanio;
 
 	int numeroSegmento, numeroPagina, offset;
-	obtenerUbicacionLogica(45435435, &numeroSegmento, &numeroPagina, &offset);
+	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 
 	int cantidadPaginasQueNecesito = list_size(paginasQueNecesito);
+	int tamanioRestante = tamanio;
+	int yaEscribi = 0;
 	int i;
+
+	printf("TAMANIO RESTANTE antes: %d\n", tamanioRestante);
+
 
 	for (i=0; i<cantidadPaginasQueNecesito; i++)
 	{
+
 		nodo_paginas* nodoPagina = list_get(paginasQueNecesito, i);
 
 		if (nodoPagina->presencia == -1)
 		{
-			buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
+			if (tamanio > memoriaRestante)
+			{
+				log_error(logs, "Error, no hay espacio suficiente en la memoria.");
+				puts("Error, no hay espacio suficiente en la memoria.");
+				return;
+			}
+
+			else
+			{
+				buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
+			}
 		}
 
+		if (i == 0)
+		{
+			puts("ENTRE AL SEGUNDO IF");
+			int quedaParaCompletarPagina = TAMANIO_PAGINA - offset;
+
+			if(tamanio <= quedaParaCompletarPagina)
+			{
+				escribirEnMarco (nodoPagina->presencia, tamanio, bytesAEscribir, offset, 0);
+			}
+			else
+			{
+				tamanioRestante = tamanioRestante - quedaParaCompletarPagina;
+
+				yaEscribi = yaEscribi + quedaParaCompletarPagina;
+
+				escribirEnMarco (nodoPagina->presencia, quedaParaCompletarPagina, bytesAEscribir, offset, 0);
+			}
+
+		}
+
+		if ((tamanioRestante / TAMANIO_PAGINA == 0) && (i!=0))
+		{
+			puts("ENTRE AL CUARTO IF");
+
+			escribirEnMarco (nodoPagina->presencia, tamanioRestante, bytesAEscribir, 0, yaEscribi);
+			tamanioRestante = tamanioRestante - (tamanioRestante % TAMANIO_PAGINA);
+			yaEscribi = yaEscribi + (tamanioRestante % TAMANIO_PAGINA);
+
+		}
+		else if ((tamanioRestante / TAMANIO_PAGINA > 0) && (i!=0))
+		{
+			puts("ENTRE AL TERCER IF");
+
+			escribirEnMarco (nodoPagina->presencia, TAMANIO_PAGINA, bytesAEscribir, 0, yaEscribi);
+			tamanioRestante = tamanioRestante - TAMANIO_PAGINA;
+			yaEscribi = yaEscribi + TAMANIO_PAGINA;
 
 
+		}
 
 	}
 
@@ -499,8 +551,26 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 }
 
-void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset)
+void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi)
 {
+	void* direccionDestino = offset + tablaMarcos[numeroMarco].dirFisica;
+
+
+	printf("TAMANIO RESTANTE: %d\n", tamanio);
+	printf("YA ESCRIBI: %d\n", yaEscribi);
+
+
+	puts("BYTES A ESCRIBIR");
+	puts(bytesAEscribir);
+
+	memcpy(direccionDestino, bytesAEscribir + yaEscribi, tamanio);
+
+
+
+
+	puts("DIRECCION DESTINO");
+	puts(direccionDestino);
+
 
 }
 
@@ -533,23 +603,86 @@ t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int ca
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
 {
 	int i;
-	//Recorro la tabla de marcos
 	for (i = 0; i<cantidadMarcos; i++)
 	{
 		//Uso el primer marco libre que encuentro
 		if (tablaMarcos[i].libre == 1)
 		{
-			//Setteo los nuevos valores del marco, para que ahora aloje a la página en cuestión
+			memoriaRestante = memoriaRestante - TAMANIO_PAGINA;
+
 			tablaMarcos[i].libre = 0;
 			tablaMarcos[i].nro_pagina = nodoPagina->nro_pagina;
 			tablaMarcos[i].nro_segmento = numeroSegmento;
 			tablaMarcos[i].pid = pid;
-			//Ahora, la página está presente en el número de marco, y el número de marco es i
 			nodoPagina->presencia = i;
-			//Devuelvo la dirección de memoria a la que apunta el marco, que es el bloque
-			//de 256 bytes de tamaño.
 			return (tablaMarcos[i].dirFisica);
 		}
 	}
+
 	return NULL;
 }
+
+void conectarACpu()
+{
+
+	struct sockaddr_in my_addr, their_addr;
+
+	int socketFD, newFD;
+
+	socketFD = crearSocket();
+
+	my_addr.sin_family = AF_INET;
+	my_addr.sin_port = htons(configuracion.puerto);
+	my_addr.sin_addr.s_addr = INADDR_ANY;
+	memset(&(my_addr.sin_zero), '\0', sizeof(struct sockaddr_in));
+
+	bindearSocket(socketFD, my_addr);
+
+	escucharEn(socketFD);
+
+	while(1)
+	{
+		int sin_size = sizeof(struct sockaddr_in);
+
+		log_trace(logs, "A la espera de nuevas conexiones");
+
+		if((newFD = accept (socketFD,(struct sockaddr *)&their_addr, &sin_size)) == -1)
+		{
+			perror("accept");
+			continue;
+		}
+
+		log_trace(logs, "Recibí conexion de %s", inet_ntoa(their_addr.sin_addr));
+
+		t_contenido mensajeParaRecibirConexionCpu;
+		memset (mensajeParaRecibirConexionCpu, 0, sizeof(t_contenido));
+
+		t_header header_conexion_MSP = recibirMensaje(newFD, mensajeParaRecibirConexionCpu, logs);
+
+		if(header_conexion_MSP == CPU_TO_MSP_HANDSHAKE)
+		{
+
+			char** array_para_recibir_mensaje = string_get_string_as_array(mensajeParaRecibirConexionCpu);
+
+			int a, b;
+
+			a = atoi(array_para_recibir_mensaje[0]);
+			b = atoi(array_para_recibir_mensaje[1]);
+
+			printf("a: %d     b: %d   \n", a, b);
+
+		}
+
+	}
+
+
+
+
+
+
+
+}
+
+
+
+

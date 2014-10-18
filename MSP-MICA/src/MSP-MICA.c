@@ -17,15 +17,17 @@ int main() {
 
 	inicializarMSP();
 
+	conectarACpu();
+
 	//puts("LISTA MARCOS ANTES");
 	//listarMarcos();
 
 
-	printf("Direccion base: %d \n", crearSegmento(1234, 778));
+	/*crearSegmento(1234, 14);
 
-	printf("Direccion base: %d\n", crearSegmento(5678, 258));
+	crearSegmento(5678, 25);
 
-	printf("Direccion base: %d\n", crearSegmento(1234, 778));
+	crearSegmento(1234, 40);*/
 
 	//puts("TABLA SEGMENTOS ANTES");
 
@@ -33,11 +35,11 @@ int main() {
 
 	//validarEscrituraOLectura(1234, 45435435, 1003);
 
-	int numeroSegmento, numeroPagina, offset;
-	obtenerUbicacionLogica(45435435, &numeroSegmento, &numeroPagina, &offset);
-	printf("numero segmento: %d    numero pagina: %d    offset: %d  \n", numeroSegmento, numeroPagina, offset);
+	/*int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica(1049344, &numeroSegmento, &numeroPagina, &offset);
+	printf("numero segmento: %d    numero pagina: %d    offset: %d  \n", numeroSegmento, numeroPagina, offset);*/
 
-	printf("piso: %zu\n", generarDireccionLogica(3, 677, 254));
+	//printf("piso: %zu\n", generarDireccionLogica(1, 2, 4));
 
 
 	//destruirSegmento(1234, 1);
@@ -50,12 +52,46 @@ int main() {
 	//tablaPaginas(1234);
 
 	/*puts("PRIMER ESCRIBIR MEMORIA");
-	escribirMemoria(1234, 0, "hola", 780);
+	escribirMemoria(1234, 1048576, "111111111122222222223333", 24);
 	puts("SEGUNDO ESCRIBIR MEMORIA");
-	unsigned int direccion = (unsigned int)4194304000;
-	escribirMemoria(5678, direccion, "hola", 5);
+	escribirMemoria(5678, 0, "444444444455", 12);
 	puts("TERCER ESCRIBIR MEMORIA");
-	escribirMemoria(1234, 4096, "hola", 768);*/
+	escribirMemoria(1234, 1049092, "6666666666666666", 16);*/
+
+
+	/*escribirMemoria(1234, 0, "1111111111", 10);
+	escribirMemoria(1234, 256, "2222222222", 10);
+	escribirMemoria(1234, 1048576, "3333333333", 10);
+	escribirMemoria(1234, 1048832, "4444444444", 10);
+	escribirMemoria(1234, 1048088, "5555555555", 10);
+	escribirMemoria(1234, 1049344, "6666666666", 10);
+	escribirMemoria(5678, 0, "7777777777", 10);
+	escribirMemoria(5678, 256, "8888888888", 10);
+	escribirMemoria(5678, 512, "9999999999", 10);
+	escribirMemoria(1234, 0, "0000000000", 10);*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*puts("PRIMER ESCRIBIR MEMORIA");
+	escribirMemoria(1234, 1048576, "1111111111", 10);
+	escribirMemoria(1234, 1048576, "2222222222", 10);
+	escribirMemoria(1234, 1048576, "3333333333", 10);
+	escribirMemoria(1234, 1048576, "4444444444", 10);
+	escribirMemoria(1234, 1048576, "5555555555", 10);
+	escribirMemoria(1234, 1048576, "6666666666", 10);
+	escribirMemoria(1234, 1048576, "7777777777", 10);
+	escribirMemoria(1234, 1048576, "8888888888", 10);*/
+
 
 	//validarLecturaOEscritura(1234, 4097, "hola", 12);
 

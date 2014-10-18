@@ -120,7 +120,11 @@ t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int ca
 
 void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
 
+void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi);
 
+void solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
+
+void conectarACpu();
 
 
 #endif /* MSP_H_ */
