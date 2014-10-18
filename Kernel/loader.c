@@ -6,7 +6,7 @@
  */
 
 #include "kernel.h"
-
+t_log* logKernel;
 
 
 // get sockaddr, IPv4 or IPv6:
@@ -122,7 +122,7 @@ void* loader(t_loaderThread *loaderThread){
 						FD_CLR(i, &master); // remove from master set
 
 						if(i == socketMSP){
-							log_info(logKernel, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
+							log_info(logKernel, "Wow! La UMV se desconectó! Imposible seguir funcionando! :/");
 						}
 						else if(stillInside(i)){
 							int32_t processPID = getProcessPidByFd(i);
@@ -134,11 +134,11 @@ void* loader(t_loaderThread *loaderThread){
 					case ERR_ERROR_AL_RECIBIR_MSG:
 						//TODO retry?l
 						break;
-					case PRG_TO_KRN_HANDSHAKE:
-						enviarMensaje(i, PRG_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
+					case CON_TO_KRN_HANDSHAKE:
+						enviarMensaje(i, CON_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
 						break;
-					case PRG_TO_KRN_CODE: {
-						char* stringCode = recibirCodigo(i, PRG_TO_KRN_CODE, logKernel);
+					case CON_TO_KRN_CODE: {
+						char* stringCode = recibirCodigo(i, CON_TO_KRN_CODE, logKernel);
 
 						log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
 						log_debug(logKernel, string_from_format( "El codigo recibido es:\n %s \n", stringCode));
