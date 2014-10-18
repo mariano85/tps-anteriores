@@ -190,7 +190,7 @@ void* planificador(t_loaderThread *loaderThread){
 
 							aProcess->tcb->cursor_stack = cursorCAct;
 
-							agregarProcesoColaReady(aProcess);
+							agregarProcesoColaReady(aProcess); // ACA TERMINA EL QUANTUM, entonces lo mando a ready
 													}
 						pthread_mutex_unlock(&mutex_exec_queue);
 
@@ -344,6 +344,166 @@ void* planificador(t_loaderThread *loaderThread){
 
 					}
 					break;
+
+					case SYSCALL_WAIT_REQUEST:
+										{
+											int32_t fd;
+											char** split = string_get_string_as_array(mensaje);
+
+											t_nombre_semaforo semaforo = split[0];
+											int32_t pID_actual = atoi(split[1]);
+											int32_t program_counter = atoi(split[2]);
+
+
+											log_info(kernelLog, string_from_format("El CPU me solicita usar el semaforo: %s", semaforo));
+
+											//busco semaforo en la lista
+											bool _match_sem(void* element){
+												if(string_equals_ignore_case(((t_semaforos*)element)->Id, semaforo)){
+													return true;
+												}
+												return false;
+											}
+
+											bool _match_pid(void* element){
+												if(((t_process*)element)->tcb->pid == pID_actual){
+													return true;
+												}
+												return false;
+											}
+
+											t_semaforos* semaforoActual = list_find(semaforos_list, (void*)_match_sem);
+											if(semaforoActual != NULL)
+											{
+												log_info(kernelLog, "Se encontro el semaforo requerido!...");
+												log_info(kernelLog, "****Semaforo ID: %s", semaforoActual->Id);
+												log_info(kernelLog, "****Semaforo-Antiguo Valor: %d", semaforoActual->Valor);
+
+												semaforoActual->Valor --;
+
+												log_info(kernelLog, "****Semaforo-Nuevo Valor: %d", semaforoActual->Valor);
+
+												if(semaforoActual->Valor >= 0){
+
+													memset(mensaje,0,sizeof(t_contenido));
+													enviarMensaje(i, KRN_TO_CPU_OK, mensaje, kernelLog);
+													log_info(kernelLog, "Se envio al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
+
+													t_header header = recibirMensaje(i, mensaje, kernelLog);
+													if(header != CPU_TO_KRN_OK){
+														log_info(kernelLog, "Error al recibir mensaje de CPU");
+													}
+													else{
+														log_info(kernelLog,"El CPU recibio el mensaje correctamente");
+													}
+												}
+												else{
+
+													memset(mensaje,0,sizeof(t_contenido));
+													enviarMensaje(i, KRN_TO_CPU_BLOCKED, mensaje, kernelLog);
+													log_info(kernelLog, "Se envia al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
+
+													t_header header = recibirMensaje(i, mensaje, kernelLog);
+
+													if(header != CPU_TO_KRN_OK){
+
+														log_error(kernelLog, "Error al recibir mensaje de CPU");
+													}
+													else{
+
+														log_info(kernelLog,"Mensaje recibido correctamente de CPU");
+
+														pthread_mutex_lock(&mutex_exec_queue);
+															t_process* aProcess = list_find(EXEC->elements, (void*)_match_pid);
+															aProcess->tcb->program_counter = program_counter + 1;
+
+															fd = aProcess->process_fd;
+														pthread_mutex_unlock(&mutex_exec_queue);
+
+														agregarProcesoColaBlock(fd, semaforoActual->Id);
+
+														pthread_mutex_lock(&mutex_cpu_list);
+
+															t_client_cpu* aCPU = GetCPUByCPUFd(i);
+															aCPU->ocupado = false;
+															aCPU->processFd = 0;
+															aCPU->processPID = 0;
+														pthread_mutex_unlock(&mutex_cpu_list);
+
+														agregarProcesoColaExec();
+
+													}
+												}
+											}
+											else{
+												log_error(kernelLog, "NO SE ENCONTRO EL SEMAFORO REQUERIDO (ID: %s)", semaforo);
+											}
+
+
+										}
+										break;
+
+										case SYSCALL_SIGNAL_REQUEST:
+										{
+
+											t_process* aProcess;
+
+											bool _match_proc_sem(void* element){
+												if(string_equals_ignore_case(((t_process*)element)->blockedBySemaphore, mensaje)){
+													return true;
+												}
+												return false;
+											}
+
+											bool _match_sem(void* element){
+												if(string_equals_ignore_case(((t_semaforos*)element)->Id, mensaje)){
+													return true;
+												}
+												return false;
+											}
+
+
+
+											//busco semaforo ansisop en la lista y hago lo correspondiente
+											t_semaforos* semaforoActual = list_find(semaforos_list, (void*)_match_sem);
+											semaforoActual->Valor++;
+
+											if(semaforoActual->Valor <= 0){
+
+												pthread_mutex_lock(&mutex_block_queue);
+
+													if(list_any_satisfy(BLOCK->elements, (void*)_match_proc_sem)){
+
+														//Creo una lista auxiliar de los procesos que estan bloqueados por este semaforo
+														t_list* auxList = list_filter(BLOCK->elements, (void*)_match_proc_sem);
+														aProcess = (t_process*)list_remove(auxList, 0);
+
+																bool _match_pid(void* element){
+																	if(((t_process*)element)->tcb->pid== aProcess->tcb->pid){
+																		return true;
+																	}
+																	return false;
+																}
+
+														//Remuevo el proceso que esta bloqueado por este semaforo de la lista de BLOCKED
+														list_remove_by_condition(BLOCK->elements, (void*)_match_pid);
+
+														agregarProcesoColaReady(aProcess);
+														log_debug(kernelLog, "Agrege uno en READY por SIGNAL");
+														agregarProcesoColaExec();
+
+														//Libero memoria
+														free(auxList);
+													}
+													else{
+														log_info(kernelLog, string_from_format("Hubo un proceso bloqueado por el semaforo %s, pero actualmente no esta en el sistema. Pudo haber sido eliminado!", mensaje));
+													}
+
+												pthread_mutex_unlock(&mutex_block_queue);
+											}
+
+										}
+										break;
 
 					default:
 						;

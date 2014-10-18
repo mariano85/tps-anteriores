@@ -22,12 +22,14 @@ int main(){
 
 	initKernel();
 
-	//pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
+	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
+	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);
 	pthread_create(&conectarsePlanificadorThread.tid, NULL, (void*) conectarse_Planificador, (void*) &loaderThread);
 	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
 
-	//pthread_join(loaderThread.tid, NULL);
+	pthread_join(loaderThread.tid, NULL);
+	pthread_join(planificadorThread.tid, NULL);
 	pthread_join(conectarsePlanificadorThread.tid, NULL);
 	pthread_join(manejoColaReadyThread.tid, NULL);
 	pthread_join(manejoColaExitThread.tid, NULL);
@@ -235,4 +237,20 @@ t_process* getProcessStructureByBESOCode(char* code, int32_t pid, int32_t fd){
 
 
 	return proceso;
+}
+
+
+void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
+
+		int32_t v1 = aProcess->tcb->pid;
+		int32_t v2 = aProcess->tcb->program_counter;
+
+
+
+		t_contenido mensaje;
+		memset(mensaje, 0, sizeof(t_contenido));
+		strcpy(mensaje, string_from_format("[%d, %d, %d]", v1, v2,  config_kernel.QUANTUM));
+		enviarMensaje(socketCPU, KRN_TO_CPU_PCB, mensaje, logKernel);
+		log_info(logKernel, "Se envía un PCB al CPU libre elegido");
+
 }

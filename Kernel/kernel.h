@@ -118,9 +118,19 @@ typedef struct s_client_cpu{
 
 t_list *cpu_disponibles_list;
 
+typedef struct s_semaforos{
+	char Id[100];
+	int32_t Valor;
+} t_semaforos;
+
+t_list* semaforos_list;
+
+typedef char t_nombre_variable;
+typedef t_nombre_variable* t_nombre_semaforo;
 
 
 t_loaderThread loaderThread;
+t_loaderThread planificadorThread;
 t_loaderThread conectarsePlanificadorThread;
 t_loaderThread manejoColaReadyThread;
 t_loaderThread manejoColaExitThread;
@@ -140,7 +150,7 @@ t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
 void* loader(t_loaderThread *loaderThread);
 void *get_in_addr(struct sockaddr *sa);
 
-
+void* planificador(t_loaderThread *loaderThread);
 
 
 
@@ -163,13 +173,14 @@ void agregarProcesoColaNew(t_process* aProcess);
 void agregarProcesoColaReady(t_process* aProcess);
 void agregarProcesoColaExec();
 void agregarProcesoColaExit(t_process* aProcess);
-void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey, char* ioKey, int32_t io_tiempo);
+void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
 void manejo_cola_ready(void);
 void manejo_cola_exit(void);
 void chequearProcesos();
 int32_t cantDeProcesosEnSistema();
 bool NoBodyHereBySemaphore(t_list* aList);
 void removeProcess(int32_t processPID, bool someoneKilledHim);
+void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess);
 
 bool stillInside(int32_t processFd);
 int32_t getProcessPidByFd(int32_t fd);
@@ -178,6 +189,21 @@ pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_
 
 
 char* NO_SEMAPHORE;
+
+
+
+
+
+
+/* SERVICIOS KERNEL
+ *
+ */
+void entrada_estandar(int32_t pid, char* tipo);
+void salida_estandar(int32_t pid, char* tipo);
+void crear_hilo(t_client_cpu* aCpu,t_tcb tcb);
+void join (int32_t tid1,int32_t tid2);
+void bloquear(t_client_cpu* aCpu,t_tcb tcb, int32_t id);
+void despertar(int32_t id);
 
 
 

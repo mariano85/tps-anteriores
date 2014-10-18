@@ -233,7 +233,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 	}
 	else{
 		pthread_mutex_lock (&mutex_new_queue);
-			/*Ordeno cola de NEW por algoritmo de SJN*/
+
 
 			t_list* list_aux;
 			list_aux =  NEW->elements;
@@ -252,7 +252,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 	void agregarProcesoColaExec(){
 
 			t_client_cpu* aCpu;
-			t_tcb* aProcess;
+			t_process* aProcess;
 			bool disponible = false;
 
 			pthread_mutex_lock(&mutexCPUDISP);
@@ -288,10 +288,10 @@ void agregarProcesoColaReady(t_process* aProcess) {
 
 
 				aCpu->ocupado = true;
-				aCpu->processPID = aProcess->pid;
-				//log_debug(kernelLog,("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->pid, aCpu->cpuPID));
+				aCpu->processPID = aProcess->tcb->pid;
+			//	log_debug(logKernel,("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->tcb->pid, aCpu->cpuPID));
 
-				//enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
+				enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess); // ACA LE INDICO DE CUANTO ES EL QUANTUM PARA EJECUTAR
 
 				mostrarColas();
 			}
@@ -305,7 +305,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 		}
 	}
 
-	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey, char* ioKey, int32_t io_tiempo){
+	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey){
 		t_process* aProcess;
 		bool _match_fd(void* element) {
 			if (((t_process*)element)->process_fd == processFd) {
@@ -500,8 +500,8 @@ void manejo_cola_ready(void){
 
 void manejo_cola_exit(void){
 
-	int myPid = 0; // DEJO 0 para probar
-	log_info(logKernel, "************** Exit Manager Thread Started (PID: %d) ***************",myPid);
+	int myPid = process_get_thread_id();
+	log_info(logKernel, "************** Manejo cola exit (PID: %d) ***************",myPid);
 
 	for(;;){
 
