@@ -7,7 +7,17 @@
 
 #include "kernel.h"
 
+t_process* getProcessStructureByBESOCode(char* code, int32_t pid, int32_t fd){
 
+	t_process* proceso = malloc(sizeof(t_process));
+	t_tcb* process_tcb = malloc(sizeof(t_tcb));
+
+	strcpy(proceso->blockedBySemaphore, NO_SEMAPHORE);
+	proceso->process_fd = fd;
+	proceso->existe_msp = false;
+
+	return proceso;
+}
 
 bool stillInside(int32_t processFd){
 
@@ -233,7 +243,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 	}
 	else{
 		pthread_mutex_lock (&mutex_new_queue);
-
+			/*Ordeno cola de NEW por algoritmo de SJN*/
 
 			t_list* list_aux;
 			list_aux =  NEW->elements;
@@ -252,7 +262,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 	void agregarProcesoColaExec(){
 
 			t_client_cpu* aCpu;
-			t_process* aProcess;
+			t_tcb* aProcess;
 			bool disponible = false;
 
 			pthread_mutex_lock(&mutexCPUDISP);
@@ -288,10 +298,10 @@ void agregarProcesoColaReady(t_process* aProcess) {
 
 
 				aCpu->ocupado = true;
-				aCpu->processPID = aProcess->tcb->pid;
-			//	log_debug(logKernel,("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->tcb->pid, aCpu->cpuPID));
+				aCpu->processPID = aProcess->pid;
+				//log_debug(kernelLog,("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->pid, aCpu->cpuPID));
 
-				enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess); // ACA LE INDICO DE CUANTO ES EL QUANTUM PARA EJECUTAR
+				//enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
 
 				mostrarColas();
 			}
@@ -305,7 +315,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 		}
 	}
 
-	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey){
+	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey, char* ioKey, int32_t io_tiempo){
 		t_process* aProcess;
 		bool _match_fd(void* element) {
 			if (((t_process*)element)->process_fd == processFd) {
@@ -500,8 +510,8 @@ void manejo_cola_ready(void){
 
 void manejo_cola_exit(void){
 
-	int myPid = process_get_thread_id();
-	log_info(logKernel, "************** Manejo cola exit (PID: %d) ***************",myPid);
+	int myPid = 0; // DEJO 0 para probar
+	log_info(logKernel, "************** Exit Manager Thread Started (PID: %d) ***************",myPid);
 
 	for(;;){
 
