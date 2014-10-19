@@ -315,7 +315,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 		}
 	}
 
-	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey, char* ioKey, int32_t io_tiempo){
+	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey){
 		t_process* aProcess;
 		bool _match_fd(void* element) {
 			if (((t_process*)element)->process_fd == processFd) {

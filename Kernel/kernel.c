@@ -79,7 +79,7 @@ void handshakeMSP() {
 
 	t_contenido mensaje;
 	// deberiamos formatear el mensaje todo en 0's
-	enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
+	enviarMensaje(socketMSP, KRN_TO_MSP_HANDSHAKE, mensaje, logKernel);
 
 }
 
