@@ -17,7 +17,7 @@ int main() {
 
 	inicializarMSP();
 
-	conectarACpu();
+	conexionConKernelYCPU();
 
 	//puts("LISTA MARCOS ANTES");
 	//listarMarcos();
@@ -27,7 +27,12 @@ int main() {
 
 	crearSegmento(5678, 25);
 
-	crearSegmento(1234, 40);*/
+	crearSegmento(1234, 40);
+
+	puts("PRIMER ESCRIBIR MEMORIA");
+	escribirMemoria(1234, 1048576, "111111111122222222223333", 24);
+	puts("SOLICITAR MEMORIA");
+	solicitarMemoria(1234, 1048580, 23);*/
 
 	//puts("TABLA SEGMENTOS ANTES");
 
@@ -39,7 +44,7 @@ int main() {
 	obtenerUbicacionLogica(1049344, &numeroSegmento, &numeroPagina, &offset);
 	printf("numero segmento: %d    numero pagina: %d    offset: %d  \n", numeroSegmento, numeroPagina, offset);*/
 
-	//printf("piso: %zu\n", generarDireccionLogica(1, 2, 4));
+	//printf("piso: %zu\n", generarDireccionLogica(1, 0, 4));
 
 
 	//destruirSegmento(1234, 1);

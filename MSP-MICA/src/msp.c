@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
+#include <pthread.h>
 
 
 #define CANTIDAD_MAX_SEGMENTOS_POR_PID 3
@@ -458,10 +459,25 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 }
 
 
-void solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
+void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 {
-	//t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
+	void* buffer;
+	int numeroSegmento, numeroPagina, offset;
+	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
+	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
+
+	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
+
+	void* direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+
+
+	buffer = malloc(tamanio);
+	memcpy(buffer, direccionOrigen, tamanio);
+
+	puts("BUFFER");
+	puts(buffer);
+	return buffer;
 
 }
 
@@ -566,12 +582,6 @@ void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int off
 	memcpy(direccionDestino, bytesAEscribir + yaEscribi, tamanio);
 
 
-
-
-	puts("DIRECCION DESTINO");
-	puts(direccionDestino);
-
-
 }
 
 t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
@@ -622,7 +632,7 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 	return NULL;
 }
 
-void conectarACpu()
+void conexionConKernelYCPU()
 {
 
 	struct sockaddr_in my_addr, their_addr;
@@ -642,11 +652,14 @@ void conectarACpu()
 
 	while(1)
 	{
-		int sin_size = sizeof(struct sockaddr_in);
+		socklen_t sin_size;
+
+		sin_size = sizeof(struct sockaddr_in);
+
 
 		log_trace(logs, "A la espera de nuevas conexiones");
 
-		if((newFD = accept (socketFD,(struct sockaddr *)&their_addr, &sin_size)) == -1)
+		if((newFD = accept(socketFD,(struct sockaddr *)&their_addr, &sin_size)) == -1)
 		{
 			perror("accept");
 			continue;
@@ -659,17 +672,13 @@ void conectarACpu()
 
 		t_header header_conexion_MSP = recibirMensaje(newFD, mensajeParaRecibirConexionCpu, logs);
 
+		pthread_t hilo;
+
 		if(header_conexion_MSP == CPU_TO_MSP_HANDSHAKE)
 		{
 
-			char** array_para_recibir_mensaje = string_get_string_as_array(mensajeParaRecibirConexionCpu);
+			pthread_create(&hilo, NULL, atenderACPU, NULL);
 
-			int a, b;
-
-			a = atoi(array_para_recibir_mensaje[0]);
-			b = atoi(array_para_recibir_mensaje[1]);
-
-			printf("a: %d     b: %d   \n", a, b);
 
 		}
 
@@ -682,6 +691,15 @@ void conectarACpu()
 
 
 }
+
+void *atenderACPU()
+{
+	printf("Hola\n");
+
+	return EXIT_SUCCESS;
+}
+
+
 
 
 

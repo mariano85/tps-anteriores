@@ -122,9 +122,11 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi);
 
-void solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
+void *solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
 
-void conectarACpu();
+void conexionConKernelYCPU();
+
+void *atenderACPU();
 
 
 #endif /* MSP_H_ */
