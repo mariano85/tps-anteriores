@@ -45,7 +45,8 @@ typedef struct
 	int nro_segmento;
 	int nro_pagina;
 	void* dirFisica;
-	int libre; //si vale 0, el marco está ocupado, si vale 1 está libre
+	int libre;	//si vale 0, el marco está ocupado, si vale 1 está libre
+	int orden;
 } t_marco;
 
 typedef struct
@@ -58,7 +59,9 @@ typedef struct
 
 
 
-//VARIABLES LOCALES
+//VARIABLES globales
+
+int ordenMarco;
 
 t_list* listaSegmentos;
 
@@ -127,6 +130,17 @@ void *solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
 void conexionConKernelYCPU();
 
 void *atenderACPU();
+
+int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
+
+char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina);
+
+void elegirVictimaSegunFIFO();
+
+void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina);
+
+
+
 
 
 #endif /* MSP_H_ */

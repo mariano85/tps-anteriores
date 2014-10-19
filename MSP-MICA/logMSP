@@ -451,3 +451,300 @@
 [TRACE] 23:55:15:240 MSP/(16151:16151): MSP inicio su ejecucion. Tamaño memoria: 70
 [TRACE] 23:56:09:378 MSP/(16189:16189): MSP inicio su ejecucion
 [TRACE] 23:56:09:379 MSP/(16189:16189): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 02:51:08:692 MSP/(17670:17670): MSP inicio su ejecucion
+[TRACE] 02:51:08:703 MSP/(17670:17670): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 02:51:08:951 MSP/(17674:17674): MSP inicio su ejecucion
+[TRACE] 02:51:08:981 MSP/(17674:17674): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 02:51:39:840 MSP/(17713:17713): MSP inicio su ejecucion
+[TRACE] 02:51:39:843 MSP/(17713:17713): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:01:52:227 MSP/(17836:17836): MSP inicio su ejecucion
+[TRACE] 03:01:52:230 MSP/(17836:17836): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:06:40:362 MSP/(17931:17931): MSP inicio su ejecucion
+[TRACE] 03:06:40:364 MSP/(17931:17931): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:07:09:462 MSP/(17980:17980): MSP inicio su ejecucion
+[TRACE] 03:07:09:465 MSP/(17980:17980): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:15:30:331 MSP/(18054:18054): MSP inicio su ejecucion
+[TRACE] 03:15:30:333 MSP/(18054:18054): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:15:33:852 MSP/(18069:18069): MSP inicio su ejecucion
+[TRACE] 03:15:33:855 MSP/(18069:18069): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:16:48:781 MSP/(18109:18109): MSP inicio su ejecucion
+[TRACE] 03:16:48:782 MSP/(18109:18109): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:19:47:718 MSP/(18178:18178): MSP inicio su ejecucion
+[TRACE] 03:19:47:721 MSP/(18178:18178): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:22:26:675 MSP/(18244:18244): MSP inicio su ejecucion
+[TRACE] 03:22:26:678 MSP/(18244:18244): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:22:53:630 MSP/(18291:18291): MSP inicio su ejecucion
+[TRACE] 03:22:53:632 MSP/(18291:18291): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:26:50:171 MSP/(18392:18392): MSP inicio su ejecucion
+[TRACE] 03:26:50:173 MSP/(18392:18392): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:44:52:166 MSP/(1991:1991): MSP inicio su ejecucion
+[TRACE] 03:44:52:200 MSP/(1991:1991): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:54:24:3 MSP/(2646:2646): MSP inicio su ejecucion
+[TRACE] 03:54:25:5 MSP/(2646:2646): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:54:55:30 MSP/(2667:2667): MSP inicio su ejecucion
+[TRACE] 03:54:55:55 MSP/(2667:2667): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:55:20:411 MSP/(2707:2707): MSP inicio su ejecucion
+[TRACE] 03:55:20:419 MSP/(2707:2707): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:55:44:292 MSP/(2743:2743): MSP inicio su ejecucion
+[TRACE] 03:55:44:306 MSP/(2743:2743): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:56:31:116 MSP/(2779:2779): MSP inicio su ejecucion
+[TRACE] 03:56:31:127 MSP/(2779:2779): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:57:40:321 MSP/(2830:2830): MSP inicio su ejecucion
+[TRACE] 03:57:40:323 MSP/(2830:2830): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:58:13:257 MSP/(2871:2871): MSP inicio su ejecucion
+[TRACE] 03:58:13:259 MSP/(2871:2871): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:58:43:287 MSP/(2908:2908): MSP inicio su ejecucion
+[TRACE] 03:58:43:298 MSP/(2908:2908): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 03:59:22:432 MSP/(2948:2948): MSP inicio su ejecucion
+[TRACE] 03:59:22:442 MSP/(2948:2948): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 04:15:06:360 MSP/(3466:3466): MSP inicio su ejecucion
+[TRACE] 04:15:06:388 MSP/(3466:3466): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 04:30:38:467 MSP/(3656:3656): MSP inicio su ejecucion
+[TRACE] 04:30:38:470 MSP/(3656:3656): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 04:45:15:491 MSP/(3922:3922): MSP inicio su ejecucion
+[TRACE] 04:45:15:493 MSP/(3922:3922): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 04:45:51:809 MSP/(3960:3960): MSP inicio su ejecucion
+[TRACE] 04:45:51:824 MSP/(3960:3960): MSP inicio su ejecucion. Tamaño memoria: 70
+[TRACE] 04:46:58:993 MSP/(4003:4003): MSP inicio su ejecucion
+[TRACE] 04:46:58:996 MSP/(4003:4003): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 04:47:03:999 MSP/(4003:4003): Error, la dirección ingresada es inválida.
+[ERROR] 04:47:08:1 MSP/(4003:4003): Error, no hay espacio suficiente en la memoria.
+[TRACE] 04:47:42:685 MSP/(4041:4041): MSP inicio su ejecucion
+[TRACE] 04:47:42:687 MSP/(4041:4041): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 04:47:47:734 MSP/(4041:4041): Error, la dirección ingresada es inválida.
+[ERROR] 04:47:52:737 MSP/(4041:4041): Error, no hay espacio suficiente en la memoria.
+[TRACE] 04:48:21:765 MSP/(4078:4078): MSP inicio su ejecucion
+[TRACE] 04:48:21:778 MSP/(4078:4078): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 04:48:26:785 MSP/(4078:4078): Error, la dirección ingresada es inválida.
+[ERROR] 04:48:31:788 MSP/(4078:4078): Error, no hay espacio suficiente en la memoria.
+[TRACE] 04:48:52:42 MSP/(4115:4115): MSP inicio su ejecucion
+[TRACE] 04:48:52:45 MSP/(4115:4115): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 04:48:57:57 MSP/(4115:4115): Error, la dirección ingresada es inválida.
+[ERROR] 04:49:02:63 MSP/(4115:4115): Error, no hay espacio suficiente en la memoria.
+[TRACE] 04:51:11:84 MSP/(4155:4155): MSP inicio su ejecucion
+[TRACE] 04:51:11:85 MSP/(4155:4155): MSP inicio su ejecucion. Tamaño memoria: 70
+[ERROR] 04:51:16:93 MSP/(4155:4155): Error, la dirección ingresada es inválida.
+[ERROR] 04:51:21:101 MSP/(4155:4155): Error, no hay espacio suficiente en la memoria.
+[TRACE] 04:52:00:974 MSP/(4178:4178): MSP inicio su ejecucion
+[TRACE] 04:52:00:995 MSP/(4178:4178): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 04:52:05:997 MSP/(4178:4178): Error, la dirección ingresada es inválida.
+[TRACE] 04:53:05:191 MSP/(4216:4216): MSP inicio su ejecucion
+[TRACE] 04:53:05:193 MSP/(4216:4216): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 04:53:10:208 MSP/(4216:4216): Error, la dirección ingresada es inválida.
+[TRACE] 04:54:33:587 MSP/(4257:4257): MSP inicio su ejecucion
+[TRACE] 04:54:33:601 MSP/(4257:4257): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 04:54:38:622 MSP/(4257:4257): Error, la dirección ingresada es inválida.
+[TRACE] 04:55:55:445 MSP/(4309:4309): MSP inicio su ejecucion
+[TRACE] 04:55:55:464 MSP/(4309:4309): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 04:56:00:468 MSP/(4309:4309): Error, la dirección ingresada es inválida.
+[TRACE] 04:59:04:975 MSP/(4392:4392): MSP inicio su ejecucion
+[TRACE] 04:59:04:977 MSP/(4392:4392): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 04:59:09:991 MSP/(4392:4392): Error, la dirección ingresada es inválida.
+[TRACE] 04:59:59:801 MSP/(4461:4461): MSP inicio su ejecucion
+[TRACE] 04:59:59:810 MSP/(4461:4461): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:00:04:825 MSP/(4461:4461): Error, la dirección ingresada es inválida.
+[TRACE] 05:00:31:579 MSP/(4497:4497): MSP inicio su ejecucion
+[TRACE] 05:00:31:582 MSP/(4497:4497): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:00:36:610 MSP/(4497:4497): Error, la dirección ingresada es inválida.
+[TRACE] 05:01:09:828 MSP/(4535:4535): MSP inicio su ejecucion
+[TRACE] 05:01:09:828 MSP/(4535:4535): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:01:14:836 MSP/(4535:4535): Error, la dirección ingresada es inválida.
+[TRACE] 05:01:43:435 MSP/(4574:4574): MSP inicio su ejecucion
+[TRACE] 05:01:43:437 MSP/(4574:4574): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:01:48:441 MSP/(4574:4574): Error, la dirección ingresada es inválida.
+[TRACE] 05:02:09:119 MSP/(4610:4610): MSP inicio su ejecucion
+[TRACE] 05:02:09:145 MSP/(4610:4610): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:02:14:155 MSP/(4610:4610): Error, la dirección ingresada es inválida.
+[TRACE] 05:02:38:629 MSP/(4646:4646): MSP inicio su ejecucion
+[TRACE] 05:02:38:636 MSP/(4646:4646): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:02:43:651 MSP/(4646:4646): Error, la dirección ingresada es inválida.
+[TRACE] 05:03:10:697 MSP/(4692:4692): MSP inicio su ejecucion
+[TRACE] 05:03:10:699 MSP/(4692:4692): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:03:15:734 MSP/(4692:4692): Error, la dirección ingresada es inválida.
+[TRACE] 05:03:36:405 MSP/(4727:4727): MSP inicio su ejecucion
+[TRACE] 05:03:36:417 MSP/(4727:4727): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:03:41:437 MSP/(4727:4727): Error, la dirección ingresada es inválida.
+[TRACE] 05:04:48:200 MSP/(4781:4781): MSP inicio su ejecucion
+[TRACE] 05:04:48:214 MSP/(4781:4781): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:04:53:217 MSP/(4781:4781): Error, la dirección ingresada es inválida.
+[TRACE] 05:05:49:828 MSP/(4824:4824): MSP inicio su ejecucion
+[TRACE] 05:05:49:835 MSP/(4824:4824): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:05:54:841 MSP/(4824:4824): Error, la dirección ingresada es inválida.
+[TRACE] 05:07:00:113 MSP/(4863:4863): MSP inicio su ejecucion
+[TRACE] 05:07:00:124 MSP/(4863:4863): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:07:05:138 MSP/(4863:4863): Error, la dirección ingresada es inválida.
+[TRACE] 05:09:44:421 MSP/(4902:4902): MSP inicio su ejecucion
+[TRACE] 05:09:44:422 MSP/(4902:4902): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 05:09:44:773 MSP/(4904:4904): MSP inicio su ejecucion
+[TRACE] 05:09:44:784 MSP/(4904:4904): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:09:49:455 MSP/(4902:4902): Error, la dirección ingresada es inválida.
+[ERROR] 05:09:49:794 MSP/(4904:4904): Error, la dirección ingresada es inválida.
+[TRACE] 05:10:08:81 MSP/(4940:4940): MSP inicio su ejecucion
+[TRACE] 05:10:08:89 MSP/(4940:4940): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 05:10:08:332 MSP/(4946:4946): MSP inicio su ejecucion
+[TRACE] 05:10:08:336 MSP/(4946:4946): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:10:13:132 MSP/(4940:4940): Error, la dirección ingresada es inválida.
+[ERROR] 05:10:13:352 MSP/(4946:4946): Error, la dirección ingresada es inválida.
+[TRACE] 05:11:50:780 MSP/(4996:4996): MSP inicio su ejecucion
+[TRACE] 05:11:50:795 MSP/(4996:4996): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:11:55:799 MSP/(4996:4996): Error, la dirección ingresada es inválida.
+[TRACE] 05:17:30:844 MSP/(5074:5074): MSP inicio su ejecucion
+[TRACE] 05:17:30:887 MSP/(5074:5074): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:17:35:892 MSP/(5074:5074): Error, la dirección ingresada es inválida.
+[TRACE] 05:36:59:356 MSP/(5220:5220): MSP inicio su ejecucion
+[TRACE] 05:36:59:358 MSP/(5220:5220): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:37:04:373 MSP/(5220:5220): Error, la dirección ingresada es inválida.
+[TRACE] 05:40:14:668 MSP/(5301:5301): MSP inicio su ejecucion
+[TRACE] 05:40:14:699 MSP/(5301:5301): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:40:19:748 MSP/(5301:5301): Error, la dirección ingresada es inválida.
+[TRACE] 05:44:19:651 MSP/(5382:5382): MSP inicio su ejecucion
+[TRACE] 05:44:19:661 MSP/(5382:5382): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:44:19:664 MSP/(5382:5382): Error, la dirección ingresada es inválida.
+[TRACE] 05:45:57:785 MSP/(5431:5431): MSP inicio su ejecucion
+[TRACE] 05:45:57:789 MSP/(5431:5431): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:45:57:801 MSP/(5431:5431): Error, la dirección ingresada es inválida.
+[TRACE] 05:46:58:856 MSP/(5502:5502): MSP inicio su ejecucion
+[TRACE] 05:46:58:857 MSP/(5502:5502): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:46:58:870 MSP/(5502:5502): Error, la dirección ingresada es inválida.
+[TRACE] 05:47:29:428 MSP/(5538:5538): MSP inicio su ejecucion
+[TRACE] 05:47:29:461 MSP/(5538:5538): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:47:29:480 MSP/(5538:5538): Error, la dirección ingresada es inválida.
+[TRACE] 05:48:31:275 MSP/(5617:5617): MSP inicio su ejecucion
+[TRACE] 05:48:31:278 MSP/(5617:5617): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:48:31:300 MSP/(5617:5617): Error, la dirección ingresada es inválida.
+[TRACE] 05:49:43:575 MSP/(5657:5657): MSP inicio su ejecucion
+[TRACE] 05:49:43:577 MSP/(5657:5657): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:49:43:578 MSP/(5657:5657): Error, la dirección ingresada es inválida.
+[TRACE] 05:51:59:810 MSP/(5701:5701): MSP inicio su ejecucion
+[TRACE] 05:51:59:812 MSP/(5701:5701): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:51:59:826 MSP/(5701:5701): Error, la dirección ingresada es inválida.
+[TRACE] 05:53:47:818 MSP/(5782:5782): MSP inicio su ejecucion
+[TRACE] 05:53:47:832 MSP/(5782:5782): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:53:47:834 MSP/(5782:5782): Error, la dirección ingresada es inválida.
+[TRACE] 05:59:03:500 MSP/(5840:5840): MSP inicio su ejecucion
+[TRACE] 05:59:03:518 MSP/(5840:5840): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:59:03:520 MSP/(5840:5840): Error, la dirección ingresada es inválida.
+[TRACE] 05:59:52:593 MSP/(5878:5878): MSP inicio su ejecucion
+[TRACE] 05:59:52:603 MSP/(5878:5878): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 05:59:52:609 MSP/(5878:5878): Error, la dirección ingresada es inválida.
+[TRACE] 06:00:49:959 MSP/(5915:5915): MSP inicio su ejecucion
+[TRACE] 06:00:49:976 MSP/(5915:5915): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:00:49:979 MSP/(5915:5915): Error, la dirección ingresada es inválida.
+[TRACE] 06:05:30:248 MSP/(6018:6018): MSP inicio su ejecucion
+[TRACE] 06:05:30:249 MSP/(6018:6018): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:05:30:249 MSP/(6018:6018): Error, la dirección ingresada es inválida.
+[TRACE] 06:08:23:770 MSP/(6062:6062): MSP inicio su ejecucion
+[TRACE] 06:08:23:773 MSP/(6062:6062): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:08:23:779 MSP/(6062:6062): Error, la dirección ingresada es inválida.
+[TRACE] 06:09:34:365 MSP/(6087:6087): MSP inicio su ejecucion
+[TRACE] 06:09:34:366 MSP/(6087:6087): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:09:34:367 MSP/(6087:6087): Error, la dirección ingresada es inválida.
+[TRACE] 06:17:02:589 MSP/(6213:6213): MSP inicio su ejecucion
+[TRACE] 06:17:02:606 MSP/(6213:6213): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:17:02:625 MSP/(6213:6213): Error, la dirección ingresada es inválida.
+[TRACE] 06:18:15:437 MSP/(6293:6293): MSP inicio su ejecucion
+[TRACE] 06:18:15:439 MSP/(6293:6293): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:18:15:445 MSP/(6293:6293): Error, la dirección ingresada es inválida.
+[TRACE] 06:20:12:368 MSP/(6372:6372): MSP inicio su ejecucion
+[TRACE] 06:20:12:375 MSP/(6372:6372): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:20:12:377 MSP/(6372:6372): Error, la dirección ingresada es inválida.
+[TRACE] 06:24:11:860 MSP/(6447:6447): MSP inicio su ejecucion
+[TRACE] 06:24:11:869 MSP/(6447:6447): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:24:11:886 MSP/(6447:6447): Error, la dirección ingresada es inválida.
+[TRACE] 06:27:08:495 MSP/(6498:6498): MSP inicio su ejecucion
+[TRACE] 06:27:08:496 MSP/(6498:6498): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:27:08:502 MSP/(6498:6498): Error, la dirección ingresada es inválida.
+[TRACE] 06:27:29:940 MSP/(6519:6519): MSP inicio su ejecucion
+[TRACE] 06:27:29:954 MSP/(6519:6519): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:27:29:965 MSP/(6519:6519): Error, la dirección ingresada es inválida.
+[TRACE] 06:28:25:740 MSP/(6556:6556): MSP inicio su ejecucion
+[TRACE] 06:28:25:754 MSP/(6556:6556): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:28:25:760 MSP/(6556:6556): Error, la dirección ingresada es inválida.
+[TRACE] 06:30:19:270 MSP/(6602:6602): MSP inicio su ejecucion
+[TRACE] 06:30:19:272 MSP/(6602:6602): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:30:19:273 MSP/(6602:6602): Error, la dirección ingresada es inválida.
+[TRACE] 06:37:31:812 MSP/(6699:6699): MSP inicio su ejecucion
+[TRACE] 06:37:31:816 MSP/(6699:6699): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:37:31:836 MSP/(6699:6699): Error, la dirección ingresada es inválida.
+[TRACE] 06:40:26:129 MSP/(6769:6769): MSP inicio su ejecucion
+[TRACE] 06:40:26:137 MSP/(6769:6769): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:40:26:146 MSP/(6769:6769): Error, la dirección ingresada es inválida.
+[TRACE] 06:42:36:902 MSP/(6822:6822): MSP inicio su ejecucion
+[TRACE] 06:42:36:910 MSP/(6822:6822): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:42:36:913 MSP/(6822:6822): Error, la dirección ingresada es inválida.
+[TRACE] 06:43:26:645 MSP/(6861:6861): MSP inicio su ejecucion
+[TRACE] 06:43:26:646 MSP/(6861:6861): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:43:26:662 MSP/(6861:6861): Error, la dirección ingresada es inválida.
+[TRACE] 06:44:02:617 MSP/(6900:6900): MSP inicio su ejecucion
+[TRACE] 06:44:02:623 MSP/(6900:6900): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:44:02:632 MSP/(6900:6900): Error, la dirección ingresada es inválida.
+[TRACE] 06:52:10:583 MSP/(7071:7071): MSP inicio su ejecucion
+[TRACE] 06:52:10:583 MSP/(7071:7071): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:52:10:590 MSP/(7071:7071): Error, la dirección ingresada es inválida.
+[TRACE] 06:52:25:807 MSP/(7106:7106): MSP inicio su ejecucion
+[TRACE] 06:52:25:809 MSP/(7106:7106): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:52:25:824 MSP/(7106:7106): Error, la dirección ingresada es inválida.
+[TRACE] 06:55:05:677 MSP/(7196:7196): MSP inicio su ejecucion
+[TRACE] 06:55:05:679 MSP/(7196:7196): MSP inicio su ejecucion. Tamaño memoria: 100
+[ERROR] 06:55:05:684 MSP/(7196:7196): Error, la dirección ingresada es inválida.
+[TRACE] 07:07:43:591 MSP/(7277:7277): MSP inicio su ejecucion
+[TRACE] 07:07:43:594 MSP/(7277:7277): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:07:43:603 MSP/(7277:7277): Error, la dirección ingresada es inválida.
+[ERROR] 07:07:43:604 MSP/(7277:7277): Error, no hay espacio suficiente en la memoria.
+[TRACE] 07:08:07:974 MSP/(7298:7298): MSP inicio su ejecucion
+[TRACE] 07:08:07:976 MSP/(7298:7298): MSP inicio su ejecucion. Tamaño memoria: 90
+[ERROR] 07:08:07:996 MSP/(7298:7298): Error, la dirección ingresada es inválida.
+[TRACE] 07:10:31:176 MSP/(7354:7354): MSP inicio su ejecucion
+[TRACE] 07:10:31:179 MSP/(7354:7354): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:10:31:181 MSP/(7354:7354): Error, la dirección ingresada es inválida.
+[TRACE] 07:12:35:854 MSP/(7396:7396): MSP inicio su ejecucion
+[TRACE] 07:12:35:864 MSP/(7396:7396): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:12:35:864 MSP/(7396:7396): Error, la dirección ingresada es inválida.
+[TRACE] 07:13:52:167 MSP/(7438:7438): MSP inicio su ejecucion
+[TRACE] 07:13:52:169 MSP/(7438:7438): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:13:52:171 MSP/(7438:7438): Error, la dirección ingresada es inválida.
+[TRACE] 07:22:48:263 MSP/(7580:7580): MSP inicio su ejecucion
+[TRACE] 07:22:48:266 MSP/(7580:7580): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:22:48:273 MSP/(7580:7580): Error, la dirección ingresada es inválida.
+[TRACE] 07:25:10:139 MSP/(7625:7625): MSP inicio su ejecucion
+[TRACE] 07:25:10:149 MSP/(7625:7625): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:25:10:151 MSP/(7625:7625): Error, la dirección ingresada es inválida.
+[TRACE] 07:25:47:377 MSP/(7660:7660): MSP inicio su ejecucion
+[TRACE] 07:25:47:378 MSP/(7660:7660): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:25:47:394 MSP/(7660:7660): Error, la dirección ingresada es inválida.
+[TRACE] 07:27:32:544 MSP/(7716:7716): MSP inicio su ejecucion
+[TRACE] 07:27:32:554 MSP/(7716:7716): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:27:32:555 MSP/(7716:7716): Error, la dirección ingresada es inválida.
+[TRACE] 07:28:31:10 MSP/(7755:7755): MSP inicio su ejecucion
+[TRACE] 07:28:32:18 MSP/(7755:7755): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:28:32:18 MSP/(7755:7755): Error, la dirección ingresada es inválida.
+[TRACE] 07:29:46:246 MSP/(7800:7800): MSP inicio su ejecucion
+[TRACE] 07:29:46:256 MSP/(7800:7800): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:31:01:313 MSP/(7838:7838): MSP inicio su ejecucion
+[TRACE] 07:31:01:317 MSP/(7838:7838): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:31:18:797 MSP/(7877:7877): MSP inicio su ejecucion
+[TRACE] 07:31:18:815 MSP/(7877:7877): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:31:18:819 MSP/(7877:7877): Error, la dirección ingresada es inválida.
+[TRACE] 07:31:45:865 MSP/(7912:7912): MSP inicio su ejecucion
+[TRACE] 07:31:45:865 MSP/(7912:7912): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:32:37:468 MSP/(7953:7953): MSP inicio su ejecucion
+[TRACE] 07:32:37:479 MSP/(7953:7953): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:32:37:481 MSP/(7953:7953): Error, la dirección ingresada es inválida.
+[TRACE] 07:33:02:323 MSP/(7989:7989): MSP inicio su ejecucion
+[TRACE] 07:33:02:326 MSP/(7989:7989): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:33:25:609 MSP/(8027:8027): MSP inicio su ejecucion
+[TRACE] 07:33:25:613 MSP/(8027:8027): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:35:14:862 MSP/(8073:8073): MSP inicio su ejecucion
+[TRACE] 07:35:14:863 MSP/(8073:8073): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:36:25:579 MSP/(8121:8121): MSP inicio su ejecucion
+[TRACE] 07:36:25:588 MSP/(8121:8121): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:37:14:11 MSP/(8159:8159): MSP inicio su ejecucion
+[TRACE] 07:37:14:20 MSP/(8159:8159): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:37:34:2 MSP/(8196:8196): MSP inicio su ejecucion
+[TRACE] 07:37:35:9 MSP/(8196:8196): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 07:38:51:344 MSP/(8239:8239): MSP inicio su ejecucion
+[TRACE] 07:38:51:348 MSP/(8239:8239): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:38:51:356 MSP/(8239:8239): Error, no hay espacio suficiente en la memoria.
+[TRACE] 07:40:16:340 MSP/(8281:8281): MSP inicio su ejecucion
+[TRACE] 07:40:16:346 MSP/(8281:8281): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 07:40:16:353 MSP/(8281:8281): Error, no hay espacio suficiente en la memoria.

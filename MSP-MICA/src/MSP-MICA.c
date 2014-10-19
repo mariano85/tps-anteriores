@@ -12,24 +12,66 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include "msp.h"
+#include <unistd.h>
 
 int main() {
 
 	inicializarMSP();
 
-	conexionConKernelYCPU();
-
-	//puts("LISTA MARCOS ANTES");
-	//listarMarcos();
-
-
-	/*crearSegmento(1234, 14);
+	crearSegmento(1234, 14);
 
 	crearSegmento(5678, 25);
 
 	crearSegmento(1234, 40);
 
-	puts("PRIMER ESCRIBIR MEMORIA");
+	escribirMemoria(1234, 1049088, "5555555555", 10);
+
+	escribirMemoria(1234, 0, "1111111111", 10);
+
+	escribirMemoria(1234, 256, "2222222222", 10);
+
+	escribirMemoria(1234, 1048576, "3333333333", 10);
+
+	escribirMemoria(1234, 1048832, "4444444444", 10);
+
+	escribirMemoria(1234, 1049344, "6666666666", 10);
+
+	escribirMemoria(5678, 0, "7777777777", 10);
+
+	escribirMemoria(5678, 512, "9999999999", 10);
+
+	escribirMemoria(5678, 256, "8888888888", 10);
+
+	escribirMemoria(1234, 0, "0000000000", 10);
+
+
+
+
+
+	puts("LISTA MARCOS antes de victima");
+		listarMarcos();
+
+	elegirVictimaSegunFIFO();
+
+	puts("LISTA MARCOS despues de victima");
+		listarMarcos();
+
+	escribirMemoria(1234, 1049344, "12312312", 8);
+
+	puts("LISTA MARCOS despues de escribir");
+			listarMarcos();
+
+	elegirVictimaSegunFIFO();
+
+	//conexionConKernelYCPU();
+
+	//puts("LISTA MARCOS ANTES");
+	//listarMarcos();
+
+
+
+
+	/*puts("PRIMER ESCRIBIR MEMORIA");
 	escribirMemoria(1234, 1048576, "111111111122222222223333", 24);
 	puts("SOLICITAR MEMORIA");
 	solicitarMemoria(1234, 1048580, 23);*/

@@ -17,6 +17,7 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <pthread.h>
+#include <commons/temporal.h>
 
 
 #define CANTIDAD_MAX_SEGMENTOS_POR_PID 3
@@ -97,8 +98,15 @@ void crearTablaDeMarcos()
 
 		tablaMarcos[i].dirFisica = memoriaPrincipal + i*TAMANIO_PAGINA;
 
+		tablaMarcos[i].orden = 0;
+
 		//Cuando recién se crea la tabla, todos los marcos están libres.
 		tablaMarcos[i].libre = 1;
+
+		void* direccionDestino = tablaMarcos[i].dirFisica;
+		void* buffer = malloc(TAMANIO_PAGINA);
+		buffer = string_repeat('\0', TAMANIO_PAGINA);
+		memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
 	}
 }
 
@@ -108,6 +116,8 @@ void listarMarcos()
 	for (i=0; i<cantidadMarcos; i++)
 	{
 		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d		", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
+		printf("orden: %d    ", tablaMarcos[i].orden);
+		printf("libre: %d     ", tablaMarcos[i].libre);
 		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);
 	}
 }
@@ -135,9 +145,7 @@ void inicializarMSP()
 
 	listaSegmentos = list_create();
 
-
-	//CONECTAR CON KERNEL
-	//ABRIR CONEXIONES CON CPU
+	ordenMarco = 0;
 
 
 
@@ -374,6 +382,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 	if (offset > TAMANIO_PAGINA - 1)
 	{
+		printf("numeroSegmento: %d   pid: %d   pag: %d   direccion: %d", numeroSegmento, pid, numeroPagina, (int)direccionLogica);
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		puts("Error, la dirección ingresada es inválida.");
 		return NULL;
@@ -485,10 +494,7 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 {
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
-
 	if (paginasQueNecesito == NULL) return;
-
-
 
 	int numeroSegmento, numeroPagina, offset;
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
@@ -497,9 +503,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 	int tamanioRestante = tamanio;
 	int yaEscribi = 0;
 	int i;
-
-	printf("TAMANIO RESTANTE antes: %d\n", tamanioRestante);
-
 
 	for (i=0; i<cantidadPaginasQueNecesito; i++)
 	{
@@ -510,9 +513,11 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 		{
 			if (tamanio > memoriaRestante)
 			{
-				log_error(logs, "Error, no hay espacio suficiente en la memoria.");
-				puts("Error, no hay espacio suficiente en la memoria.");
-				return;
+					log_error(logs, "Error, no hay espacio suficiente en la memoria.");
+					puts("Error, no hay espacio suficiente en la memoria.");
+					return;
+
+
 			}
 
 			else
@@ -523,7 +528,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 		if (i == 0)
 		{
-			puts("ENTRE AL SEGUNDO IF");
 			int quedaParaCompletarPagina = TAMANIO_PAGINA - offset;
 
 			if(tamanio <= quedaParaCompletarPagina)
@@ -543,8 +547,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 		if ((tamanioRestante / TAMANIO_PAGINA == 0) && (i!=0))
 		{
-			puts("ENTRE AL CUARTO IF");
-
 			escribirEnMarco (nodoPagina->presencia, tamanioRestante, bytesAEscribir, 0, yaEscribi);
 			tamanioRestante = tamanioRestante - (tamanioRestante % TAMANIO_PAGINA);
 			yaEscribi = yaEscribi + (tamanioRestante % TAMANIO_PAGINA);
@@ -552,8 +554,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 		}
 		else if ((tamanioRestante / TAMANIO_PAGINA > 0) && (i!=0))
 		{
-			puts("ENTRE AL TERCER IF");
-
 			escribirEnMarco (nodoPagina->presencia, TAMANIO_PAGINA, bytesAEscribir, 0, yaEscribi);
 			tamanioRestante = tamanioRestante - TAMANIO_PAGINA;
 			yaEscribi = yaEscribi + TAMANIO_PAGINA;
@@ -571,17 +571,10 @@ void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int off
 {
 	void* direccionDestino = offset + tablaMarcos[numeroMarco].dirFisica;
 
-
-	printf("TAMANIO RESTANTE: %d\n", tamanio);
-	printf("YA ESCRIBI: %d\n", yaEscribi);
-
-
-	puts("BYTES A ESCRIBIR");
-	puts(bytesAEscribir);
+	tablaMarcos[numeroMarco].orden = ordenMarco;
+	ordenMarco ++;
 
 	memcpy(direccionDestino, bytesAEscribir + yaEscribi, tamanio);
-
-
 }
 
 t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
@@ -606,9 +599,6 @@ t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int ca
 
 	return paginasQueNecesito;
 }
-
-
-
 
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
 {
@@ -676,7 +666,6 @@ void conexionConKernelYCPU()
 
 		if(header_conexion_MSP == CPU_TO_MSP_HANDSHAKE)
 		{
-
 			pthread_create(&hilo, NULL, atenderACPU, NULL);
 
 
@@ -697,6 +686,104 @@ void *atenderACPU()
 	printf("Hola\n");
 
 	return EXIT_SUCCESS;
+}
+
+char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina)
+{
+	char* nombreArchivo = string_new();
+	char* pidStr = string_new();
+	char* numeroPaginaStr = string_new();
+	char* numeroSegmentoStr = string_new();
+
+	pidStr = string_itoa(pid);
+	numeroPaginaStr = string_itoa(numeroPagina);
+	numeroSegmentoStr = string_itoa(numeroSegmento);
+
+	nombreArchivo = string_from_format("%s_%s_%s", pidStr, numeroSegmentoStr, numeroPaginaStr);
+
+	return nombreArchivo;
+}
+
+void elegirVictimaSegunFIFO()
+{
+	nodo_segmento *nodoSegmento;
+	nodo_paginas *nodoPagina;
+	t_list *listaPaginas;
+
+	swapRestante = swapRestante - TAMANIO_PAGINA;
+
+	t_marco nodoMarco = tablaMarcos[0];
+	int i;
+	for (i=1; i<cantidadMarcos; i++)
+	{
+		if((tablaMarcos[i].orden < nodoMarco.orden) && (tablaMarcos[i].pid != 0))
+		{
+			nodoMarco = tablaMarcos[i];
+		}
+	}
+
+	int numeroSegmento = nodoMarco.nro_segmento;
+	int numeroPagina = nodoMarco.nro_pagina;
+
+	nodoSegmento = list_get(listaSegmentos, numeroSegmento);
+
+	listaPaginas = nodoSegmento->listaPaginas;
+
+	nodoPagina = list_get(listaPaginas, numeroPagina);
+
+	crearArchivoDePaginacion(nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina);
+
+	liberarMarco(nodoMarco.nro_marco, nodoPagina);
+}
+
+void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
+{
+	tablaMarcos[numeroMarco].libre = 1;
+	tablaMarcos[numeroMarco].nro_pagina = 0;
+	tablaMarcos[numeroMarco].nro_segmento = 0;
+	tablaMarcos[numeroMarco].orden = 0;
+	tablaMarcos[numeroMarco].pid = 0;
+
+	nodoPagina->presencia = -1;
+
+	void* direccionDestino = tablaMarcos[numeroMarco].dirFisica;
+	void* buffer = malloc(TAMANIO_PAGINA);
+	buffer = string_repeat('\0', TAMANIO_PAGINA);
+
+	memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
+
+	memoriaRestante = memoriaRestante + TAMANIO_PAGINA;
+}
+
+
+
+int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
+{
+	char* nombreArchivo = string_new();
+	nombreArchivo = generarNombreArchivo(pid, numeroSegmento, nodoPagina->nro_pagina);
+
+	FILE *archivoPaginacion = fopen(nombreArchivo, "w");
+
+	if (archivoPaginacion == NULL)
+	{
+		log_error(logs, "No pudo abrirse el archivo de paginacion.");
+		return EXIT_FAILURE;
+	}
+
+	char* buffer = malloc(TAMANIO_PAGINA);
+
+	int numeroMarco = nodoPagina->presencia;
+
+	char* direccionDestino = tablaMarcos[numeroMarco].dirFisica;
+
+	memcpy(buffer, direccionDestino, TAMANIO_PAGINA);
+
+	fprintf(archivoPaginacion, "%s", buffer);
+
+	fclose(archivoPaginacion);
+
+	return EXIT_SUCCESS;
+
 }
 
 
