@@ -151,7 +151,7 @@ void* planificador(t_loaderThread *loaderThread){
 							aCPU->processPID = 0;
 							aCPU->ocupado = false;
 
-							log_info(kernelLog, string_from_format("PCP Thread says: Nuevo CPU conectado (PID: %d) aguarda instrucciones", aCPU->cpuPID));
+							log_info(kernelLog, string_from_format("Planificador: Nuevo CPU conectado (PID: %d) aguarda instrucciones", aCPU->cpuPID));
 							//Agrego el nuevo CPU a la lista.
 							pthread_mutex_lock(&mutex_cpu_list);
 								list_add(cpu_client_list, aCPU);
