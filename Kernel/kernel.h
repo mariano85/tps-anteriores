@@ -31,6 +31,7 @@
 #include <commons/collections/queue.h>
 #include <commons/process.h>
 #include <commons/sockets.h>
+#include "commons/sockets.h"
 
 //Internal variables
 #define KERNEL_LOG_PATH "kernel.log"
@@ -90,6 +91,7 @@ t_queue *READY;
 t_queue *BLOCK;
 t_queue *EXEC;
 t_queue *EXIT;
+t_queue *SYSCALLS;
 
 pthread_mutex_t mutex_new_queue;
 pthread_mutex_t mutex_ready_queue;
@@ -134,6 +136,7 @@ t_loaderThread planificadorThread;
 t_loaderThread conectarsePlanificadorThread;
 t_loaderThread manejoColaReadyThread;
 t_loaderThread manejoColaExitThread;
+t_loaderThread manejoLlamadasAlSistemaThread;
 
 // funciones del kernel
 void finishKernel();
@@ -145,6 +148,8 @@ void eliminarSegmentos(int32_t pID) ;
 void killProcess(t_process* aProcess);
 void conectarse_Planificador();
 t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
+int32_t getProcessPidByFd(int32_t fd);
+t_process* getProcessStructureByBESOCode(char* stringCode, int32_t PID, int32_t fd);
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
@@ -172,19 +177,20 @@ void mostrarCola(t_queue* aQueue, pthread_mutex_t queueMutex, t_log* logger);
 void agregarProcesoColaNew(t_process* aProcess);
 void agregarProcesoColaReady(t_process* aProcess);
 void agregarProcesoColaExec();
+void agregarProcesoColaExecEnPrimerLugar(t_process* aProcess);
 void agregarProcesoColaExit(t_process* aProcess);
 void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
+void agregarProcesoColaLlamadaAlSistema(t_tcb* unTcb);
 void manejo_cola_ready(void);
 void manejo_cola_exit(void);
+void manejo_llamadas_sistema(void);
 void chequearProcesos();
 int32_t cantDeProcesosEnSistema();
 bool NoBodyHereBySemaphore(t_list* aList);
 void removeProcess(int32_t processPID, bool someoneKilledHim);
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess);
-
 bool stillInside(int32_t processFd);
-int32_t getProcessPidByFd(int32_t fd);
-t_process* getProcessStructureByBESOCode(char* stringCode, int32_t PID, int32_t fd);
+
 pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, condpBlockedProcess;
 
 
@@ -198,11 +204,13 @@ char* NO_SEMAPHORE;
 /* SERVICIOS KERNEL
  *
  */
+int32_t socketCPU;
+void interrupcion(t_process* aProcess, int32_t dir_memoria);
 void entrada_estandar(int32_t pid, char* tipo);
 void salida_estandar(int32_t pid, char* tipo);
-void crear_hilo(t_client_cpu* aCpu,t_tcb tcb);
+void crear_hilo(t_process* aProcess);
 void join (int32_t tid1,int32_t tid2);
-void bloquear(t_client_cpu* aCpu,t_tcb tcb, int32_t id);
+void bloquear(t_process* aProceess, int32_t id);
 void despertar(int32_t id);
 
 

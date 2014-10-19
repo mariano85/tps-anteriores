@@ -7,17 +7,7 @@
 
 #include "kernel.h"
 
-t_process* getProcessStructureByBESOCode(char* code, int32_t pid, int32_t fd){
 
-	t_process* proceso = malloc(sizeof(t_process));
-	t_tcb* process_tcb = malloc(sizeof(t_tcb));
-
-	strcpy(proceso->blockedBySemaphore, NO_SEMAPHORE);
-	proceso->process_fd = fd;
-	proceso->existe_msp = false;
-
-	return proceso;
-}
 
 bool stillInside(int32_t processFd){
 
@@ -315,7 +305,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 		}
 	}
 
-	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey, char* ioKey, int32_t io_tiempo){
+	void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey){
 		t_process* aProcess;
 		bool _match_fd(void* element) {
 			if (((t_process*)element)->process_fd == processFd) {
@@ -367,6 +357,19 @@ void agregarProcesoColaReady(t_process* aProcess) {
 
 
 	}
+
+
+
+	void agregarProcesoColaExecEnPrimerLugar(t_process* aProcess){
+				pthread_mutex_lock (&mutex_exec_queue);
+				int posicion = 0;
+				list_add_in_index(EXEC -> elements, posicion,aProcess);
+				pthread_mutex_unlock (&mutex_exec_queue);
+				puts("Un nuevo proceso se insertó en la cola EXEC (EN PRIMER LUGAR)!");
+				log_info(logKernel, "Un nuevo proceso se insertó en la cola EXEC (EN PRIMER LUGAR)");
+	}
+
+
 
 
 	void chequearProcesos(){
@@ -468,7 +471,7 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 
 void manejo_cola_ready(void){
 
-	int myPid = 1; // probando
+	int myPid = process_get_thread_id();
 	log_info(logKernel, "**************Ready Queue Manager Thread Started (PID: %d) ***************",myPid);
 	bool hayCpuLibre = false;
 	t_client_cpu* cpu;
@@ -510,8 +513,7 @@ void manejo_cola_ready(void){
 
 void manejo_cola_exit(void){
 
-	int myPid = 0; // DEJO 0 para probar
-	log_info(logKernel, "************** Exit Manager Thread Started (PID: %d) ***************",myPid);
+	int myPid = process_get_thread_id(); 	log_info(logKernel, "************** Exit Manager Thread Started (PID: %d) ***************",myPid);
 
 	for(;;){
 
@@ -536,6 +538,49 @@ void manejo_cola_exit(void){
 	}
 }
 
+
+void manejo_llamadas_sistema(){
+
+	int myPid = process_get_thread_id();
+	log_info(logKernel, "**************manejo llamadas al sistema(PID: %d) ***************",myPid);
+	bool hayCpuLibre = false;
+	t_client_cpu* cpu;
+	for(;;){
+		hayCpuLibre = false;
+
+		pthread_mutex_lock(&mutex_ready_queue);
+
+
+		bool _cpuLibre(void* element){
+
+						if(((t_client_cpu*)element)->ocupado == false){
+							return true;
+						}
+						return false;
+					}
+
+		while (SYSCALLS->elements->elements_count == 0 ||
+
+					(!list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)
+						&& SYSCALLS->elements->elements_count != 0))/* If there is nothing in the buffer then wait */
+		{
+			if(!list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)
+					&& SYSCALLS->elements->elements_count != 0){
+			log_info(logKernel, "Syscall lista, pero no hay cpu :( No hago nada hasta que no levanten una!");
+			}
+
+			pthread_cond_wait(&cond_ready_consumer, &mutex_ready_queue);
+		}
+
+		pthread_mutex_unlock(&mutex_ready_queue);
+			log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso listp! Voy a EJECUTARLO PRIMERO!");
+			t_process* aProcess = queue_pop(SYSCALLS);
+			agregarProcesoColaExecEnPrimerLugar(aProcess);
+
+		pthread_cond_signal(&cond_ready_producer);
+
+	}
+}
 
 bool NoBodyHereBySemaphore(t_list* aList){
 

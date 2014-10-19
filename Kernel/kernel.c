@@ -24,12 +24,21 @@ int main(){
 	initKernel();
 
 	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
-	pthread_join(loaderThread.tid, NULL);
+	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
+	pthread_create(&manejoLlamadasAlSistemaThread.tid, NULL, (void*) manejo_llamadas_sistema, (void*) &loaderThread);
 
+	pthread_join(loaderThread.tid, NULL);
+	pthread_join(planificadorThread.tid, NULL);
+	pthread_join(manejoColaReadyThread.tid, NULL);
+	pthread_join(manejoColaExitThread.tid, NULL);
+	pthread_join(manejoLlamadasAlSistemaThread.tid, NULL);
 	finishKernel();
 
 	return EXIT_SUCCESS;
 }
+
 
 void finishKernel(){
 	log_destroy(logKernel);
@@ -51,7 +60,7 @@ void initKernel(){
 	BLOCK = queue_create();
 	EXEC = queue_create();
 	EXIT = queue_create();
-
+	SYSCALLS = queue_create();
 	//Inicializa semaforo de colas
 	pthread_mutex_init(&mutex_new_queue, NULL );
 	pthread_mutex_init(&mutex_ready_queue, NULL );
@@ -79,7 +88,7 @@ void handshakeMSP() {
 
 	t_contenido mensaje;
 	// deberiamos formatear el mensaje todo en 0's
-	enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
+	enviarMensaje(socketMSP, KRN_TO_MSP_HANDSHAKE, mensaje, logKernel);
 
 }
 
@@ -170,5 +179,58 @@ void eliminarSegmentos(int32_t pid){
 }
 
 void killProcess(t_process* aProcess){
+
+	if(stillInside(aProcess->process_fd)){
+			log_info(logKernel, string_from_format("Se elimina del sistema las estructuras asociadas al proceso con PID: %d", aProcess->tcb->pid));
+			free(aProcess->tcb);
+			free(aProcess);
+		}
+		else{
+			aProcess->process_fd = 0;
+		}
 	log_info(logKernel, "implementar killProcess pid: %d", aProcess->tcb->pid);
 }
+
+
+t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
+
+	bool _match_cpu_fd(void* element){
+		if(((t_client_cpu*)element)->cpuFD == cpuFd){
+			return true;
+		}
+		return false;
+	}
+
+	return list_find(cpu_client_list, (void*)_match_cpu_fd);
+}
+
+
+
+void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
+
+		int32_t v1 = aProcess->tcb->pid;
+		int32_t v2 = aProcess->tcb->program_counter;
+
+
+
+		t_contenido mensaje;
+		memset(mensaje, 0, sizeof(t_contenido));
+		strcpy(mensaje, string_from_format("[%d, %d, %d]", v1, v2,  config_kernel.QUANTUM));
+		enviarMensaje(socketCPU, KRN_TO_CPU_PCB, mensaje, logKernel);
+		log_info(logKernel, "Se envía un PCB al CPU libre elegido");
+
+}
+
+t_process* getProcessStructureByBESOCode(char* code, int32_t pid, int32_t fd){
+
+	t_process* proceso = malloc(sizeof(t_process));
+	t_tcb* process_tcb = malloc(sizeof(t_tcb));
+	strcpy(proceso->blockedBySemaphore, NO_SEMAPHORE);
+	proceso->process_fd = fd;
+	proceso->existe_msp = false;
+
+	return proceso;
+}
+
+
+
