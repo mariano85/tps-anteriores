@@ -748,3 +748,16 @@
 [TRACE] 07:40:16:340 MSP/(8281:8281): MSP inicio su ejecucion
 [TRACE] 07:40:16:346 MSP/(8281:8281): MSP inicio su ejecucion. Tamaño memoria: 80
 [ERROR] 07:40:16:353 MSP/(8281:8281): Error, no hay espacio suficiente en la memoria.
+[TRACE] 16:27:38:405 MSP/(8952:8952): MSP inicio su ejecucion
+[TRACE] 16:27:38:408 MSP/(8952:8952): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 16:27:38:414 MSP/(8952:8952): Error, no hay espacio suficiente en la memoria.
+[TRACE] 16:30:30:861 MSP/(9021:9021): MSP inicio su ejecucion
+[TRACE] 16:30:30:867 MSP/(9021:9021): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 16:30:30:880 MSP/(9021:9021): Error, no hay espacio suficiente en la memoria.
+[TRACE] 16:31:24:612 MSP/(9062:9062): MSP inicio su ejecucion
+[TRACE] 16:31:24:613 MSP/(9062:9062): MSP inicio su ejecucion. Tamaño memoria: 80
+[ERROR] 16:31:24:634 MSP/(9062:9062): Error, no hay espacio suficiente en la memoria.
+[TRACE] 18:45:02:273 MSP/(10811:10811): MSP inicio su ejecucion
+[TRACE] 18:45:02:280 MSP/(10811:10811): MSP inicio su ejecucion. Tamaño memoria: 80
+[TRACE] 18:48:13:659 MSP/(10857:10857): MSP inicio su ejecucion
+[TRACE] 18:48:13:665 MSP/(10857:10857): MSP inicio su ejecucion. Tamaño memoria: 80

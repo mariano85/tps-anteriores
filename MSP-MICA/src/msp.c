@@ -786,7 +786,35 @@ int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagi
 
 }
 
+uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar)
+{
+	uint32_t nuevoProgramCounter;
+	int numeroSegmento, numeroPagina, offset;
 
+	obtenerUbicacionLogica(programCounterAnterior, &numeroSegmento, &numeroPagina, &offset);
+
+	if (offset + bytesASumar > TAMANIO_PAGINA)
+	{
+		int faltaParaCompletarPagina = TAMANIO_PAGINA - offset;
+		int quedaParaSumar = bytesASumar - faltaParaCompletarPagina;
+		int paginaFinal, offsetPaginaFinal;
+
+		paginaFinal = numeroPagina + quedaParaSumar / TAMANIO_PAGINA + 1;
+		offsetPaginaFinal = quedaParaSumar % TAMANIO_PAGINA;
+
+		nuevoProgramCounter = generarDireccionLogica(numeroSegmento, paginaFinal, offsetPaginaFinal);
+
+
+	}
+
+	else
+	{
+		nuevoProgramCounter = generarDireccionLogica(numeroSegmento, numeroPagina, offset + bytesASumar);
+	}
+
+
+	return nuevoProgramCounter;
+}
 
 
 

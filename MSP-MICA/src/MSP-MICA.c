@@ -24,7 +24,7 @@ int main() {
 
 	crearSegmento(1234, 40);
 
-	escribirMemoria(1234, 1049088, "5555555555", 10);
+	/*escribirMemoria(1234, 1049088, "5555555555", 10);
 
 	escribirMemoria(1234, 0, "1111111111", 10);
 
@@ -61,7 +61,7 @@ int main() {
 	puts("LISTA MARCOS despues de escribir");
 			listarMarcos();
 
-	elegirVictimaSegunFIFO();
+	elegirVictimaSegunFIFO();*/
 
 	//conexionConKernelYCPU();
 
@@ -142,15 +142,34 @@ int main() {
 
 	//validarLecturaOEscritura(1234, 4097, "hola", 12);
 
-	puts("LISTA MARCOS despues");
-	listarMarcos();
+	//puts("LISTA MARCOS despues");
+	//listarMarcos();
 
 
-	/*int numeroSegmento, numeroPagina, offset;
 
-	obtenerUbicacionLogica(12289, &numeroSegmento, &numeroPagina, &offset);
+	uint32_t programCounterAnterior = 1048833;
+	uint32_t nuevoProgramCounter;
+	int bytesASumar = 11;
+	int numeroSegmento, numeroPagina, offset, numeroSegmentoViejo, numeroPaginaViejo, offsetViejo;
 
-	printf("Numero segmento: %d    numero pagina: %d     offset: %d", numeroSegmento, numeroPagina, offset);*/
+	nuevoProgramCounter = aumentarProgramCounter(programCounterAnterior, bytesASumar);
+
+	obtenerUbicacionLogica(programCounterAnterior, &numeroSegmentoViejo, &numeroPaginaViejo, &offsetViejo);
+
+	printf("VIEJO PC: Numero segmento: %d    numero pagina: %d     offset: %d\n", numeroSegmentoViejo, numeroPaginaViejo, offsetViejo);
+
+	obtenerUbicacionLogica(nuevoProgramCounter, &numeroSegmento, &numeroPagina, &offset);
+
+	printf("NUEVO PC: Numero segmento: %d    numero pagina: %d     offset: %d\n", numeroSegmento, numeroPagina, offset);
+
+	uint32_t direccion = generarDireccionLogica(1, 1, 12);
+
+	printf("direccion: %zu\n", direccion);
+
+	obtenerUbicacionLogica(direccion, &numeroSegmento, &numeroPagina, &offset);
+
+	printf("OTRO PC: Numero segmento: %d    numero pagina: %d     offset: %d\n", numeroSegmento, numeroPagina, offset);
+
 
 
 

@@ -45,7 +45,7 @@ typedef struct
 	int nro_segmento;
 	int nro_pagina;
 	void* dirFisica;
-	int libre;	//si vale 0, el marco está ocupado, si vale 1 está libre
+	int libre;	//si vale 1, el marco está ocupado, si vale 0 está libre
 	int orden;
 } t_marco;
 
@@ -109,13 +109,9 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 
 void destruirSegmento(int pid, uint32_t base);
 
-//void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
-
 t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid);
 
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
-
-uint32_t obtenerUltimaDireccionSegmento(nodo_segmento* nodoSegmento);
 
 t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio);
 
@@ -139,6 +135,7 @@ void elegirVictimaSegunFIFO();
 
 void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina);
 
+uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
 
 
 
