@@ -13,12 +13,15 @@
 
 int main(int argc, char *argv[]) {
 
-		int32_t mi_pid = 32;
+	//	int32_t mi_pid = 32;
 
 		/*	int32_t mi_pid;
 
 		mi_pid = process_getpid ();*/
 
+		B = 97;
+		D = 3;
+		C = 1;
 
 		logs = log_create("log", "CPU.c", 1, LOG_LEVEL_TRACE);
 
@@ -49,21 +52,23 @@ int main(int argc, char *argv[]) {
 		log_info(logs, "Conexion a kernel ip:%s y puerto:%d", ipKernel, puertoKernel);
 		log_info(logs, "Conexion a MSP ip:%s y puerto:%d", ipMSP, puertoMSP);
 
-		//conexion a KERNEL
+/*		//conexion a KERNEL
 		socketKernel = conectarAServidor(ipKernel, puertoKernel);
 		while (socketKernel == EXIT_FAILURE) {
 			log_info(logs,
 					"Despierten al Kernel! Se reintenta conexion en unos segundos\n");
 			sleep(5);
 			socketKernel = conectarAServidor(ipKernel, puertoKernel);
-		}
+		} */
 
 		// Hago el handshake con el kernel
 
-		t_contenido mensaje_para_enviar_al_kernel_con_el_pid;
-		memset(mensaje_para_enviar_al_kernel_con_el_pid,0,sizeof(t_contenido));
+	/*	t_contenido mensaje_para_enviar_al_kernel_con_el_pid;
+		memset(mensaje
+		7
+		_para_enviar_al_kernel_con_el_pid,0,sizeof(t_contenido));
 		strcpy(mensaje_para_enviar_al_kernel_con_el_pid, string_from_format("%d", mi_pid));
-		enviarMensaje(socketKernel,CPU_TO_KERNEL_HANDSHAKE,mensaje_para_enviar_al_kernel_con_el_pid,logs);
+		enviarMensaje(socketKernel,CPU_TO_KERNEL_HANDSHAKE,mensaje_para_enviar_al_kernel_con_el_pid,logs);*/
 
 		//conexion a MSP
 			socketMSP = conectarAServidor(ipMSP, puertoMSP);
@@ -75,12 +80,107 @@ int main(int argc, char *argv[]) {
 			}
 
 
+
+
+		// Crear segmento
+	//	crearSegmento(1234, 14);
+
+
+
 		//Hago el handshake con la MSP
-		enviarMensaje(socketMSP,CPU_TO_MSP_HANDSHAKE,"",logs);
 
-		 seguir = 1;
+		//1) Fase uno es el handshake
 
-		while(seguir){ //Este while sirve para que quede en la espera de nuevos cpu's sino haria el ciclo de ejecucion de uno solo y se me cerraria
+		t_contenido mensaje;
+		memset(mensaje,0,sizeof(t_contenido));
+		strcpy(mensaje,"hola");
+
+		enviarMensaje(socketMSP,CPU_TO_MSP_HANDSHAKE,mensaje,logs);
+
+		int seguir = 1;
+
+		while(seguir == 1){
+
+		// Aca deberia quedarme a la escucha de que el Kernel me me mande el TCB
+
+	/*	t_contenido mensaje_para_recibir_TCB;
+		memset(mensaje_para_recibir_TCB,0,sizeof(t_contenido));
+		t_contenido header_para_recibir_TCB = recibirMensaje(socketKernel,mensaje_para_recibir_TCB,logs);*/
+
+		TCB = malloc(sizeof(registro_TCB));
+
+		TCB->pid = 1234;
+		TCB->base_segmento_codigo = 1048576;
+		TCB->tamanio_segmento_codigo = 9;
+
+		program_counter = TCB->base_segmento_codigo;
+
+		int cont = 0;
+
+		while(cont < 5){
+
+			t_contenido mensaje_para_solicitar_bytes_MSP;
+			memset(mensaje_para_solicitar_bytes_MSP,0,sizeof(t_contenido));
+			strcpy(mensaje_para_solicitar_bytes_MSP,string_from_format("[%d,%d,%d]",TCB->pid,program_counter,4));
+			enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_solicitar_bytes_MSP,logs);
+
+			usleep(60000);
+
+			//Recibo Instruccion
+			t_contenido mensaje_para_recibir_direccion;
+			t_header header_verificar_mensaje = recibirMensaje(socketMSP,mensaje_para_recibir_direccion,logs);
+
+			//Verifico que sea una instruccion
+
+				if(header_verificar_mensaje == MSP_TO_CPU_BYTES_ENVIADOS){
+
+					log_info(logs,"La instruccion es %s",mensaje_para_recibir_direccion);
+
+					buscador_de_instruccion(mensaje_para_recibir_direccion);
+
+					seguir = 0;
+
+					//	char** array = string_get_string_as_array(mensaje_para_recibir_direccion);
+
+
+
+					log_info(logs,"Aca salgo con el contador en %d",cont);
+
+				}
+
+				cont ++;
+
+		}// Fin while cont
+
+					log_info(logs,"ejecute dos instrucciones");
+
+	}//Fin while seguir
+
+	/*	t_header mensaje_MSP = recibirMensaje(socketMSP,msj,logs);
+
+		char** vector = string_get_string_as_array(msj);
+
+		int pid;
+		int direccion;
+
+		pid = atoi(vector[0]);
+		direccion = atoi(vector[1]);
+
+		if(mensaje_MSP == MSP_TO_CPU_BYTES_ENVIADOS)
+
+			log_info(logs,"sali aca y los valores son : pid es %d y direccion es %d",pid,direccion);
+			seguir = 0;
+
+		}*/
+
+	/*	t_contenido mensaje_para_recibir;
+		memset(mensaje_para_recibir,0,sizeof(t_contenido));
+
+		t_header mensaje_para_recibir_de_la_MSP = recibirMensaje(socketMSP,mensaje_para_recibir,logs);*/
+
+	/*	 seguir = 1;
+
+		while(seguir){ //Este while sirve para que quede en la espera de nuevos proceso sino haria el ciclo de ejecucion de uno solo y se me cerraria
 
 			int contador = 0; //Verifica que el quantum no llegue a 9 (puede ejecutar 9 instrucciones)
 			ejecutando = 0 ;	//No esta ejecutando aun
@@ -91,18 +191,12 @@ int main(int argc, char *argv[]) {
 
 			t_header encabezado_recibido_por_el_kernel = recibirMensaje(socketKernel,mensaje_para_recibir_el_TCB,logs);
 
-			if(encabezado_recibido_por_el_kernel == ERR_CONEXION_CERRADA){
-				log_info(logs, "Se cerró la conexion con kernel");
-				exit(EXIT_FAILURE);
-			}
-
-
 			if(encabezado_recibido_por_el_kernel == KERNEL_TO_CPU_TCB){
 
 				ejecutando = 1;
 
 				//Recibo TCB aca porque es en caso de que el kernel me mando el encabezado diciendome que me lo va a mandar
-				log_info(logs, "recibir el PCB");
+				log_info(logs, "recibir el TCB");
 
 				char** array_para_recibir_el_TCB = string_get_string_as_array(mensaje_para_recibir_el_TCB);
 
@@ -111,16 +205,21 @@ int main(int argc, char *argv[]) {
 				//Utilizo atoi() para transformar el string en numero,en teoria el kernel me lo manda ordenado para que coincida en el vector
 				// Ponerse de acuerdo en el orden para las variables,sugiero que sea el orden del TP
 
+
+				//ACLARACION : Por lo que vi en el panel debo pasar esto a una estructura como dice aca, veo despues si coinciden los nombres
+
+				// Agregar tamaño de stack (Fe de erratas)
+
 				TCB->pid = 	atoi(array_para_recibir_el_TCB[0]);
 				TCB->tid = 	atoi(array_para_recibir_el_TCB[1]);
 				TCB->indicador_modo_kernel = atoi(array_para_recibir_el_TCB[2]);
 				TCB->base_segmento_codigo = atoi(array_para_recibir_el_TCB[3]);
-				TCB->tamanio_indice_codigo = atoi(array_para_recibir_el_TCB[4]);
+				TCB->tamanio_segmento_codigo = atoi(array_para_recibir_el_TCB[4]);
 				TCB->puntero_instruccion = atoi(array_para_recibir_el_TCB[5]);
 				TCB->base_stack = atoi(array_para_recibir_el_TCB[6]);
 				TCB->cursor_stack = atoi(array_para_recibir_el_TCB[7]);
 
-				// Cargo los registros del TCB en los registros de la CPU, no estoy seguso si es asi
+				// Cargo los registros del TCB en los registros de la CPU, no estoy seguro si es asi
 
 				A = TCB->registros_de_programacion.A;
 				B = TCB->registros_de_programacion.B;
@@ -129,15 +228,17 @@ int main(int argc, char *argv[]) {
 				E = TCB->registros_de_programacion.E;
 
 				int32_t quantum = atoi(array_para_recibir_el_TCB[8]);
-				int32_t offset = TCB->cursor_stack - TCB->base_stack;
+		//		int32_t offset = TCB->cursor_stack - TCB->base_stack;
 				int32_t Modo = TCB->indicador_modo_kernel;
 
 				t_contenido mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario;
 
 				//Solicito a la MSP que me mande el stack
 
+
+
 				memset(mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario,0,sizeof(t_contenido));
-				strcpy(mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario, string_from_format("[%d,%d,%d]",TCB->pid,TCB->base_stack,offset));
+		// Mandar lo que corresponde a la interfaz de la MSP --> Dir logica		strcpy(mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario, string_from_format("[%d,%d,%d]",TCB->pid,TCB->base_stack,offset));
 
 
 				enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario,logs);
@@ -146,7 +247,7 @@ int main(int argc, char *argv[]) {
 				memset(mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario,0,sizeof(t_contenido));
 				t_header mensaje_de_respuesta_a_la_solicitud_del_stack = recibirMensaje(socketMSP,mensaje_para_solicitar_stack_a_la_MSP_y_poder_cargar_el_diccionario,logs);
 
-				if(mensaje_de_respuesta_a_la_solicitud_del_stack == ERR_CONEXION_CERRADA){
+				if(mensaje_de_respuesta_a_la_solicitud_del_stack == ERR_ERROR_AL_RECIBIR_MSG){
 					log_info(logs, "Se cerró la conexion con la MSP");
 					exit(EXIT_FAILURE);
 
@@ -160,7 +261,7 @@ int main(int argc, char *argv[]) {
 				systemCall = 0;
 
 
-				while(contador < quantum && !systemCall && Modo == MODO_USUARIO){
+				while(contador < quantum &&  Modo == MODO_USUARIO){
 
 					//Pido la instruccion a la MSP --> Me debera pasar solo los primero 4 bytes EJ : "LOAD"
 
@@ -192,9 +293,9 @@ int main(int argc, char *argv[]) {
 
 						}
 
-				}//Fin del while(contador < quantum && !systemCall)
+				}//Fin del while(contador < quantum )
 
-				while(systemCall && TCB->indicador_modo_kernel == MODO_KERNEL ){ //Para salir modifico en la instruccion XXXX el systemCall = 0
+				while(TCB->indicador_modo_kernel == MODO_KERNEL && systemCall){ //Para salir modifico en la instruccion XXXX el systemCall = 0
 
 					//Pido la instruccion a la MSP
 									t_contenido mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP;
@@ -254,7 +355,7 @@ int main(int argc, char *argv[]) {
 			close(socketKernel);
 			close(socketMSP);
 			log_info(logs, "Cerrando la CPU...");
-			liberar_estructuras_CPU();
+			liberar_estructuras_CPU();*/
 
 
 			return EXIT_SUCCESS;
@@ -287,8 +388,52 @@ void manejar_senial(int senial){
 			}
 		}
 
+uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset)
+{
+	uint32_t direccion = numeroSegmento;
+	direccion = direccion << 12;
+	direccion = direccion | numeroPagina;
+	direccion = direccion << 8;
+	direccion = direccion | offset;
+
+	return direccion;
+}
 
 
+void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset)
+{
+	*offset = direccion & 0xFF;
+	*numeroPagina = (direccion >> 8) & 0xFFF;
+	*numeroSegmento = (direccion >> 20) & 0xFFF;
+}
 
 
+uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar)
+{
+	uint32_t nuevoProgramCounter;
+	int numeroSegmento, numeroPagina, offset;
 
+	obtenerUbicacionLogica(programCounterAnterior, &numeroSegmento, &numeroPagina, &offset);
+
+	if (offset + bytesASumar > TAMANIO_PAGINA)
+	{
+		int faltaParaCompletarPagina = TAMANIO_PAGINA - offset ;
+		int quedaParaSumar = bytesASumar - faltaParaCompletarPagina ;
+		int paginaFinal, offsetPaginaFinal;
+
+		paginaFinal = (numeroPagina + quedaParaSumar / TAMANIO_PAGINA) + 1;
+		offsetPaginaFinal = quedaParaSumar % TAMANIO_PAGINA;
+
+		nuevoProgramCounter = generarDireccionLogica(numeroSegmento, paginaFinal, offsetPaginaFinal);
+
+
+	}
+
+	else
+	{
+		nuevoProgramCounter = generarDireccionLogica(numeroSegmento, numeroPagina, offset + bytesASumar);
+	}
+
+
+	return nuevoProgramCounter;
+}

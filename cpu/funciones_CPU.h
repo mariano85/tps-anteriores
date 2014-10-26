@@ -46,18 +46,22 @@ void liberar_estructuras_CPU();
 
 void buscador_de_instruccion(char* instruccion);
 
-
-
 char* recibir_Instruccion();
 
 void cargar_diccionario();
 
-int32_t solicitar_registro();
-
-int32_t solicitar_numero();
-
-int32_t solicitar_direccion();
-
 void manejar_senial(int n);
+
+void enviar_parametro(char* parametro);
+
+void enviar_posicion_recibir_registro(char* parametro);
+
+void enviar_parametro_recibir_registro(char* parametro);
+
+void enviar_parametro_recibir_numero(char* parametro);
+
+int32_t verificador_de_registro(char* valor);
+
+void funcion_verificador_segundo_registro_GETM(int32_t *var,int32_t aux2);
 
 #endif /* FUNCIONES_CPU_H_ */
