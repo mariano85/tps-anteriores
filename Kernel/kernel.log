@@ -1,0 +1,76 @@
+[INFO] 17:07:42:651 Kernel/(14197:14197): ************** WELCOME TO KERNEL V1.0! (PID: 14197) ***************
+
+[INFO] 17:07:42:659 Kernel/(14197:14197): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:10:20:659 Kernel/(14448:14448): ************** WELCOME TO KERNEL V1.0! (PID: 14448) ***************
+
+[INFO] 17:10:20:674 Kernel/(14448:14448): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:11:37:679 Kernel/(14482:14482): ************** WELCOME TO KERNEL V1.0! (PID: 14482) ***************
+
+[INFO] 17:11:38:107 Kernel/(14482:14482): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:42:03:581 Kernel/(15090:15090): ************** WELCOME TO KERNEL V1.0! (PID: 15090) ***************
+
+[INFO] 17:42:03:586 Kernel/(15090:15090): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:42:36:657 Kernel/(15131:15131): ************** WELCOME TO KERNEL V1.0! (PID: 15131) ***************
+
+[INFO] 17:42:36:660 Kernel/(15131:15131): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:42:56:265 Kernel/(15169:15169): ************** WELCOME TO KERNEL V1.0! (PID: 15169) ***************
+
+[INFO] 17:42:57:964 Kernel/(15169:15169): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:45:21:350 Kernel/(15251:15251): ************** WELCOME TO KERNEL V1.0! (PID: 15251) ***************
+
+[INFO] 17:45:21:357 Kernel/(15251:15251): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:48:18:427 Kernel/(15298:15298): ************** WELCOME TO KERNEL V1.0! (PID: 15298) ***************
+
+[INFO] 17:48:20:362 Kernel/(15298:15298): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:48:55:470 Kernel/(15298:15298): Logro conectarse a la MSP! =)
+[INFO] 17:49:01:241 Kernel/(15298:15298): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:50:47:216 Kernel/(15697:15697): ************** WELCOME TO KERNEL V1.0! (PID: 15697) ***************
+
+[INFO] 17:50:47:219 Kernel/(15697:15697): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:50:47:227 Kernel/(15697:15697): Logro conectarse a la MSP! =)
+[INFO] 17:50:47:228 Kernel/(15697:15697): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:50:47:229 Kernel/(15697:15697): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:50:47:231 Kernel/(15697:15705): **************Ready Queue Manager Thread Started (PID: 15705) ***************
+[INFO] 17:50:47:232 Kernel/(15697:15704): **************Ready Queue Manager Thread Started (PID: 15704) ***************
+[INFO] 17:56:07:354 Kernel/(16451:16451): ************** WELCOME TO KERNEL V1.0! (PID: 16451) ***************
+
+[INFO] 17:56:07:368 Kernel/(16451:16451): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:56:07:374 Kernel/(16451:16451): Logro conectarse a la MSP! =)
+[INFO] 17:56:07:375 Kernel/(16451:16451): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:56:07:377 Kernel/(16451:16451): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:56:07:383 Kernel/(16451:16458): ************** PLP Thread Started!(PID: 16458) ***************
+[INFO] 18:07:13:504 Kernel/(16973:16973): ************** WELCOME TO KERNEL V1.0! (PID: 16973) ***************
+
+[INFO] 18:07:13:523 Kernel/(16973:16973): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 18:07:13:530 Kernel/(16973:16973): Logro conectarse a la MSP! =)
+[INFO] 18:07:13:531 Kernel/(16973:16973): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 18:07:13:532 Kernel/(16973:16973): Se ha establecido conexion con el proceso MSP
+
+[INFO] 18:07:13:539 Kernel/(16973:16983): ************** Exit Manager Thread Started (PID: 16983) ***************
+[INFO] 18:07:13:540 Kernel/(16973:16982): **************Ready Queue Manager Thread Started (PID: 16982) ***************
+[INFO] 18:07:13:540 Kernel/(16973:16981): **************Ready Queue Manager Thread Started (PID: 16981) ***************
+[INFO] 18:12:23:744 Kernel/(17137:17137): ************** WELCOME TO KERNEL V1.0! (PID: 17137) ***************
+
+[INFO] 18:12:23:747 Kernel/(17137:17137): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 18:12:23:755 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:12:28:757 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:12:33:761 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:12:38:764 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:12:43:767 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:12:48:769 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:12:53:775 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:12:58:777 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:13:03:783 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 18:13:08:789 Kernel/(17137:17137): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+

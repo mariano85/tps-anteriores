@@ -122,7 +122,7 @@ void* loader(t_loaderThread *loaderThread){
 						FD_CLR(i, &master); // remove from master set
 
 						if(i == socketMSP){
-							log_info(logKernel, "Wow! La UMV se desconectó! Imposible seguir funcionando! :/");
+							log_info(logKernel, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
 						}
 						else if(stillInside(i)){
 							int32_t processPID = getProcessPidByFd(i);
@@ -148,7 +148,11 @@ void* loader(t_loaderThread *loaderThread){
 						int32_t programPID = atoi(split[0]);
 						int32_t programTID = atoi(split[1]);
 
-						t_process* aProcess = getProcessStructureByBESOCode(stringCode, programPID, programTID, i);
+						t_tcb* tcbNuevo = getProcesoDesdeCodigoBESO(stringCode, programPID, programTID, i);
+
+						t_process* aProcess;
+						aProcess->tcb = tcbNuevo;
+
 						log_info(logKernel, "Se generó la estructura del proceso con éxito!");
 						agregarProcesoColaNew(aProcess);
 

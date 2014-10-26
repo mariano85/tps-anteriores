@@ -17,7 +17,7 @@ int main(){
 	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", false, LOG_LEVEL_INFO);
 
 	// Hello Kernel!
-	system("clear");
+	//system("clear");
 	int kernel_pid = getpid();
 	log_info(logKernel, "************** WELCOME TO KERNEL V1.0! (PID: %d) ***************\n", kernel_pid);
 
@@ -66,15 +66,15 @@ void initKernel(){
 	pthread_mutex_init(&mutex_exec_queue, NULL );
 	pthread_mutex_init(&mutex_exit_queue, NULL );
 
-	/*Se valida que en el sistema exista una instancia de la UMV levantada. Esto es indispensable
-	 * para lograr reservar segmentos para posibles clientes programas*/
-	 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+	socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
 
 	 while (socketMSP == EXIT_FAILURE) {
 		 log_info(logKernel, "Despierten a la MSP! Se reintenta conexion en unos segundos ;) \n");
 		 sleep(5);
 		 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
 	 }
+
+	 log_info(logKernel, "Logro conectarse a la MSP! =)");
 
 	 handshakeMSP();
 
@@ -219,16 +219,27 @@ void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
 
 }
 
-t_process* getProcessStructureByBESOCode(char* code, int32_t pid, int32_t fd){
+t_tcb* getProcesoDesdeCodigoBESO(char* stringCode, int32_t PID, int32_t TID, int32_t fd){
 
-	t_process* proceso = malloc(sizeof(t_process));
 	t_tcb* process_tcb = malloc(sizeof(t_tcb));
-	strcpy(proceso->blockedBySemaphore, NO_SEMAPHORE);
-	proceso->process_fd = fd;
-	proceso->existe_msp = false;
 
-	return proceso;
+	memset(process_tcb, 0, sizeof(process_tcb));
+
+	process_tcb->pid = PID;
+	process_tcb->tid = TID;
+	process_tcb->indicador_modo_kernel = false;
+
+	process_tcb->base_stack = solicitarSegmentoStack();
+	process_tcb->base_segmento_codigo = solicitarSegmentoCodigo();
+
+	return process_tcb;
 }
 
+int32_t solicitarSegmentoStack(){
+	return 0;
+}
 
+int32_t solicitarSegmentoCodigo(){
+	return 0;
+}
 

@@ -31,7 +31,7 @@
 #include <commons/collections/queue.h>
 #include <commons/process.h>
 
-#include "commons/sockets.h"
+#include <commons/sockets.h>
 
 //Internal variables
 #define KERNEL_LOG_PATH "kernel.log"
@@ -46,6 +46,16 @@ t_log* queueLog;
 t_log* logKernel;
 
 
+typedef struct{
+
+	char A;
+	char B;
+	char C;
+	char D;
+	char E;
+
+}t_registros_de_programacion;
+
 typedef struct s_tcb{
     int32_t pid;
 	int32_t tid;
@@ -59,7 +69,7 @@ typedef struct s_tcb{
 	int32_t cursor_stack;
 	int32_t instruction;
 
-	int reg_programacion;
+	t_registros_de_programacion registros_de_programacion;
 } t_tcb;
 
 typedef struct s_thread {
@@ -149,7 +159,7 @@ void killProcess(t_process* aProcess);
 void conectarse_Planificador();
 t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
 int32_t getProcessPidByFd(int32_t fd);
-t_process* getProcessStructureByBESOCode(char* stringCode, int32_t PID, int32_t TID, int32_t fd);
+t_tcb* getProcesoDesdeCodigoBESO(char* stringCode, int32_t PID, int32_t TID, int32_t fd);
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
