@@ -149,7 +149,7 @@ void killProcess(t_process* aProcess);
 void conectarse_Planificador();
 t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
 int32_t getProcessPidByFd(int32_t fd);
-t_process* getProcessStructureByBESOCode(char* stringCode, int32_t PID, int32_t fd);
+t_process* getProcessStructureByBESOCode(char* stringCode, int32_t PID, int32_t TID, int32_t fd);
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
