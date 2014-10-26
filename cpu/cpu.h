@@ -27,11 +27,16 @@
 
 #include "funciones_CPU.h"
 #include "instrucciones_CPU.h"
-#include "sockets.h"
+#include <commons/sockets.h>
 
 #define MODO_KERNEL 0
 #define MODO_USUARIO 1
 
+#define registro_A "A"
+#define registro_B "B"
+#define registro_C "C"
+#define registro_D "D"
+#define registro_E "E"
 
 #define PROGRAMA_CONF_PATH "configuracion.conf"
 #define PUERTO_KERNEL "PUERTO_KERNEL"
@@ -45,13 +50,15 @@
 #define ZERO_DIV 1
 #define FLAG_VACIO 0
 
+#define TAMANIO_PAGINA 10
+
 typedef struct{
 
-	int32_t A;
-	int32_t B;
-	int32_t C;
-	int32_t D;
-	int32_t E;
+	char A;
+	char B;
+	char C;
+	char D;
+	char E;
 
 }t_registros_de_programacion;
 
@@ -62,7 +69,7 @@ typedef struct{
 
 	int indicador_modo_kernel;
 	int base_segmento_codigo;
-	int tamanio_indice_codigo ;
+	int tamanio_segmento_codigo ;
 	int indice_codigo;
 	int puntero_instruccion;
 	int base_stack;
@@ -85,14 +92,14 @@ int seguir;
 
 //Registro CPU despues veremos como los agrupamos
 
-int  A,B,C,D,E;
+int32_t A,B,C,D,E;
 int EFLAG;
 int ejecutando;
 int systemCall;
 int socketKernel;
 int socketMSP;
-int  p_HILO;
-int program_counter;
+int	p_HILO;
+int32_t program_counter;
 
 sem_t mutex_A;
 sem_t mutex_B;
@@ -103,5 +110,11 @@ sem_t mutex_E;
 pthread_t pthread_Consola;
 
 char texto_entrada;
+
+uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset);
+
+void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset);
+
+uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
 
 #endif /* VARIABLESGLOBALES_FUNCIONES_H_ */

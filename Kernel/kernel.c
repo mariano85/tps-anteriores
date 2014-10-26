@@ -27,13 +27,11 @@ int main(){
 	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
-	pthread_create(&manejoLlamadasAlSistemaThread.tid, NULL, (void*) manejo_llamadas_sistema, (void*) &loaderThread);
 
 	pthread_join(loaderThread.tid, NULL);
 	pthread_join(planificadorThread.tid, NULL);
 	pthread_join(manejoColaReadyThread.tid, NULL);
 	pthread_join(manejoColaExitThread.tid, NULL);
-	pthread_join(manejoLlamadasAlSistemaThread.tid, NULL);
 	finishKernel();
 
 	return EXIT_SUCCESS;
@@ -60,7 +58,7 @@ void initKernel(){
 	BLOCK = queue_create();
 	EXEC = queue_create();
 	EXIT = queue_create();
-	SYSCALLS = queue_create();
+
 	//Inicializa semaforo de colas
 	pthread_mutex_init(&mutex_new_queue, NULL );
 	pthread_mutex_init(&mutex_ready_queue, NULL );
@@ -88,7 +86,7 @@ void handshakeMSP() {
 
 	t_contenido mensaje;
 	// deberiamos formatear el mensaje todo en 0's
-	enviarMensaje(socketMSP, KRN_TO_MSP_HANDSHAKE, mensaje, logKernel);
+	enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
 
 }
 
@@ -216,7 +214,7 @@ void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
 		t_contenido mensaje;
 		memset(mensaje, 0, sizeof(t_contenido));
 		strcpy(mensaje, string_from_format("[%d, %d, %d]", v1, v2,  config_kernel.QUANTUM));
-		enviarMensaje(socketCPU, KRN_TO_CPU_PCB, mensaje, logKernel);
+		enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
 		log_info(logKernel, "Se envía un PCB al CPU libre elegido");
 
 }

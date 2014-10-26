@@ -30,7 +30,7 @@
 #include <commons/config.h>
 #include <commons/collections/queue.h>
 #include <commons/process.h>
-#include <commons/sockets.h>
+
 #include "commons/sockets.h"
 
 //Internal variables
@@ -136,7 +136,7 @@ t_loaderThread planificadorThread;
 t_loaderThread conectarsePlanificadorThread;
 t_loaderThread manejoColaReadyThread;
 t_loaderThread manejoColaExitThread;
-t_loaderThread manejoLlamadasAlSistemaThread;
+
 
 // funciones del kernel
 void finishKernel();
@@ -180,10 +180,8 @@ void agregarProcesoColaExec();
 void agregarProcesoColaExecEnPrimerLugar(t_process* aProcess);
 void agregarProcesoColaExit(t_process* aProcess);
 void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
-void agregarProcesoColaLlamadaAlSistema(t_tcb* unTcb);
 void manejo_cola_ready(void);
 void manejo_cola_exit(void);
-void manejo_llamadas_sistema(void);
 void chequearProcesos();
 int32_t cantDeProcesosEnSistema();
 bool NoBodyHereBySemaphore(t_list* aList);

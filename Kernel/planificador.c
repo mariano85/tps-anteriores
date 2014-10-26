@@ -140,7 +140,7 @@ void* planificador(t_loaderThread *loaderThread){
 
 							break;
 
-						case(CPU_TO_KRN_HANDSHAKE):{
+						case(CPU_TO_KERNEL_HANDSHAKE):{
 
 
 							//Creo la estructura del nuevo CPU con todos sus datos
@@ -160,7 +160,7 @@ void* planificador(t_loaderThread *loaderThread){
 							agregarProcesoColaExec();
 						}
 						break;
-					case (CPU_TO_KRN_END_PROC_QUANTUM_SIGNAL):{
+					case (CPU_TO_KERNEL_END_PROC_QUANTUM_SIGNAL):{
 						char** split = string_get_string_as_array(mensaje);
 						int32_t pID_process = atoi(split[0]);
 						int32_t programCounter = atoi(split[1]);
@@ -207,7 +207,7 @@ void* planificador(t_loaderThread *loaderThread){
 						agregarProcesoColaExec();
 					}
 					break;
-					case(CPU_TO_KRN_END_PROC_QUANTUM):{
+					case(CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE):{
 
 							char** split = string_get_string_as_array(mensaje);
 							int32_t pID_process = atoi(split[0]);
@@ -263,7 +263,7 @@ void* planificador(t_loaderThread *loaderThread){
 
 
 
-					case(CPU_TO_KRN_END_PROC):{
+					case(CPU_TO_KERNEL_END_PROC):{
 
 							char** split = string_get_string_as_array(mensaje);
 
@@ -285,7 +285,7 @@ void* planificador(t_loaderThread *loaderThread){
 							if((split[1] != NULL) && !(strlen(split[1]))==0){
 								memset(mensaje, 0, sizeof(t_contenido));
 								strcpy(mensaje, split[1]);
-								enviarMensaje(aProcess->process_fd, KRN_TO_PRG_IMPR_VARIABLES, mensaje, kernelLog);
+								enviarMensaje(aProcess->process_fd, KERNEL_TO_PRG_IMPR_VARIABLES, mensaje, kernelLog);
 							}
 
 							agregarProcesoColaExit(aProcess);
@@ -306,7 +306,7 @@ void* planificador(t_loaderThread *loaderThread){
 						break;
 
 
-					case CPU_TO_KRN_END_PROC_ERROR:
+					case CPU_TO_KERNEL_END_PROC_ERROR:
 					{
 						bool anyone = false;
 						t_process* aProcess;
@@ -386,11 +386,11 @@ void* planificador(t_loaderThread *loaderThread){
 												if(semaforoActual->Valor >= 0){
 
 													memset(mensaje,0,sizeof(t_contenido));
-													enviarMensaje(i, KRN_TO_CPU_OK, mensaje, kernelLog);
+													enviarMensaje(i, KERNEL_TO_CPU_OK, mensaje, kernelLog);
 													log_info(kernelLog, "Se envio al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
 
 													t_header header = recibirMensaje(i, mensaje, kernelLog);
-													if(header != CPU_TO_KRN_OK){
+													if(header != CPU_TO_KERNEL_OK){
 														log_info(kernelLog, "Error al recibir mensaje de CPU");
 													}
 													else{
@@ -400,12 +400,12 @@ void* planificador(t_loaderThread *loaderThread){
 												else{
 
 													memset(mensaje,0,sizeof(t_contenido));
-													enviarMensaje(i, KRN_TO_CPU_BLOCKED, mensaje, kernelLog);
+													enviarMensaje(i, KERNEL_TO_CPU_BLOCKED, mensaje, kernelLog);
 													log_info(kernelLog, "Se envia al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
 
 													t_header header = recibirMensaje(i, mensaje, kernelLog);
 
-													if(header != CPU_TO_KRN_OK){
+													if(header != CPU_TO_KERNEL_OK){
 
 														log_error(kernelLog, "Error al recibir mensaje de CPU");
 													}

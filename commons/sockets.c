@@ -76,8 +76,8 @@ int32_t enviarMensaje(int32_t numSocket, t_header header, t_contenido mensaje, t
 	t_mensajes *s = malloc(sizeof(t_mensajes));
 	s->id = header;
 	strcpy(s->contenido, mensaje);
-	log_info(logger, "Se ENVIA por SOCKET:%d - HEAD:%s%s%s MENSAJE:\"%s%s%s\" ",
-			numSocket, red,  getDescription(s->id), none, blue, s->contenido, none);
+	log_info(logger, "Se ENVIA por SOCKET:%d - HEADER:%s MENSAJE:\"%s\" ",
+			numSocket, getDescription(s->id), s->contenido);
 	int n = send(numSocket, s, sizeof(*s), 0);
 	if(n != STRUCT_SIZE){
 		log_error(logger, "#######################################################################");
@@ -98,8 +98,8 @@ t_header recibirMensaje(int numSocket, t_contenido mensaje, t_log *logger) {
 	if (n == STRUCT_SIZE) {
 		t_mensajes* s = (t_mensajes*)buffer;
 		strcpy(mensaje, s->contenido);
-		log_debug(logger, "Se RECIBE por SOCKET:%d - HEAD:%s%s%s MENSAJE:\"%s%s%s\" ",
-				numSocket, red, getDescription(s->id), none, blue, mensaje, none);
+		log_debug(logger, "Se RECIBE por SOCKET:%d - HEADER:%s MENSAJE:\"%s\" ",
+				numSocket, getDescription(s->id),mensaje);
 		return s->id;
 	} else {
 		if (n == 0) { // Conexión remota cerrada
@@ -136,58 +136,53 @@ char* getDescription(int item){
 	case	CODE_HAY_MAS_LINEAS:	return 	"CODE_HAY_MAS_LINEAS "	;
 	case 	CODE_HAY_MAS_LINEAS_OK: return "CODE_HAY_MAS_LINEAS_OK";
 	case	CODE_FIN_LINEAS:	return 	"CODE_FIN_LINEAS "	;
-	case	KRN_TO_CPU_HANDSHAKE:	return 	"KRN_TO_CPU_HANDSHAKE "	;
-	case	KRN_TO_CPU_PCB:	return 	"KRN_TO_CPU_PCB "	;
-	case	KRN_TO_CPU_VAR_COMPARTIDA_OK:	return 	"KRN_TO_CPU_VAR_COMPARTIDA_OK "	;
-	case	KRN_TO_CPU_VAR_COMPARTIDA_ERROR:	return 	"KRN_TO_CPU_VAR_COMPARTIDA_ERROR "	;
-	case	KRN_TO_CPU_ASIGNAR_OK:	return 	"KRN_TO_CPU_ASIGNAR_OK "	;
-	case	KRN_TO_CPU_BLOCKED:	return 	"KRN_TO_CPU_BLOCKED "	;
-	case	KRN_TO_CPU_OK:	return 	"KRN_TO_CPU_OK "	;
-	case	KRN_TO_CPU_PCB_QUANTUM:	return 	"KRN_TO_CPU_PCB_QUANTUM "	;
-	case	KRN_TO_PRG_IMPR_PANTALLA:	return 	"KRN_TO_PRG_IMPR_PANTALLA "	;
-	case	KRN_TO_PRG_IMPR_IMPRESORA:	return 	"KRN_TO_PRG_IMPR_IMPRESORA "	;
-	case	KRN_TO_PRG_END_PRG:	return 	"KRN_TO_PRG_END_PRG "	;
-	case	KRN_TO_PRG_NO_MEMORY:	return 	"KRN_TO_PRG_NO_MEMORY "	;
-	case	KRN_TO_UMV_MEM_REQ:	return 	"KRN_TO_UMV_MEM_REQ "	;
-	case	KRN_TO_UMV_ELIMINAR_SEGMENTOS:	return 	"KRN_TO_UMV_ELIMINAR_SEGMENTOS "	;
-	case	KRN_TO_MSP_HANDSHAKE:	return 	"KRN_TO_UMV_HANDHAKE "	;
-	case	KRN_TO_UMV_ENVIAR_BYTES:	return 	"KRN_TO_UMV_ENVIAR_BYTES "	;
-	case	KRN_TO_UMV_ENVIAR_ETIQUETAS:	return 	"KRN_TO_UMV_ENVIAR_ETIQUETAS "	;
-	case	KRN_TO_UMV_SOLICITAR_BYTES:	return 	"KRN_TO_UMV_SOLICITAR_BYTES "	;
-	case	PRG_TO_KRN_HANDSHAKE:	return 	"PRG_TO_KRN_HANDSHAKE "	;
-	case	PRG_TO_KRN_CODE:	return 	"PRG_TO_KRN_CODE "	;
-	case	PRG_TO_KRN_OK:	return 	"PRG_TO_KRN_OK "	;
-	case	CPU_TO_UMV_INDICEYLINEA:	return 	"CPU_TO_UMV_INDICEYLINEA "	;
-	case	CPU_TO_UMV_HANDSHAKE:	return 	"CPU_TO_UMV_HANDSHAKE "	;
-	case	CPU_TO_UMV_CAMBIO_PROCESO:	return 	"CPU_TO_UMV_CAMBIO_PROCESO "	;
-	case	CPU_TO_UMV_SOLICITAR_BYTES:	return 	"CPU_TO_UMV_SOLICITAR_BYTES "	;
-	case	CPU_TO_UMV_SOLICITAR_ETIQUETAS:	return 	"CPU_TO_UMV_SOLICITAR_ETIQUETAS "	;
-	case    CPU_TO_UMV_ENVIAR_BYTES: return "CPU_TO_UMV_ENVIAR_BYTES";
-	case	CPU_TO_KRN_HANDSHAKE:	return 	"CPU_TO_KRN_HANDSHAKE "	;
-	case	CPU_TO_KRN_NEW_CPU_CONNECTED:	return 	"CPU_TO_KRN_NEW_CPU_CONNECTED "	;
-	case	CPU_TO_KRN_END_PROC:	return 	"CPU_TO_KRN_END_PROC "	;
-	case	CPU_TO_KRN_END_PROC_QUANTUM:	return 	"CPU_TO_KRN_END_PROC_QUANTUM "	;
-	case	CPU_TO_KRN_END_PROC_QUANTUM_SIGNAL: return "CPU_TO_KRN_END_PROC_QUANTUM_SIGNAL";
-	case 	CPU_TO_KRN_END_PROC_ERROR:		return "CPU_TO_KRN_END_PROC_ERROR";
-	case	CPU_TO_KRN_IMPRIMIR:	return 	"CPU_TO_KRN_IMPRIMIR "	;
-	case	CPU_TO_KRN_IMPRIMIR_TEXTO:	return 	"CPU_TO_KRN_IMPRIMIR_TEXTO "	;
-	case	CPU_TO_KRN_OK:	return 	"CPU_TO_KRN_OK "	;
-	case	UMV_TO_KRN_MEMORY_OVERLOAD:	return 	"UMV_TO_KRN_MEMORY_OVERLOAD "	;
-	case	UMV_TO_KRN_SEGMENTO_CREADO:	return 	"UMV_TO_KRN_SEGMENTO_CREADO "	;
-	case	UMV_TO_KRN_ENVIO_BYTES:	return 	"UMV_TO_KRN_ENVIO_BYTES "	;
-	case	UMV_TO_KRN_HANDSHAKE_OK:	return 	"UMV_TO_KRN_HANDSHAKE_OK "	;
-	case	UMV_TO_CPU_BYTES_ENVIADOS:	return 	"UMV_TO_CPU_BYTES_ENVIADOS "	;
-	case	UMV_TO_CPU_BYTES_RECIBIDOS:	return 	"UMV_TO_CPU_BYTES_RECIBIDOS "	;
-	case	UMV_TO_CPU_SENTENCE:	return 	"UMV_TO_CPU_SENTENCE "	;
-	case	UMV_TO_CPU_SEGM_FAULT: 	return 	"UMV_TO_CPU_SEGM_FAULT  "	;
-	case	SYSCALL_IO_REQUEST:	return 	"SYSCALL_IO_REQUEST "	;
-	case	SYSCALL_GET_REQUEST:	return 	"SYSCALL_GET_REQUEST "	;
-	case	SYSCALL_SET_REQUEST:	return 	"SYSCALL_SET_REQUEST "	;
-	case	SYSCALL_WAIT_REQUEST:	return 	"SYSCALL_WAIT_REQUEST "	;
-	case	SYSCALL_SIGNAL_REQUEST:	return 	"SYSCALL_SIGNAL_REQUEST "	;
+	case	CON_TO_KRN_CODE:	return 	"CON_TO_KRN_CODE "	;
+	case	CON_TO_KRN_HANDSHAKE:	return 	"CON_TO_KRN_HANDSHAKE"	;
+	case	KERNEL_TO_CPU_HANDSHAKE:	return 	"KERNEL_TO_CPU_HANDSHAKE "	;
+	case	KERNEL_TO_CPU_TCB:	return 	"KERNEL_TO_CPU_TCB"	;
+	case	KERNEL_TO_CPU_VAR_COMPARTIDA_OK:	return 	"KERNEL_TO_CPU_VAR_COMPARTIDA_OK "	;
+	case	KERNEL_TO_CPU_VAR_COMPARTIDA_ERROR:	return 	"KERNEL_TO_CPU_VAR_COMPARTIDA_ERROR "	;
+	case	KERNEL_TO_CPU_ASIGNAR_OK:	return 	"KERNEL_TO_CPU_ASIGNAR_OK "	;
+	case	KERNEL_TO_CPU_BLOCKED:	return 	"KERNEL_TO_CPU_BLOCKED "	;
+	case	KERNEL_TO_CPU_OK:	return 	"KERNEL_TO_CPU_OK "	;
+	case	KERNEL_TO_CPU_TCB_QUANTUM:	return 	"KERNEL_TO_CPU_TCB_QUANTUM "	;
+	case	KERNEL_TO_PRG_IMPR_PANTALLA:	return 	"KERNEL_TO_PRG_IMPR_PANTALLA "	;
+	case	KERNEL_TO_PRG_IMPR_IMPRESORA:	return 	"KERNEL_TO_PRG_IMPR_IMPRESORA "	;
+	case	KERNEL_TO_PRG_END_PRG:	return 	"KERNEL_TO_PRG_END_PRG "	;
+	case	KERNEL_TO_PRG_NO_MEMORY:	return 	"KERNEL_TO_PRG_NO_MEMORY "	;
+	case	KERNEL_TO_MSP_MEM_REQ:	return 	"KRN_TO_MSP_MEM_REQ "	;
+	case	KERNEL_TO_MSP_ELIMINAR_SEGMENTOS:	return 	"KERNEL_TO_UMV_ELIMINAR_SEGMENTOS "	;
+	case	KERNEL_TO_MSP_HANDSHAKE:	return 	"KERNEL_TO_MSP_HANDSHAKE "	;
+	case	KERNEL_TO_MSP_ENVIAR_BYTES:	return 	"KRN_TO_MSP_ENVIAR_BYTES "	;
+	case	KERNEL_TO_MSP_ENVIAR_ETIQUETAS:	return 	"KERNEL_TO_MSP_ENVIAR_ETIQUETAS "	;
+	case	KERNEL_TO_MSP_SOLICITAR_BYTES:	return 	"KERNEL_TO_MSP_SOLICITAR_BYTES "	;
 
+	case	CPU_TO_MSP_INDICEYLINEA:	return 	"CPU_TO_MSP_INDICEYLINEA "	;
+	case	CPU_TO_MSP_HANDSHAKE:	return 	"CPU_TO_MSP_HANDSHAKE "	;
+	case	CPU_TO_MSP_CAMBIO_PROCESO:	return 	"CPU_TO_MSP_CAMBIO_PROCESO "	;
+	case	CPU_TO_MSP_SOLICITAR_BYTES:	return 	"CPU_TO_MSP_SOLICITAR_BYTES"	;
 
-		case FIN: return "FIN";
+	case    CPU_TO_MSP_ENVIAR_BYTES: return "CPU_TO_MSP_ENVIAR_BYTES";
+	case	CPU_TO_KERNEL_HANDSHAKE:	return 	"CPU_TO_KERNEL_HANDSHAKE "	;
+	case	CPU_TO_KERNEL_NEW_CPU_CONNECTED:	return 	"CPU_TO_KERNEL_NEW_CPU_CONNECTED "	;
+	case	CPU_TO_KERNEL_END_PROC:	return 	"CPU_TO_KRN_END_PROC "	;
+	case	CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE:	return 	"CPU_TO_KERNEL_END_PROC_QUANTUM "	;
+	case	CPU_TO_KERNEL_END_PROC_QUANTUM_SIGNAL: return "CPU_TO_KERNEL_END_PROC_QUANTUM_SIGNAL";
+	case 	CPU_TO_KERNEL_END_PROC_ERROR:		return "CPU_TO_KERNEL_END_PROC_ERROR";
+	case	CPU_TO_KERNEL_IMPRIMIR:	return 	"CPU_TO_KERNEL_IMPRIMIR "	;
+	case	CPU_TO_KERNEL_IMPRIMIR_TEXTO:	return 	"CPU_TO_KERNEL_IMPRIMIR_TEXTO "	;
+	case	CPU_TO_KERNEL_OK:	return 	"CPU_TO_KERNEL_OK "	;
+	case	MSP_TO_KERNEL_MEMORY_OVERLOAD:	return 	"MSP_TO_KERNEL_MEMORY_OVERLOAD "	;
+	case	MSP_TO_KERNEL_SEGMENTO_CREADO:	return 	"MSP_TO_KERNEL_SEGMENTO_CREADO "	;
+	case	MSP_TO_KERNEL_ENVIO_BYTES:	return 	"MSP_TO_KERNEL_ENVIO_BYTES "	;
+	case	MSP_TO_KERNEL_HANDSHAKE_OK:	return 	"MSP_TO_KERNEL_HANDSHAKE_OK "	;
+	case	MSP_TO_CPU_BYTES_ENVIADOS:	return 	"MSP_TO_CPU_BYTES_ENVIADOS "	;
+	case	MSP_TO_CPU_BYTES_RECIBIDOS:	return 	"MSP_TO_CPU_BYTES_RECIBIDOS "	;
+	case	MSP_TO_CPU_SENTENCE:	return 	"MSP_TO_CPU_SENTENCE "	;
+	case	MSP_TO_CPU_SEGM_FAULT: 	return 	"MSP_TO_CPU_SEGM_FAULT  "	;
+	case	SYSCALL_WAIT_REQUEST: 	return 	"SYSCALL_WAIT_REQUEST  "	;
+	case	SYSCALL_SIGNAL_REQUEST: 	return 	"SYSCALL_SIGNAL_REQUEST  "	;
+
 		default:  return "---DEFAULT--- (mensaje sin definir)";
 	}
 	return "";
