@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include commons/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -22,22 +23,26 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Kernel
+all: miKernel
+
+dependents:
+	-cd /home/utnso/workspace/commons/Debug && $(MAKE) clean all
 
 # Tool invocations
-Kernel: $(OBJS) $(USER_OBJS)
+miKernel: $(OBJS) $(USER_OBJS) /home/utnso/workspace/commons/Debug/libcommons.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc  -o "Kernel" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/workspace/commons/Debug" -o "miKernel" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) Kernel
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) miKernel
 	-@echo ' '
 
 .PHONY: all clean dependents
 .SECONDARY:
+/home/utnso/workspace/commons/Debug/libcommons.so:
 
 -include ../makefile.targets
