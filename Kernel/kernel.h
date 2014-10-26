@@ -30,8 +30,8 @@
 #include <commons/config.h>
 #include <commons/collections/queue.h>
 #include <commons/process.h>
-#include <commons/sockets.h>
 
+#include "commons/sockets.h"
 
 //Internal variables
 #define KERNEL_LOG_PATH "kernel.log"

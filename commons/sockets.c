@@ -136,6 +136,8 @@ char* getDescription(int item){
 	case	CODE_HAY_MAS_LINEAS:	return 	"CODE_HAY_MAS_LINEAS "	;
 	case 	CODE_HAY_MAS_LINEAS_OK: return "CODE_HAY_MAS_LINEAS_OK";
 	case	CODE_FIN_LINEAS:	return 	"CODE_FIN_LINEAS "	;
+	case	CON_TO_KRN_CODE:	return 	"CON_TO_KRN_CODE "	;
+	case	CON_TO_KRN_HANDSHAKE:	return 	"CON_TO_KRN_HANDSHAKE"	;
 	case	KERNEL_TO_CPU_HANDSHAKE:	return 	"KERNEL_TO_CPU_HANDSHAKE "	;
 	case	KERNEL_TO_CPU_TCB:	return 	"KERNEL_TO_CPU_TCB"	;
 	case	KERNEL_TO_CPU_VAR_COMPARTIDA_OK:	return 	"KERNEL_TO_CPU_VAR_COMPARTIDA_OK "	;
@@ -178,6 +180,8 @@ char* getDescription(int item){
 	case	MSP_TO_CPU_BYTES_RECIBIDOS:	return 	"MSP_TO_CPU_BYTES_RECIBIDOS "	;
 	case	MSP_TO_CPU_SENTENCE:	return 	"MSP_TO_CPU_SENTENCE "	;
 	case	MSP_TO_CPU_SEGM_FAULT: 	return 	"MSP_TO_CPU_SEGM_FAULT  "	;
+	case	SYSCALL_WAIT_REQUEST: 	return 	"SYSCALL_WAIT_REQUEST  "	;
+	case	SYSCALL_SIGNAL_REQUEST: 	return 	"SYSCALL_SIGNAL_REQUEST  "	;
 
 		default:  return "---DEFAULT--- (mensaje sin definir)";
 	}

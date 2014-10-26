@@ -48,6 +48,8 @@ typedef enum {
 	CODE_HAY_MAS_LINEAS,
 	CODE_HAY_MAS_LINEAS_OK,
 	CODE_FIN_LINEAS,
+	CON_TO_KRN_HANDSHAKE,
+	CON_TO_KRN_CODE,
 	KERNEL_TO_CPU_HANDSHAKE,
 	KERNEL_TO_CPU_TCB,
 	KERNEL_TO_CPU_TCB_MODO_KERNEL,
@@ -102,7 +104,9 @@ typedef enum {
 	CPU_TO_MSP_SOLICITAR_BYTES_NUMERO,
 	MSP_TO_CPU_BYTES_RECIBIDOS,
 	MSP_TO_CPU_SENTENCE,
-	MSP_TO_CPU_SEGM_FAULT,     // El acceso a memoria esta por fuera de los rangos permitidos.
+	MSP_TO_CPU_SEGM_FAULT,
+	SYSCALL_SIGNAL_REQUEST,
+	SYSCALL_WAIT_REQUEST,// El acceso a memoria esta por fuera de los rangos permitidos.
 } t_header;
 
 /* Defino los tipos de señales que se pueden mandar
