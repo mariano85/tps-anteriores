@@ -95,8 +95,12 @@ int main() {
 
 	//tablaSegmentos();
 
-	//puts("TABLA PAGINA");
-	//tablaPaginas(1234);
+	puts("TABLA PAGINA");
+	tablaPaginas(1234);
+	puts("LISTA MARCOS");
+	listarMarcos();
+	puts("TABLA SEGMENTOS ANTES");
+	tablaSegmentos();
 
 	/*puts("PRIMER ESCRIBIR MEMORIA");
 	escribirMemoria(1234, 1048576, "111111111122222222223333", 24);
@@ -147,7 +151,7 @@ int main() {
 
 
 
-	uint32_t programCounterAnterior = 1048833;
+	/*uint32_t programCounterAnterior = 1048833;
 	uint32_t nuevoProgramCounter;
 	int bytesASumar = 11;
 	int numeroSegmento, numeroPagina, offset, numeroSegmentoViejo, numeroPaginaViejo, offsetViejo;
@@ -168,7 +172,7 @@ int main() {
 
 	obtenerUbicacionLogica(direccion, &numeroSegmento, &numeroPagina, &offset);
 
-	printf("OTRO PC: Numero segmento: %d    numero pagina: %d     offset: %d\n", numeroSegmento, numeroPagina, offset);
+	printf("OTRO PC: Numero segmento: %d    numero pagina: %d     offset: %d\n", numeroSegmento, numeroPagina, offset);*/
 
 
 

@@ -8,16 +8,11 @@
 #ifndef MSP_H_
 #define MSP_H_
 
-
 #include <stdbool.h>
 #include <commons/log.h>
 #include <commons/collections/list.h>
 #include <stdlib.h>
 #include <stdint.h>
-
-
-
-
 
 //ESTRUCTURAS
 

@@ -112,9 +112,11 @@ void crearTablaDeMarcos()
 
 void listarMarcos()
 {
+	log_info(logs, "TABLA DE MARCOS");
 	int i;
 	for (i=0; i<cantidadMarcos; i++)
 	{
+		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden);
 		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d		", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
 		printf("orden: %d    ", tablaMarcos[i].orden);
 		printf("libre: %d     ", tablaMarcos[i].libre);
@@ -124,8 +126,11 @@ void listarMarcos()
 
 void inicializarMSP()
 {
+	FILE *log = fopen("logMSP", "w");
+	fflush(log);
+	fclose(log);
+
 	logs = log_create("logMSP", "MSP", 0, LOG_LEVEL_TRACE);
-	log_trace(logs, "MSP inicio su ejecucion");
 
 	configuracion = levantarArchivoDeConfiguracion();
 
@@ -147,11 +152,7 @@ void inicializarMSP()
 
 	ordenMarco = 0;
 
-
-
-
 	log_trace(logs, "MSP inicio su ejecucion. Tamaño memoria: %d", configuracion.cantidad_memoria, "Tamaño swap: %d", configuracion.cantidad_swap);
-
 }
 
 uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegmentosDeEstePid)
@@ -300,8 +301,10 @@ t_list* crearListaPaginas(int cantidadDePaginas)
 
 void tablaSegmentos()
 {
+	log_info(logs, "TABLA DE SEGMENTOS");
 	void _imprimirSegmento(nodo_segmento *nodoSegmento)
 	{
+		log_info(logs, "PID: %d       N° segmento: %d", nodoSegmento->pid, nodoSegmento->numeroSegmento);
 		printf("PID: %d       N° segmento: %d\n", nodoSegmento->pid, nodoSegmento->numeroSegmento);
 	}
 
@@ -315,17 +318,19 @@ void tablaPaginas(int pid)
 
 	if(list_is_empty(listaFiltrada))
 	{
-		log_trace(logs, "No se encontró el pid solicitado");
-		puts("Error, no se encontro el pid solicitado.");
+		log_error(logs, "No se encontró el pid solicitado");
+		//puts("Error, no se encontro el pid solicitado.");
 		abort();
 	}
 
+	log_info(logs, "TABLA DE PÁGINAS");
 	void imprimirDatosSegmento(nodo_segmento *nodoSegmento)
 	{
 
 		void imprimirDatosPaginas(nodo_paginas *nodoPagina)
 		{
 			printf("Nro segmento: %d\tPID: %d\tNro Pagina: %d\tPresencia: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
+			log_info(logs, "Nro segmento: %d\tPID: %d\tNro Pagina: %d\tPresencia: %d", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
 		}
 
 		list_iterate(nodoSegmento->listaPaginas, (void*)imprimirDatosPaginas);
@@ -374,7 +379,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	if (list_is_empty(listaFiltradaPorPid))
 	{
 		log_error(logs, "Error, el pid ingresado no existe.");
-		puts("Error, el pid ingresado no existe.");
+		//puts("Error, el pid ingresado no existe.");
 		return NULL;
 	}
 
@@ -382,9 +387,9 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 	if (offset > TAMANIO_PAGINA - 1)
 	{
-		printf("numeroSegmento: %d   pid: %d   pag: %d   direccion: %d", numeroSegmento, pid, numeroPagina, (int)direccionLogica);
+		//printf("numeroSegmento: %d   pid: %d   pag: %d   direccion: %d", numeroSegmento, pid, numeroPagina, (int)direccionLogica);
 		log_error(logs, "Error, la dirección ingresada es inválida.");
-		puts("Error, la dirección ingresada es inválida.");
+		//puts("Error, la dirección ingresada es inválida.");
 		return NULL;
 	}
 
@@ -401,7 +406,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	if (nodoSegmento == NULL)
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
-		puts("Error, la dirección ingresada es inválida.");
+		//puts("Error, la dirección ingresada es inválida.");
 		return NULL;
 	}
 
@@ -416,7 +421,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	if (nodoPagina == NULL)
 	{
 		log_error(logs, "Error, la dirección ingresada es inválida.");
-		puts("Error, la dirección ingresada es inválida.");
+		//puts("Error, la dirección ingresada es inválida.");
 		return NULL;
 	}
 
@@ -448,7 +453,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 		if ((nodoPagina->nro_pagina + cantidadPaginasQueOcupaTamanio) > (cantidadPaginasSegmento -1))
 		{
 			log_error(logs, "Error, violación de segmento.");
-			puts("Error, violacion de segmento.");
+			//puts("Error, violacion de segmento.");
 			return NULL;
 		}
 
@@ -467,7 +472,6 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 
 }
 
-
 void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 {
 	void* buffer;
@@ -480,14 +484,12 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 	void* direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 
-
 	buffer = malloc(tamanio);
 	memcpy(buffer, direccionOrigen, tamanio);
 
-	puts("BUFFER");
-	puts(buffer);
+	//puts("BUFFER");
+	//puts(buffer);
 	return buffer;
-
 }
 
 void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
@@ -516,8 +518,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 					log_error(logs, "Error, no hay espacio suficiente en la memoria.");
 					puts("Error, no hay espacio suficiente en la memoria.");
 					return;
-
-
 			}
 
 			else
@@ -558,12 +558,8 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 			tamanioRestante = tamanioRestante - TAMANIO_PAGINA;
 			yaEscribi = yaEscribi + TAMANIO_PAGINA;
 
-
 		}
-
 	}
-
-
 
 }
 
@@ -624,7 +620,6 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 
 void conexionConKernelYCPU()
 {
-
 	struct sockaddr_in my_addr, their_addr;
 
 	int socketFD, newFD;
@@ -667,18 +662,8 @@ void conexionConKernelYCPU()
 		if(header_conexion_MSP == CPU_TO_MSP_HANDSHAKE)
 		{
 			pthread_create(&hilo, NULL, atenderACPU, NULL);
-
-
 		}
-
 	}
-
-
-
-
-
-
-
 }
 
 void *atenderACPU()
@@ -803,7 +788,6 @@ uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar
 		offsetPaginaFinal = quedaParaSumar % TAMANIO_PAGINA;
 
 		nuevoProgramCounter = generarDireccionLogica(numeroSegmento, paginaFinal, offsetPaginaFinal);
-
 
 	}
 
