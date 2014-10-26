@@ -143,8 +143,12 @@ void* loader(t_loaderThread *loaderThread){
 						log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
 						log_debug(logKernel, string_from_format( "El codigo recibido es:\n %s \n", stringCode));
 
-						int32_t programPID = atoi(mensaje);
-						t_process* aProcess = getProcessStructureByBESOCode(stringCode, programPID, i);
+						char** split = string_get_string_as_array(mensaje);
+
+						int32_t programPID = atoi(split[0]);
+						int32_t programTID = atoi(split[1]);
+
+						t_process* aProcess = getProcessStructureByBESOCode(stringCode, programPID, programTID, i);
 						log_info(logKernel, "Se generó la estructura del proceso con éxito!");
 						agregarProcesoColaNew(aProcess);
 
