@@ -502,9 +502,11 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 
 	int cantidadPaginasQueNecesito = list_size(paginasQueNecesito);
-	int tamanioRestante = tamanio;
+
 	int yaEscribi = 0;
 	int i;
+	int quedaParaCompletarPagina = TAMANIO_PAGINA - offset;
+	int tamanioRestante = tamanio - quedaParaCompletarPagina;
 
 	for (i=0; i<cantidadPaginasQueNecesito; i++)
 	{
@@ -513,7 +515,7 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 		if (nodoPagina->presencia == -1)
 		{
-			if (tamanio > memoriaRestante)
+			if (tamanioRestante > memoriaRestante)
 			{
 					log_error(logs, "Error, no hay espacio suficiente en la memoria.");
 					puts("Error, no hay espacio suficiente en la memoria.");
@@ -528,7 +530,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 		if (i == 0)
 		{
-			int quedaParaCompletarPagina = TAMANIO_PAGINA - offset;
 
 			if(tamanio <= quedaParaCompletarPagina)
 			{
@@ -536,7 +537,7 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 			}
 			else
 			{
-				tamanioRestante = tamanioRestante - quedaParaCompletarPagina;
+				//tamanioRestante = tamanioRestante - quedaParaCompletarPagina;
 
 				yaEscribi = yaEscribi + quedaParaCompletarPagina;
 
