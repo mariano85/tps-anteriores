@@ -18,11 +18,13 @@ int main() {
 
 	inicializarMSP();
 
-	crearSegmento(1234, 14);
+	conexionConKernelYCPU();
 
-	crearSegmento(5678, 25);
+//	crearSegmento(1234, 14);
 
-	crearSegmento(1234, 40);
+//	crearSegmento(5678, 25);
+
+//	crearSegmento(1234, 40);
 
 	/*escribirMemoria(1234, 1049088, "5555555555", 10);
 

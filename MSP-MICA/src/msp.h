@@ -120,7 +120,7 @@ void *solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
 
 void conexionConKernelYCPU();
 
-void *atenderACPU();
+void* atenderACPU(void *socket_cpu);
 
 int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
 

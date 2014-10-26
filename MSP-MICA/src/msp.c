@@ -667,12 +667,75 @@ void conexionConKernelYCPU()
 	}
 }
 
-void *atenderACPU()
+void* atenderACPU(void* socket_cpu)
 {
-	printf("Hola\n");
+	bool socketValidador = true;
+	t_contenido mensaje_aux;
 
-	return EXIT_SUCCESS;
-}
+	crearSegmento(1234, 20);
+	crearSegmento(1234, 40);
+	log_info(logs,"Primer Escribir Memoria");
+	escribirMemoria(1234, 1048576, "LOADA3456GETMABADDRBDSUBRDCMULRAB",33);
+
+	while(socketValidador){
+
+		t_contenido mensaje;
+		memset(mensaje,0,sizeof(t_contenido));
+		t_header header_recibido = recibirMensaje((int)socket_cpu, mensaje, logs);
+
+		//Cargo lo que recibi --> el pir,dir_logica y tamanio
+
+		char** array = string_get_string_as_array(mensaje);
+		int pid = atoi(array[0]);
+		uint32_t dir_logica = atoi(array[1]);
+		int tamanio = atoi(array[2]);
+
+
+		log_info(logs,"pid es %d,dir_logica es %d,tamanio es %d",pid,dir_logica,tamanio);
+
+		void* buffer_instruccion = malloc(sizeof(int32_t));
+		memset(buffer_instruccion,0,sizeof(int32_t));
+		buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
+
+		log_info(logs,"seguimiento de la dir_logica que es : %d",dir_logica);
+
+		if(header_recibido == CPU_TO_MSP_SOLICITAR_BYTES){
+
+					//Envio Instruccion
+					t_contenido mensaje_instruccion;
+					memset(mensaje_instruccion,0,sizeof(t_contenido));
+					memcpy(mensaje_instruccion,buffer_instruccion,4);
+					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
+
+					//Con este header --> Recibo lo que pido despues de pedir la instruccion --> puede ser REGISTRO -- DIRECCION - NUMERO
+					recibirMensaje((int)socket_cpu,mensaje_aux,logs);
+					char** array = string_get_string_as_array(mensaje_aux);
+
+					int32_t program_counter = atoi(array[0]);
+					int32_t auxiliar_cant_bytes = atoi(array[1]);
+
+					log_info(logs,"el auxiliar vale %d y el program_counter %d",auxiliar_cant_bytes,program_counter);
+
+
+					void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
+					t_contenido mensaje_parametros;
+					memset(mensaje_parametros,0,sizeof(t_contenido));
+					memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
+					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
+
+		}
+
+	}//Fin while
+
+
+
+				return EXIT_SUCCESS;
+ }
+
+
+
+
+
 
 char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina)
 {
