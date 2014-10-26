@@ -27,13 +27,11 @@ int main(){
 	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
-	pthread_create(&manejoLlamadasAlSistemaThread.tid, NULL, (void*) manejo_llamadas_sistema, (void*) &loaderThread);
 
 	pthread_join(loaderThread.tid, NULL);
 	pthread_join(planificadorThread.tid, NULL);
 	pthread_join(manejoColaReadyThread.tid, NULL);
 	pthread_join(manejoColaExitThread.tid, NULL);
-	pthread_join(manejoLlamadasAlSistemaThread.tid, NULL);
 	finishKernel();
 
 	return EXIT_SUCCESS;
@@ -60,7 +58,7 @@ void initKernel(){
 	BLOCK = queue_create();
 	EXEC = queue_create();
 	EXIT = queue_create();
-	SYSCALLS = queue_create();
+
 	//Inicializa semaforo de colas
 	pthread_mutex_init(&mutex_new_queue, NULL );
 	pthread_mutex_init(&mutex_ready_queue, NULL );

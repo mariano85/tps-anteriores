@@ -7,7 +7,7 @@ void interrupcion(t_process* aProcess, int32_t dir_memoria){
 	if(header == CPU_TO_KRN_IMPRIMIR_TEXTO){ // CAMBIAR POR CPU_TO_KRN_INTERRUPCION
 			log_info(logKernel, "La CPU Me pide hacer una interrupcion :/");
 			agregarProcesoColaBlock(aProcess ->tcb ->pid ,NO_SEMAPHORE);
-			manejo_llamadas_sistema();
+
 
 		}
 

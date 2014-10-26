@@ -134,11 +134,11 @@ void* loader(t_loaderThread *loaderThread){
 					case ERR_ERROR_AL_RECIBIR_MSG:
 						//TODO retry?l
 						break;
-					case CON_TO_KRN_HANDSHAKE:
-						enviarMensaje(i, CON_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
+					case PRG_TO_KRN_HANDSHAKE:
+						enviarMensaje(i, PRG_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
 						break;
-					case CON_TO_KRN_CODE: {
-						char* stringCode = recibirCodigo(i, CON_TO_KRN_CODE, logKernel);
+					case PRG_TO_KRN_CODE: {
+						char* stringCode = recibirCodigo(i, PRG_TO_KRN_CODE, logKernel);
 
 						log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
 						log_debug(logKernel, string_from_format( "El codigo recibido es:\n %s \n", stringCode));

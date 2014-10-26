@@ -252,7 +252,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 	void agregarProcesoColaExec(){
 
 			t_client_cpu* aCpu;
-			t_tcb* aProcess;
+			t_process* aProcess;
 			bool disponible = false;
 
 			pthread_mutex_lock(&mutexCPUDISP);
@@ -279,19 +279,32 @@ void agregarProcesoColaReady(t_process* aProcess) {
 				aProcess = queue_pop(READY);
 				pthread_mutex_unlock (&mutex_ready_queue);
 
-			if(aProcess != NULL){
+			if(aProcess != NULL){ // ACA REVISIO SI ES UNA LLAMADA AL SISTEMA, SI LO ES LO AGREGO AL PRINCIPIO DE LA COLA EXECUTE
 
-				pthread_mutex_lock (&mutex_exec_queue);
-					queue_push(EXEC, aProcess);
+					pthread_mutex_lock (&mutex_exec_queue);
+					int chequeoModoKernel = aProcess ->tcb->indicador_modo_kernel;
+
+					if(chequeoModoKernel == 0){
+						queue_push(EXEC, aProcess);
+					}
+					else{
+						int posicion = 0;
+						list_add_in_index(EXEC -> elements, posicion,aProcess);
+					}
+
+
 					pthread_mutex_unlock (&mutex_exec_queue);
 
 
 
 				aCpu->ocupado = true;
-				aCpu->processPID = aProcess->pid;
+				aCpu->processPID = aProcess->tcb->pid;
+
+
+
 				//log_debug(kernelLog,("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->pid, aCpu->cpuPID));
 
-				//enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
+				enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
 
 				mostrarColas();
 			}
@@ -360,14 +373,7 @@ void agregarProcesoColaReady(t_process* aProcess) {
 
 
 
-	void agregarProcesoColaExecEnPrimerLugar(t_process* aProcess){
-				pthread_mutex_lock (&mutex_exec_queue);
-				int posicion = 0;
-				list_add_in_index(EXEC -> elements, posicion,aProcess);
-				pthread_mutex_unlock (&mutex_exec_queue);
-				puts("Un nuevo proceso se insertó en la cola EXEC (EN PRIMER LUGAR)!");
-				log_info(logKernel, "Un nuevo proceso se insertó en la cola EXEC (EN PRIMER LUGAR)");
-	}
+
 
 
 
@@ -539,48 +545,7 @@ void manejo_cola_exit(void){
 }
 
 
-void manejo_llamadas_sistema(){
 
-	int myPid = process_get_thread_id();
-	log_info(logKernel, "**************manejo llamadas al sistema(PID: %d) ***************",myPid);
-	bool hayCpuLibre = false;
-	t_client_cpu* cpu;
-	for(;;){
-		hayCpuLibre = false;
-
-		pthread_mutex_lock(&mutex_ready_queue);
-
-
-		bool _cpuLibre(void* element){
-
-						if(((t_client_cpu*)element)->ocupado == false){
-							return true;
-						}
-						return false;
-					}
-
-		while (SYSCALLS->elements->elements_count == 0 ||
-
-					(!list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)
-						&& SYSCALLS->elements->elements_count != 0))/* If there is nothing in the buffer then wait */
-		{
-			if(!list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)
-					&& SYSCALLS->elements->elements_count != 0){
-			log_info(logKernel, "Syscall lista, pero no hay cpu :( No hago nada hasta que no levanten una!");
-			}
-
-			pthread_cond_wait(&cond_ready_consumer, &mutex_ready_queue);
-		}
-
-		pthread_mutex_unlock(&mutex_ready_queue);
-			log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso listp! Voy a EJECUTARLO PRIMERO!");
-			t_process* aProcess = queue_pop(SYSCALLS);
-			agregarProcesoColaExecEnPrimerLugar(aProcess);
-
-		pthread_cond_signal(&cond_ready_producer);
-
-	}
-}
 
 bool NoBodyHereBySemaphore(t_list* aList){
 
