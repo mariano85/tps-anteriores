@@ -86,7 +86,7 @@ void handshakeMSP() {
 
 	t_contenido mensaje;
 	// deberiamos formatear el mensaje todo en 0's
-	enviarMensaje(socketMSP, KRN_TO_MSP_HANDSHAKE, mensaje, logKernel);
+	enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
 
 }
 
@@ -214,7 +214,7 @@ void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
 		t_contenido mensaje;
 		memset(mensaje, 0, sizeof(t_contenido));
 		strcpy(mensaje, string_from_format("[%d, %d, %d]", v1, v2,  config_kernel.QUANTUM));
-		enviarMensaje(socketCPU, KRN_TO_CPU_PCB, mensaje, logKernel);
+		enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
 		log_info(logKernel, "Se envía un PCB al CPU libre elegido");
 
 }
