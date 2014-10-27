@@ -88,7 +88,7 @@ t_dictionary *diccionarioDeVariables;
 t_log *logs;
 t_config* config;
 int seguir;
-
+int32_t puertoKernel;
 
 //Registro CPU despues veremos como los agrupamos
 
@@ -100,6 +100,9 @@ int socketKernel;
 int socketMSP;
 int	p_HILO;
 int32_t program_counter;
+char* ipKernel  ;
+
+int newFD;
 
 sem_t mutex_A;
 sem_t mutex_B;
@@ -116,5 +119,7 @@ uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset
 void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset);
 
 uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
+
+void conexion_Kernel();
 
 #endif /* VARIABLESGLOBALES_FUNCIONES_H_ */
