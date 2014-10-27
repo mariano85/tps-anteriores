@@ -67,16 +67,20 @@ int main() {
 	listarMarcos();
 
 	escribirMemoria(5678, 0, "aaaaaaaaaabbbbbbbbbbcccccccccc", 30);
+	escribirMemoria(1234, 1048832, "ddddddddddeeeeeeeeeeffffffffff", 30);
+	escribirMemoria(5678, 768, "gggggggggg", 10);
 
 	puts("listaDespues");
 
 	listarMarcos();
 
-	//tablaPaginas(1234);
-//	tablaPaginas(5678);
+	tablaPaginas(1234);
+	tablaPaginas(5678);
 
-	puts("solicitaaaas");
+	puts("solicitaaaas 5678");
 	puts(solicitarMemoria(5678, 0, 30));
+	puts("solicitar 1234");
+	puts(solicitarMemoria(1234, 1048832, 30));
 
 
 

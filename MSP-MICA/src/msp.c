@@ -522,6 +522,8 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 	int quedaParaCompletarPagina = TAMANIO_PAGINA - offset;
 	int tamanioRestante = tamanio - quedaParaCompletarPagina;
 
+
+
 	for (i=0; i<cantidadPaginasQueNecesito; i++)
 	{
 
@@ -529,7 +531,7 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 		if (nodoPagina->presencia == -1)
 		{
-			if(tamanio > memoriaRestante)
+			if(memoriaRestante < TAMANIO_PAGINA)
 			{
 				elegirVictimaSegunFIFO();
 			}
