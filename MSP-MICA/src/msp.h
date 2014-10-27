@@ -10,9 +10,19 @@
 
 #include <stdbool.h>
 #include <commons/log.h>
+#include <commons/config.h>
 #include <commons/collections/list.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdint.h>
+#include <string.h>
+#include <commons/sockets.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <sys/types.h>
+#include <pthread.h>
+#include <commons/temporal.h>
+
 
 //ESTRUCTURAS
 
@@ -121,6 +131,8 @@ void *solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
 void conexionConKernelYCPU();
 
 void* atenderACPU(void *socket_cpu);
+
+void* atenderAKernel(void* socket_msp);
 
 int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
 

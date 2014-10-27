@@ -5,19 +5,7 @@
  *      Author: utnso
  */
 #include "msp.h"
-#include <commons/config.h>
-#include <commons/log.h>
-#include <commons/collections/list.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <commons/sockets.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <sys/types.h>
-#include <pthread.h>
-#include <commons/temporal.h>
+
 
 
 #define CANTIDAD_MAX_SEGMENTOS_POR_PID 3
@@ -475,6 +463,8 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 {
 	void* buffer;
+	void* buffermini; //Este es el buffer auxiliar que uso para copiar lo que
+						//está en cada cachito de memoria. Despues lo muevo al buffer definitivo, es un una cuestion de orden de los cachos.
 	int numeroSegmento, numeroPagina, offset;
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
@@ -485,10 +475,34 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	void* direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 
 	buffer = malloc(tamanio);
-	memcpy(buffer, direccionOrigen, tamanio);
+	memset(buffer, 0, tamanio+1);
 
-	//puts("BUFFER");
-	//puts(buffer);
+	//copio lo que queda para completar la primera pagina
+	int yaCopie = TAMANIO_PAGINA - offset;
+	memcpy(buffer, direccionOrigen, yaCopie);
+
+
+	//copio las paginas del medio
+	int i;
+	for (i=1; i<((list_size(paginasQueNecesito)) - 1); i++)
+	{
+		nodoPagina = list_get(paginasQueNecesito, i);
+		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+		buffermini = malloc(TAMANIO_PAGINA);
+		memset(buffermini, 0, TAMANIO_PAGINA);
+		memcpy(buffermini, direccionOrigen, TAMANIO_PAGINA);
+		memcpy(buffer + yaCopie, buffermini, TAMANIO_PAGINA);
+		yaCopie = yaCopie + TAMANIO_PAGINA;
+	}
+
+	//copio lo que me queda del tamanio de la ultima pagina
+	nodoPagina = list_get(paginasQueNecesito, i);
+	direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+	buffermini = malloc(tamanio - yaCopie);
+	memset(buffermini, 0, tamanio - yaCopie);
+	memcpy(buffermini, direccionOrigen, tamanio - yaCopie);
+	memcpy(buffer + yaCopie, buffermini, tamanio - yaCopie);
+
 	return buffer;
 }
 
@@ -515,17 +529,12 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 
 		if (nodoPagina->presencia == -1)
 		{
-			if (tamanioRestante > memoriaRestante)
+			if(tamanio > memoriaRestante)
 			{
-					log_error(logs, "Error, no hay espacio suficiente en la memoria.");
-					puts("Error, no hay espacio suficiente en la memoria.");
-					return;
+				elegirVictimaSegunFIFO();
 			}
 
-			else
-			{
-				buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
-			}
+			buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
 		}
 
 		if (i == 0)
@@ -537,8 +546,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 			}
 			else
 			{
-				//tamanioRestante = tamanioRestante - quedaParaCompletarPagina;
-
 				yaEscribi = yaEscribi + quedaParaCompletarPagina;
 
 				escribirEnMarco (nodoPagina->presencia, quedaParaCompletarPagina, bytesAEscribir, offset, 0);
@@ -568,8 +575,10 @@ void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int off
 {
 	void* direccionDestino = offset + tablaMarcos[numeroMarco].dirFisica;
 
-	tablaMarcos[numeroMarco].orden = ordenMarco;
 	ordenMarco ++;
+
+
+	tablaMarcos[numeroMarco].orden = ordenMarco;
 
 	memcpy(direccionDestino, bytesAEscribir + yaEscribi, tamanio);
 }
@@ -659,12 +668,26 @@ void conexionConKernelYCPU()
 		t_header header_conexion_MSP = recibirMensaje(newFD, mensajeParaRecibirConexionCpu, logs);
 
 		pthread_t hilo;
+		pthread_t hiloKernel;
 
 		if(header_conexion_MSP == CPU_TO_MSP_HANDSHAKE)
 		{
+			puts("hola cpu");
 			pthread_create(&hilo, NULL, atenderACPU, NULL);
 		}
+
+		if(header_conexion_MSP == KERNEL_TO_CPU_HANDSHAKE)
+		{
+			puts("hola kernel");
+			pthread_create(&hiloKernel, NULL, atenderAKernel, NULL);
+		}
 	}
+}
+
+void* atenderAKernel(void* socket_msp)
+{
+	puts("HOLA KERNEL");
+	return EXIT_SUCCESS;
 }
 
 void* atenderACPU(void* socket_cpu)
@@ -729,13 +752,8 @@ void* atenderACPU(void* socket_cpu)
 
 
 
-				return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
  }
-
-
-
-
-
 
 char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina)
 {
@@ -757,7 +775,8 @@ void elegirVictimaSegunFIFO()
 {
 	nodo_segmento *nodoSegmento;
 	nodo_paginas *nodoPagina;
-	t_list *listaPaginas;
+	t_list *listaPaginasDelSegmento;
+	t_list *listaSegmentosDelPid;
 
 	swapRestante = swapRestante - TAMANIO_PAGINA;
 
@@ -771,14 +790,25 @@ void elegirVictimaSegunFIFO()
 		}
 	}
 
+
+
+
 	int numeroSegmento = nodoMarco.nro_segmento;
 	int numeroPagina = nodoMarco.nro_pagina;
 
-	nodoSegmento = list_get(listaSegmentos, numeroSegmento);
+	printf("pid: %d   seg: %d     pag: %d\n", nodoMarco.pid, numeroSegmento, numeroPagina);
 
-	listaPaginas = nodoSegmento->listaPaginas;
+	listaSegmentosDelPid = filtrarListaSegmentosPorPid(listaSegmentos, nodoMarco.pid);
 
-	nodoPagina = list_get(listaPaginas, numeroPagina);
+	nodoSegmento = list_get(listaSegmentosDelPid, numeroSegmento);
+
+	listaPaginasDelSegmento = nodoSegmento->listaPaginas;
+
+	nodoPagina = list_get(listaPaginasDelSegmento, numeroPagina);
+
+	printf("pid: %d   pidbis: %d    seg: %d     seg bis: %d    pag: %d   pagbis: %d   presencia: %d     marco: %d\n",
+			nodoMarco.pid, nodoSegmento->pid, numeroSegmento, nodoSegmento->numeroSegmento, numeroPagina, nodoPagina->nro_pagina, nodoPagina->presencia, nodoMarco.nro_marco);
+
 
 	crearArchivoDePaginacion(nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina);
 
@@ -793,7 +823,7 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
 	tablaMarcos[numeroMarco].orden = 0;
 	tablaMarcos[numeroMarco].pid = 0;
 
-	nodoPagina->presencia = -1;
+	nodoPagina->presencia = -2;
 
 	void* direccionDestino = tablaMarcos[numeroMarco].dirFisica;
 	void* buffer = malloc(TAMANIO_PAGINA);
@@ -803,8 +833,6 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
 
 	memoriaRestante = memoriaRestante + TAMANIO_PAGINA;
 }
-
-
 
 int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
 {
