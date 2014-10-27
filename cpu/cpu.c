@@ -33,9 +33,9 @@ int main(int argc, char *argv[]) {
 
 
 		iniciarPrograma(); // Levanto el archivo de configuracion, en caso de que nose pueda tiro error
-		char* ipKernel        = config_get_string_value(config, IP_KERNEL);
-		char* ipMSP           = config_get_string_value(config, IP_MSP);
-		int32_t puertoKernel  = config_get_int_value(config,PUERTO_KERNEL);
+		ipKernel   = config_get_string_value(config, IP_KERNEL);
+		char* ipMSP      = config_get_string_value(config, IP_MSP);
+		puertoKernel  = config_get_int_value(config,PUERTO_KERNEL);
 		int32_t puertoMSP     = config_get_int_value(config, PUERTO_MSP);
 
 
@@ -52,39 +52,22 @@ int main(int argc, char *argv[]) {
 		log_info(logs, "Conexion a kernel ip:%s y puerto:%d", ipKernel, puertoKernel);
 		log_info(logs, "Conexion a MSP ip:%s y puerto:%d", ipMSP, puertoMSP);
 
-/*		//conexion a KERNEL
-		socketKernel = conectarAServidor(ipKernel, puertoKernel);
-		while (socketKernel == EXIT_FAILURE) {
-			log_info(logs,
-					"Despierten al Kernel! Se reintenta conexion en unos segundos\n");
-			sleep(5);
-			socketKernel = conectarAServidor(ipKernel, puertoKernel);
-		} */
 
-		// Hago el handshake con el kernel
 
-	/*	t_contenido mensaje_para_enviar_al_kernel_con_el_pid;
-		memset(mensaje
-		7
-		_para_enviar_al_kernel_con_el_pid,0,sizeof(t_contenido));
-		strcpy(mensaje_para_enviar_al_kernel_con_el_pid, string_from_format("%d", mi_pid));
-		enviarMensaje(socketKernel,CPU_TO_KERNEL_HANDSHAKE,mensaje_para_enviar_al_kernel_con_el_pid,logs);*/
+
+
+		conexion_Kernel();
+
+
 
 		//conexion a MSP
 			socketMSP = conectarAServidor(ipMSP, puertoMSP);
-			while (socketMSP == EXIT_FAILURE) {
-				log_info(logs,
+				while (socketMSP == EXIT_FAILURE) {
+						log_info(logs,
 						"Despierten a la MSP! Se reintenta conexion en unos segundos \n");
-				sleep(5);
-				socketMSP = conectarAServidor(ipMSP, puertoMSP);
-			}
-
-
-
-
-		// Crear segmento
-	//	crearSegmento(1234, 14);
-
+						sleep(5);
+						socketMSP = conectarAServidor(ipMSP, puertoMSP);
+				}
 
 
 		//Hago el handshake con la MSP
@@ -97,25 +80,38 @@ int main(int argc, char *argv[]) {
 
 		enviarMensaje(socketMSP,CPU_TO_MSP_HANDSHAKE,mensaje,logs);
 
+
+
+
+		log_info(logs,"el newfd vale %d",newFD);
+
 		int seguir = 1;
 
 		while(seguir == 1){
 
 		// Aca deberia quedarme a la escucha de que el Kernel me me mande el TCB
 
-	/*	t_contenido mensaje_para_recibir_TCB;
+		t_contenido mensaje_para_recibir_TCB;
 		memset(mensaje_para_recibir_TCB,0,sizeof(t_contenido));
-		t_contenido header_para_recibir_TCB = recibirMensaje(socketKernel,mensaje_para_recibir_TCB,logs);*/
+		 recibirMensaje(newFD,mensaje_para_recibir_TCB,logs);
+
+		 char** array = string_get_string_as_array(mensaje_para_recibir_TCB);
+
+		 log_info(logs,"el valor del pid es %d y del program counter es %d",atoi(array[0]),atoi(array[1]));
 
 		TCB = malloc(sizeof(registro_TCB));
 
-		TCB->pid = 1234;
-		TCB->base_segmento_codigo = 1048576;
+		TCB->pid = atoi(array[0]); //1234;
+		TCB->base_segmento_codigo = atoi(array[1]);//1048576;
 		TCB->tamanio_segmento_codigo = 9;
+
+		log_info(logs,"el valor del pid es %d",TCB->pid);
+		log_info(logs,"el valor de la base es %d",TCB->base_segmento_codigo);
 
 		program_counter = TCB->base_segmento_codigo;
 
 		int cont = 0;
+
 
 		while(cont < 5){
 
@@ -437,3 +433,65 @@ uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar
 
 	return nuevoProgramCounter;
 }
+
+
+
+void conexion_Kernel(){
+
+	struct sockaddr_in my_addr, their_addr;
+
+	int socketFD;
+
+	socketFD = crearSocket();
+
+	my_addr.sin_family = AF_INET;
+	my_addr.sin_port = htons(puertoKernel);
+	my_addr.sin_addr.s_addr = INADDR_ANY;
+	memset(&(my_addr.sin_zero), '\0', sizeof(struct sockaddr_in));
+
+	bindearSocket(socketFD, my_addr);
+
+	escucharEn(socketFD);
+
+
+
+		socklen_t sin_size;
+
+				sin_size = sizeof(struct sockaddr_in);
+
+
+				log_trace(logs, "A la espera de nuevas conexiones");
+
+				if((newFD = accept(socketFD,(struct sockaddr *)&their_addr, &sin_size)) == -1)
+				{
+					perror("accept");
+					//continue;
+				}
+
+				log_trace(logs, "Recibí conexion de %s", inet_ntoa(their_addr.sin_addr));
+
+				t_contenido mensajeParaRecibirConexionCpu;
+				memset(mensajeParaRecibirConexionCpu, 0, sizeof(t_contenido));
+
+				t_header header_conexion_kernel = recibirMensaje(newFD, mensajeParaRecibirConexionCpu, logs);
+
+	//			pthread_t hilo;
+
+
+
+				if(header_conexion_kernel == KERNEL_TO_CPU_HANDSHAKE){
+
+			//		pthread_create(&hilo, NULL, atenderAKernel, (void*)newFD);
+
+					log_info(logs,"HOla esasdasdasdasdsadsasdasdas");
+
+
+				}
+
+			}
+
+		//		pthread_exit(0);
+
+
+
+

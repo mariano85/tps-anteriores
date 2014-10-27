@@ -15439,3 +15439,1268 @@
 [INFO] 13:49:02:823 CPU.c/(1996:1996): el valor del registro A deberia ser 9700 y es : 9700
 [INFO] 13:49:02:824 CPU.c/(1996:1996): Aca salgo con el contador en 4
 [INFO] 13:49:02:824 CPU.c/(1996:1996): ejecute dos instrucciones
+[INFO] 19:40:38:712 CPU.c/(11857:11857): Archivo de configuracion levantado correctamente
+[INFO] 19:40:38:733 CPU.c/(11857:11857): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 19:40:38:740 CPU.c/(11857:11857): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 19:40:38:760 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 19:40:38:765 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[DEBUG] 19:40:38:831 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:38:951 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"LOAD" 
+[INFO] 19:40:38:954 CPU.c/(11857:11857): La instruccion es LOAD
+[INFO] 19:40:38:956 CPU.c/(11857:11857): el program_counter es 1048580
+[INFO] 19:40:38:959 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048580,5]" 
+[DEBUG] 19:40:38:965 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:38:990 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"A3456" 
+[INFO] 19:40:38:993 CPU.c/(11857:11857): el registro vale A y el numero 3456
+[INFO] 19:40:38:997 CPU.c/(11857:11857): el valor del registro A es 3456
+[INFO] 19:40:38:2 CPU.c/(11857:11857): el program counter antes de aumentar en 5 es 1048580
+[INFO] 19:40:39:8 CPU.c/(11857:11857): el program counter despues de aumentar en 5 es 1048585
+[INFO] 19:40:39:11 CPU.c/(11857:11857): Aca salgo con el contador en 0
+[INFO] 19:40:39:22 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048585,4]" 
+[DEBUG] 19:40:39:97 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:101 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"GETM" 
+[INFO] 19:40:39:104 CPU.c/(11857:11857): La instruccion es GETM
+[INFO] 19:40:39:107 CPU.c/(11857:11857): el program_counter es 1048835
+[INFO] 19:40:39:116 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048835,2]" 
+[DEBUG] 19:40:39:129 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:134 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 19:40:39:140 CPU.c/(11857:11857): el valor del registro A es 97
+[INFO] 19:40:39:147 CPU.c/(11857:11857): Aca salgo con el contador en 1
+[INFO] 19:40:39:149 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048837,4]" 
+[DEBUG] 19:40:39:223 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:228 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"ADDR" 
+[INFO] 19:40:39:228 CPU.c/(11857:11857): La instruccion es ADDR
+[INFO] 19:40:39:230 CPU.c/(11857:11857): el program_counter es 1048841
+[INFO] 19:40:39:235 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048841,2]" 
+[DEBUG] 19:40:39:253 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:263 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"BD" 
+[INFO] 19:40:39:267 CPU.c/(11857:11857): entro en el case 3
+[INFO] 19:40:39:270 CPU.c/(11857:11857): el valor deberia dar 100 del registro B y da :100
+[INFO] 19:40:39:273 CPU.c/(11857:11857): Aca salgo con el contador en 2
+[INFO] 19:40:39:279 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049089,4]" 
+[DEBUG] 19:40:39:354 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:419 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"SUBR" 
+[INFO] 19:40:39:423 CPU.c/(11857:11857): La instruccion es SUBR
+[INFO] 19:40:39:428 CPU.c/(11857:11857): el program_counter es 1049093
+[INFO] 19:40:39:431 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049093,2]" 
+[DEBUG] 19:40:39:447 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:455 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"DC" 
+[INFO] 19:40:39:463 CPU.c/(11857:11857): el valor registro1 D
+[INFO] 19:40:39:466 CPU.c/(11857:11857): el valor registro2 C
+[INFO] 19:40:39:469 CPU.c/(11857:11857): el valor de C es 1
+[INFO] 19:40:39:472 CPU.c/(11857:11857): el valor de D es 3
+[INFO] 19:40:39:474 CPU.c/(11857:11857): entro en el case 2
+[INFO] 19:40:39:480 CPU.c/(11857:11857): el valor del registro d es 2
+[INFO] 19:40:39:482 CPU.c/(11857:11857): Aca salgo con el contador en 3
+[INFO] 19:40:39:488 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049095,4]" 
+[DEBUG] 19:40:39:561 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:564 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"MULR" 
+[INFO] 19:40:39:569 CPU.c/(11857:11857): La instruccion es MULR
+[INFO] 19:40:39:577 CPU.c/(11857:11857): el program_counter es 1049345
+[INFO] 19:40:39:583 CPU.c/(11857:11857): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049345,2]" 
+[DEBUG] 19:40:39:598 CPU.c/(11857:11857): Estoy en recv
+[DEBUG] 19:40:39:608 CPU.c/(11857:11857): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 19:40:39:614 CPU.c/(11857:11857): el registro1 es A
+[INFO] 19:40:39:627 CPU.c/(11857:11857): el registro2 es B
+[INFO] 19:40:39:642 CPU.c/(11857:11857): entro en el case 2
+[INFO] 19:40:39:644 CPU.c/(11857:11857): el valor del registro A deberia ser 9700 y es : 9700
+[INFO] 19:40:39:647 CPU.c/(11857:11857): Aca salgo con el contador en 4
+[INFO] 19:40:39:662 CPU.c/(11857:11857): ejecute dos instrucciones
+[INFO] 19:48:38:681 CPU.c/(12128:12128): Archivo de configuracion levantado correctamente
+[INFO] 19:48:38:707 CPU.c/(12128:12128): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 19:48:38:712 CPU.c/(12128:12128): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 19:48:38:728 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 19:48:38:745 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[DEBUG] 19:48:38:810 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:38:899 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"LOAD" 
+[INFO] 19:48:38:902 CPU.c/(12128:12128): La instruccion es LOAD
+[INFO] 19:48:38:904 CPU.c/(12128:12128): el program_counter es 1048580
+[INFO] 19:48:38:908 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048580,5]" 
+[DEBUG] 19:48:38:916 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:38:940 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"A3456" 
+[INFO] 19:48:38:945 CPU.c/(12128:12128): el registro vale A y el numero 3456
+[INFO] 19:48:38:952 CPU.c/(12128:12128): el valor del registro A es 3456
+[INFO] 19:48:38:963 CPU.c/(12128:12128): el program counter antes de aumentar en 5 es 1048580
+[INFO] 19:48:38:970 CPU.c/(12128:12128): el program counter despues de aumentar en 5 es 1048585
+[INFO] 19:48:38:972 CPU.c/(12128:12128): Aca salgo con el contador en 0
+[INFO] 19:48:38:981 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048585,4]" 
+[DEBUG] 19:48:39:61 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:64 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"GETM" 
+[INFO] 19:48:39:66 CPU.c/(12128:12128): La instruccion es GETM
+[INFO] 19:48:39:69 CPU.c/(12128:12128): el program_counter es 1048835
+[INFO] 19:48:39:79 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048835,2]" 
+[DEBUG] 19:48:39:92 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:97 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 19:48:39:119 CPU.c/(12128:12128): el valor del registro A es 97
+[INFO] 19:48:39:120 CPU.c/(12128:12128): Aca salgo con el contador en 1
+[INFO] 19:48:39:121 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048837,4]" 
+[DEBUG] 19:48:39:192 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:197 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"ADDR" 
+[INFO] 19:48:39:202 CPU.c/(12128:12128): La instruccion es ADDR
+[INFO] 19:48:39:210 CPU.c/(12128:12128): el program_counter es 1048841
+[INFO] 19:48:39:213 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048841,2]" 
+[DEBUG] 19:48:39:228 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:241 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"BD" 
+[INFO] 19:48:39:243 CPU.c/(12128:12128): entro en el case 3
+[INFO] 19:48:39:263 CPU.c/(12128:12128): el valor deberia dar 100 del registro B y da :100
+[INFO] 19:48:39:266 CPU.c/(12128:12128): Aca salgo con el contador en 2
+[INFO] 19:48:39:278 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049089,4]" 
+[DEBUG] 19:48:39:362 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:367 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"SUBR" 
+[INFO] 19:48:39:370 CPU.c/(12128:12128): La instruccion es SUBR
+[INFO] 19:48:39:377 CPU.c/(12128:12128): el program_counter es 1049093
+[INFO] 19:48:39:381 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049093,2]" 
+[DEBUG] 19:48:39:399 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:437 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"DC" 
+[INFO] 19:48:39:446 CPU.c/(12128:12128): el valor registro1 D
+[INFO] 19:48:39:449 CPU.c/(12128:12128): el valor registro2 C
+[INFO] 19:48:39:457 CPU.c/(12128:12128): el valor de C es 1
+[INFO] 19:48:39:472 CPU.c/(12128:12128): el valor de D es 3
+[INFO] 19:48:39:482 CPU.c/(12128:12128): entro en el case 2
+[INFO] 19:48:39:485 CPU.c/(12128:12128): el valor del registro d es 2
+[INFO] 19:48:39:507 CPU.c/(12128:12128): Aca salgo con el contador en 3
+[INFO] 19:48:39:514 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049095,4]" 
+[DEBUG] 19:48:39:610 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:636 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"MULR" 
+[INFO] 19:48:39:644 CPU.c/(12128:12128): La instruccion es MULR
+[INFO] 19:48:39:663 CPU.c/(12128:12128): el program_counter es 1049345
+[INFO] 19:48:39:664 CPU.c/(12128:12128): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049345,2]" 
+[DEBUG] 19:48:39:685 CPU.c/(12128:12128): Estoy en recv
+[DEBUG] 19:48:39:728 CPU.c/(12128:12128): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 19:48:39:732 CPU.c/(12128:12128): el registro1 es A
+[INFO] 19:48:39:736 CPU.c/(12128:12128): el registro2 es B
+[INFO] 19:48:39:750 CPU.c/(12128:12128): entro en el case 2
+[INFO] 19:48:39:759 CPU.c/(12128:12128): el valor del registro A deberia ser 9700 y es : 9700
+[INFO] 19:48:39:766 CPU.c/(12128:12128): Aca salgo con el contador en 4
+[INFO] 19:48:39:780 CPU.c/(12128:12128): ejecute dos instrucciones
+[INFO] 19:52:21:309 CPU.c/(12281:12281): Archivo de configuracion levantado correctamente
+[INFO] 19:52:21:327 CPU.c/(12281:12281): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 19:52:21:337 CPU.c/(12281:12281): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 19:52:35:375 CPU.c/(12281:12281): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 19:55:54:794 CPU.c/(12443:12443): Archivo de configuracion levantado correctamente
+[INFO] 19:55:54:805 CPU.c/(12443:12443): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 19:55:54:813 CPU.c/(12443:12443): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 19:56:57:982 CPU.c/(12443:12443): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[DEBUG] 19:56:57:992 CPU.c/(12443:12443): Estoy en recv
+[ERROR] 19:56:57:999 CPU.c/(12443:12443): #######################################################
+[ERROR] 19:56:58:3 CPU.c/(12443:12443): ##    ERROR en el recibo de mensaje del socket 1    ##
+[ERROR] 19:56:58:7 CPU.c/(12443:12443): #######################################################
+[INFO] 19:59:59:69 CPU.c/(12555:12555): Archivo de configuracion levantado correctamente
+[INFO] 19:59:59:100 CPU.c/(12555:12555): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 19:59:59:116 CPU.c/(12555:12555): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 19:59:59:155 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 19:59:59:177 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[DEBUG] 19:59:59:266 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 19:59:59:465 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"LOAD" 
+[INFO] 19:59:59:471 CPU.c/(12555:12555): La instruccion es LOAD
+[INFO] 19:59:59:476 CPU.c/(12555:12555): el program_counter es 1048580
+[INFO] 19:59:59:488 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048580,5]" 
+[DEBUG] 19:59:59:506 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 19:59:59:529 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"A3456" 
+[INFO] 19:59:59:542 CPU.c/(12555:12555): el registro vale A y el numero 3456
+[INFO] 19:59:59:550 CPU.c/(12555:12555): el valor del registro A es 3456
+[INFO] 19:59:59:563 CPU.c/(12555:12555): el program counter antes de aumentar en 5 es 1048580
+[INFO] 19:59:59:571 CPU.c/(12555:12555): el program counter despues de aumentar en 5 es 1048585
+[INFO] 19:59:59:579 CPU.c/(12555:12555): Aca salgo con el contador en 0
+[INFO] 19:59:59:584 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048585,4]" 
+[DEBUG] 19:59:59:666 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 19:59:59:673 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"GETM" 
+[INFO] 19:59:59:682 CPU.c/(12555:12555): La instruccion es GETM
+[INFO] 19:59:59:694 CPU.c/(12555:12555): el program_counter es 1048835
+[INFO] 19:59:59:703 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048835,2]" 
+[DEBUG] 19:59:59:720 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 19:59:59:742 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 19:59:59:748 CPU.c/(12555:12555): el valor del registro A es 97
+[INFO] 19:59:59:758 CPU.c/(12555:12555): Aca salgo con el contador en 1
+[INFO] 19:59:59:767 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048837,4]" 
+[DEBUG] 19:59:59:850 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 19:59:59:855 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"ADDR" 
+[INFO] 19:59:59:862 CPU.c/(12555:12555): La instruccion es ADDR
+[INFO] 19:59:59:871 CPU.c/(12555:12555): el program_counter es 1048841
+[INFO] 19:59:59:877 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048841,2]" 
+[DEBUG] 19:59:59:906 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 19:59:59:934 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"BD" 
+[INFO] 19:59:59:943 CPU.c/(12555:12555): entro en el case 3
+[INFO] 19:59:59:952 CPU.c/(12555:12555): el valor deberia dar 100 del registro B y da :100
+[INFO] 19:59:59:963 CPU.c/(12555:12555): Aca salgo con el contador en 2
+[INFO] 19:59:59:967 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049089,4]" 
+[DEBUG] 20:00:00:50 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 20:00:00:56 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"SUBR" 
+[INFO] 20:00:00:65 CPU.c/(12555:12555): La instruccion es SUBR
+[INFO] 20:00:00:69 CPU.c/(12555:12555): el program_counter es 1049093
+[INFO] 20:00:00:79 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049093,2]" 
+[DEBUG] 20:00:00:94 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 20:00:00:97 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"DC" 
+[INFO] 20:00:00:100 CPU.c/(12555:12555): el valor registro1 D
+[INFO] 20:00:00:110 CPU.c/(12555:12555): el valor registro2 C
+[INFO] 20:00:00:114 CPU.c/(12555:12555): el valor de C es 1
+[INFO] 20:00:00:120 CPU.c/(12555:12555): el valor de D es 3
+[INFO] 20:00:00:130 CPU.c/(12555:12555): entro en el case 2
+[INFO] 20:00:00:135 CPU.c/(12555:12555): el valor del registro d es 2
+[INFO] 20:00:00:139 CPU.c/(12555:12555): Aca salgo con el contador en 3
+[INFO] 20:00:00:146 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049095,4]" 
+[DEBUG] 20:00:00:228 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 20:00:00:235 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"MULR" 
+[INFO] 20:00:00:241 CPU.c/(12555:12555): La instruccion es MULR
+[INFO] 20:00:00:247 CPU.c/(12555:12555): el program_counter es 1049345
+[INFO] 20:00:00:253 CPU.c/(12555:12555): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049345,2]" 
+[DEBUG] 20:00:00:275 CPU.c/(12555:12555): Estoy en recv
+[DEBUG] 20:00:00:303 CPU.c/(12555:12555): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 20:00:00:307 CPU.c/(12555:12555): el registro1 es A
+[INFO] 20:00:00:317 CPU.c/(12555:12555): el registro2 es B
+[INFO] 20:00:00:325 CPU.c/(12555:12555): entro en el case 2
+[INFO] 20:00:00:334 CPU.c/(12555:12555): el valor del registro A deberia ser 9700 y es : 9700
+[INFO] 20:00:00:335 CPU.c/(12555:12555): Aca salgo con el contador en 4
+[INFO] 20:00:00:340 CPU.c/(12555:12555): ejecute dos instrucciones
+[INFO] 20:00:23:70 CPU.c/(12575:12575): Archivo de configuracion levantado correctamente
+[INFO] 20:00:23:92 CPU.c/(12575:12575): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:00:23:101 CPU.c/(12575:12575): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 20:00:23:123 CPU.c/(12575:12575): Despierten a la MSP! Se reintenta conexion en unos segundos 
+
+[INFO] 20:00:26:69 CPU.c/(12575:12575): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:00:42:319 CPU.c/(12595:12595): Archivo de configuracion levantado correctamente
+[INFO] 20:00:42:347 CPU.c/(12595:12595): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:00:42:353 CPU.c/(12595:12595): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 20:00:42:370 CPU.c/(12595:12595): Despierten a la MSP! Se reintenta conexion en unos segundos 
+
+[INFO] 20:00:46:296 CPU.c/(12595:12595): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:01:04:371 CPU.c/(12617:12617): Archivo de configuracion levantado correctamente
+[INFO] 20:01:04:395 CPU.c/(12617:12617): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:01:04:397 CPU.c/(12617:12617): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 20:01:04:413 CPU.c/(12617:12617): Despierten a la MSP! Se reintenta conexion en unos segundos 
+
+[INFO] 20:01:09:428 CPU.c/(12617:12617): Despierten a la MSP! Se reintenta conexion en unos segundos 
+
+[INFO] 20:01:14:451 CPU.c/(12617:12617): Despierten a la MSP! Se reintenta conexion en unos segundos 
+
+[INFO] 20:01:19:472 CPU.c/(12617:12617): Despierten a la MSP! Se reintenta conexion en unos segundos 
+
+[INFO] 20:01:21:821 CPU.c/(12617:12617): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:06:17:813 CPU.c/(12829:12829): Archivo de configuracion levantado correctamente
+[INFO] 20:06:17:834 CPU.c/(12829:12829): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:06:17:840 CPU.c/(12829:12829): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:06:17:843 CPU.c/(12829:12829): A la espera de nuevas conexiones
+[TRACE] 20:06:32:323 CPU.c/(12829:12829): Recibí conexion de 127.0.0.1
+[DEBUG] 20:06:32:328 CPU.c/(12829:12829): Estoy en recv
+[DEBUG] 20:06:32:340 CPU.c/(12829:12829): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:06:32:343 CPU.c/(12829:12829): HOla esasdasdasdasdsadsasdasdas
+[TRACE] 20:06:32:345 CPU.c/(12829:12829): A la espera de nuevas conexiones
+[INFO] 20:07:43:576 CPU.c/(12829:12829): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:13:41:765 CPU.c/(13043:13043): Archivo de configuracion levantado correctamente
+[INFO] 20:13:41:785 CPU.c/(13043:13043): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:13:41:787 CPU.c/(13043:13043): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:13:41:789 CPU.c/(13043:13043): A la espera de nuevas conexiones
+[TRACE] 20:13:51:551 CPU.c/(13043:13043): Recibí conexion de 127.0.0.1
+[DEBUG] 20:13:51:553 CPU.c/(13043:13043): Estoy en recv
+[DEBUG] 20:13:51:567 CPU.c/(13043:13043): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:13:51:570 CPU.c/(13043:13043): HOla esasdasdasdasdsadsasdasdas
+[TRACE] 20:13:51:572 CPU.c/(13043:13043): A la espera de nuevas conexiones
+[INFO] 20:13:58:185 CPU.c/(13043:13043): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:14:14:331 CPU.c/(13081:13081): Archivo de configuracion levantado correctamente
+[INFO] 20:14:14:345 CPU.c/(13081:13081): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:14:14:351 CPU.c/(13081:13081): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:14:14:355 CPU.c/(13081:13081): A la espera de nuevas conexiones
+[TRACE] 20:14:54:916 CPU.c/(13081:13081): Recibí conexion de 127.0.0.1
+[DEBUG] 20:14:54:920 CPU.c/(13081:13081): Estoy en recv
+[DEBUG] 20:14:54:929 CPU.c/(13081:13081): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:14:54:933 CPU.c/(13081:13081): HOla esasdasdasdasdsadsasdasdas
+[TRACE] 20:14:54:991 CPU.c/(13081:13081): A la espera de nuevas conexiones
+[INFO] 20:15:23:184 CPU.c/(13081:13081): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:16:03:281 CPU.c/(13184:13184): Archivo de configuracion levantado correctamente
+[INFO] 20:16:03:314 CPU.c/(13184:13184): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:16:03:323 CPU.c/(13184:13184): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:16:03:327 CPU.c/(13184:13184): A la espera de nuevas conexiones
+[TRACE] 20:21:43:302 CPU.c/(13184:13184): Recibí conexion de 127.0.0.1
+[DEBUG] 20:21:43:309 CPU.c/(13184:13184): Estoy en recv
+[DEBUG] 20:21:43:331 CPU.c/(13184:13184): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:21:43:336 CPU.c/(13184:13184): HOla esasdasdasdasdsadsasdasdas
+[TRACE] 20:21:43:377 CPU.c/(13184:13184): A la espera de nuevas conexiones
+[INFO] 20:21:47:455 CPU.c/(13184:13184): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:24:48:930 CPU.c/(13703:13703): Archivo de configuracion levantado correctamente
+[INFO] 20:24:48:949 CPU.c/(13703:13703): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:24:48:955 CPU.c/(13703:13703): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:24:48:958 CPU.c/(13703:13703): A la espera de nuevas conexiones
+[TRACE] 20:24:56:272 CPU.c/(13703:13703): Recibí conexion de 127.0.0.1
+[DEBUG] 20:24:56:281 CPU.c/(13703:13703): Estoy en recv
+[DEBUG] 20:24:56:293 CPU.c/(13703:13703): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:24:56:297 CPU.c/(13703:13703): HOla esasdasdasdasdsadsasdasdas
+[TRACE] 20:24:56:301 CPU.c/(13703:13703): A la espera de nuevas conexiones
+[INFO] 20:27:17:675 CPU.c/(13703:13703): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 20:33:04:927 CPU.c/(14050:14050): Archivo de configuracion levantado correctamente
+[INFO] 20:33:04:933 CPU.c/(14050:14050): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:33:04:934 CPU.c/(14050:14050): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:33:04:944 CPU.c/(14050:14050): A la espera de nuevas conexiones
+[TRACE] 20:33:08:114 CPU.c/(14050:14050): Recibí conexion de 127.0.0.1
+[DEBUG] 20:33:08:154 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:08:165 CPU.c/(14050:14050): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:33:08:224 CPU.c/(14050:14050): HOla esasdasdasdasdsadsasdasdas
+[INFO] 20:33:08:347 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[DEBUG] 20:33:08:461 CPU.c/(14050:14050): Estoy en recv
+[ERROR] 20:33:08:483 CPU.c/(14050:14050): #######################################################
+[ERROR] 20:33:08:488 CPU.c/(14050:14050): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 20:33:08:501 CPU.c/(14050:14050): #######################################################
+[INFO] 20:33:08:525 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[DEBUG] 20:33:08:601 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:08:813 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"LOAD" 
+[INFO] 20:33:08:816 CPU.c/(14050:14050): La instruccion es LOAD
+[INFO] 20:33:08:825 CPU.c/(14050:14050): el program_counter es 1048580
+[INFO] 20:33:08:830 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048580,5]" 
+[DEBUG] 20:33:08:844 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:08:900 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"A3456" 
+[INFO] 20:33:08:904 CPU.c/(14050:14050): el registro vale A y el numero 3456
+[INFO] 20:33:08:914 CPU.c/(14050:14050): el valor del registro A es 3456
+[INFO] 20:33:08:931 CPU.c/(14050:14050): el program counter antes de aumentar en 5 es 1048580
+[INFO] 20:33:08:934 CPU.c/(14050:14050): el program counter despues de aumentar en 5 es 1048585
+[INFO] 20:33:08:955 CPU.c/(14050:14050): Aca salgo con el contador en 0
+[INFO] 20:33:08:971 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048585,4]" 
+[DEBUG] 20:33:09:59 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:70 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"GETM" 
+[INFO] 20:33:09:73 CPU.c/(14050:14050): La instruccion es GETM
+[INFO] 20:33:09:84 CPU.c/(14050:14050): el program_counter es 1048835
+[INFO] 20:33:09:94 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048835,2]" 
+[DEBUG] 20:33:09:117 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:133 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 20:33:09:143 CPU.c/(14050:14050): el valor del registro A es 97
+[INFO] 20:33:09:164 CPU.c/(14050:14050): Aca salgo con el contador en 1
+[INFO] 20:33:09:167 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048837,4]" 
+[DEBUG] 20:33:09:261 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:261 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"ADDR" 
+[INFO] 20:33:09:261 CPU.c/(14050:14050): La instruccion es ADDR
+[INFO] 20:33:09:261 CPU.c/(14050:14050): el program_counter es 1048841
+[INFO] 20:33:09:261 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048841,2]" 
+[DEBUG] 20:33:09:280 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:336 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"BD" 
+[INFO] 20:33:09:356 CPU.c/(14050:14050): entro en el case 3
+[INFO] 20:33:09:364 CPU.c/(14050:14050): el valor deberia dar 100 del registro B y da :100
+[INFO] 20:33:09:405 CPU.c/(14050:14050): Aca salgo con el contador en 2
+[INFO] 20:33:09:420 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049089,4]" 
+[DEBUG] 20:33:09:501 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:511 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"SUBR" 
+[INFO] 20:33:09:524 CPU.c/(14050:14050): La instruccion es SUBR
+[INFO] 20:33:09:533 CPU.c/(14050:14050): el program_counter es 1049093
+[INFO] 20:33:09:549 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049093,2]" 
+[DEBUG] 20:33:09:574 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:616 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"DC" 
+[INFO] 20:33:09:624 CPU.c/(14050:14050): el valor registro1 D
+[INFO] 20:33:09:640 CPU.c/(14050:14050): el valor registro2 C
+[INFO] 20:33:09:644 CPU.c/(14050:14050): el valor de C es 1
+[INFO] 20:33:09:652 CPU.c/(14050:14050): el valor de D es 3
+[INFO] 20:33:09:664 CPU.c/(14050:14050): entro en el case 2
+[INFO] 20:33:09:677 CPU.c/(14050:14050): el valor del registro d es 2
+[INFO] 20:33:09:685 CPU.c/(14050:14050): Aca salgo con el contador en 3
+[INFO] 20:33:09:688 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049095,4]" 
+[DEBUG] 20:33:09:796 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:807 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"MULR" 
+[INFO] 20:33:09:819 CPU.c/(14050:14050): La instruccion es MULR
+[INFO] 20:33:09:823 CPU.c/(14050:14050): el program_counter es 1049345
+[INFO] 20:33:09:841 CPU.c/(14050:14050): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049345,2]" 
+[DEBUG] 20:33:09:870 CPU.c/(14050:14050): Estoy en recv
+[DEBUG] 20:33:09:876 CPU.c/(14050:14050): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 20:33:09:888 CPU.c/(14050:14050): el registro1 es A
+[INFO] 20:33:09:901 CPU.c/(14050:14050): el registro2 es B
+[INFO] 20:33:09:915 CPU.c/(14050:14050): entro en el case 2
+[INFO] 20:33:09:937 CPU.c/(14050:14050): el valor del registro A deberia ser 9700 y es : 9700
+[INFO] 20:33:09:945 CPU.c/(14050:14050): Aca salgo con el contador en 4
+[INFO] 20:33:09:953 CPU.c/(14050:14050): ejecute dos instrucciones
+[INFO] 20:36:14:60 CPU.c/(14199:14199): Archivo de configuracion levantado correctamente
+[INFO] 20:36:14:72 CPU.c/(14199:14199): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:36:14:74 CPU.c/(14199:14199): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:36:14:77 CPU.c/(14199:14199): A la espera de nuevas conexiones
+[TRACE] 20:36:14:452 CPU.c/(14199:14199): Recibí conexion de 127.0.0.1
+[DEBUG] 20:36:14:462 CPU.c/(14199:14199): Estoy en recv
+[DEBUG] 20:36:14:484 CPU.c/(14199:14199): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:36:14:489 CPU.c/(14199:14199): HOla esasdasdasdasdsadsasdasdas
+[INFO] 20:36:14:543 CPU.c/(14199:14199): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[DEBUG] 20:36:14:576 CPU.c/(14199:14199): Estoy en recv
+[ERROR] 20:36:14:590 CPU.c/(14199:14199): #######################################################
+[ERROR] 20:36:14:601 CPU.c/(14199:14199): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 20:36:14:619 CPU.c/(14199:14199): #######################################################
+[INFO] 20:39:41:178 CPU.c/(14390:14390): Archivo de configuracion levantado correctamente
+[INFO] 20:39:41:193 CPU.c/(14390:14390): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 20:39:41:195 CPU.c/(14390:14390): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 20:39:41:198 CPU.c/(14390:14390): A la espera de nuevas conexiones
+[TRACE] 20:39:43:84 CPU.c/(14390:14390): Recibí conexion de 127.0.0.1
+[DEBUG] 20:39:43:93 CPU.c/(14390:14390): Estoy en recv
+[DEBUG] 20:39:43:107 CPU.c/(14390:14390): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 20:39:43:127 CPU.c/(14390:14390): HOla esasdasdasdasdsadsasdasdas
+[INFO] 20:39:43:177 CPU.c/(14390:14390): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[DEBUG] 20:39:43:236 CPU.c/(14390:14390): Estoy en recv
+[ERROR] 20:39:43:249 CPU.c/(14390:14390): #######################################################
+[ERROR] 20:39:43:267 CPU.c/(14390:14390): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 20:39:43:282 CPU.c/(14390:14390): #######################################################
+[INFO] 22:20:03:320 CPU.c/(1814:1814): Archivo de configuracion levantado correctamente
+[INFO] 22:20:03:345 CPU.c/(1814:1814): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:20:03:346 CPU.c/(1814:1814): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[INFO] 22:20:03:361 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:20:03:380 CPU.c/(1814:1814): el valor del pid es 1234
+[INFO] 22:20:03:384 CPU.c/(1814:1814): el valor de la base es 1048576
+[INFO] 22:20:03:421 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[DEBUG] 22:20:03:486 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:488 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"LOAD" 
+[INFO] 22:20:03:489 CPU.c/(1814:1814): La instruccion es LOAD
+[INFO] 22:20:03:491 CPU.c/(1814:1814): el program_counter es 1048580
+[INFO] 22:20:03:493 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048580,5]" 
+[DEBUG] 22:20:03:509 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:512 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"A3456" 
+[INFO] 22:20:03:514 CPU.c/(1814:1814): el registro vale A y el numero 3456
+[INFO] 22:20:03:515 CPU.c/(1814:1814): el valor del registro A es 3456
+[INFO] 22:20:03:516 CPU.c/(1814:1814): el program counter antes de aumentar en 5 es 1048580
+[INFO] 22:20:03:518 CPU.c/(1814:1814): el program counter despues de aumentar en 5 es 1048585
+[INFO] 22:20:03:519 CPU.c/(1814:1814): Aca salgo con el contador en 0
+[INFO] 22:20:03:522 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048585,4]" 
+[DEBUG] 22:20:03:596 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:598 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"GETM" 
+[INFO] 22:20:03:600 CPU.c/(1814:1814): La instruccion es GETM
+[INFO] 22:20:03:600 CPU.c/(1814:1814): el program_counter es 1048835
+[INFO] 22:20:03:601 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048835,2]" 
+[DEBUG] 22:20:03:619 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:621 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 22:20:03:623 CPU.c/(1814:1814): el valor del registro A es 97
+[INFO] 22:20:03:627 CPU.c/(1814:1814): Aca salgo con el contador en 1
+[INFO] 22:20:03:628 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048837,4]" 
+[DEBUG] 22:20:03:703 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:705 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"ADDR" 
+[INFO] 22:20:03:706 CPU.c/(1814:1814): La instruccion es ADDR
+[INFO] 22:20:03:708 CPU.c/(1814:1814): el program_counter es 1048841
+[INFO] 22:20:03:709 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048841,2]" 
+[DEBUG] 22:20:03:725 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:728 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"BD" 
+[INFO] 22:20:03:730 CPU.c/(1814:1814): entro en el case 3
+[INFO] 22:20:03:731 CPU.c/(1814:1814): el valor deberia dar 100 del registro B y da :100
+[INFO] 22:20:03:733 CPU.c/(1814:1814): Aca salgo con el contador en 2
+[INFO] 22:20:03:734 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049089,4]" 
+[DEBUG] 22:20:03:804 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:806 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"SUBR" 
+[INFO] 22:20:03:807 CPU.c/(1814:1814): La instruccion es SUBR
+[INFO] 22:20:03:809 CPU.c/(1814:1814): el program_counter es 1049093
+[INFO] 22:20:03:810 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049093,2]" 
+[DEBUG] 22:20:03:824 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:826 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"DC" 
+[INFO] 22:20:03:829 CPU.c/(1814:1814): el valor registro1 D
+[INFO] 22:20:03:830 CPU.c/(1814:1814): el valor registro2 C
+[INFO] 22:20:03:832 CPU.c/(1814:1814): el valor de C es 1
+[INFO] 22:20:03:841 CPU.c/(1814:1814): el valor de D es 3
+[INFO] 22:20:03:842 CPU.c/(1814:1814): entro en el case 2
+[INFO] 22:20:03:844 CPU.c/(1814:1814): el valor del registro d es 2
+[INFO] 22:20:03:845 CPU.c/(1814:1814): Aca salgo con el contador en 3
+[INFO] 22:20:03:847 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049095,4]" 
+[DEBUG] 22:20:03:917 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:924 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"MULR" 
+[INFO] 22:20:03:925 CPU.c/(1814:1814): La instruccion es MULR
+[INFO] 22:20:03:927 CPU.c/(1814:1814): el program_counter es 1049345
+[INFO] 22:20:03:932 CPU.c/(1814:1814): Se ENVIA por SOCKET:4 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049345,2]" 
+[DEBUG] 22:20:03:966 CPU.c/(1814:1814): Estoy en recv
+[DEBUG] 22:20:03:972 CPU.c/(1814:1814): Se RECIBE por SOCKET:4 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 22:20:03:974 CPU.c/(1814:1814): el registro1 es A
+[INFO] 22:20:03:976 CPU.c/(1814:1814): el registro2 es B
+[INFO] 22:20:03:983 CPU.c/(1814:1814): entro en el case 2
+[INFO] 22:20:03:993 CPU.c/(1814:1814): el valor del registro A deberia ser 9700 y es : 9700
+[INFO] 22:20:03:995 CPU.c/(1814:1814): Aca salgo con el contador en 4
+[INFO] 22:20:03:996 CPU.c/(1814:1814): ejecute dos instrucciones
+[INFO] 22:23:47:488 CPU.c/(1984:1984): Archivo de configuracion levantado correctamente
+[INFO] 22:23:47:499 CPU.c/(1984:1984): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:23:47:503 CPU.c/(1984:1984): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:23:47:507 CPU.c/(1984:1984): A la espera de nuevas conexiones
+[TRACE] 22:24:00:824 CPU.c/(1984:1984): Recibí conexion de 127.0.0.1
+[DEBUG] 22:24:00:826 CPU.c/(1984:1984): Estoy en recv
+[DEBUG] 22:24:00:830 CPU.c/(1984:1984): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:24:00:831 CPU.c/(1984:1984): HOla esasdasdasdasdsadsasdasdas
+[INFO] 22:25:00:111 CPU.c/(2078:2078): Archivo de configuracion levantado correctamente
+[INFO] 22:25:00:117 CPU.c/(2078:2078): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:25:00:119 CPU.c/(2078:2078): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:25:00:128 CPU.c/(2078:2078): A la espera de nuevas conexiones
+[TRACE] 22:25:16:77 CPU.c/(2078:2078): Recibí conexion de 127.0.0.1
+[DEBUG] 22:25:16:80 CPU.c/(2078:2078): Estoy en recv
+[DEBUG] 22:25:16:85 CPU.c/(2078:2078): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:25:16:87 CPU.c/(2078:2078): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:25:16:89 CPU.c/(2078:2078): Estoy en recv
+[ERROR] 22:25:16:93 CPU.c/(2078:2078): #######################################################
+[ERROR] 22:25:16:112 CPU.c/(2078:2078): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:25:16:114 CPU.c/(2078:2078): #######################################################
+[INFO] 22:26:55:405 CPU.c/(2194:2194): Archivo de configuracion levantado correctamente
+[INFO] 22:26:55:420 CPU.c/(2194:2194): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:26:55:421 CPU.c/(2194:2194): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:26:55:424 CPU.c/(2194:2194): A la espera de nuevas conexiones
+[TRACE] 22:27:05:629 CPU.c/(2194:2194): Recibí conexion de 127.0.0.1
+[DEBUG] 22:27:05:631 CPU.c/(2194:2194): Estoy en recv
+[DEBUG] 22:27:05:635 CPU.c/(2194:2194): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:27:05:635 CPU.c/(2194:2194): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:27:05:636 CPU.c/(2194:2194): Estoy en recv
+[ERROR] 22:27:05:637 CPU.c/(2194:2194): #######################################################
+[ERROR] 22:27:05:637 CPU.c/(2194:2194): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:27:05:637 CPU.c/(2194:2194): #######################################################
+[INFO] 22:27:40:566 CPU.c/(2233:2233): Archivo de configuracion levantado correctamente
+[INFO] 22:27:40:587 CPU.c/(2233:2233): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:27:40:591 CPU.c/(2233:2233): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:27:40:594 CPU.c/(2233:2233): A la espera de nuevas conexiones
+[TRACE] 22:27:52:157 CPU.c/(2233:2233): Recibí conexion de 127.0.0.1
+[DEBUG] 22:27:52:160 CPU.c/(2233:2233): Estoy en recv
+[DEBUG] 22:27:52:173 CPU.c/(2233:2233): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:27:52:176 CPU.c/(2233:2233): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:27:52:178 CPU.c/(2233:2233): Estoy en recv
+[ERROR] 22:27:52:179 CPU.c/(2233:2233): #######################################################
+[ERROR] 22:27:52:181 CPU.c/(2233:2233): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:27:52:187 CPU.c/(2233:2233): #######################################################
+[INFO] 22:31:34:585 CPU.c/(2502:2502): Archivo de configuracion levantado correctamente
+[INFO] 22:31:34:591 CPU.c/(2502:2502): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:31:34:591 CPU.c/(2502:2502): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:31:34:597 CPU.c/(2502:2502): A la espera de nuevas conexiones
+[TRACE] 22:31:46:201 CPU.c/(2502:2502): Recibí conexion de 127.0.0.1
+[DEBUG] 22:31:46:203 CPU.c/(2502:2502): Estoy en recv
+[DEBUG] 22:31:46:212 CPU.c/(2502:2502): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:31:46:213 CPU.c/(2502:2502): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:31:46:215 CPU.c/(2502:2502): Estoy en recv
+[ERROR] 22:31:46:216 CPU.c/(2502:2502): #######################################################
+[ERROR] 22:31:46:217 CPU.c/(2502:2502): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:31:46:218 CPU.c/(2502:2502): #######################################################
+[INFO] 22:33:56:498 CPU.c/(2660:2660): Archivo de configuracion levantado correctamente
+[INFO] 22:33:56:510 CPU.c/(2660:2660): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:33:56:511 CPU.c/(2660:2660): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:33:56:521 CPU.c/(2660:2660): A la espera de nuevas conexiones
+[TRACE] 22:34:07:273 CPU.c/(2660:2660): Recibí conexion de 127.0.0.1
+[DEBUG] 22:34:07:276 CPU.c/(2660:2660): Estoy en recv
+[DEBUG] 22:34:07:286 CPU.c/(2660:2660): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:34:07:288 CPU.c/(2660:2660): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:34:07:290 CPU.c/(2660:2660): Estoy en recv
+[ERROR] 22:34:07:292 CPU.c/(2660:2660): #######################################################
+[ERROR] 22:34:07:300 CPU.c/(2660:2660): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:34:07:303 CPU.c/(2660:2660): #######################################################
+[INFO] 22:37:25:759 CPU.c/(2784:2784): Archivo de configuracion levantado correctamente
+[INFO] 22:37:25:764 CPU.c/(2784:2784): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:37:25:766 CPU.c/(2784:2784): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:37:25:767 CPU.c/(2784:2784): A la espera de nuevas conexiones
+[TRACE] 22:37:38:117 CPU.c/(2784:2784): Recibí conexion de 127.0.0.1
+[DEBUG] 22:37:38:119 CPU.c/(2784:2784): Estoy en recv
+[DEBUG] 22:37:38:127 CPU.c/(2784:2784): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:37:38:129 CPU.c/(2784:2784): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:37:38:131 CPU.c/(2784:2784): Estoy en recv
+[ERROR] 22:37:38:140 CPU.c/(2784:2784): #######################################################
+[ERROR] 22:37:38:142 CPU.c/(2784:2784): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:37:38:144 CPU.c/(2784:2784): #######################################################
+[INFO] 22:40:02:67 CPU.c/(2954:2954): Archivo de configuracion levantado correctamente
+[INFO] 22:40:02:73 CPU.c/(2954:2954): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:40:02:75 CPU.c/(2954:2954): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:40:02:78 CPU.c/(2954:2954): A la espera de nuevas conexiones
+[TRACE] 22:40:15:556 CPU.c/(2954:2954): Recibí conexion de 127.0.0.1
+[DEBUG] 22:40:15:558 CPU.c/(2954:2954): Estoy en recv
+[DEBUG] 22:40:15:571 CPU.c/(2954:2954): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:40:15:573 CPU.c/(2954:2954): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:40:15:574 CPU.c/(2954:2954): Estoy en recv
+[ERROR] 22:40:15:576 CPU.c/(2954:2954): #######################################################
+[ERROR] 22:40:15:583 CPU.c/(2954:2954): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:40:15:587 CPU.c/(2954:2954): #######################################################
+[INFO] 22:41:36:591 CPU.c/(3068:3068): Archivo de configuracion levantado correctamente
+[INFO] 22:41:36:605 CPU.c/(3068:3068): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:41:36:607 CPU.c/(3068:3068): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:41:36:609 CPU.c/(3068:3068): A la espera de nuevas conexiones
+[TRACE] 22:41:49:872 CPU.c/(3068:3068): Recibí conexion de 127.0.0.1
+[DEBUG] 22:41:49:874 CPU.c/(3068:3068): Estoy en recv
+[DEBUG] 22:41:49:888 CPU.c/(3068:3068): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:41:49:889 CPU.c/(3068:3068): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:41:49:890 CPU.c/(3068:3068): Estoy en recv
+[ERROR] 22:41:49:891 CPU.c/(3068:3068): #######################################################
+[ERROR] 22:41:49:892 CPU.c/(3068:3068): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:41:49:893 CPU.c/(3068:3068): #######################################################
+[INFO] 22:42:35:622 CPU.c/(3162:3162): Archivo de configuracion levantado correctamente
+[INFO] 22:42:35:639 CPU.c/(3162:3162): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:42:35:642 CPU.c/(3162:3162): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:42:35:644 CPU.c/(3162:3162): A la espera de nuevas conexiones
+[TRACE] 22:42:48:554 CPU.c/(3162:3162): Recibí conexion de 127.0.0.1
+[DEBUG] 22:42:48:555 CPU.c/(3162:3162): Estoy en recv
+[DEBUG] 22:42:48:564 CPU.c/(3162:3162): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:42:48:564 CPU.c/(3162:3162): HOla esasdasdasdasdsadsasdasdas
+[INFO] 22:43:34:523 CPU.c/(3249:3249): Archivo de configuracion levantado correctamente
+[INFO] 22:43:34:538 CPU.c/(3249:3249): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:43:34:548 CPU.c/(3249:3249): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:43:34:561 CPU.c/(3249:3249): A la espera de nuevas conexiones
+[TRACE] 22:43:46:614 CPU.c/(3249:3249): Recibí conexion de 127.0.0.1
+[DEBUG] 22:43:46:615 CPU.c/(3249:3249): Estoy en recv
+[DEBUG] 22:43:46:621 CPU.c/(3249:3249): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:43:46:622 CPU.c/(3249:3249): HOla esasdasdasdasdsadsasdasdas
+[INFO] 22:45:07:968 CPU.c/(3363:3363): Archivo de configuracion levantado correctamente
+[INFO] 22:45:07:982 CPU.c/(3363:3363): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:45:07:982 CPU.c/(3363:3363): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:45:07:983 CPU.c/(3363:3363): A la espera de nuevas conexiones
+[TRACE] 22:45:18:682 CPU.c/(3363:3363): Recibí conexion de 127.0.0.1
+[DEBUG] 22:45:18:685 CPU.c/(3363:3363): Estoy en recv
+[DEBUG] 22:45:18:691 CPU.c/(3363:3363): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:45:18:693 CPU.c/(3363:3363): HOla esasdasdasdasdsadsasdasdas
+[INFO] 22:53:05:522 CPU.c/(3548:3548): Archivo de configuracion levantado correctamente
+[INFO] 22:53:05:528 CPU.c/(3548:3548): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:53:05:529 CPU.c/(3548:3548): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:53:05:530 CPU.c/(3548:3548): A la espera de nuevas conexiones
+[TRACE] 22:53:15:826 CPU.c/(3548:3548): Recibí conexion de 127.0.0.1
+[DEBUG] 22:53:15:827 CPU.c/(3548:3548): Estoy en recv
+[DEBUG] 22:53:15:844 CPU.c/(3548:3548): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:53:15:845 CPU.c/(3548:3548): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:53:15:847 CPU.c/(3548:3548): Estoy en recv
+[ERROR] 22:53:15:848 CPU.c/(3548:3548): #######################################################
+[ERROR] 22:53:15:849 CPU.c/(3548:3548): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:53:15:849 CPU.c/(3548:3548): #######################################################
+[INFO] 22:54:12:853 CPU.c/(3664:3664): Archivo de configuracion levantado correctamente
+[INFO] 22:54:12:868 CPU.c/(3664:3664): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:54:12:870 CPU.c/(3664:3664): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:54:12:873 CPU.c/(3664:3664): A la espera de nuevas conexiones
+[TRACE] 22:54:24:251 CPU.c/(3664:3664): Recibí conexion de 127.0.0.1
+[DEBUG] 22:54:24:253 CPU.c/(3664:3664): Estoy en recv
+[DEBUG] 22:54:24:258 CPU.c/(3664:3664): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:54:24:260 CPU.c/(3664:3664): HOla esasdasdasdasdsadsasdasdas
+[INFO] 22:54:24:261 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:24:262 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:24:268 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:272 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:273 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:284 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:346 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:347 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:348 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:349 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:352 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:354 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:359 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:359 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:421 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:422 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:423 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:424 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:425 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:426 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:427 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:432 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:493 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:496 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:497 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:498 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:499 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:500 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:501 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:506 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:568 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:569 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:570 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:571 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:573 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:574 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:578 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:582 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:643 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:644 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:646 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:647 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:648 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:24:649 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:24:659 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:24:660 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:661 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:663 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:664 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:726 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:728 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:729 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:731 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:732 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:736 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:737 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:739 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:804 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:806 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:807 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:809 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:811 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:816 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:818 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:819 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:881 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:883 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:885 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:887 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:892 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:893 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:895 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:896 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:24:958 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:24:960 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:24:962 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:24:963 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:24:967 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:24:969 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:24:971 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:24:972 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:34 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:36 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:37 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:38 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:40 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:25:41 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:25:42 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:25:43 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:45 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:47 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:50 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:111 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:114 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:115 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:116 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:118 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:120 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:121 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:123 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:185 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:187 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:189 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:190 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:191 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:196 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:198 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:202 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:264 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:266 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:268 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:269 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:270 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:272 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:274 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:281 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:342 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:344 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:346 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:347 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:348 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:353 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:357 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:362 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:428 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:432 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:433 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:435 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:437 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:25:438 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:25:440 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:25:441 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:443 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:444 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:445 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:507 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:510 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:514 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:517 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:521 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:522 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:523 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:525 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:589 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:592 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:593 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:595 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:596 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:598 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:600 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:600 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:662 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:664 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:665 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:667 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:669 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:671 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:673 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:675 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:738 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:740 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:741 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:742 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:745 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:749 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:756 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:757 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:819 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:821 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:822 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:824 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:825 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:25:827 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:25:828 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:25:830 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:834 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:835 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:837 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:902 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:903 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:905 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:906 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:908 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:910 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:911 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:915 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:25:977 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:25:980 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:25:981 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:25:981 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:25:982 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:25:983 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:25:984 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:25:989 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:60 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:63 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:64 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:66 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:72 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:75 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:79 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:81 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:146 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:148 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:149 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:151 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:153 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:158 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:171 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:173 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:238 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:245 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:249 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:258 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:271 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:26:276 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:26:277 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:26:279 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:283 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:288 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:293 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:357 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:358 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:360 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:362 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:368 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:369 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:371 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:373 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:434 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:437 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:439 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:440 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:440 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:442 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:443 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:445 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:507 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:509 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:510 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:512 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:513 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:518 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:522 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:529 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:611 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:612 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:612 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:612 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:623 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:623 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:624 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:624 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:686 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:688 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:690 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:691 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:693 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:26:694 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:26:696 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:26:697 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:699 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:700 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:702 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:764 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:766 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:768 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:770 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:772 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:773 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:774 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:776 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:839 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:841 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:843 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:844 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:846 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:851 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:852 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:855 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:26:919 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:26:921 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:26:925 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:26:960 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:26:971 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:26:972 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:26:974 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:26:978 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:42 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:44 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:46 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:49 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:50 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:56 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:67 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:69 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:132 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:135 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:135 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:136 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:138 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:27:139 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:27:142 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:27:146 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:148 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:149 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:151 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:214 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:216 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:218 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:219 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:221 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:228 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:230 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:232 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:295 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:298 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:300 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:301 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:303 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:307 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:309 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:311 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:379 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:384 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:386 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:395 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:396 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:398 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:410 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:412 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:474 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:482 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:484 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:486 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:491 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:494 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:496 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:497 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:566 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:568 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:569 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:571 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:572 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:27:573 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:27:575 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:27:576 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:578 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:580 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:580 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:641 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:643 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:645 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:646 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:647 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:648 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:650 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:652 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:714 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:715 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:717 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:719 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:722 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:727 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:733 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:736 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:799 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:801 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:802 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:804 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:804 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:805 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:813 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:819 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:881 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:883 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:884 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:886 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:888 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:889 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:892 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:894 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:27:955 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:27:956 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:27:957 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:27:957 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:27:958 CPU.c/(3664:3664): ejecute dos instrucciones
+[INFO] 22:54:27:959 CPU.c/(3664:3664): el valor del pid es 1234
+[INFO] 22:54:27:959 CPU.c/(3664:3664): el valor de la base es 1048576
+[INFO] 22:54:27:960 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:27:970 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:27:970 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:27:970 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:28:31 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:28:32 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:28:32 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:28:33 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:28:33 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:28:52 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:28:55 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:28:60 CPU.c/(3664:3664): #######################################################################
+[DEBUG] 22:54:28:124 CPU.c/(3664:3664): Estoy en recv
+[ERROR] 22:54:28:125 CPU.c/(3664:3664): #######################################################
+[ERROR] 22:54:28:125 CPU.c/(3664:3664): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:54:28:125 CPU.c/(3664:3664): #######################################################
+[INFO] 22:54:28:126 CPU.c/(3664:3664): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 22:54:28:131 CPU.c/(3664:3664): #######################################################################
+[ERROR] 22:54:28:132 CPU.c/(3664:3664): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 22:54:28:132 CPU.c/(3664:3664): #######################################################################
+[INFO] 22:54:28:184 CPU.c/(3664:3664): Se recibio la senial y nadie estaba corriendo por aca, cierro el CPU [FIN]
+[INFO] 22:56:36:945 CPU.c/(3740:3740): Archivo de configuracion levantado correctamente
+[INFO] 22:56:36:958 CPU.c/(3740:3740): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 22:56:36:960 CPU.c/(3740:3740): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 22:56:36:965 CPU.c/(3740:3740): A la espera de nuevas conexiones
+[TRACE] 22:56:51:174 CPU.c/(3740:3740): Recibí conexion de 127.0.0.1
+[DEBUG] 22:56:51:177 CPU.c/(3740:3740): Estoy en recv
+[DEBUG] 22:56:51:181 CPU.c/(3740:3740): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:56:51:183 CPU.c/(3740:3740): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 22:56:51:184 CPU.c/(3740:3740): Estoy en recv
+[ERROR] 22:56:51:191 CPU.c/(3740:3740): #######################################################
+[ERROR] 22:56:51:195 CPU.c/(3740:3740): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 22:56:51:197 CPU.c/(3740:3740): #######################################################
+[INFO] 23:00:11:353 CPU.c/(3815:3815): Archivo de configuracion levantado correctamente
+[INFO] 23:00:11:369 CPU.c/(3815:3815): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 23:00:11:380 CPU.c/(3815:3815): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 23:00:11:385 CPU.c/(3815:3815): A la espera de nuevas conexiones
+[TRACE] 23:00:24:184 CPU.c/(3815:3815): Recibí conexion de 127.0.0.1
+[DEBUG] 23:00:24:189 CPU.c/(3815:3815): Estoy en recv
+[DEBUG] 23:00:24:198 CPU.c/(3815:3815): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:00:24:201 CPU.c/(3815:3815): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 23:00:24:202 CPU.c/(3815:3815): Estoy en recv
+[ERROR] 23:00:24:204 CPU.c/(3815:3815): #######################################################
+[ERROR] 23:00:24:218 CPU.c/(3815:3815): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 23:00:24:221 CPU.c/(3815:3815): #######################################################
+[INFO] 23:05:06:816 CPU.c/(4075:4075): Archivo de configuracion levantado correctamente
+[INFO] 23:05:06:817 CPU.c/(4075:4075): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 23:05:06:817 CPU.c/(4075:4075): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 23:05:06:818 CPU.c/(4075:4075): A la espera de nuevas conexiones
+[TRACE] 23:05:17:765 CPU.c/(4075:4075): Recibí conexion de 127.0.0.1
+[DEBUG] 23:05:17:767 CPU.c/(4075:4075): Estoy en recv
+[DEBUG] 23:05:17:781 CPU.c/(4075:4075): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:05:17:784 CPU.c/(4075:4075): HOla esasdasdasdasdsadsasdasdas
+[DEBUG] 23:05:17:786 CPU.c/(4075:4075): Estoy en recv
+[ERROR] 23:05:17:787 CPU.c/(4075:4075): #######################################################
+[ERROR] 23:05:17:790 CPU.c/(4075:4075): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 23:05:17:795 CPU.c/(4075:4075): #######################################################
+[INFO] 23:12:03:487 CPU.c/(4301:4301): Archivo de configuracion levantado correctamente
+[INFO] 23:12:03:503 CPU.c/(4301:4301): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 23:12:03:507 CPU.c/(4301:4301): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 23:12:03:509 CPU.c/(4301:4301): A la espera de nuevas conexiones
+[TRACE] 23:12:14:639 CPU.c/(4301:4301): Recibí conexion de 127.0.0.1
+[DEBUG] 23:12:14:641 CPU.c/(4301:4301): Estoy en recv
+[DEBUG] 23:12:14:649 CPU.c/(4301:4301): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:12:14:650 CPU.c/(4301:4301): HOla esasdasdasdasdsadsasdasdas
+[INFO] 23:12:14:652 CPU.c/(4301:4301): el newfd vale 5
+[DEBUG] 23:12:14:653 CPU.c/(4301:4301): Estoy en recv
+[DEBUG] 23:12:14:660 CPU.c/(4301:4301): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 23:12:14:668 CPU.c/(4301:4301): el valor del pid es 1234 y del program counter es 1048576
+[INFO] 23:12:14:674 CPU.c/(4301:4301): el valor del pid es 1234
+[INFO] 23:12:14:676 CPU.c/(4301:4301): el valor de la base es 1048576
+[INFO] 23:12:14:682 CPU.c/(4301:4301): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 23:12:14:693 CPU.c/(4301:4301): #######################################################################
+[ERROR] 23:12:14:695 CPU.c/(4301:4301): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 23:12:14:696 CPU.c/(4301:4301): #######################################################################
+[DEBUG] 23:12:14:758 CPU.c/(4301:4301): Estoy en recv
+[ERROR] 23:12:14:760 CPU.c/(4301:4301): #######################################################
+[ERROR] 23:12:14:761 CPU.c/(4301:4301): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 23:12:14:763 CPU.c/(4301:4301): #######################################################
+[INFO] 23:12:14:764 CPU.c/(4301:4301): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 23:12:14:767 CPU.c/(4301:4301): #######################################################################
+[ERROR] 23:12:14:769 CPU.c/(4301:4301): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 23:12:14:776 CPU.c/(4301:4301): #######################################################################
+[DEBUG] 23:12:14:838 CPU.c/(4301:4301): Estoy en recv
+[ERROR] 23:12:14:840 CPU.c/(4301:4301): #######################################################
+[ERROR] 23:12:14:841 CPU.c/(4301:4301): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 23:12:14:843 CPU.c/(4301:4301): #######################################################
+[INFO] 23:12:14:844 CPU.c/(4301:4301): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 23:12:14:852 CPU.c/(4301:4301): #######################################################################
+[ERROR] 23:12:14:854 CPU.c/(4301:4301): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 23:12:14:855 CPU.c/(4301:4301): #######################################################################
+[DEBUG] 23:12:14:917 CPU.c/(4301:4301): Estoy en recv
+[ERROR] 23:12:14:918 CPU.c/(4301:4301): #######################################################
+[ERROR] 23:12:14:920 CPU.c/(4301:4301): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 23:12:14:921 CPU.c/(4301:4301): #######################################################
+[INFO] 23:12:14:922 CPU.c/(4301:4301): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 23:12:14:923 CPU.c/(4301:4301): #######################################################################
+[ERROR] 23:12:14:931 CPU.c/(4301:4301): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 23:12:14:932 CPU.c/(4301:4301): #######################################################################
+[DEBUG] 23:12:14:996 CPU.c/(4301:4301): Estoy en recv
+[ERROR] 23:12:14:998 CPU.c/(4301:4301): #######################################################
+[ERROR] 23:12:14:999 CPU.c/(4301:4301): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 23:12:14:0 CPU.c/(4301:4301): #######################################################
+[INFO] 23:12:14:1 CPU.c/(4301:4301): Se ENVIA por SOCKET:0 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[ERROR] 23:12:15:3 CPU.c/(4301:4301): #######################################################################
+[ERROR] 23:12:15:15 CPU.c/(4301:4301): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 23:12:15:23 CPU.c/(4301:4301): #######################################################################
+[DEBUG] 23:12:15:84 CPU.c/(4301:4301): Estoy en recv
+[ERROR] 23:12:15:85 CPU.c/(4301:4301): #######################################################
+[ERROR] 23:12:15:85 CPU.c/(4301:4301): ##    ERROR en el recibo de mensaje del socket 0    ##
+[ERROR] 23:12:15:85 CPU.c/(4301:4301): #######################################################
+[INFO] 23:12:15:86 CPU.c/(4301:4301): ejecute dos instrucciones
+[DEBUG] 23:12:15:86 CPU.c/(4301:4301): Estoy en recv
+[INFO] 23:12:15:88 CPU.c/(4301:4301): El socket 5 cerró la conexion.
+[INFO] 23:17:02:652 CPU.c/(4526:4526): Archivo de configuracion levantado correctamente
+[INFO] 23:17:02:664 CPU.c/(4526:4526): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 23:17:02:665 CPU.c/(4526:4526): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 23:17:02:669 CPU.c/(4526:4526): A la espera de nuevas conexiones
+[TRACE] 23:17:11:446 CPU.c/(4526:4526): Recibí conexion de 127.0.0.1
+[DEBUG] 23:17:11:449 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:454 CPU.c/(4526:4526): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:17:11:459 CPU.c/(4526:4526): HOla esasdasdasdasdsadsasdasdas
+[INFO] 23:17:11:478 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:17:11:484 CPU.c/(4526:4526): el newfd vale 5
+[DEBUG] 23:17:11:494 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:497 CPU.c/(4526:4526): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 23:17:11:500 CPU.c/(4526:4526): el valor del pid es 1234 y del program counter es 1048576
+[INFO] 23:17:11:500 CPU.c/(4526:4526): el valor del pid es 1234
+[INFO] 23:17:11:501 CPU.c/(4526:4526): el valor de la base es 1048576
+[INFO] 23:17:11:502 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[DEBUG] 23:17:11:566 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:568 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"LOAD" 
+[INFO] 23:17:11:569 CPU.c/(4526:4526): La instruccion es LOAD
+[INFO] 23:17:11:570 CPU.c/(4526:4526): el program_counter es 1048580
+[INFO] 23:17:11:572 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048580,5]" 
+[DEBUG] 23:17:11:582 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:584 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"A3456" 
+[INFO] 23:17:11:586 CPU.c/(4526:4526): el registro vale A y el numero 3456
+[INFO] 23:17:11:587 CPU.c/(4526:4526): el valor del registro A es 3456
+[INFO] 23:17:11:589 CPU.c/(4526:4526): el program counter antes de aumentar en 5 es 1048580
+[INFO] 23:17:11:591 CPU.c/(4526:4526): el program counter despues de aumentar en 5 es 1048585
+[INFO] 23:17:11:592 CPU.c/(4526:4526): Aca salgo con el contador en 0
+[INFO] 23:17:11:596 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048585,4]" 
+[DEBUG] 23:17:11:689 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:691 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"GETM" 
+[INFO] 23:17:11:692 CPU.c/(4526:4526): La instruccion es GETM
+[INFO] 23:17:11:694 CPU.c/(4526:4526): el program_counter es 1048835
+[INFO] 23:17:11:695 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048835,2]" 
+[DEBUG] 23:17:11:709 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:712 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 23:17:11:715 CPU.c/(4526:4526): el valor del registro A es 97
+[INFO] 23:17:11:716 CPU.c/(4526:4526): Aca salgo con el contador en 1
+[INFO] 23:17:11:723 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048837,4]" 
+[DEBUG] 23:17:11:796 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:797 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"ADDR" 
+[INFO] 23:17:11:799 CPU.c/(4526:4526): La instruccion es ADDR
+[INFO] 23:17:11:800 CPU.c/(4526:4526): el program_counter es 1048841
+[INFO] 23:17:11:802 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048841,2]" 
+[DEBUG] 23:17:11:818 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:820 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"BD" 
+[INFO] 23:17:11:821 CPU.c/(4526:4526): entro en el case 3
+[INFO] 23:17:11:824 CPU.c/(4526:4526): el valor deberia dar 100 del registro B y da :100
+[INFO] 23:17:11:828 CPU.c/(4526:4526): Aca salgo con el contador en 2
+[INFO] 23:17:11:835 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049089,4]" 
+[DEBUG] 23:17:11:905 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:907 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"SUBR" 
+[INFO] 23:17:11:909 CPU.c/(4526:4526): La instruccion es SUBR
+[INFO] 23:17:11:910 CPU.c/(4526:4526): el program_counter es 1049093
+[INFO] 23:17:11:915 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049093,2]" 
+[DEBUG] 23:17:11:925 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:11:927 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"DC" 
+[INFO] 23:17:11:929 CPU.c/(4526:4526): el valor registro1 D
+[INFO] 23:17:11:934 CPU.c/(4526:4526): el valor registro2 C
+[INFO] 23:17:11:936 CPU.c/(4526:4526): el valor de C es 1
+[INFO] 23:17:11:938 CPU.c/(4526:4526): el valor de D es 3
+[INFO] 23:17:11:939 CPU.c/(4526:4526): entro en el case 2
+[INFO] 23:17:11:940 CPU.c/(4526:4526): el valor del registro d es 2
+[INFO] 23:17:11:943 CPU.c/(4526:4526): Aca salgo con el contador en 3
+[INFO] 23:17:11:950 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049095,4]" 
+[DEBUG] 23:17:12:20 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:12:21 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"MULR" 
+[INFO] 23:17:12:21 CPU.c/(4526:4526): La instruccion es MULR
+[INFO] 23:17:12:21 CPU.c/(4526:4526): el program_counter es 1049345
+[INFO] 23:17:12:21 CPU.c/(4526:4526): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049345,2]" 
+[DEBUG] 23:17:12:33 CPU.c/(4526:4526): Estoy en recv
+[DEBUG] 23:17:12:48 CPU.c/(4526:4526): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 23:17:12:56 CPU.c/(4526:4526): el registro1 es A
+[INFO] 23:17:12:58 CPU.c/(4526:4526): el registro2 es B
+[INFO] 23:17:12:60 CPU.c/(4526:4526): entro en el case 2
+[INFO] 23:17:12:68 CPU.c/(4526:4526): el valor del registro A deberia ser 9700 y es : 9700
+[INFO] 23:17:12:77 CPU.c/(4526:4526): Aca salgo con el contador en 4
+[INFO] 23:17:12:82 CPU.c/(4526:4526): ejecute dos instrucciones
+[INFO] 23:58:59:694 CPU.c/(1785:1785): Archivo de configuracion levantado correctamente
+[INFO] 23:58:59:702 CPU.c/(1785:1785): Conexion a kernel ip:195.168.1.103 y puerto:6667
+[INFO] 23:58:59:703 CPU.c/(1785:1785): Conexion a MSP ip:127.0.0.1 y puerto:6000
+[TRACE] 23:58:59:704 CPU.c/(1785:1785): A la espera de nuevas conexiones
+[TRACE] 23:59:10:826 CPU.c/(1785:1785): Recibí conexion de 127.0.0.1
+[DEBUG] 23:59:10:853 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:10:863 CPU.c/(1785:1785): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:59:10:868 CPU.c/(1785:1785): HOla esasdasdasdasdsadsasdasdas
+[INFO] 23:59:10:887 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:59:10:905 CPU.c/(1785:1785): el newfd vale 5
+[DEBUG] 23:59:10:909 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:10:914 CPU.c/(1785:1785): Se RECIBE por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 23:59:10:915 CPU.c/(1785:1785): el valor del pid es 1234 y del program counter es 1048576
+[INFO] 23:59:10:916 CPU.c/(1785:1785): el valor del pid es 1234
+[INFO] 23:59:10:917 CPU.c/(1785:1785): el valor de la base es 1048576
+[INFO] 23:59:10:919 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048576,4]" 
+[DEBUG] 23:59:10:983 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:10:985 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"LOAD" 
+[INFO] 23:59:10:994 CPU.c/(1785:1785): La instruccion es LOAD
+[INFO] 23:59:11:4 CPU.c/(1785:1785): el program_counter es 1048580
+[INFO] 23:59:11:19 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048580,5]" 
+[DEBUG] 23:59:11:32 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:34 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"A3456" 
+[INFO] 23:59:11:36 CPU.c/(1785:1785): el registro vale A y el numero 3456
+[INFO] 23:59:11:40 CPU.c/(1785:1785): el valor del registro A es 3456
+[INFO] 23:59:11:53 CPU.c/(1785:1785): el program counter antes de aumentar en 5 es 1048580
+[INFO] 23:59:11:55 CPU.c/(1785:1785): el program counter despues de aumentar en 5 es 1048585
+[INFO] 23:59:11:67 CPU.c/(1785:1785): Aca salgo con el contador en 0
+[INFO] 23:59:11:68 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048585,4]" 
+[DEBUG] 23:59:11:138 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:141 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"GETM" 
+[INFO] 23:59:11:142 CPU.c/(1785:1785): La instruccion es GETM
+[INFO] 23:59:11:151 CPU.c/(1785:1785): el program_counter es 1048835
+[INFO] 23:59:11:152 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048835,2]" 
+[DEBUG] 23:59:11:162 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:164 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 23:59:11:166 CPU.c/(1785:1785): el valor del registro A es 97
+[INFO] 23:59:11:167 CPU.c/(1785:1785): Aca salgo con el contador en 1
+[INFO] 23:59:11:169 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1048837,4]" 
+[DEBUG] 23:59:11:238 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:240 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"ADDR" 
+[INFO] 23:59:11:242 CPU.c/(1785:1785): La instruccion es ADDR
+[INFO] 23:59:11:243 CPU.c/(1785:1785): el program_counter es 1048841
+[INFO] 23:59:11:245 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1048841,2]" 
+[DEBUG] 23:59:11:254 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:257 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"BD" 
+[INFO] 23:59:11:259 CPU.c/(1785:1785): entro en el case 3
+[INFO] 23:59:11:260 CPU.c/(1785:1785): el valor deberia dar 100 del registro B y da :100
+[INFO] 23:59:11:265 CPU.c/(1785:1785): Aca salgo con el contador en 2
+[INFO] 23:59:11:266 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049089,4]" 
+[DEBUG] 23:59:11:347 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:351 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"SUBR" 
+[INFO] 23:59:11:351 CPU.c/(1785:1785): La instruccion es SUBR
+[INFO] 23:59:11:352 CPU.c/(1785:1785): el program_counter es 1049093
+[INFO] 23:59:11:352 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049093,2]" 
+[DEBUG] 23:59:11:361 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:369 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"DC" 
+[INFO] 23:59:11:381 CPU.c/(1785:1785): el valor registro1 D
+[INFO] 23:59:11:383 CPU.c/(1785:1785): el valor registro2 C
+[INFO] 23:59:11:384 CPU.c/(1785:1785): el valor de C es 1
+[INFO] 23:59:11:386 CPU.c/(1785:1785): el valor de D es 3
+[INFO] 23:59:11:387 CPU.c/(1785:1785): entro en el case 2
+[INFO] 23:59:11:389 CPU.c/(1785:1785): el valor del registro d es 2
+[INFO] 23:59:11:390 CPU.c/(1785:1785): Aca salgo con el contador en 3
+[INFO] 23:59:11:392 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1234,1049095,4]" 
+[DEBUG] 23:59:11:470 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:470 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"MULR" 
+[INFO] 23:59:11:471 CPU.c/(1785:1785): La instruccion es MULR
+[INFO] 23:59:11:471 CPU.c/(1785:1785): el program_counter es 1049345
+[INFO] 23:59:11:471 CPU.c/(1785:1785): Se ENVIA por SOCKET:6 - HEADER:CPU_TO_MSP_SOLICITAR_BYTES MENSAJE:"[1049345,2]" 
+[DEBUG] 23:59:11:481 CPU.c/(1785:1785): Estoy en recv
+[DEBUG] 23:59:11:491 CPU.c/(1785:1785): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_CPU_BYTES_ENVIADOS  MENSAJE:"AB" 
+[INFO] 23:59:11:493 CPU.c/(1785:1785): el registro1 es A
+[INFO] 23:59:11:494 CPU.c/(1785:1785): el registro2 es B
+[INFO] 23:59:11:495 CPU.c/(1785:1785): entro en el case 2
+[INFO] 23:59:11:498 CPU.c/(1785:1785): el valor del registro A deberia ser 9700 y es : 9700
+[INFO] 23:59:11:503 CPU.c/(1785:1785): Aca salgo con el contador en 4
+[INFO] 23:59:11:504 CPU.c/(1785:1785): ejecute dos instrucciones
