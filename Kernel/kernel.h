@@ -159,7 +159,7 @@ void killProcess(t_process* aProcess);
 void conectarse_Planificador();
 t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
 int32_t encontrarProcesoPorFD(int32_t fd);
-int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
+t_process* encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
 t_tcb* getProcesoDesdeCodigoBESO(char* stringCode, int32_t PID, int32_t TID, int32_t fd);
 int32_t solicitarSegmentoStack();
 int32_t solicitarSegmentoCodigo();

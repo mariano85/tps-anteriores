@@ -102,14 +102,15 @@ int main(){
 					t_process* aProcess7 = malloc(sizeof(t_process));
 					t_process* aProcess8 = malloc(sizeof(t_process));
 					t_process* aProcess9 = malloc(sizeof(t_process));
+					t_process* aProcessABuscar = malloc(sizeof(t_process));
 					t_client_cpu* cpuNueva =malloc(sizeof(t_client_cpu));
 					t_client_cpu* cpuNueva2 =malloc(sizeof(t_client_cpu));
 					t_client_cpu* cpuNueva3 =malloc(sizeof(t_client_cpu));
 					t_client_cpu* cpuNueva4 =malloc(sizeof(t_client_cpu));
 					t_tcb* tcbPrueba= malloc(sizeof(t_tcb));
-					tcbPrueba ->pid = 1;
-					aProcess6-> tcb = tcbPrueba;
-					cpuNueva ->cpuFD  = 1;
+					tcbPrueba -> pid = 2;
+					tcbPrueba -> tid = 5;
+					aProcessABuscar-> tcb = tcbPrueba;
 					cpuNueva -> cpuPID = 2; //atoi(mensaje)
 					cpuNueva -> ocupado = false;
 					cpuNueva -> processFd = 0;
@@ -129,6 +130,11 @@ int main(){
 					cpuNueva4 -> ocupado = false;
 					cpuNueva4 -> processFd = 0;
 					cpuNueva4 -> processPID = 0;
+
+
+
+
+
 					pthread_mutex_lock(&mutex_cpu_list);
 					list_add(cpu_disponibles_list, cpuNueva);
 					list_add(cpu_disponibles_list, cpuNueva2);
@@ -141,12 +147,15 @@ int main(){
 					agregarProcesoColaNew(aProcess3);
 					agregarProcesoColaNew(aProcess4);
 					mostrarColas();
+					agregarProcesoColaReady(aProcess); // ES NECESARIO PARA ORDENAR !!!
 					agregarProcesoColaReady(aProcess);
 					agregarProcesoColaReady(aProcess);
 					agregarProcesoColaReady(aProcess);
-					agregarProcesoColaReady(aProcess);
+					agregarProcesoColaExit(aProcessABuscar);
 					mostrarColas();
-					agregarProcesoColaExit(aProcess6);
+					//LA CPU ME AVISA QUE PROCESO QUIERE CORTAR
+
+					t_process* procesoEncontrado = encontrarProcesoPorPIDyTID(aProcessABuscar -> tcb -> pid,aProcessABuscar -> tcb -> tid);
 					//agregarProcesoColaExit(aProcess7);
 					//agregarProcesoColaExit(aProcess8);
 					//agregarProcesoColaExit(aProcess9);
@@ -158,12 +167,12 @@ int main(){
 	//pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
 	//pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
+	//pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
 
 	//pthread_join(loaderThread.tid, NULL);
 	//pthread_join(planificadorThread.tid, NULL);
 	pthread_join(manejoColaReadyThread.tid, NULL);
-	pthread_join(manejoColaExitThread.tid, NULL);
+	//pthread_join(manejoColaExitThread.tid, NULL);
 	//finishKernel();
 
 	return EXIT_SUCCESS;

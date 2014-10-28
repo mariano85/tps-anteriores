@@ -85,7 +85,9 @@ int32_t encontrarProcesoPorFD(int32_t fd){
 	pthread_mutex_lock(&mutex_ready_queue);
 	if((aProcess = (t_process*)list_find(READY->elements, (void*)_match_fd)) != NULL){
 		pthread_mutex_unlock(&mutex_ready_queue);
+		log_info(logKernel, "el proceso buscado estaba en READY");
 		return aProcess->tcb->pid;
+
 	}
 	else{
 		pthread_mutex_unlock(&mutex_ready_queue);
@@ -95,6 +97,7 @@ int32_t encontrarProcesoPorFD(int32_t fd){
 	pthread_mutex_lock(&mutex_new_queue);
 	if((aProcess = (t_process*)list_find(NEW->elements, (void*)_match_fd)) != NULL){
 		pthread_mutex_unlock(&mutex_new_queue);
+		log_info(logKernel, "el proceso buscado estaba en NEW");
 		return aProcess->tcb->pid;
 	}
 	else{
@@ -104,6 +107,7 @@ int32_t encontrarProcesoPorFD(int32_t fd){
 	pthread_mutex_lock(&mutex_block_queue);
 	if((aProcess = (t_process*)list_find(BLOCK->elements, (void*)_match_fd)) != NULL){
 		pthread_mutex_unlock(&mutex_block_queue);
+		log_info(logKernel, "el proceso buscado estaba en BLOCK");
 		return aProcess->tcb->pid;
 	}
 	else{
@@ -113,6 +117,7 @@ int32_t encontrarProcesoPorFD(int32_t fd){
 	pthread_mutex_lock(&mutex_exec_queue);
 	if((aProcess = (t_process*)list_find(EXEC->elements, (void*)_match_fd)) != NULL){
 		pthread_mutex_unlock(&mutex_exec_queue);
+		log_info(logKernel, "el proceso buscado estaba en EXEC");
 		return aProcess->tcb->pid;
 	}
 	else{
@@ -122,9 +127,11 @@ int32_t encontrarProcesoPorFD(int32_t fd){
 	pthread_mutex_lock(&mutex_exit_queue);
 	if((aProcess = (t_process*)list_find(EXIT->elements, (void*)_match_fd)) != NULL){
 		pthread_mutex_unlock(&mutex_exit_queue);
+		log_info(logKernel, "el proceso buscado estaba en EXIT");
 		return aProcess->tcb->pid;
 	}
 	else{
+		log_info(logKernel, "el proceso no estaba :(");
 		pthread_mutex_unlock(&mutex_exit_queue);
 	}
 
@@ -132,11 +139,12 @@ int32_t encontrarProcesoPorFD(int32_t fd){
 }
 
 
-int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
+t_process* encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 
 	bool _match_pid_tid(void* element) {
 		if ((((t_process*)element)->tcb->pid == pid) && (((t_process*)element)->tcb->tid == tid)){
 			return true;
+
 		}
 		return false;
 	}
@@ -147,7 +155,8 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 	pthread_mutex_lock(&mutex_ready_queue);
 	if((aProcess = (t_process*)list_find(READY->elements, (void*)_match_pid_tid)) != NULL){
 		pthread_mutex_unlock(&mutex_ready_queue);
-		return aProcess->tcb->pid;
+		log_info(logKernel,"El proceso estaba en READY y lo encontre");
+		return aProcess;
 	}
 	else{
 		pthread_mutex_unlock(&mutex_ready_queue);
@@ -157,7 +166,8 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 	pthread_mutex_lock(&mutex_new_queue);
 	if((aProcess = (t_process*)list_find(NEW->elements, (void*)_match_pid_tid)) != NULL){
 		pthread_mutex_unlock(&mutex_new_queue);
-		return aProcess->tcb->pid;
+		log_info(logKernel,"El proceso estaba en NEW y lo encontre");
+		return aProcess;
 	}
 	else{
 		pthread_mutex_unlock(&mutex_new_queue);
@@ -166,7 +176,8 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 	pthread_mutex_lock(&mutex_block_queue);
 	if((aProcess = (t_process*)list_find(BLOCK->elements, (void*)_match_pid_tid)) != NULL){
 		pthread_mutex_unlock(&mutex_block_queue);
-		return aProcess->tcb->pid;
+		log_info(logKernel,"El proceso estaba en BLOCK y lo encontre");
+		return aProcess;
 	}
 	else{
 		pthread_mutex_unlock(&mutex_block_queue);
@@ -175,7 +186,8 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 	pthread_mutex_lock(&mutex_exec_queue);
 	if((aProcess = (t_process*)list_find(EXEC->elements, (void*)_match_pid_tid)) != NULL){
 		pthread_mutex_unlock(&mutex_exec_queue);
-		return aProcess->tcb->pid;
+		log_info(logKernel,"El proceso estaba en EXEC y lo encontre");
+		return aProcess;
 	}
 	else{
 		pthread_mutex_unlock(&mutex_exec_queue);
@@ -184,9 +196,11 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 	pthread_mutex_lock(&mutex_exit_queue);
 	if((aProcess = (t_process*)list_find(EXIT->elements, (void*)_match_pid_tid)) != NULL){
 		pthread_mutex_unlock(&mutex_exit_queue);
-		return aProcess->tcb->pid;
+		log_info(logKernel,"El proceso estaba en EXIT y lo encontre");
+		return aProcess;
 	}
 	else{
+		log_info(logKernel,"El proceso no estaba ! :( ");
 		pthread_mutex_unlock(&mutex_exit_queue);
 	}
 
@@ -559,7 +573,7 @@ void manejo_cola_ready(void){
 	for(;;){
 		hayCpuLibre = false;
 
-		pthread_mutex_lock(&mutex_ready_queue);
+
 		log_info(logKernel, "PRUEBA1: PASE EL SEMAFORO (PID: %d) ***************",myPid);
 
 

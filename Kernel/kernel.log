@@ -237,3 +237,347 @@
 [ERROR] 11:33:55:826 Kernel/(5928:5957): #######################################################################
 [INFO] 11:33:55:830 Kernel/(5928:5957): Se envía un PCB al CPU libre elegido
 [INFO] 11:33:55:902 Kernel/(5928:5957): PRUEBA1: PASE EL SEMAFORO (PID: 5957) ***************
+[INFO] 12:15:10:95 Kernel/(7074:7074): ************** WELCOME TO KERNEL V1.0! (PID: 7074) ***************
+
+[INFO] 12:15:10:98 Kernel/(7074:7074): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 12:15:10:105 Kernel/(7074:7074): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 12:15:25:117 Kernel/(7074:7074): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 12:15:25:151 Kernel/(7074:7074): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 12:15:25:163 Kernel/(7074:7074): Se envía un TCB al CPU libre elegido
+[INFO] 12:15:25:182 Kernel/(7074:7074): proceso prueba
+[INFO] 12:15:25:193 Kernel/(7074:7074): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:15:25:198 Kernel/(7074:7074): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:15:25:199 Kernel/(7074:7074): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:15:25:203 Kernel/(7074:7074): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:19:44:920 Kernel/(7300:7300): ************** WELCOME TO KERNEL V1.0! (PID: 7300) ***************
+
+[INFO] 12:19:44:925 Kernel/(7300:7300): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 12:19:44:946 Kernel/(7300:7300): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 12:19:59:964 Kernel/(7300:7300): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 12:19:59:968 Kernel/(7300:7300): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 12:19:59:979 Kernel/(7300:7300): Se envía un TCB al CPU libre elegido
+[INFO] 12:19:59:991 Kernel/(7300:7300): proceso prueba
+[INFO] 12:20:00:11 Kernel/(7300:7300): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:20:00:21 Kernel/(7300:7300): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:20:00:32 Kernel/(7300:7300): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:20:00:38 Kernel/(7300:7300): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 12:20:00:399 Kernel/(7300:7300): Un nuevo proceso (PID: 2) ha finalizado. Se inserta en la cola de EXIT :
+[INFO] 12:20:00:492 Kernel/(7300:7300): agregue un proceso de prueba a la cola ready
+[INFO] 12:20:00:494 Kernel/(7300:7327): ************** Exit Manager Thread Started (PID: 7327) ***************
+[INFO] 12:20:00:495 Kernel/(7300:7326): **************Ready Queue Manager Thread Started (PID: 7326) ***************
+[DEBUG] 12:20:00:496 Kernel/(7300:7327): Exit Queue Manager Thread Says: Hey!I Got you dude!
+[INFO] 12:20:00:498 Kernel/(7300:7327): La cola de procesos nuevos Ready se encuentra llena..
+[INFO] 12:20:00:502 Kernel/(7300:7327): implementar killProcess pid: 2
+[INFO] 12:20:48:658 Kernel/(7386:7386): ************** WELCOME TO KERNEL V1.0! (PID: 7386) ***************
+
+[INFO] 12:20:48:662 Kernel/(7386:7386): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 12:20:48:664 Kernel/(7386:7386): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 12:21:03:673 Kernel/(7386:7386): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 12:21:03:704 Kernel/(7386:7386): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 12:21:03:717 Kernel/(7386:7386): Se envía un TCB al CPU libre elegido
+[INFO] 12:21:03:725 Kernel/(7386:7386): proceso prueba
+[INFO] 12:21:03:756 Kernel/(7386:7386): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:21:03:764 Kernel/(7386:7386): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:21:03:772 Kernel/(7386:7386): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:21:03:783 Kernel/(7386:7386): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 12:21:04:273 Kernel/(7386:7386): Un nuevo proceso (PID: 2) ha finalizado. Se inserta en la cola de EXIT :
+[INFO] 12:21:04:351 Kernel/(7386:7386): agregue un proceso de prueba a la cola ready
+[INFO] 12:21:04:353 Kernel/(7386:7412): **************Ready Queue Manager Thread Started (PID: 7412) ***************
+[INFO] 12:23:31:883 Kernel/(7529:7529): ************** WELCOME TO KERNEL V1.0! (PID: 7529) ***************
+
+[INFO] 12:23:31:895 Kernel/(7529:7529): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 12:23:31:899 Kernel/(7529:7529): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 12:23:46:907 Kernel/(7529:7529): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 12:23:46:912 Kernel/(7529:7529): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 12:23:46:915 Kernel/(7529:7529): Se envía un TCB al CPU libre elegido
+[INFO] 12:23:46:931 Kernel/(7529:7529): proceso prueba
+[INFO] 12:23:46:931 Kernel/(7529:7529): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:23:46:931 Kernel/(7529:7529): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:23:46:931 Kernel/(7529:7529): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:23:46:931 Kernel/(7529:7529): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 12:23:47:197 Kernel/(7529:7529): Un nuevo proceso (PID: 2) ha finalizado. Se inserta en la cola de EXIT :
+[INFO] 12:23:47:286 Kernel/(7529:7529): agregue un proceso de prueba a la cola ready
+[INFO] 12:23:47:287 Kernel/(7529:7555): **************Ready Queue Manager Thread Started (PID: 7555) ***************
+[INFO] 12:23:47:295 Kernel/(7529:7555): PRUEBA1: PASE EL SEMAFORO (PID: 7555) ***************
+[INFO] 12:23:47:296 Kernel/(7529:7555): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:23:47:298 Kernel/(7529:7555): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:23:47:299 Kernel/(7529:7555): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:23:47:300 Kernel/(7529:7555): entre al if!
+[INFO] 12:23:47:319 Kernel/(7529:7555): agrego un proceso de prueba!
+[INFO] 12:23:47:322 Kernel/(7529:7555): saque algo de la cola ready !
+[INFO] 12:23:47:325 Kernel/(7529:7555): puse un proceso en exec!
+[INFO] 12:23:47:338 Kernel/(7529:7555): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:23:47:464 Kernel/(7529:7555): Se ENVIA por SOCKET:822083584 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[-1217100344, -1217100320, 0]" 
+[ERROR] 12:23:47:468 Kernel/(7529:7555): #######################################################################
+[ERROR] 12:23:47:472 Kernel/(7529:7555): ##    ERROR en el envío de mensajes: no se envió todo. socket: 822083584    ##
+[ERROR] 12:23:47:482 Kernel/(7529:7555): #######################################################################
+[INFO] 12:23:47:492 Kernel/(7529:7555): Se envía un PCB al CPU libre elegido
+[INFO] 12:23:47:570 Kernel/(7529:7555): PRUEBA1: PASE EL SEMAFORO (PID: 7555) ***************
+[INFO] 12:23:47:571 Kernel/(7529:7555): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:23:47:573 Kernel/(7529:7555): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:23:47:574 Kernel/(7529:7555): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:23:47:575 Kernel/(7529:7555): entre al if!
+[INFO] 12:23:47:577 Kernel/(7529:7555): agrego un proceso de prueba!
+[INFO] 12:23:47:583 Kernel/(7529:7555): saque algo de la cola ready !
+[INFO] 12:23:47:585 Kernel/(7529:7555): puse un proceso en exec!
+[INFO] 12:23:47:586 Kernel/(7529:7555): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:23:47:682 Kernel/(7529:7555): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[135762376, -1217100672, 0]" 
+[ERROR] 12:23:47:683 Kernel/(7529:7555): #######################################################################
+[ERROR] 12:23:47:699 Kernel/(7529:7555): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:23:47:704 Kernel/(7529:7555): #######################################################################
+[INFO] 12:23:47:704 Kernel/(7529:7555): Se envía un PCB al CPU libre elegido
+[INFO] 12:23:47:782 Kernel/(7529:7555): PRUEBA1: PASE EL SEMAFORO (PID: 7555) ***************
+[INFO] 12:23:47:784 Kernel/(7529:7555): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:23:47:785 Kernel/(7529:7555): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:23:47:787 Kernel/(7529:7555): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:23:47:788 Kernel/(7529:7555): entre al if!
+[INFO] 12:23:47:795 Kernel/(7529:7555): agrego un proceso de prueba!
+[INFO] 12:23:47:797 Kernel/(7529:7555): saque algo de la cola ready !
+[INFO] 12:23:47:799 Kernel/(7529:7555): puse un proceso en exec!
+[INFO] 12:23:47:812 Kernel/(7529:7555): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:23:47:897 Kernel/(7529:7555): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[135762376, -1217100672, 0]" 
+[ERROR] 12:23:47:902 Kernel/(7529:7555): #######################################################################
+[ERROR] 12:23:47:908 Kernel/(7529:7555): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:23:47:909 Kernel/(7529:7555): #######################################################################
+[INFO] 12:23:47:916 Kernel/(7529:7555): Se envía un PCB al CPU libre elegido
+[INFO] 12:23:48:63 Kernel/(7529:7555): PRUEBA1: PASE EL SEMAFORO (PID: 7555) ***************
+[INFO] 12:23:48:71 Kernel/(7529:7555): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:23:48:74 Kernel/(7529:7555): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:23:48:76 Kernel/(7529:7555): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:23:48:77 Kernel/(7529:7555): entre al if!
+[INFO] 12:23:48:81 Kernel/(7529:7555): agrego un proceso de prueba!
+[INFO] 12:23:48:81 Kernel/(7529:7555): saque algo de la cola ready !
+[INFO] 12:23:48:89 Kernel/(7529:7555): puse un proceso en exec!
+[INFO] 12:23:48:92 Kernel/(7529:7555): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:23:48:199 Kernel/(7529:7555): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[135762376, -1217100672, 0]" 
+[ERROR] 12:23:48:200 Kernel/(7529:7555): #######################################################################
+[ERROR] 12:23:48:214 Kernel/(7529:7555): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:23:48:222 Kernel/(7529:7555): #######################################################################
+[INFO] 12:23:48:222 Kernel/(7529:7555): Se envía un PCB al CPU libre elegido
+[INFO] 12:23:48:273 Kernel/(7529:7555): PRUEBA1: PASE EL SEMAFORO (PID: 7555) ***************
+[INFO] 12:27:16:562 Kernel/(7843:7843): ************** WELCOME TO KERNEL V1.0! (PID: 7843) ***************
+
+[INFO] 12:27:16:567 Kernel/(7843:7843): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 12:27:16:572 Kernel/(7843:7843): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 12:27:31:580 Kernel/(7843:7843): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 12:27:31:590 Kernel/(7843:7843): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 12:27:31:592 Kernel/(7843:7843): Se envía un TCB al CPU libre elegido
+[INFO] 12:27:31:595 Kernel/(7843:7843): proceso prueba
+[INFO] 12:27:31:601 Kernel/(7843:7843): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:27:31:601 Kernel/(7843:7843): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:27:31:610 Kernel/(7843:7843): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:27:31:619 Kernel/(7843:7843): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 12:27:32:42 Kernel/(7843:7843): Un nuevo proceso (PID: 2) ha finalizado. Se inserta en la cola de EXIT :
+[INFO] 12:27:32:91 Kernel/(7843:7843): El proceso estaba en EXIT y lo encontre
+[INFO] 12:27:32:109 Kernel/(7843:7843): agregue un proceso de prueba a la cola ready
+[INFO] 12:27:32:122 Kernel/(7843:7871): **************Ready Queue Manager Thread Started (PID: 7871) ***************
+[INFO] 12:27:32:126 Kernel/(7843:7871): PRUEBA1: PASE EL SEMAFORO (PID: 7871) ***************
+[INFO] 12:27:32:128 Kernel/(7843:7871): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:27:32:130 Kernel/(7843:7871): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:27:32:140 Kernel/(7843:7871): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:27:32:166 Kernel/(7843:7871): entre al if!
+[INFO] 12:27:32:168 Kernel/(7843:7871): agrego un proceso de prueba!
+[INFO] 12:27:32:169 Kernel/(7843:7871): saque algo de la cola ready !
+[INFO] 12:27:32:170 Kernel/(7843:7871): puse un proceso en exec!
+[INFO] 12:27:32:172 Kernel/(7843:7871): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:27:32:343 Kernel/(7843:7871): Se ENVIA por SOCKET:822083584 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[-1216916024, -1216916000, 0]" 
+[ERROR] 12:27:32:360 Kernel/(7843:7871): #######################################################################
+[ERROR] 12:27:32:363 Kernel/(7843:7871): ##    ERROR en el envío de mensajes: no se envió todo. socket: 822083584    ##
+[ERROR] 12:27:32:364 Kernel/(7843:7871): #######################################################################
+[INFO] 12:27:32:364 Kernel/(7843:7871): Se envía un PCB al CPU libre elegido
+[INFO] 12:27:32:476 Kernel/(7843:7871): PRUEBA1: PASE EL SEMAFORO (PID: 7871) ***************
+[INFO] 12:27:32:484 Kernel/(7843:7871): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:27:32:486 Kernel/(7843:7871): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:27:32:486 Kernel/(7843:7871): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:27:32:494 Kernel/(7843:7871): entre al if!
+[INFO] 12:27:32:498 Kernel/(7843:7871): agrego un proceso de prueba!
+[INFO] 12:27:32:502 Kernel/(7843:7871): saque algo de la cola ready !
+[INFO] 12:27:32:511 Kernel/(7843:7871): puse un proceso en exec!
+[INFO] 12:27:32:512 Kernel/(7843:7871): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:27:32:631 Kernel/(7843:7871): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[151237064, -1216916352, 0]" 
+[ERROR] 12:27:32:637 Kernel/(7843:7871): #######################################################################
+[ERROR] 12:27:32:651 Kernel/(7843:7871): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:27:32:654 Kernel/(7843:7871): #######################################################################
+[INFO] 12:27:32:661 Kernel/(7843:7871): Se envía un PCB al CPU libre elegido
+[INFO] 12:27:32:767 Kernel/(7843:7871): PRUEBA1: PASE EL SEMAFORO (PID: 7871) ***************
+[INFO] 12:27:32:768 Kernel/(7843:7871): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:27:32:774 Kernel/(7843:7871): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:27:32:775 Kernel/(7843:7871): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:27:32:776 Kernel/(7843:7871): entre al if!
+[INFO] 12:27:32:783 Kernel/(7843:7871): agrego un proceso de prueba!
+[INFO] 12:27:32:785 Kernel/(7843:7871): saque algo de la cola ready !
+[INFO] 12:27:32:788 Kernel/(7843:7871): puse un proceso en exec!
+[INFO] 12:27:32:797 Kernel/(7843:7871): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:27:32:876 Kernel/(7843:7871): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[151237064, -1216916352, 0]" 
+[ERROR] 12:27:32:878 Kernel/(7843:7871): #######################################################################
+[ERROR] 12:27:32:879 Kernel/(7843:7871): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:27:32:887 Kernel/(7843:7871): #######################################################################
+[INFO] 12:27:32:891 Kernel/(7843:7871): Se envía un PCB al CPU libre elegido
+[INFO] 12:27:32:950 Kernel/(7843:7871): PRUEBA1: PASE EL SEMAFORO (PID: 7871) ***************
+[INFO] 12:27:32:951 Kernel/(7843:7871): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:27:32:953 Kernel/(7843:7871): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:27:32:958 Kernel/(7843:7871): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:27:32:960 Kernel/(7843:7871): entre al if!
+[INFO] 12:27:32:961 Kernel/(7843:7871): agrego un proceso de prueba!
+[INFO] 12:27:32:963 Kernel/(7843:7871): saque algo de la cola ready !
+[INFO] 12:27:32:964 Kernel/(7843:7871): puse un proceso en exec!
+[INFO] 12:27:32:965 Kernel/(7843:7871): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:27:32:1 Kernel/(7843:7871): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[151237064, -1216916352, 0]" 
+[ERROR] 12:27:33:6 Kernel/(7843:7871): #######################################################################
+[ERROR] 12:27:33:7 Kernel/(7843:7871): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:27:33:9 Kernel/(7843:7871): #######################################################################
+[INFO] 12:27:33:10 Kernel/(7843:7871): Se envía un PCB al CPU libre elegido
+[INFO] 12:27:33:56 Kernel/(7843:7871): PRUEBA1: PASE EL SEMAFORO (PID: 7871) ***************
+[INFO] 12:27:56:677 Kernel/(7878:7878): ************** WELCOME TO KERNEL V1.0! (PID: 7878) ***************
+
+[INFO] 12:27:56:687 Kernel/(7878:7878): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 12:27:56:694 Kernel/(7878:7878): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 12:28:11:704 Kernel/(7878:7878): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 12:28:11:733 Kernel/(7878:7878): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 12:28:11:746 Kernel/(7878:7878): Se envía un TCB al CPU libre elegido
+[INFO] 12:28:11:747 Kernel/(7878:7878): proceso prueba
+[INFO] 12:28:11:749 Kernel/(7878:7878): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:28:11:752 Kernel/(7878:7878): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:28:11:758 Kernel/(7878:7878): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:28:11:765 Kernel/(7878:7878): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 12:28:12:256 Kernel/(7878:7878): Un nuevo proceso (PID: 2) ha finalizado. Se inserta en la cola de EXIT :
+[INFO] 12:28:12:392 Kernel/(7878:7878): El proceso estaba en EXIT y lo encontre
+[INFO] 12:28:12:394 Kernel/(7878:7878): agregue un proceso de prueba a la cola ready
+[INFO] 12:28:12:401 Kernel/(7878:7905): **************Ready Queue Manager Thread Started (PID: 7905) ***************
+[INFO] 12:28:12:405 Kernel/(7878:7905): PRUEBA1: PASE EL SEMAFORO (PID: 7905) ***************
+[INFO] 12:28:12:406 Kernel/(7878:7905): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:28:12:414 Kernel/(7878:7905): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:28:12:416 Kernel/(7878:7905): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:28:12:417 Kernel/(7878:7905): entre al if!
+[INFO] 12:28:12:419 Kernel/(7878:7905): agrego un proceso de prueba!
+[INFO] 12:28:12:420 Kernel/(7878:7905): saque algo de la cola ready !
+[INFO] 12:28:12:421 Kernel/(7878:7905): puse un proceso en exec!
+[INFO] 12:28:12:423 Kernel/(7878:7905): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:28:12:566 Kernel/(7878:7905): Se ENVIA por SOCKET:822083584 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[-1217604152, -1217604128, 0]" 
+[ERROR] 12:28:12:567 Kernel/(7878:7905): #######################################################################
+[ERROR] 12:28:12:570 Kernel/(7878:7905): ##    ERROR en el envío de mensajes: no se envió todo. socket: 822083584    ##
+[ERROR] 12:28:12:578 Kernel/(7878:7905): #######################################################################
+[INFO] 12:28:12:595 Kernel/(7878:7905): Se envía un PCB al CPU libre elegido
+[INFO] 12:28:12:769 Kernel/(7878:7905): PRUEBA1: PASE EL SEMAFORO (PID: 7905) ***************
+[INFO] 12:28:12:771 Kernel/(7878:7905): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:28:12:774 Kernel/(7878:7905): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:28:12:779 Kernel/(7878:7905): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:28:12:781 Kernel/(7878:7905): entre al if!
+[INFO] 12:28:12:791 Kernel/(7878:7905): agrego un proceso de prueba!
+[INFO] 12:28:12:794 Kernel/(7878:7905): saque algo de la cola ready !
+[INFO] 12:28:12:795 Kernel/(7878:7905): puse un proceso en exec!
+[INFO] 12:28:12:796 Kernel/(7878:7905): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:28:12:886 Kernel/(7878:7905): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[163987912, -1217604480, 0]" 
+[ERROR] 12:28:12:888 Kernel/(7878:7905): #######################################################################
+[ERROR] 12:28:12:894 Kernel/(7878:7905): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:28:12:895 Kernel/(7878:7905): #######################################################################
+[INFO] 12:28:12:898 Kernel/(7878:7905): Se envía un PCB al CPU libre elegido
+[INFO] 12:28:12:966 Kernel/(7878:7905): PRUEBA1: PASE EL SEMAFORO (PID: 7905) ***************
+[INFO] 12:28:12:971 Kernel/(7878:7905): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:28:12:972 Kernel/(7878:7905): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:28:12:974 Kernel/(7878:7905): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:28:12:985 Kernel/(7878:7905): entre al if!
+[INFO] 12:28:12:994 Kernel/(7878:7905): agrego un proceso de prueba!
+[INFO] 12:28:12:995 Kernel/(7878:7905): saque algo de la cola ready !
+[INFO] 12:28:12:997 Kernel/(7878:7905): puse un proceso en exec!
+[INFO] 12:28:12:998 Kernel/(7878:7905): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:28:13:114 Kernel/(7878:7905): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[163987912, -1217604480, 0]" 
+[ERROR] 12:28:13:118 Kernel/(7878:7905): #######################################################################
+[ERROR] 12:28:13:125 Kernel/(7878:7905): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:28:13:132 Kernel/(7878:7905): #######################################################################
+[INFO] 12:28:13:133 Kernel/(7878:7905): Se envía un PCB al CPU libre elegido
+[INFO] 12:28:13:189 Kernel/(7878:7905): PRUEBA1: PASE EL SEMAFORO (PID: 7905) ***************
+[INFO] 12:28:13:190 Kernel/(7878:7905): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:28:13:191 Kernel/(7878:7905): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:28:13:193 Kernel/(7878:7905): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:28:13:198 Kernel/(7878:7905): entre al if!
+[INFO] 12:28:13:199 Kernel/(7878:7905): agrego un proceso de prueba!
+[INFO] 12:28:13:199 Kernel/(7878:7905): saque algo de la cola ready !
+[INFO] 12:28:13:200 Kernel/(7878:7905): puse un proceso en exec!
+[INFO] 12:28:13:206 Kernel/(7878:7905): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:28:13:215 Kernel/(7878:7905): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[163987912, -1217604480, 0]" 
+[ERROR] 12:28:13:215 Kernel/(7878:7905): #######################################################################
+[ERROR] 12:28:13:216 Kernel/(7878:7905): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:28:13:216 Kernel/(7878:7905): #######################################################################
+[INFO] 12:28:13:216 Kernel/(7878:7905): Se envía un PCB al CPU libre elegido
+[INFO] 12:28:13:232 Kernel/(7878:7905): PRUEBA1: PASE EL SEMAFORO (PID: 7905) ***************
+[INFO] 12:29:37:621 Kernel/(7940:7940): ************** WELCOME TO KERNEL V1.0! (PID: 7940) ***************
+
+[INFO] 12:29:37:631 Kernel/(7940:7940): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 12:29:37:640 Kernel/(7940:7940): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 12:29:52:648 Kernel/(7940:7940): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 12:29:52:654 Kernel/(7940:7940): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 12:29:52:657 Kernel/(7940:7940): Se envía un TCB al CPU libre elegido
+[INFO] 12:29:52:660 Kernel/(7940:7940): proceso prueba
+[INFO] 12:29:52:678 Kernel/(7940:7940): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:29:52:685 Kernel/(7940:7940): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:29:52:695 Kernel/(7940:7940): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 12:29:52:708 Kernel/(7940:7940): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 12:29:53:201 Kernel/(7940:7940): Un nuevo proceso (PID: 2) ha finalizado. Se inserta en la cola de EXIT :
+[INFO] 12:29:53:280 Kernel/(7940:7940): El proceso estaba en EXIT y lo encontre
+[INFO] 12:29:53:280 Kernel/(7940:7940): agregue un proceso de prueba a la cola ready
+[INFO] 12:29:53:281 Kernel/(7940:7966): **************Ready Queue Manager Thread Started (PID: 7966) ***************
+[INFO] 12:29:53:286 Kernel/(7940:7966): PRUEBA1: PASE EL SEMAFORO (PID: 7966) ***************
+[INFO] 12:29:53:286 Kernel/(7940:7966): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:29:53:287 Kernel/(7940:7966): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:29:53:287 Kernel/(7940:7966): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:29:53:287 Kernel/(7940:7966): entre al if!
+[INFO] 12:29:53:288 Kernel/(7940:7966): agrego un proceso de prueba!
+[INFO] 12:29:53:288 Kernel/(7940:7966): saque algo de la cola ready !
+[INFO] 12:29:53:288 Kernel/(7940:7966): puse un proceso en exec!
+[INFO] 12:29:53:289 Kernel/(7940:7966): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:29:53:301 Kernel/(7940:7966): Se ENVIA por SOCKET:822083584 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[-1216784952, -1216784928, 0]" 
+[ERROR] 12:29:53:301 Kernel/(7940:7966): #######################################################################
+[ERROR] 12:29:53:302 Kernel/(7940:7966): ##    ERROR en el envío de mensajes: no se envió todo. socket: 822083584    ##
+[ERROR] 12:29:53:302 Kernel/(7940:7966): #######################################################################
+[INFO] 12:29:53:302 Kernel/(7940:7966): Se envía un PCB al CPU libre elegido
+[INFO] 12:29:53:316 Kernel/(7940:7966): PRUEBA1: PASE EL SEMAFORO (PID: 7966) ***************
+[INFO] 12:29:53:316 Kernel/(7940:7966): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:29:53:316 Kernel/(7940:7966): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:29:53:317 Kernel/(7940:7966): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:29:53:317 Kernel/(7940:7966): entre al if!
+[INFO] 12:29:53:317 Kernel/(7940:7966): agrego un proceso de prueba!
+[INFO] 12:29:53:318 Kernel/(7940:7966): saque algo de la cola ready !
+[INFO] 12:29:53:318 Kernel/(7940:7966): puse un proceso en exec!
+[INFO] 12:29:53:318 Kernel/(7940:7966): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:29:53:349 Kernel/(7940:7966): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[148369864, -1216785280, 0]" 
+[ERROR] 12:29:53:349 Kernel/(7940:7966): #######################################################################
+[ERROR] 12:29:53:351 Kernel/(7940:7966): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:29:53:356 Kernel/(7940:7966): #######################################################################
+[INFO] 12:29:53:356 Kernel/(7940:7966): Se envía un PCB al CPU libre elegido
+[INFO] 12:29:53:437 Kernel/(7940:7966): PRUEBA1: PASE EL SEMAFORO (PID: 7966) ***************
+[INFO] 12:29:53:461 Kernel/(7940:7966): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:29:53:468 Kernel/(7940:7966): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:29:53:469 Kernel/(7940:7966): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:29:53:475 Kernel/(7940:7966): entre al if!
+[INFO] 12:29:53:482 Kernel/(7940:7966): agrego un proceso de prueba!
+[INFO] 12:29:53:484 Kernel/(7940:7966): saque algo de la cola ready !
+[INFO] 12:29:53:491 Kernel/(7940:7966): puse un proceso en exec!
+[INFO] 12:29:53:492 Kernel/(7940:7966): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:29:53:596 Kernel/(7940:7966): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[148369864, -1216785280, 0]" 
+[ERROR] 12:29:53:597 Kernel/(7940:7966): #######################################################################
+[ERROR] 12:29:53:603 Kernel/(7940:7966): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:29:53:605 Kernel/(7940:7966): #######################################################################
+[INFO] 12:29:53:608 Kernel/(7940:7966): Se envía un PCB al CPU libre elegido
+[INFO] 12:29:53:743 Kernel/(7940:7966): PRUEBA1: PASE EL SEMAFORO (PID: 7966) ***************
+[INFO] 12:29:53:746 Kernel/(7940:7966): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 12:29:53:751 Kernel/(7940:7966): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 12:29:53:752 Kernel/(7940:7966): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 12:29:53:754 Kernel/(7940:7966): entre al if!
+[INFO] 12:29:53:759 Kernel/(7940:7966): agrego un proceso de prueba!
+[INFO] 12:29:53:761 Kernel/(7940:7966): saque algo de la cola ready !
+[INFO] 12:29:53:764 Kernel/(7940:7966): puse un proceso en exec!
+[INFO] 12:29:53:770 Kernel/(7940:7966): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 12:29:53:850 Kernel/(7940:7966): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[148369864, -1216785280, 0]" 
+[ERROR] 12:29:53:859 Kernel/(7940:7966): #######################################################################
+[ERROR] 12:29:53:863 Kernel/(7940:7966): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 12:29:53:870 Kernel/(7940:7966): #######################################################################
+[INFO] 12:29:53:872 Kernel/(7940:7966): Se envía un PCB al CPU libre elegido
+[INFO] 12:29:53:929 Kernel/(7940:7966): PRUEBA1: PASE EL SEMAFORO (PID: 7966) ***************
