@@ -23,6 +23,43 @@ int main(){
 
 	initKernel();
 
+	// Conexion CPU Y HANDSHAKE
+
+		int socket_cpu = conectarAServidor(config_kernel.IP_CPU,config_kernel.PUERTO);
+
+		while(socket_cpu == EXIT_FAILURE){
+			log_info(logKernel,"Despierten al CPU! Se reintenta conexion en unos segundos \n");
+				sleep(15);
+			socket_cpu = conectarAServidor(config_kernel.IP_CPU,config_kernel.PUERTO);
+
+		}
+
+
+		//1) Fase uno es el handshake
+
+			t_contenido mensaje;
+			memset(mensaje,0,sizeof(t_contenido));
+			strcpy(mensaje,"hola");
+
+			enviarMensaje(socket_cpu,KERNEL_TO_CPU_HANDSHAKE,mensaje,logKernel);
+
+		//	t_process *processPrueba = processPrueba;
+
+		//	processPrueba->tcb->pid = 1234;
+		//	processPrueba->tcb->program_counter = 1048576;
+
+			int32_t pid = 1234;
+			int32_t program_counter = 1048576;
+
+
+
+			t_contenido mensaje_1;
+			memset(mensaje_1, 0, sizeof(t_contenido));
+			strcpy(mensaje_1, string_from_format("[%d,%d]", pid,program_counter));
+			enviarMensaje(socket_cpu, KERNEL_TO_CPU_TCB, mensaje_1, logKernel);
+			log_info(logKernel, "Se envía un TCB al CPU libre elegido");
+
+
 	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
 	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
