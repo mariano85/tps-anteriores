@@ -500,7 +500,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	int numeroSegmento, numeroPagina, offset;
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
-	if (paginasQueNecesito == NULL) return "error";
+	if (paginasQueNecesito == NULL) return NULL;
 
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 
