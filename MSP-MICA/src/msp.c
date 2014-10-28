@@ -232,7 +232,7 @@ uint32_t crearSegmento(int pid, long tamanio)
 
 }
 
-void destruirSegmento(int pid, uint32_t base)
+int destruirSegmento(int pid, uint32_t base)
 {
 	int numeroSegmento, numeroPagina, offset;
 
@@ -241,8 +241,8 @@ void destruirSegmento(int pid, uint32_t base)
 	if (numeroPagina != 0 || offset != 0)
 	{
 		log_error(logs, "Error, la dirección proporcionada no es una dirección base.");
-		puts("Error, la dirección proporcionada no es una dirección base.");
-		return;
+		//puts("Error, la dirección proporcionada no es una dirección base.");
+		return EXIT_FAILURE;
 	}
 
 	bool _pidYSegmentoCorresponde(nodo_segmento *p) {
@@ -255,16 +255,46 @@ void destruirSegmento(int pid, uint32_t base)
 	{
 		log_error(logs, "Error, PID y/o segmento inválidos.");
 		printf("Error, pid y/o segmento invalidos\n");
-		return;
+		return EXIT_FAILURE;
 	}
 	else
 	{
 		nodo = list_remove_by_condition(listaSegmentos, (void*)_pidYSegmentoCorresponde);
+
+		void _liberarMarcoOBorrarArchivoSwap(nodo_paginas *nodoPagina)
+		{
+			if (nodoPagina->presencia == -2)
+			{
+				char* nombreArchivo = string_new();
+
+				nombreArchivo = generarNombreArchivo(nodo->pid, nodo->numeroSegmento, nodoPagina->nro_pagina);
+
+				FILE *archivo = fopen(nombreArchivo, "w");
+				remove(nombreArchivo);
+				fclose(archivo);
+
+				swapRestante = swapRestante + TAMANIO_PAGINA;
+			}
+
+			if ((nodoPagina->presencia >= 0))
+			{
+				int numeroMarco = nodoPagina->presencia;
+
+				liberarMarco(numeroMarco, nodoPagina);
+			}
+
+			free(nodoPagina);
+		}
+
+		list_iterate(nodo->listaPaginas, (void*)_liberarMarcoOBorrarArchivoSwap);
+
 		free(nodo->listaPaginas);
+
+
 		free(nodo);
 	}
 
-
+	return EXIT_SUCCESS;
 }
 
 t_list* crearListaPaginas(int cantidadDePaginas)
@@ -522,8 +552,6 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 	int quedaParaCompletarPagina = TAMANIO_PAGINA - offset;
 	int tamanioRestante = tamanio - quedaParaCompletarPagina;
 
-
-
 	for (i=0; i<cantidadPaginasQueNecesito; i++)
 	{
 
@@ -579,7 +607,6 @@ void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int off
 
 	ordenMarco ++;
 
-
 	tablaMarcos[numeroMarco].orden = ordenMarco;
 
 	memcpy(direccionDestino, bytesAEscribir + yaEscribi, tamanio);
@@ -602,7 +629,6 @@ t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int ca
 		nodoPagina = list_get(nodoSegmento->listaPaginas, i);
 
 		list_add(paginasQueNecesito, nodoPagina);
-
 	}
 
 	return paginasQueNecesito;
@@ -792,13 +818,8 @@ void elegirVictimaSegunFIFO()
 		}
 	}
 
-
-
-
 	int numeroSegmento = nodoMarco.nro_segmento;
 	int numeroPagina = nodoMarco.nro_pagina;
-
-	printf("pid: %d   seg: %d     pag: %d\n", nodoMarco.pid, numeroSegmento, numeroPagina);
 
 	listaSegmentosDelPid = filtrarListaSegmentosPorPid(listaSegmentos, nodoMarco.pid);
 
@@ -807,10 +828,6 @@ void elegirVictimaSegunFIFO()
 	listaPaginasDelSegmento = nodoSegmento->listaPaginas;
 
 	nodoPagina = list_get(listaPaginasDelSegmento, numeroPagina);
-
-	printf("pid: %d   pidbis: %d    seg: %d     seg bis: %d    pag: %d   pagbis: %d   presencia: %d     marco: %d\n",
-			nodoMarco.pid, nodoSegmento->pid, numeroSegmento, nodoSegmento->numeroSegmento, numeroPagina, nodoPagina->nro_pagina, nodoPagina->presencia, nodoMarco.nro_marco);
-
 
 	crearArchivoDePaginacion(nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina);
 

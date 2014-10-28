@@ -82,15 +82,14 @@ int main() {
 	puts("solicitar 1234");
 	puts(solicitarMemoria(1234, 1048832, 30));
 
+	destruirSegmento(5678, 0);
+	destruirSegmento(1234, 0);
+	destruirSegmento(1234, 1048576);
 
-
-
-
-
-
-
-
-
+	puts("lista marcos despues de destruir");
+	listarMarcos();
+	printf("memoria restante: %d\n", memoriaRestante);
+	printf("swap restante: %d\n", swapRestante);
 
 
 

@@ -112,7 +112,7 @@ uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset
 
 void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset);
 
-void destruirSegmento(int pid, uint32_t base);
+int destruirSegmento(int pid, uint32_t base);
 
 t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid);
 
