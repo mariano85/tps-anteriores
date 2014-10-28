@@ -31,7 +31,7 @@
 #include <commons/collections/queue.h>
 #include <commons/process.h>
 
-#include <commons/sockets.h>
+#include "commons/sockets.h"
 
 //Internal variables
 #define KERNEL_LOG_PATH "kernel.log"
@@ -61,7 +61,7 @@ typedef struct s_tcb{
 	int32_t tid;
 	bool indicador_modo_kernel;
 	int32_t base_segmento_codigo;
-	uint32_t tamanio_indice_codigo ;
+	int32_t tamanio_segmento_codigo ;
 	int32_t indice_codigo;
 	int32_t program_counter;
 	int32_t puntero_instruccion;
@@ -92,7 +92,7 @@ typedef struct s_config_kernel{
 
 
 t_config_kernel config_kernel;
-
+t_config* kernelConfig;
 int32_t socketMSP;
 t_list *cpu_client_list;
 
@@ -158,8 +158,11 @@ void eliminarSegmentos(int32_t pID) ;
 void killProcess(t_process* aProcess);
 void conectarse_Planificador();
 t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
-int32_t getProcessPidByFd(int32_t fd);
+int32_t encontrarProcesoPorFD(int32_t fd);
+int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
 t_tcb* getProcesoDesdeCodigoBESO(char* stringCode, int32_t PID, int32_t TID, int32_t fd);
+int32_t solicitarSegmentoStack();
+int32_t solicitarSegmentoCodigo();
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
@@ -192,6 +195,7 @@ void agregarProcesoColaExit(t_process* aProcess);
 void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
 void manejo_cola_ready(void);
 void manejo_cola_exit(void);
+bool cpuLibre(void* element);
 void chequearProcesos();
 int32_t cantDeProcesosEnSistema();
 bool NoBodyHereBySemaphore(t_list* aList);

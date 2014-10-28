@@ -8,12 +8,11 @@
 
 
 #include "kernel.h"
-t_log* kernelLog;
 
 void* planificador(t_loaderThread *loaderThread){
 
 	int myPID = process_get_thread_id();
-	log_info(kernelLog, "************** Comienza el planificador!(PID: %d) ***************",myPID);
+	log_info(logKernel, "************** Comienza el planificador!(PID: %d) ***************",myPID);
 
 		//Logica principal para administrar conexiones
 		fd_set master; //file descriptor list
@@ -85,7 +84,7 @@ void* planificador(t_loaderThread *loaderThread){
 						newfd = accept(listener, (struct sockaddr *)&remoteaddr, &addrlen);
 
 						if (newfd == -1) {
-							log_error(kernelLog, string_from_format("Hubo un error en el accept para el fd: %i", i));
+							log_error(logKernel, string_from_format("Hubo un error en el accept para el fd: %i", i));
 						}
 						else {
 							FD_SET(newfd, &master); // add to master set
@@ -94,7 +93,7 @@ void* planificador(t_loaderThread *loaderThread){
 							}
 
 							//Shows the new connection administrated
-							log_info(kernelLog, string_from_format("selectserver: new connection from %s on socket %d\n",
+							log_info(logKernel, string_from_format("selectserver: new connection from %s on socket %d\n",
 									inet_ntop(remoteaddr.ss_family,
 									get_in_addr((struct sockaddr*)&remoteaddr),
 									remoteIP, INET6_ADDRSTRLEN),
@@ -106,7 +105,7 @@ void* planificador(t_loaderThread *loaderThread){
 						/*handle data from a client*/
 						t_contenido mensaje; //buffer para el dato del cliente
 						memset(mensaje, 0, sizeof(t_contenido));
-						t_header header = recibirMensaje(i, mensaje, kernelLog);
+						t_header header = recibirMensaje(i, mensaje, logKernel);
 
 						switch(header){
 						case ERR_CONEXION_CERRADA:
@@ -131,7 +130,7 @@ void* planificador(t_loaderThread *loaderThread){
 								list_remove_and_destroy_by_condition(cpu_client_list, (void*)_match_cpu_fd, (void*)free);
 							pthread_mutex_unlock(&mutex_cpu_list);
 
-							log_info(kernelLog, string_from_format("Planificador dice: Alguien mató al CPU (PID:%d)", cpuPID));
+							log_info(logKernel, string_from_format("Planificador dice: Alguien mató al CPU (PID:%d)", cpuPID));
 
 							if(processPID != 0){
 								removeProcess(processPID, false);
@@ -151,7 +150,7 @@ void* planificador(t_loaderThread *loaderThread){
 							aCPU->processPID = 0;
 							aCPU->ocupado = false;
 
-							log_info(kernelLog, string_from_format("Planificador: Nuevo CPU conectado (PID: %d) aguarda instrucciones", aCPU->cpuPID));
+							log_info(logKernel, string_from_format("Planificador: Nuevo CPU conectado (PID: %d) aguarda instrucciones", aCPU->cpuPID));
 							//Agrego el nuevo CPU a la lista.
 							pthread_mutex_lock(&mutex_cpu_list);
 								list_add(cpu_client_list, aCPU);
@@ -168,7 +167,7 @@ void* planificador(t_loaderThread *loaderThread){
 
 						bool wasExecuting = false;
 
-						log_info(kernelLog, string_from_format("CPU PID:%d, informa que termino de ejecutar el quantum del proceso PID:%d", ((t_client_cpu*)GetCPUByCPUFd(i))->cpuPID, pID_process));
+						log_info(logKernel, string_from_format("CPU PID:%d, informa que termino de ejecutar el quantum del proceso PID:%d", ((t_client_cpu*)GetCPUByCPUFd(i))->cpuPID, pID_process));
 
 						bool _match_pid(void* element){
 							if(((t_process*)element)->tcb->pid == pID_process){
@@ -181,7 +180,8 @@ void* planificador(t_loaderThread *loaderThread){
 						pthread_mutex_lock(&mutex_exec_queue);
 
 						if(list_any_satisfy(EXEC->elements, (void*)_match_pid)){
-								wasExecuting = true;
+
+							wasExecuting = true;
 
 								t_process* aProcess = list_find(EXEC->elements, (void*)_match_pid);
 								list_remove_by_condition(EXEC->elements, (void*)_match_pid);
@@ -220,7 +220,7 @@ void* planificador(t_loaderThread *loaderThread){
 
 							bool wasExecuting = false;
 
-							log_info(kernelLog, string_from_format("CPU PID:%d, informa que termino de ejecutar el quantum del proceso PID:%d", ((t_client_cpu*)GetCPUByCPUFd(i))->cpuPID, pID_process));
+							log_info(logKernel, string_from_format("CPU PID:%d, informa que termino de ejecutar el quantum del proceso PID:%d", ((t_client_cpu*)GetCPUByCPUFd(i))->cpuPID, pID_process));
 
 							bool _match_pid(void* element){
 								if(((t_process*)element)->tcb->pid == pID_process){
@@ -253,7 +253,7 @@ void* planificador(t_loaderThread *loaderThread){
 									aCPU->ocupado = false;
 									aCPU->processFd = 0;
 									aCPU->processPID = 0;
-									log_info(kernelLog, string_from_format("PCP Thread says: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", aCPU->cpuPID));
+									log_info(logKernel, string_from_format("PCP Thread says: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", aCPU->cpuPID));
 								}
 							pthread_mutex_unlock(&mutex_cpu_list);
 
@@ -285,7 +285,7 @@ void* planificador(t_loaderThread *loaderThread){
 							if((split[1] != NULL) && !(strlen(split[1]))==0){
 								memset(mensaje, 0, sizeof(t_contenido));
 								strcpy(mensaje, split[1]);
-								enviarMensaje(aProcess->process_fd, KERNEL_TO_PRG_IMPR_VARIABLES, mensaje, kernelLog);
+								enviarMensaje(aProcess->process_fd, KERNEL_TO_PRG_IMPR_VARIABLES, mensaje, logKernel);
 							}
 
 							agregarProcesoColaExit(aProcess);
@@ -355,7 +355,7 @@ void* planificador(t_loaderThread *loaderThread){
 											int32_t program_counter = atoi(split[2]);
 
 
-											log_info(kernelLog, string_from_format("El CPU me solicita usar el semaforo: %s", semaforo));
+											log_info(logKernel, string_from_format("El CPU me solicita usar el semaforo: %s", semaforo));
 
 											//busco semaforo en la lista
 											bool _match_sem(void* element){
@@ -375,43 +375,43 @@ void* planificador(t_loaderThread *loaderThread){
 											t_semaforos* semaforoActual = list_find(semaforos_list, (void*)_match_sem);
 											if(semaforoActual != NULL)
 											{
-												log_info(kernelLog, "Se encontro el semaforo requerido!...");
-												log_info(kernelLog, "****Semaforo ID: %s", semaforoActual->Id);
-												log_info(kernelLog, "****Semaforo-Antiguo Valor: %d", semaforoActual->Valor);
+												log_info(logKernel, "Se encontro el semaforo requerido!...");
+												log_info(logKernel, "****Semaforo ID: %s", semaforoActual->Id);
+												log_info(logKernel, "****Semaforo-Antiguo Valor: %d", semaforoActual->Valor);
 
 												semaforoActual->Valor --;
 
-												log_info(kernelLog, "****Semaforo-Nuevo Valor: %d", semaforoActual->Valor);
+												log_info(logKernel, "****Semaforo-Nuevo Valor: %d", semaforoActual->Valor);
 
 												if(semaforoActual->Valor >= 0){
 
 													memset(mensaje,0,sizeof(t_contenido));
-													enviarMensaje(i, KERNEL_TO_CPU_OK, mensaje, kernelLog);
-													log_info(kernelLog, "Se envio al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
+													enviarMensaje(i, KERNEL_TO_CPU_OK, mensaje, logKernel);
+													log_info(logKernel, "Se envio al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
 
-													t_header header = recibirMensaje(i, mensaje, kernelLog);
+													t_header header = recibirMensaje(i, mensaje, logKernel);
 													if(header != CPU_TO_KERNEL_OK){
-														log_info(kernelLog, "Error al recibir mensaje de CPU");
+														log_info(logKernel, "Error al recibir mensaje de CPU");
 													}
 													else{
-														log_info(kernelLog,"El CPU recibio el mensaje correctamente");
+														log_info(logKernel,"El CPU recibio el mensaje correctamente");
 													}
 												}
 												else{
 
 													memset(mensaje,0,sizeof(t_contenido));
-													enviarMensaje(i, KERNEL_TO_CPU_BLOCKED, mensaje, kernelLog);
-													log_info(kernelLog, "Se envia al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
+													enviarMensaje(i, KERNEL_TO_CPU_BLOCKED, mensaje, logKernel);
+													log_info(logKernel, "Se envia al CPU la respuesta de la funcion wait aplicada al semaforo requerido");
 
-													t_header header = recibirMensaje(i, mensaje, kernelLog);
+													t_header header = recibirMensaje(i, mensaje, logKernel);
 
 													if(header != CPU_TO_KERNEL_OK){
 
-														log_error(kernelLog, "Error al recibir mensaje de CPU");
+														log_error(logKernel, "Error al recibir mensaje de CPU");
 													}
 													else{
 
-														log_info(kernelLog,"Mensaje recibido correctamente de CPU");
+														log_info(logKernel,"Mensaje recibido correctamente de CPU");
 
 														pthread_mutex_lock(&mutex_exec_queue);
 															t_process* aProcess = list_find(EXEC->elements, (void*)_match_pid);
@@ -436,7 +436,7 @@ void* planificador(t_loaderThread *loaderThread){
 												}
 											}
 											else{
-												log_error(kernelLog, "NO SE ENCONTRO EL SEMAFORO REQUERIDO (ID: %s)", semaforo);
+												log_error(logKernel, "NO SE ENCONTRO EL SEMAFORO REQUERIDO (ID: %s)", semaforo);
 											}
 
 
@@ -489,14 +489,14 @@ void* planificador(t_loaderThread *loaderThread){
 														list_remove_by_condition(BLOCK->elements, (void*)_match_pid);
 
 														agregarProcesoColaReady(aProcess);
-														log_debug(kernelLog, "Agrege uno en READY por SIGNAL");
+														log_debug(logKernel, "Agrege uno en READY por SIGNAL");
 														agregarProcesoColaExec();
 
 														//Libero memoria
 														free(auxList);
 													}
 													else{
-														log_info(kernelLog, string_from_format("Hubo un proceso bloqueado por el semaforo %s, pero actualmente no esta en el sistema. Pudo haber sido eliminado!", mensaje));
+														log_info(logKernel, string_from_format("Hubo un proceso bloqueado por el semaforo %s, pero actualmente no esta en el sistema. Pudo haber sido eliminado!", mensaje));
 													}
 
 												pthread_mutex_unlock(&mutex_block_queue);
