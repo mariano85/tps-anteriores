@@ -94,7 +94,7 @@ void tablaPaginas(int pid);
 
 t_list* crearListaPaginas(int cantidadDePaginas);
 
-uint32_t crearSegmento(int pid, long tamanio);
+uint32_t crearSegmento(int pid, long tamanio); //arreglado
 
 uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento);
 
@@ -106,7 +106,7 @@ void inicializarMSP();
 
 void listarMarcos();
 
-void crearTablaDeMarcos();
+void crearTablaDeMarcos(); //arreglado
 
 uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset);
 
@@ -122,7 +122,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 
 t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas);
 
-void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
+int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
 
 void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi);
 

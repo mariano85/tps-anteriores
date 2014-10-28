@@ -73,8 +73,7 @@ void crearTablaDeMarcos()
 
 	if (tablaMarcos == NULL)
 	{
-		puts("Error, no se pudo crear la tabla de marcos");
-		log_trace(logs, "ERROR: no se pudo crear la tabla de marcos.");
+		log_error(logs, "ERROR: no se pudo crear la tabla de marcos.");
 		abort();
 	}
 
@@ -159,6 +158,7 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 
 
 	//Esta es una impresion de prueba.
+	puts("CREACION DE SEGMENTO");
 	printf("Nro seg: %d    PID: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid);
 	int i;
 	for(i=0; i<cantidadDePaginas; i++)
@@ -170,6 +170,7 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 		printf("		 Nro pag: %d      presencia: %d       direccion: %zu\n",  nodoPagina->nro_pagina, nodoPagina->presencia, direccion);
 
 	}
+	//Acá termina la impresion de prueba.
 
 	uint32_t direccionBase = generarDireccionLogica(nodoSegmento->numeroSegmento, 0, 0);
 
@@ -181,13 +182,6 @@ uint32_t crearSegmento(int pid, long tamanio)
 {
 	int cantidadTotalDePaginas;
 
-	if (memoriaRestante < tamanio && swapRestante < tamanio)
-	{
-		printf("Error, no hay memoria ni espacio de swap suficiente.\n");
-		log_trace(logs, "Error, no hay memoria ni espacio de swap suficiente.");
-		abort();
-	}
-
 	bool _pidCorresponde(nodo_segmento *p) {
 			return (p->pid == pid);
 		}
@@ -195,9 +189,8 @@ uint32_t crearSegmento(int pid, long tamanio)
 	int cantidadSegmentosDeEstePid = list_size(listaDeSegmentosDeEstePid);
 	if (cantidadSegmentosDeEstePid == CANTIDAD_MAX_SEGMENTOS_POR_PID)
 	{
-		printf("Error, ya hay 4096 segmentos para este PID, no se puede agregar nignuno más.");
-		log_trace(logs, "Error, ya hay 4096 segmentos para este PID, no se puede agregar nignuno más.");
-		return -1;
+		log_error(logs, "Error, ya no se pueden agregar más segmentos para PID %d. La cantidad máxima de segmentos por PID es de %d.", pid, CANTIDAD_MAX_SEGMENTOS_POR_PID);
+		return EXIT_FAILURE;
 	}
 
 	//Si el resto de la división entre el tamaño y TAMANIO_PAGINA (que es el tamaño máximo de la pagina) da 0...
@@ -215,9 +208,8 @@ uint32_t crearSegmento(int pid, long tamanio)
 
 	if (cantidadTotalDePaginas > CANTIDAD_MAX_PAGINAS_POR_SEGMENTO)
 	{
-		log_error(logs, "Error, no se puede crear el segmento porque excede el tamaño máximo.");
-		puts("Error, no se puede crear el segmento porque excede el tamaño máximo.");
-		return -1;
+		log_error(logs, "Error, no se puede crear el segmento para el PID %d porque excede el tamaño máximo de %d cantidad de páginas.", pid, CANTIDAD_MAX_PAGINAS_POR_SEGMENTO);
+		return EXIT_FAILURE;
 	}
 
 	uint32_t direccionBase = agregarSegmentoALista(cantidadTotalDePaginas, pid, cantidadSegmentosDeEstePid);
@@ -227,6 +219,10 @@ uint32_t crearSegmento(int pid, long tamanio)
 	}
 	list_sort(listaSegmentos,(void*)_ordenar);
 
+	int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica(direccionBase, &numeroSegmento, &numeroPagina, &offset);
+
+	log_trace(logs, "Para el PID %d se creó el número de segmento %d de tamanio %d", pid, numeroSegmento, tamanio);
 
 	return direccionBase;
 
@@ -241,7 +237,6 @@ int destruirSegmento(int pid, uint32_t base)
 	if (numeroPagina != 0 || offset != 0)
 	{
 		log_error(logs, "Error, la dirección proporcionada no es una dirección base.");
-		//puts("Error, la dirección proporcionada no es una dirección base.");
 		return EXIT_FAILURE;
 	}
 
@@ -254,7 +249,7 @@ int destruirSegmento(int pid, uint32_t base)
 	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
 	{
 		log_error(logs, "Error, PID y/o segmento inválidos.");
-		printf("Error, pid y/o segmento invalidos\n");
+		//printf("Error, pid y/o segmento invalidos\n");
 		return EXIT_FAILURE;
 	}
 	else
@@ -274,6 +269,8 @@ int destruirSegmento(int pid, uint32_t base)
 				fclose(archivo);
 
 				swapRestante = swapRestante + TAMANIO_PAGINA;
+
+				log_trace(logs, "Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
 			}
 
 			if ((nodoPagina->presencia >= 0))
@@ -281,6 +278,8 @@ int destruirSegmento(int pid, uint32_t base)
 				int numeroMarco = nodoPagina->presencia;
 
 				liberarMarco(numeroMarco, nodoPagina);
+
+				log_trace(logs, "Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
 			}
 
 			free(nodoPagina);
@@ -290,9 +289,12 @@ int destruirSegmento(int pid, uint32_t base)
 
 		free(nodo->listaPaginas);
 
-
 		free(nodo);
+
+		log_trace(logs, "Se destruyó el segmento %d del PID %d.", nodo->numeroSegmento, pid);
 	}
+
+
 
 	return EXIT_SUCCESS;
 }
@@ -396,7 +398,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 
 	if (list_is_empty(listaFiltradaPorPid))
 	{
-		log_error(logs, "Error, el pid ingresado no existe.");
+		log_error(logs, "Error, el PID ingresado no existe.");
 		//puts("Error, el pid ingresado no existe.");
 		return NULL;
 	}
@@ -498,6 +500,8 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	int numeroSegmento, numeroPagina, offset;
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
+	if (paginasQueNecesito == NULL) return "error";
+
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 
 	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
@@ -536,11 +540,11 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	return buffer;
 }
 
-void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
+int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
-	if (paginasQueNecesito == NULL) return;
+	if (paginasQueNecesito == NULL) return EXIT_FAILURE;
 
 	int numeroSegmento, numeroPagina, offset;
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
@@ -599,6 +603,8 @@ void escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, in
 		}
 	}
 
+	return EXIT_SUCCESS;
+
 }
 
 void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi)
@@ -649,6 +655,9 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 			tablaMarcos[i].nro_segmento = numeroSegmento;
 			tablaMarcos[i].pid = pid;
 			nodoPagina->presencia = i;
+
+			log_trace(logs, "Se asignó el marco %d a la página %d del segmento %d del PID %d.", i, nodoPagina->nro_pagina, numeroSegmento, pid);
+
 			return (tablaMarcos[i].dirFisica);
 		}
 	}
@@ -832,6 +841,8 @@ void elegirVictimaSegunFIFO()
 	crearArchivoDePaginacion(nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina);
 
 	liberarMarco(nodoMarco.nro_marco, nodoPagina);
+
+	log_trace(logs, "Se desalojó de memoria principal a la página %d del segmento %d del PID %d. El marco liberado es el n° %d.", nodoPagina->nro_pagina, nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoMarco.nro_marco);
 }
 
 void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
@@ -877,6 +888,8 @@ int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagi
 	fprintf(archivoPaginacion, "%s", buffer);
 
 	fclose(archivoPaginacion);
+
+	log_trace(logs, "Se creó el archivo de swap %s para alojar a la página %d del segmento %d del PID %d.", nombreArchivo, nodoPagina->nro_pagina, numeroSegmento, pid);
 
 	return EXIT_SUCCESS;
 
