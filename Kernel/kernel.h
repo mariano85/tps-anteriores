@@ -31,13 +31,16 @@
 #include <commons/collections/queue.h>
 #include <commons/process.h>
 
-#include "commons/sockets.h"
+#include <commons/sockets.h>
 
 //Internal variables
 #define KERNEL_LOG_PATH "kernel.log"
 #define QUEUE_LOG_PATH "queues.lHog"
 #define KERNEL_CONFIG_PATH "kernel.conf"
 #define CONFIG_KERNEL ""
+
+#define SYS_CALLS_PID 0
+#define SYS_CALLS_TID 0
 
 #define MODO_KERNEL 1
 #define MODO_USUARIO 0
@@ -61,7 +64,7 @@ typedef struct s_tcb{
 	int32_t tid;
 	bool indicador_modo_kernel;
 	int32_t base_segmento_codigo;
-	int32_t tamanio_segmento_codigo ;
+	uint32_t tamanio_indice_codigo ;
 	int32_t indice_codigo;
 	int32_t program_counter;
 	int32_t puntero_instruccion;
@@ -86,13 +89,14 @@ typedef struct s_config_kernel{
 	char* IP_CPU;
 	int32_t PUERTO_CPU;
 	int32_t QUANTUM;
+	int32_t TAMANIO_STACK;
 	char* SYSCALLS;
 } t_config_kernel;
 
 
 
 t_config_kernel config_kernel;
-t_config* kernelConfig;
+
 int32_t socketMSP;
 t_list *cpu_client_list;
 
@@ -151,6 +155,10 @@ t_loaderThread manejoColaExitThread;
 // funciones del kernel
 void finishKernel();
 void initKernel();
+void crearProcesoKM();
+char* getBytesFromFile(FILE* entrada, size_t *tam_archivo);
+int32_t escribirMemoria(int32_t pid, uint32_t direccionSegmento, char* buffer, int32_t tamanio);
+uint32_t solicitarSegmento(int32_t id_proceso, uint32_t tamanio);
 void handshakeMSP();
 void loadConfig();
 void comunicarMuertePrograma(int32_t processFd, bool wasInUmv);
@@ -158,11 +166,8 @@ void eliminarSegmentos(int32_t pID) ;
 void killProcess(t_process* aProcess);
 void conectarse_Planificador();
 t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
-int32_t encontrarProcesoPorFD(int32_t fd);
-t_process* encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
-t_tcb* getProcesoDesdeCodigoBESO(char* stringCode, int32_t PID, int32_t TID, int32_t fd);
-int32_t solicitarSegmentoStack();
-int32_t solicitarSegmentoCodigo();
+int32_t getProcessPidByFd(int32_t fd);
+t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd);
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
@@ -188,14 +193,14 @@ t_log* queueLog;
 void mostrarColas();
 void mostrarCola(t_queue* aQueue, pthread_mutex_t queueMutex, t_log* logger);
 void agregarProcesoColaNew(t_process* aProcess);
+void agregarProcesoKernel(t_process* aProcess);
+void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
 void agregarProcesoColaReady(t_process* aProcess);
 void agregarProcesoColaExec();
 void agregarProcesoColaExecEnPrimerLugar(t_process* aProcess);
 void agregarProcesoColaExit(t_process* aProcess);
-void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
 void manejo_cola_ready(void);
 void manejo_cola_exit(void);
-bool cpuLibre(void* element);
 void chequearProcesos();
 int32_t cantDeProcesosEnSistema();
 bool NoBodyHereBySemaphore(t_list* aList);
