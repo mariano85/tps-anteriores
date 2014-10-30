@@ -80,6 +80,9 @@ int swapRestante;
 
 int cantidadMarcos;
 
+t_config *config;
+
+
 //FUNCIONES
 
 void tablaPaginas(int pid);

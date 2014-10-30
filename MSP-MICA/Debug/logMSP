@@ -1,10 +1,17 @@
-[TRACE] 14:15:11:743 MSP/(7040:7040): MSP inicio su ejecucion
-[TRACE] 14:15:11:753 MSP/(7040:7040): Error en el archivo de configuracion
-[TRACE] 14:15:49:782 MSP/(7044:7044): MSP inicio su ejecucion
-[TRACE] 14:15:49:840 MSP/(7044:7044): Error en el archivo de configuracion
-[TRACE] 14:18:27:555 MSP/(7275:7275): MSP inicio su ejecucion
-[TRACE] 14:18:27:566 MSP/(7275:7275): MSP inicio su ejecucion. Tamaño memoria: 100
-[TRACE] 14:18:40:809 MSP/(7278:7278): MSP inicio su ejecucion
-[TRACE] 14:18:40:889 MSP/(7278:7278): MSP inicio su ejecucion. Tamaño memoria: 100
-[TRACE] 14:20:58:52 MSP/(7283:7283): MSP inicio su ejecucion
-[TRACE] 14:20:59:134 MSP/(7283:7283): MSP inicio su ejecucion. Tamaño memoria: 100
+[TRACE] 05:34:05:154 MSP/(10030:10030): MSP inicio su ejecucion. Tamaño memoria: 20. Tamaño swap: 20
+[TRACE] 05:34:05:199 MSP/(10030:10030): Para el PID 1234 se creó el número de segmento 0 de tamanio 40
+[TRACE] 05:34:05:207 MSP/(10030:10030): Para el PID 5678 se creó el número de segmento 0 de tamanio 40
+[TRACE] 05:34:05:211 MSP/(10030:10030): Para el PID 1234 se creó el número de segmento 1 de tamanio 40
+[TRACE] 05:34:05:230 MSP/(10030:10030): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
+[TRACE] 05:34:05:252 MSP/(10030:10030): Se asignó el marco 1 a la página 1 del segmento 0 del PID 1234.
+[TRACE] 05:34:05:258 MSP/(10030:10030): No hay espacio en la memoria principal.
+[TRACE] 05:34:05:285 MSP/(10030:10030): Se creó el archivo de swap 1234_0_0 para alojar a la página 0 del segmento 0 del PID 1234.
+[TRACE] 05:34:05:288 MSP/(10030:10030): Se desalojó de memoria principal a la página 0 del segmento 0 del PID 1234. El marco liberado es el n° 0.
+[TRACE] 05:34:05:289 MSP/(10030:10030): Se asignó el marco 0 a la página 2 del segmento 0 del PID 1234.
+[TRACE] 05:34:05:289 MSP/(10030:10030): No hay espacio en la memoria principal.
+[TRACE] 05:34:05:300 MSP/(10030:10030): Se creó el archivo de swap 1234_0_1 para alojar a la página 1 del segmento 0 del PID 1234.
+[TRACE] 05:34:05:301 MSP/(10030:10030): Se desalojó de memoria principal a la página 1 del segmento 0 del PID 1234. El marco liberado es el n° 1.
+[TRACE] 05:34:05:301 MSP/(10030:10030): Se asignó el marco 1 a la página 3 del segmento 0 del PID 1234.
+[INFO] 05:34:05:302 MSP/(10030:10030): TABLA DE MARCOS
+[INFO] 05:34:05:304 MSP/(10030:10030): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
+[INFO] 05:34:05:313 MSP/(10030:10030): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4

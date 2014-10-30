@@ -42,6 +42,9 @@ int main() {
 	listarMarcos();
 
 
+
+
+
 /*	int numeroSegmento, numeroPagina, offset;
 	obtenerUbicacionLogica();
 	uint32_t direccion = generarDireccionLogica(1, 3, 6);
