@@ -70,7 +70,7 @@ bool stillInside(int32_t processFd){
 
 }
 
-int32_t getProcessPidByFd(int32_t fd){
+int32_t encontrarProcesoPorFD(int32_t fd){
 
 	bool _match_fd(void* element) {
 		if (((t_process*)element)->process_fd == fd) {
@@ -121,6 +121,68 @@ int32_t getProcessPidByFd(int32_t fd){
 
 	pthread_mutex_lock(&mutex_exit_queue);
 	if((aProcess = (t_process*)list_find(EXIT->elements, (void*)_match_fd)) != NULL){
+		pthread_mutex_unlock(&mutex_exit_queue);
+		return aProcess->tcb->pid;
+	}
+	else{
+		pthread_mutex_unlock(&mutex_exit_queue);
+	}
+
+	return 0;
+}
+
+
+int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
+
+	bool _match_pid_tid(void* element) {
+		if ((((t_process*)element)->tcb->pid == pid) && (((t_process*)element)->tcb->tid == tid)){
+			return true;
+		}
+		return false;
+	}
+
+	/*Busco en qué cola está!*/
+	t_process* aProcess;
+
+	pthread_mutex_lock(&mutex_ready_queue);
+	if((aProcess = (t_process*)list_find(READY->elements, (void*)_match_pid_tid)) != NULL){
+		pthread_mutex_unlock(&mutex_ready_queue);
+		return aProcess->tcb->pid;
+	}
+	else{
+		pthread_mutex_unlock(&mutex_ready_queue);
+	}
+
+
+	pthread_mutex_lock(&mutex_new_queue);
+	if((aProcess = (t_process*)list_find(NEW->elements, (void*)_match_pid_tid)) != NULL){
+		pthread_mutex_unlock(&mutex_new_queue);
+		return aProcess->tcb->pid;
+	}
+	else{
+		pthread_mutex_unlock(&mutex_new_queue);
+	}
+
+	pthread_mutex_lock(&mutex_block_queue);
+	if((aProcess = (t_process*)list_find(BLOCK->elements, (void*)_match_pid_tid)) != NULL){
+		pthread_mutex_unlock(&mutex_block_queue);
+		return aProcess->tcb->pid;
+	}
+	else{
+		pthread_mutex_unlock(&mutex_block_queue);
+	}
+
+	pthread_mutex_lock(&mutex_exec_queue);
+	if((aProcess = (t_process*)list_find(EXEC->elements, (void*)_match_pid_tid)) != NULL){
+		pthread_mutex_unlock(&mutex_exec_queue);
+		return aProcess->tcb->pid;
+	}
+	else{
+		pthread_mutex_unlock(&mutex_exec_queue);
+	}
+
+	pthread_mutex_lock(&mutex_exit_queue);
+	if((aProcess = (t_process*)list_find(EXIT->elements, (void*)_match_pid_tid)) != NULL){
 		pthread_mutex_unlock(&mutex_exit_queue);
 		return aProcess->tcb->pid;
 	}
@@ -222,27 +284,34 @@ void agregarProcesoKernel(t_process* aProcess) {
 	log_info(logKernel, "Se inserta el proceso de Kernel en la cola BLOCK!");
 }
 
+
+
 void agregarProcesoColaReady(t_process* aProcess) {
+
 	t_process* process_aux;
 
-	if(aProcess != NULL){
-		process_aux = aProcess;
-	}
-	else{
+
 		pthread_mutex_lock (&mutex_new_queue);
-			/*Ordeno cola de NEW por algoritmo de SJN*/
+					/*Ordeno cola de NEW por algoritmo de SJN*/
 
-			t_list* list_aux;
-			list_aux =  NEW->elements;
-	//		list_sort(list_aux, (void*)ordernRoundRobin);   ///////// VER EL ORDEN QUE VAMOS A USAR
+					t_list* list_aux;
+					list_aux =  NEW->elements;
+					NEW->elements = list_aux;
 
-			NEW->elements = list_aux;
+					/*Extraigo el primero mas liviano*/
+					process_aux = queue_pop(NEW);
+		pthread_mutex_unlock (&mutex_new_queue);
 
-			/*Extraigo el primero mas liviano*/
-			process_aux = queue_pop(NEW);
-			pthread_mutex_unlock (&mutex_new_queue);
-	}
+
+
+	pthread_mutex_lock(&mutex_ready_queue);	/* Blocks the buffer */
+			queue_push(READY, process_aux);
+			mostrarColas();
+	pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
 }
+
+
+
 
 
 
@@ -251,20 +320,15 @@ void agregarProcesoColaReady(t_process* aProcess) {
 			t_client_cpu* aCpu;
 			t_process* aProcess;
 			bool disponible = false;
+			log_info(logKernel, "estoy en agregarproceso cola exxec pero me trabe!");
 
 			pthread_mutex_lock(&mutexCPUDISP);
 			log_debug(logKernel, "BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!");
 
-			bool _cpuLibre(void* element){
 
-					if(((t_client_cpu*)element)->ocupado == false){
-						return true;
-					}
-					return false;
-				}
 
-			if(list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)){
-				aCpu = list_find(cpu_disponibles_list, (void*) _cpuLibre);
+			if(list_any_satisfy(cpu_disponibles_list, (void*)cpuLibre)){
+				aCpu = list_find(cpu_disponibles_list, (void*) cpuLibre);
 				disponible = true;
 			}
 			pthread_mutex_unlock(&mutexCPUDISP);
@@ -272,25 +336,35 @@ void agregarProcesoColaReady(t_process* aProcess) {
 
 		if(disponible){
 			pthread_mutex_lock (&mutex_ready_queue);
+			log_info(logKernel, "entre al if!");
 
+			log_info(logKernel, "agrego un proceso de prueba!");
 				aProcess = queue_pop(READY);
+				log_info(logKernel, "saque algo de la cola ready !");
 				pthread_mutex_unlock (&mutex_ready_queue);
 
 			if(aProcess != NULL){ // ACA REVISIO SI ES UNA LLAMADA AL SISTEMA, SI LO ES LO AGREGO AL PRINCIPIO DE LA COLA EXECUTE
 
-					pthread_mutex_lock (&mutex_exec_queue);
-					int chequeoModoKernel = aProcess ->tcb->indicador_modo_kernel;
-
-					if(chequeoModoKernel == 0){
-						queue_push(EXEC, aProcess);
-					}
-					else{
-						int posicion = 0;
-						list_add_in_index(EXEC -> elements, posicion,aProcess);
-					}
+				//int chequeoModoKernel = aProcess ->tcb->indicador_modo_kernel; //////LO DEJOCOMENTADO PARA PROBARR
+				int chequeoModoKernel = 0; // ESTO HAY QUE SACARLO
+				pthread_mutex_lock (&mutex_exec_queue);
 
 
-					pthread_mutex_unlock (&mutex_exec_queue);
+									if(chequeoModoKernel == 0){
+										queue_push(EXEC, aProcess);
+										log_info(logKernel, "puse un proceso en exec!");
+									}
+									else{
+										int posicion = 0;
+										list_add_in_index(EXEC -> elements, posicion,aProcess);
+									}
+
+
+									pthread_mutex_unlock (&mutex_exec_queue);
+
+
+
+
 
 
 
@@ -301,17 +375,20 @@ void agregarProcesoColaReady(t_process* aProcess) {
 
 				//log_debug(kernelLog,("Un nuevo programa entra en ejecución (PID: %d) en Procesador PID: %d", aProcess->pid, aCpu->cpuPID));
 
-				enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
+												log_info(logKernel, "Estoy ejecutando algo !lo envie a una cpu!");
+												mostrarColas();
+												enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
 
 				mostrarColas();
 			}
 			else{
 				log_info(logKernel, "Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/");
-				log_info(logKernel, string_from_format("CPU (PID: %d) aguarda instrucciones!", aCpu->cpuPID));
+			//	log_info(logKernel, string_from_format("CPU (PID: %d) aguarda instrucciones!", aCpu->cpuPID));
 			}
 		}
+
 		else{
-			log_info(logKernel, string_from_format("Se intentó poner en ejecución un nuevo programa, pero no había ningun CPU libre o activo! :/"));
+			log_info(logKernel, "Se intentó poner en ejecución un nuevo programa, pero no había ningun CPU libre o activo! :/");
 		}
 	}
 
@@ -482,28 +559,25 @@ void manejo_cola_ready(void){
 		hayCpuLibre = false;
 
 		pthread_mutex_lock(&mutex_ready_queue);
+		log_info(logKernel, "PRUEBA1: PASE EL SEMAFORO (PID: %d) ***************",myPid);
 
-
-		bool _cpuLibre(void* element){
-
-						if(((t_client_cpu*)element)->ocupado == false){
-							return true;
-						}
-						return false;
-					}
 
 		while (READY->elements->elements_count == 0 ||
 
-					(!list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)
-						&& READY->elements->elements_count != 0))/* If there is nothing in the buffer then wait */
+					(!list_any_satisfy(cpu_disponibles_list, (void*)cpuLibre)
+						&& READY->elements->elements_count != 0)) // If there is nothing in the buffer then wait
 		{
-			if(!list_any_satisfy(cpu_disponibles_list, (void*)_cpuLibre)
+			if(!list_any_satisfy(cpu_disponibles_list, (void*)cpuLibre)
 					&& READY->elements->elements_count != 0){
 			log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso listo! Pero ninguna CPU conectada o libre aún! :( No hago nada hasta que no levanten una!");
 			}
 
 			pthread_cond_wait(&cond_ready_consumer, &mutex_ready_queue);
 		}
+
+
+
+
 
 		pthread_mutex_unlock(&mutex_ready_queue);
 			log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!");
@@ -513,6 +587,14 @@ void manejo_cola_ready(void){
 
 	}
 }
+
+bool cpuLibre(void* element){
+
+						if(((t_client_cpu*)element)->ocupado == false){
+							return true;
+						}
+						return false;
+					}
 
 void manejo_cola_exit(void){
 
@@ -530,9 +612,9 @@ void manejo_cola_exit(void){
 		log_debug(logKernel, "Exit Queue Manager Thread Says: Hey!I Got you dude!");
 		int32_t counter = 0;
 		for(counter = 0; counter < EXIT->elements->elements_count; counter ++ ){
-			t_tcb* aProcess = (t_tcb*)queue_peek(EXIT);
+			t_process* aProcess = (t_process*)queue_peek(EXIT);
 
-			removeProcess(aProcess->pid, false);
+			removeProcess(aProcess->tcb->pid, false);
 		}
 		pthread_cond_signal(&cond_exit_producer);	/* wake up producer */
 		pthread_mutex_unlock(&mutex_exit_queue);	/* release the buffer */
@@ -555,7 +637,7 @@ bool NoBodyHereBySemaphore(t_list* aList){
 		}
 
 	return list_all_satisfy(aList, (void*)_not_blocked_by_semaphore);
-}
+ }
 
 
 

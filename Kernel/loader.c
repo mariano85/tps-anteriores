@@ -125,7 +125,7 @@ void* loader(t_loaderThread *loaderThread){
 							log_info(logKernel, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
 						}
 						else if(stillInside(i)){
-							int32_t processPID = getProcessPidByFd(i);
+							int32_t processPID = encontrarProcesoPorFD(i);
 							removeProcess(processPID, true);
 							mostrarColas();
 						}
