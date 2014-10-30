@@ -615,6 +615,11 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 			if(memoriaRestante < TAMANIO_PAGINA)
 			{
 				log_trace(logs, "No hay espacio en la memoria principal.");
+				if (swapRestante < TAMANIO_PAGINA)
+				{
+					log_error(logs, "No hay espacio disponible en memoria secundaria.");
+					return EXIT_FAILURE;
+				}
 				elegirVictimaSegunFIFO();
 			}
 

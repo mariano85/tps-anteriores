@@ -20,102 +20,35 @@ int main() {
 
 	//conexionConKernelYCPU();
 
-	crearSegmento(1234, 30);
+	crearSegmento(1234, 40);
 
 	crearSegmento(5678, 40);
 
 	crearSegmento(1234, 40);
 
-	escribirMemoria(1234, 0, "1111111111", 10);
+	//escribirMemoria(1234, 0, "1111111111", 10);
 
-	escribirMemoria(5678, 0, "3333333333", 10);
-	escribirMemoria(5678, 256, "4444444444", 10);
-	escribirMemoria(1234, 1048576, "5555555555", 10);
+	//escribirMemoria(5678, 0, "3333333333", 10);
 
-	escribirMemoria(1234, 256, "2222222222", 10);
+	int escribir = escribirMemoria(1234, 0, "4444444444555555555566666666667777777777", 40);
 
-	escribirMemoria(1234, 1048832, "6666666666", 10);
-	escribirMemoria(1234, 1049088, "7777777777", 10);
-	//escribirMemoria(1234, 1049344, "8888888888", 10);
-/*	escribirMemoria(1234, 0, "1111111111", 10);
+	//escribirMemoria(1234, 256, "5555555555", 10);
 
+	//escribirMemoria(5678, 256, "3333333333", 10);
 
-
-
-	escribirMemoria(5678, 512, "9999999999", 10);
-	escribirMemoria(5678, 768, "aaaaaaaaaa", 10);
-*/
-
-	//elegirVictimaSegunFIFO();
+	printf("memoria restante: %d\n", memoriaRestante);
+	printf("swap restante: %d\n", swapRestante);
+	printf("retorno escribir: %d\n", escribir);
+	listarMarcos();
 
 
-
-
-	//int numeroSegmento, numeroPagina, offset;
-	//obtenerUbicacionLogica()
-/*
+/*	int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica();
 	uint32_t direccion = generarDireccionLogica(1, 3, 6);
 	printf("direccion: %zu\n", direccion);*/
 
 
 
-
-
-
-
-	puts("lista antes");
-	listarMarcos();
-
-	escribirMemoria(5678, 0, "aaaaaaaaaabbbbbbbbbbcccccccccc", 30);
-
-	puts("lista antes");
-		listarMarcos();
-
-		printf("memoria restante: %d\n", memoriaRestante);
-			printf("swap restante: %d\n", swapRestante);
-
-	//escribirMemoria(1234, 1048576, "ddddddddddeeeeeeeeeeffffffffffgggggggggg", 40);
-	escribirMemoria(1234, 0, "ddddddddddeeeeeeeeeeffffffffff", 30);
-
-	puts("lista despues");
-	listarMarcos();
-
-	printf("memoria restante: %d\n", memoriaRestante);
-	printf("swap restante: %d\n", swapRestante);
-
-	/*destruirSegmento(5678, 0);
-
-	moverPaginaDeSwapAMemoria(1234, 1, 0);
-	puts("lista despues de mover pagina");
-	listarMarcos();
-*/
-
-	tablaPaginas(1234);
-	tablaPaginas(5678);
-
-	printf("orden: %d\n", ordenMarco);
-
-	escribirMemoria(1234, 1048576, "lololololo", 10);
-	escribirMemoria(5678, 512, "pepepepepe", 10);
-
-	printf("memoria restante: %d\n", memoriaRestante);
-	printf("swap restante: %d\n", swapRestante);
-
-	puts("lista despues");
-	listarMarcos();
-
-	tablaPaginas(1234);
-	tablaPaginas(5678);
-
-
-	puts("solicitar");
-	puts((char*)solicitarMemoria(1234, 1048832, 10));
-
-	puts("lista despues");
-	listarMarcos();
-
-	tablaPaginas(1234);
-	tablaPaginas(5678);
 
 
 
