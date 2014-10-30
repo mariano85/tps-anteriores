@@ -20,7 +20,7 @@ int main() {
 
 	//conexionConKernelYCPU();
 
-	crearSegmento(1234, 20);
+	crearSegmento(1234, 30);
 
 	crearSegmento(5678, 40);
 
@@ -67,31 +67,86 @@ int main() {
 	listarMarcos();
 
 	escribirMemoria(5678, 0, "aaaaaaaaaabbbbbbbbbbcccccccccc", 30);
-	escribirMemoria(1234, 1048832, "ddddddddddeeeeeeeeeeffffffffff", 30);
-	escribirMemoria(5678, 768, "gggggggggg", 10);
 
-	puts("listaDespues");
+	puts("lista antes");
+		listarMarcos();
 
+		printf("memoria restante: %d\n", memoriaRestante);
+			printf("swap restante: %d\n", swapRestante);
+
+	//escribirMemoria(1234, 1048576, "ddddddddddeeeeeeeeeeffffffffffgggggggggg", 40);
+	escribirMemoria(1234, 0, "ddddddddddeeeeeeeeeeffffffffff", 30);
+
+	puts("lista despues");
+	listarMarcos();
+
+	printf("memoria restante: %d\n", memoriaRestante);
+	printf("swap restante: %d\n", swapRestante);
+
+	/*destruirSegmento(5678, 0);
+
+	moverPaginaDeSwapAMemoria(1234, 1, 0);
+	puts("lista despues de mover pagina");
+	listarMarcos();
+*/
+
+	tablaPaginas(1234);
+	tablaPaginas(5678);
+
+	printf("orden: %d\n", ordenMarco);
+
+	escribirMemoria(1234, 1048576, "lololololo", 10);
+	escribirMemoria(5678, 512, "pepepepepe", 10);
+
+	printf("memoria restante: %d\n", memoriaRestante);
+	printf("swap restante: %d\n", swapRestante);
+
+	puts("lista despues");
 	listarMarcos();
 
 	tablaPaginas(1234);
 	tablaPaginas(5678);
 
+
+	puts("solicitar");
+	puts((char*)solicitarMemoria(1234, 1048832, 10));
+
+	puts("lista despues");
+	listarMarcos();
+
+	tablaPaginas(1234);
+	tablaPaginas(5678);
+
+
+
+	/*escribirMemoria(5678, 768, "gggggggggg", 10);
+	 *
+
+
+
+
+	puts("listaDespues");
+
+	listarMarcos();
+
+
+
 	puts("solicitaaaas 5678");
 	puts(solicitarMemoria(5678, 0, 30));
 	puts("solicitar 1234");
-	puts(solicitarMemoria(1234, 1048832, 30));
+	puts(solicitarMemoria(1234, 1048832, 30));*/
 
-	destruirSegmento(5678, 0);
+/*	destruirSegmento(5678, 0);
 	destruirSegmento(1234, 0);
 	destruirSegmento(1234, 1048576);
 
 	puts("lista marcos despues de destruir");
 	listarMarcos();
 	printf("memoria restante: %d\n", memoriaRestante);
-	printf("swap restante: %d\n", swapRestante);
+	printf("swap restante: %d\n", swapRestante);*/
 
-
+	//moverPaginaDeSwapAMemoria(1234, 0, 0);
+	//listarMarcos();
 
 
 	/*PRUEBA PARA AUMENTARPROGRAMCOUNTER

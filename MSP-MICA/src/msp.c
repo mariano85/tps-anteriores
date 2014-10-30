@@ -343,13 +343,13 @@ void tablaPaginas(int pid)
 		abort();
 	}
 
-	log_info(logs, "TABLA DE PÁGINAS");
+	log_info(logs, "TABLA DE PÁGINAS DEL SEGMENTO %d.", pid);
 	void imprimirDatosSegmento(nodo_segmento *nodoSegmento)
 	{
 
 		void imprimirDatosPaginas(nodo_paginas *nodoPagina)
 		{
-			printf("Nro segmento: %d\tPID: %d\tNro Pagina: %d\tPresencia: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
+			printf("PID: %d\tNro segmento: %d\tNro Pagina: %d\tPresencia: %d\n", nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina->nro_pagina, nodoPagina->presencia);
 			log_info(logs, "Nro segmento: %d\tPID: %d\tNro Pagina: %d\tPresencia: %d", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoPagina->nro_pagina, nodoPagina->presencia);
 		}
 
@@ -504,8 +504,17 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 
-	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
+	void _traerAMemoriaPaginasSwappeadasParaLeer(nodo_paginas *nodo)
+	{
+		if (nodo->presencia == -2)
+		{
+			moverPaginaDeSwapAMemoria(pid, numeroSegmento, nodo);
+		}
+	}
 
+	list_iterate(paginasQueNecesito, (void*)_traerAMemoriaPaginasSwappeadasParaLeer);
+
+	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
 	void* direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 
 	buffer = malloc(tamanio);
@@ -520,6 +529,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	int i;
 	for (i=1; i<((list_size(paginasQueNecesito)) - 1); i++)
 	{
+
 		nodoPagina = list_get(paginasQueNecesito, i);
 		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 		buffermini = malloc(TAMANIO_PAGINA);
@@ -530,14 +540,53 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	}
 
 	//copio lo que me queda del tamanio de la ultima pagina
-	nodoPagina = list_get(paginasQueNecesito, i);
-	direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
-	buffermini = malloc(tamanio - yaCopie);
-	memset(buffermini, 0, tamanio - yaCopie);
-	memcpy(buffermini, direccionOrigen, tamanio - yaCopie);
-	memcpy(buffer + yaCopie, buffermini, tamanio - yaCopie);
+	if ((list_size(paginasQueNecesito) > 1)){
+		nodoPagina = list_get(paginasQueNecesito, i);
+		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+		buffermini = malloc(tamanio - yaCopie);
+		memset(buffermini, 0, tamanio - yaCopie);
+		memcpy(buffermini, direccionOrigen, tamanio - yaCopie);
+		memcpy(buffer + yaCopie, buffermini, tamanio - yaCopie);
+	}
+
 
 	return buffer;
+}
+
+void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
+{
+	char* nombreArchivo = string_new();
+
+	int pagina = nodoPagina->nro_pagina;
+
+	nombreArchivo = generarNombreArchivo(pid, segmento, pagina);
+
+	FILE *archivo = fopen(nombreArchivo, "r");
+
+
+	if (memoriaRestante < TAMANIO_PAGINA)
+	{
+		elegirVictimaSegunFIFO();
+	}
+
+	void* buffer = malloc(TAMANIO_PAGINA);
+
+	fread(buffer, 1, TAMANIO_PAGINA, archivo);
+
+	remove(nombreArchivo);
+
+	fclose(archivo);
+
+	swapRestante = swapRestante + TAMANIO_PAGINA;
+
+	buscarYAsignarMarcoLibre(pid, segmento, nodoPagina);
+
+	int numeroMarco = nodoPagina->presencia;
+
+	escribirEnMarco(numeroMarco, TAMANIO_PAGINA, buffer, 0, 0);
+
+	log_trace(logs, "Se movió a memoria principal la página %d del segmento %d del PID %d.", pagina, segmento, pid);
+
 }
 
 int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
@@ -565,10 +614,19 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		{
 			if(memoriaRestante < TAMANIO_PAGINA)
 			{
+				log_trace(logs, "No hay espacio en la memoria principal.");
 				elegirVictimaSegunFIFO();
 			}
 
 			buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
+		}
+
+		if (nodoPagina->presencia == -2)
+		{
+			moverPaginaDeSwapAMemoria(pid, numeroSegmento, nodoPagina);
+			ordenMarco = ordenMarco - 1; //Esto lo hago para que no se saltee ningun orden. Cuando traigo la pagina a memoria,
+										//hago un escribirEnMarco que aumenta el orden de escritura, y cuando escribo en nuevo buffer
+										//tambien, por lo que el orden se aumenta dos veces.
 		}
 
 		if (i == 0)
@@ -877,15 +935,18 @@ int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagi
 		return EXIT_FAILURE;
 	}
 
-	char* buffer = malloc(TAMANIO_PAGINA);
+	void* buffer = malloc(TAMANIO_PAGINA);
+	memset(buffer, '\0', TAMANIO_PAGINA);
 
 	int numeroMarco = nodoPagina->presencia;
 
-	char* direccionDestino = tablaMarcos[numeroMarco].dirFisica;
+	void* direccionDestino = tablaMarcos[numeroMarco].dirFisica;
 
 	memcpy(buffer, direccionDestino, TAMANIO_PAGINA);
 
-	fprintf(archivoPaginacion, "%s", buffer);
+	//fprintf(archivoPaginacion, "%s", buffer);
+
+	fwrite(direccionDestino, 1, TAMANIO_PAGINA, archivoPaginacion);
 
 	fclose(archivoPaginacion);
 

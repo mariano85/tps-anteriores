@@ -60,10 +60,6 @@ typedef struct
 	int presencia;	//si vale -1, no se le asignó ningun marco, si vale -2 está en swap, si no indica numero de marco
 } nodo_paginas;
 
-
-
-
-
 //VARIABLES globales
 
 int ordenMarco;
@@ -83,10 +79,6 @@ int memoriaRestante;
 int swapRestante;
 
 int cantidadMarcos;
-
-
-
-
 
 //FUNCIONES
 
@@ -144,7 +136,7 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina);
 
 uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
 
-
+void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas *nodoPagina);
 
 
 #endif /* MSP_H_ */
