@@ -31,7 +31,7 @@
 #include <commons/collections/queue.h>
 #include <commons/process.h>
 
-#include "commons/sockets.h"
+#include <commons/sockets.h>
 
 //Internal variables
 #define KERNEL_LOG_PATH "kernel.log"
@@ -39,7 +39,7 @@
 #define KERNEL_CONFIG_PATH "kernel.conf"
 #define CONFIG_KERNEL ""
 
-#define SYS_CALLS_PID 0
+#define SYS_CALLS_PID -1
 #define SYS_CALLS_TID 0
 
 #define MODO_KERNEL 1
@@ -165,31 +165,15 @@ void comunicarMuertePrograma(int32_t processFd, bool wasInUmv);
 void eliminarSegmentos(int32_t pID) ;
 void killProcess(t_process* aProcess);
 void conectarse_Planificador();
-
-
+t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
+int32_t getProcessPidByFd(int32_t fd);
+t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd);
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
 void *get_in_addr(struct sockaddr *sa);
 
-void* planificador();
-
-
-
-
-//LAS QUE AGREGUE YO
-t_client_cpu* encontrarCPUporFd(int32_t cpuFd);
-t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd);
-int32_t encontrarProcesoPorFD(int32_t fd);
-int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
-int32_t solicitarSegmentoStack();
-int32_t solicitarSegmentoCodigo();
-void pruebasKernel();
-void conexionCPU();
-
-
-
-//*************************************************/////////////////////////////////
+void* planificador(t_loaderThread *loaderThread);
 
 
 
@@ -223,7 +207,6 @@ bool NoBodyHereBySemaphore(t_list* aList);
 void removeProcess(int32_t processPID, bool someoneKilledHim);
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess);
 bool stillInside(int32_t processFd);
-bool cpuLibre(void* element);
 
 pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, condpBlockedProcess;
 

@@ -20,7 +20,7 @@ void *get_in_addr(struct sockaddr *sa) {
 
 void* loader(t_loaderThread *loaderThread){
 	int myPID = process_get_thread_id();
-	log_info(logKernel, "************** PLP Thread Started!(PID: %d) ***************", myPID);
+	log_info(logKernel, "************** LOADER Thread Started!(PID: %d) ***************", myPID);
 
 	fd_set master; //file descriptor list
 	fd_set read_fds; //file descriptor list temporal para el select()
@@ -125,7 +125,7 @@ void* loader(t_loaderThread *loaderThread){
 							log_info(logKernel, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
 						}
 						else if(stillInside(i)){
-							int32_t processPID = encontrarProcesoPorFD(i);
+							int32_t processPID = getProcessPidByFd(i);
 							removeProcess(processPID, true);
 							mostrarColas();
 						}
