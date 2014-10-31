@@ -48,20 +48,14 @@ void buscador_de_instruccion(char* instruccion);
 
 char* recibir_Instruccion();
 
-void cargar_diccionario();
-
 void manejar_senial(int n);
 
-void enviar_parametro(char* parametro);
-
 void enviar_posicion_recibir_registro(char* parametro);
-
-void enviar_parametro_recibir_registro(char* parametro);
-
-void enviar_parametro_recibir_numero(char* parametro);
 
 int32_t verificador_de_registro(char* valor);
 
 void funcion_verificador_segundo_registro_GETM(int32_t *var,int32_t aux2);
+
+void enviar_parametros(int32_t program_counter,int32_t auxiliar);
 
 #endif /* FUNCIONES_CPU_H_ */

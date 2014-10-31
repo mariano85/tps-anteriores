@@ -32,25 +32,25 @@ void instruccion_ADDR(int32_t *Registro1,int32_t *Registro2); //ANDA
 
 void instruccion_SUBR(int32_t *Registro1,int32_t *Registro2); //ANDA
 
-void instruccion_MULR(int32_t *Registro1,int32_t *Registro2);
+void instruccion_MULR(int32_t *Registro1,int32_t *Registro2); //ANDA
 
-/*void instruccion_MODR(int32_t Registro1,int32_t Registro2);
+void instruccion_MODR(int32_t *Registro1,int32_t *Registro2); //ANDA
 
-void instruccion_DIVR(int32_t Registro1,int32_t Registro2);
+void instruccion_DIVR(int32_t *Registro1,int32_t *Registro2); //ANDA
 
-void instruccion_INCR(int32_t Registro1);
+void instruccion_INCR(int32_t *Registro1); //ANDA
 
-void instruccion_DECR(int32_t Registro1);
+void instruccion_DECR(int32_t *Registro1);	//ANDA
 
-void instruccion_COMP(int32_t Registro1,int32_t Registro2);
+void instruccion_COMP(int32_t *Registro1,int32_t *Registro2); //ANDA
 
-void instruccion_CGEQ(int32_t Registro1,int32_t Registro2);
+void instruccion_CGEQ(int32_t *Registro1,int32_t *Registro2);	//ANDA
 
-void instruccion_CLEQ(int32_t Registro1,int32_t Registro2);
+void instruccion_CLEQ(int32_t *Registro1,int32_t *Registro2); //ANDA
 
-void instruccion_GOTO(int32_t Registro);
+void instruccion_GOTO(int32_t *Registro);	//ANDA
 
-void instruccion_JPMZ(int32_t Direccion);
+void instruccion_JMPZ(int32_t Direccion);
 
 void instruccion_JPNZ(int32_t Direccion);
 
@@ -74,7 +74,7 @@ void instruccion_BLOK(int32_t direccion);
 
 void instruccion_XXXX();
 
-void instruccion_WAKE(int32_t direccion);*/
+void instruccion_WAKE(int32_t direccion);
 
 char* solicitar_rutina_kernel(int32_t Direccion);
 
