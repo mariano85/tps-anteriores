@@ -130,6 +130,8 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 
 int destruirSegmento(int pid, uint32_t base);
 
+nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento);
+
 t_list* filtrarListaSegmentosPorPid(int pid);
 
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina);

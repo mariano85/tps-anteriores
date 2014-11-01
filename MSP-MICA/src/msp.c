@@ -431,17 +431,17 @@ t_list* filtrarListaSegmentosPorPid(int pid)
 	return listaFiltrada;
 }
 
-t_list* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento)
+nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento)
 {
 	bool _numeroCorresponde(nodo_segmento *p) {
 		return (p->numeroSegmento == numeroSegmento);
 	}
 
-	t_list *listaFiltrada;
+	nodo_segmento *nodo;
 
-	listaFiltrada = list_filter(listaSegmentosFiltradosPorPID, (void*)_numeroCorresponde);
+	nodo = list_find(listaSegmentosFiltradosPorPID, (void*)_numeroCorresponde);
 
-	return listaFiltrada;
+	return nodo;
 }
 
 
@@ -555,7 +555,10 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	int numeroSegmento, numeroPagina, offset;
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
-	if (paginasQueNecesito == NULL) return NULL;
+	if (paginasQueNecesito == NULL)
+	{
+		return NULL;
+	}
 
 	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
 
@@ -570,21 +573,22 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	list_iterate(paginasQueNecesito, (void*)_traerAMemoriaPaginasSwappeadasParaLeer);
 
 	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
+
+
 	void* direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 
 	buffer = malloc(tamanio);
+
 	memset(buffer, 0, tamanio+1);
 
 	//copio lo que queda para completar la primera pagina
 	int yaCopie = TAMANIO_PAGINA - offset;
-	memcpy(buffer, direccionOrigen, yaCopie);
-
+	memcpy(buffer, direccionOrigen, yaCopie-1);
 
 	//copio las paginas del medio
 	int i;
 	for (i=1; i<((list_size(paginasQueNecesito)) - 1); i++)
 	{
-
 		nodoPagina = list_get(paginasQueNecesito, i);
 		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 		buffermini = malloc(TAMANIO_PAGINA);
@@ -592,19 +596,22 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		memcpy(buffermini, direccionOrigen, TAMANIO_PAGINA);
 		memcpy(buffer + yaCopie, buffermini, TAMANIO_PAGINA);
 		yaCopie = yaCopie + TAMANIO_PAGINA;
+		free(buffermini);
+
 	}
 
 	//copio lo que me queda del tamanio de la ultima pagina
-	if ((list_size(paginasQueNecesito) > 1)){
+	if ((list_size(paginasQueNecesito) > 1))
+	{
 		nodoPagina = list_get(paginasQueNecesito, i);
 		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 		buffermini = malloc(tamanio - yaCopie);
 		memset(buffermini, 0, tamanio - yaCopie);
 		memcpy(buffermini, direccionOrigen, tamanio - yaCopie);
 		memcpy(buffer + yaCopie, buffermini, tamanio - yaCopie);
-	}
+		free(buffermini);
 
-	free(buffermini);
+	}
 
 	return buffer;
 }
@@ -1053,8 +1060,9 @@ void elegirVictimaSegunFIFO()
 	listaSegmentosDelPid = filtrarListaSegmentosPorPid(nodoMarco.pid);
 
 
+	nodoSegmento = buscarNumeroSegmento(listaSegmentosDelPid, numeroSegmento);
 
-	nodoSegmento = list_get(listaSegmentosDelPid, numeroSegmento);
+	//nodoSegmento = list_get(listaSegmentosDelPid, numeroSegmento);
 
 	listaPaginasDelSegmento = nodoSegmento->listaPaginas;
 

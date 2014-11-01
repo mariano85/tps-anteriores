@@ -1,22 +1,35 @@
-[TRACE] 09:29:50:797 MSP/(24287:24287): MSP inicio su ejecucion. Tamaño memoria: 20. Tamaño swap: 20
-[TRACE] 09:29:50:830 MSP/(24287:24287): Para el PID 1234 se creó el número de segmento 0 de tamanio 10
-[TRACE] 09:29:50:830 MSP/(24287:24287): Para el PID 5678 se creó el número de segmento 0 de tamanio 40
-[TRACE] 09:29:50:830 MSP/(24287:24287): Para el PID 1234 se creó el número de segmento 1 de tamanio 40
-[TRACE] 09:29:50:830 MSP/(24287:24287): Para el PID 1234 se creó el número de segmento 2 de tamanio 10
-[INFO] 09:29:50:830 MSP/(24287:24287): TABLA DE SEGMENTOS
-[INFO] 09:29:50:830 MSP/(24287:24287): PID: 1234	N°Segmento: 0	Tamaño: 10	Dirección base:0
-[INFO] 09:29:50:830 MSP/(24287:24287): PID: 1234	N°Segmento: 1	Tamaño: 40	Dirección base:1048576
-[INFO] 09:29:50:830 MSP/(24287:24287): PID: 1234	N°Segmento: 2	Tamaño: 10	Dirección base:2097152
-[INFO] 09:29:50:831 MSP/(24287:24287): PID: 5678	N°Segmento: 0	Tamaño: 40	Dirección base:0
-[TRACE] 09:29:50:831 MSP/(24287:24287): Se destruyó el segmento 1 del PID 1234.
-[TRACE] 09:29:50:831 MSP/(24287:24287): Para el PID 1234 se creó el número de segmento 3 de tamanio 20
-[INFO] 09:29:50:831 MSP/(24287:24287): TABLA DE SEGMENTOS
-[INFO] 09:29:50:831 MSP/(24287:24287): PID: 1234	N°Segmento: 0	Tamaño: 10	Dirección base:0
-[INFO] 09:29:50:831 MSP/(24287:24287): PID: 1234	N°Segmento: 2	Tamaño: 10	Dirección base:2097152
-[INFO] 09:29:50:831 MSP/(24287:24287): PID: 1234	N°Segmento: 3	Tamaño: 20	Dirección base:3145728
-[INFO] 09:29:50:831 MSP/(24287:24287): PID: 5678	N°Segmento: 0	Tamaño: 40	Dirección base:0
-[TRACE] 09:29:50:831 MSP/(24287:24287): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
-[TRACE] 09:29:50:831 MSP/(24287:24287): Se asignó el marco 1 a la página 0 del segmento 2 del PID 1234.
-[INFO] 09:29:50:832 MSP/(24287:24287): TABLA DE MARCOS
-[INFO] 09:29:50:832 MSP/(24287:24287): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 09:29:50:832 MSP/(24287:24287): Numero marco: 1     PID: 1234     Numero segmento: 2     Numero pagina: 0	   Libre: 0     Orden: 2
+[TRACE] 11:55:48:117 MSP/(28199:28199): MSP inicio su ejecucion. Tamaño memoria: 20. Tamaño swap: 20
+[TRACE] 11:55:48:118 MSP/(28199:28199): Para el PID 1234 se creó el número de segmento 0 de tamanio 10
+[TRACE] 11:55:48:118 MSP/(28199:28199): Para el PID 5678 se creó el número de segmento 0 de tamanio 40
+[TRACE] 11:55:48:118 MSP/(28199:28199): Para el PID 1234 se creó el número de segmento 1 de tamanio 40
+[TRACE] 11:55:48:123 MSP/(28199:28199): Para el PID 1234 se creó el número de segmento 2 de tamanio 10
+[INFO] 11:55:48:123 MSP/(28199:28199): TABLA DE SEGMENTOS
+[INFO] 11:55:48:123 MSP/(28199:28199): PID: 1234	N°Segmento: 0	Tamaño: 10	Dirección base:0
+[INFO] 11:55:48:124 MSP/(28199:28199): PID: 1234	N°Segmento: 1	Tamaño: 40	Dirección base:1048576
+[INFO] 11:55:48:124 MSP/(28199:28199): PID: 1234	N°Segmento: 2	Tamaño: 10	Dirección base:2097152
+[INFO] 11:55:48:124 MSP/(28199:28199): PID: 5678	N°Segmento: 0	Tamaño: 40	Dirección base:0
+[TRACE] 11:55:48:124 MSP/(28199:28199): Se destruyó el segmento 1 del PID 1234.
+[TRACE] 11:55:48:124 MSP/(28199:28199): Para el PID 1234 se creó el número de segmento 3 de tamanio 20
+[INFO] 11:55:48:124 MSP/(28199:28199): TABLA DE SEGMENTOS
+[INFO] 11:55:48:124 MSP/(28199:28199): PID: 1234	N°Segmento: 0	Tamaño: 10	Dirección base:0
+[INFO] 11:55:48:124 MSP/(28199:28199): PID: 1234	N°Segmento: 2	Tamaño: 10	Dirección base:2097152
+[INFO] 11:55:48:124 MSP/(28199:28199): PID: 1234	N°Segmento: 3	Tamaño: 20	Dirección base:3145728
+[INFO] 11:55:48:124 MSP/(28199:28199): PID: 5678	N°Segmento: 0	Tamaño: 40	Dirección base:0
+[TRACE] 11:55:48:125 MSP/(28199:28199): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
+[TRACE] 11:55:48:125 MSP/(28199:28199): Se asignó el marco 1 a la página 0 del segmento 2 del PID 1234.
+[TRACE] 11:55:48:125 MSP/(28199:28199): No hay espacio en la memoria principal.
+[TRACE] 11:55:48:125 MSP/(28199:28199): Se creó el archivo de swap 1234_0_0 para alojar a la página 0 del segmento 0 del PID 1234.
+[TRACE] 11:55:48:125 MSP/(28199:28199): Se desalojó de memoria principal a la página 0 del segmento 0 del PID 1234. El marco liberado es el n° 0.
+[TRACE] 11:55:48:125 MSP/(28199:28199): Se asignó el marco 0 a la página 0 del segmento 0 del PID 5678.
+[TRACE] 11:55:48:126 MSP/(28199:28199): Se creó el archivo de swap 1234_2_0 para alojar a la página 0 del segmento 2 del PID 1234.
+[TRACE] 11:55:48:126 MSP/(28199:28199): Se desalojó de memoria principal a la página 0 del segmento 2 del PID 1234. El marco liberado es el n° 1.
+[TRACE] 11:55:48:127 MSP/(28199:28199): Se asignó el marco 1 a la página 0 del segmento 0 del PID 1234.
+[TRACE] 11:55:48:127 MSP/(28199:28199): Se movió a memoria principal la página 0 del segmento 0 del PID 1234.
+[INFO] 11:55:48:133 MSP/(28199:28199): TABLA DE MARCOS
+[INFO] 11:55:48:133 MSP/(28199:28199): Numero marco: 0     PID: 5678     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 3
+[INFO] 11:55:48:134 MSP/(28199:28199): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 4
+[INFO] 11:55:48:134 MSP/(28199:28199): TABLA DE PÁGINAS DEL SEGMENTO 1234.
+[INFO] 11:55:48:134 MSP/(28199:28199): Nro segmento: 0	PID: 1234	Nro Pagina: 0	Presencia: 1
+[INFO] 11:55:48:134 MSP/(28199:28199): Nro segmento: 2	PID: 1234	Nro Pagina: 0	Presencia: -2
+[INFO] 11:55:48:134 MSP/(28199:28199): Nro segmento: 3	PID: 1234	Nro Pagina: 0	Presencia: -1
+[INFO] 11:55:48:134 MSP/(28199:28199): Nro segmento: 3	PID: 1234	Nro Pagina: 1	Presencia: -1

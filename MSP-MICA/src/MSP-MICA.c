@@ -41,8 +41,16 @@ int main() {
 	escribirMemoria (1234, 0, "1111111111", 10);
 	escribirMemoria (1234, 2097152, "2222222222", 10);
 
+	escribirMemoria(5678, 0, "3333333333", 10);
+
+	puts("solicito");
+	puts(solicitarMemoria(1234, 0, 10));
+
 
 	listarMarcos();
+
+	puts("tabla paginas");
+	tablaPaginas(1234);
 
 
 
