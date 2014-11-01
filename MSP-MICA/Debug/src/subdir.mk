@@ -5,14 +5,17 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/MSP-MICA.c \
+../src/consola-msp.c \
 ../src/msp.c 
 
 OBJS += \
 ./src/MSP-MICA.o \
+./src/consola-msp.o \
 ./src/msp.o 
 
 C_DEPS += \
 ./src/MSP-MICA.d \
+./src/consola-msp.d \
 ./src/msp.d 
 
 

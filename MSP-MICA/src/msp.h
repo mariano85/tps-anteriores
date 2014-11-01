@@ -22,6 +22,8 @@
 #include <sys/types.h>
 #include <pthread.h>
 #include <commons/temporal.h>
+#include <unistd.h>
+
 
 
 //ESTRUCTURAS
@@ -82,6 +84,21 @@ int cantidadMarcos;
 
 t_config *config;
 
+typedef enum {
+	CREAR_SEGMENTO,
+	DESTRUIR_SEGMENTO,
+	ESCRIBIR_MEMORIA,
+	LEER_MEMORIA,
+	TABLA_SEGMENTOS,
+	TABLA_PAGINAS,
+	LISTAR_MARCOS,
+	HELP,
+	ERROR,
+	EXIT,
+}t_comando;
+
+
+
 
 //FUNCIONES
 
@@ -89,7 +106,7 @@ void tablaPaginas(int pid);
 
 t_list* crearListaPaginas(int cantidadDePaginas);
 
-uint32_t crearSegmento(int pid, long tamanio); //arreglado
+uint32_t crearSegmento(int pid, int tamanio); //arreglado
 
 uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento);
 
@@ -98,6 +115,10 @@ void tablaSegmentos();
 t_configuracion levantarArchivoDeConfiguracion();
 
 void inicializarMSP();
+
+int consola_msp();
+
+int buscarComando(char* buffer);
 
 void listarMarcos();
 
@@ -109,7 +130,7 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 
 int destruirSegmento(int pid, uint32_t base);
 
-t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid);
+t_list* filtrarListaSegmentosPorPid(int pid);
 
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
 

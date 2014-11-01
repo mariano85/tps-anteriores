@@ -90,7 +90,7 @@ void crearTablaDeMarcos()
 
 		tablaMarcos[i].nro_marco = i;
 
-		tablaMarcos[i].dirFisica = memoriaPrincipal + i*TAMANIO_PAGINA;
+		tablaMarcos[i].dirFisica = memoriaPrincipal + i * TAMANIO_PAGINA;
 
 		tablaMarcos[i].orden = 0;
 
@@ -127,10 +127,13 @@ void inicializarMSP()
 
 	logs = log_create("logMSP", "MSP", 0, LOG_LEVEL_TRACE);
 
-	configuracion = levantarArchivoDeConfiguracion();
+/*	pthread_t hilo_consola_1;
+	if(pthread_create(&hilo_consola_1, NULL, (void*) consola_msp(), NULL)!=0){
+		puts("No se ha podido crear el proceso consola de la MSP.");
+	}*/
 
-	puts("algo");
-	puts(configuracion.sust_pags);
+
+	configuracion = levantarArchivoDeConfiguracion();
 
 	//Estas variables las uso para, cada vez que asigno un marco o swappeo una pagina, voy restando del
 	//espacio total. Cuando alguna de estas dos variables llegue a 0, significa que no hay mas espacio.
@@ -163,7 +166,21 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 	t_list *listaPaginas;
 	listaPaginas = crearListaPaginas(cantidadDePaginas);
 
-	nodoSegmento->numeroSegmento = cantidadSegmentosDeEstePid;
+	nodo_segmento *ultimoNodo;
+	if(cantidadSegmentosDeEstePid == 0)
+	{
+		nodoSegmento->numeroSegmento = 0;
+	}
+
+	else
+	{
+		ultimoNodo = list_get(listaSegmentos, cantidadSegmentosDeEstePid - 1);
+		nodoSegmento->numeroSegmento = (ultimoNodo->numeroSegmento)+1;
+	}
+
+	puts("hola");
+	printf("%d\n", cantidadSegmentosDeEstePid);
+
 	nodoSegmento->pid = pid;
 	nodoSegmento->listaPaginas = listaPaginas;
 
@@ -191,8 +208,13 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 
 }
 
-uint32_t crearSegmento(int pid, long tamanio)
+uint32_t crearSegmento(int pid, int tamanio)
 {
+	if (tamanio < 0)
+	{
+		log_error(logs, "Error, el tamaño es negativo.");
+		return EXIT_FAILURE;
+	}
 	int cantidadTotalDePaginas;
 
 	bool _pidCorresponde(nodo_segmento *p) {
@@ -224,6 +246,7 @@ uint32_t crearSegmento(int pid, long tamanio)
 		log_error(logs, "Error, no se puede crear el segmento para el PID %d porque excede el tamaño máximo de %d cantidad de páginas.", pid, CANTIDAD_MAX_PAGINAS_POR_SEGMENTO);
 		return EXIT_FAILURE;
 	}
+
 
 	uint32_t direccionBase = agregarSegmentoALista(cantidadTotalDePaginas, pid, cantidadSegmentosDeEstePid);
 
@@ -257,7 +280,7 @@ int destruirSegmento(int pid, uint32_t base)
 		return (p->pid == pid && p->numeroSegmento == numeroSegmento);
 	}
 
-	nodo_segmento * nodo;
+	nodo_segmento *nodo;
 
 	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
 	{
@@ -334,10 +357,15 @@ t_list* crearListaPaginas(int cantidadDePaginas)
 
 void tablaSegmentos()
 {
+	printf("TABLA DE SEGMENTOS\n");
 	log_info(logs, "TABLA DE SEGMENTOS");
 	void _imprimirSegmento(nodo_segmento *nodoSegmento)
 	{
-		log_info(logs, "PID: %d       N° segmento: %d", nodoSegmento->pid, nodoSegmento->numeroSegmento);
+		int cantidadPaginas = list_size(nodoSegmento->listaPaginas);
+		uint32_t direccion = generarDireccionLogica(nodoSegmento->numeroSegmento, 0, 0);
+		int tamanioSegmento = TAMANIO_PAGINA * cantidadPaginas;
+		printf("PID: %d\tN°Segmento: %d\tTamaño: %d\tDirección base:%d\n", nodoSegmento->pid, nodoSegmento->numeroSegmento, tamanioSegmento, direccion);
+		log_info(logs, "PID: %d\tN°Segmento: %d\tTamaño: %d\tDirección base:%d", nodoSegmento->pid, nodoSegmento->numeroSegmento, tamanioSegmento, direccion);
 	}
 
 	list_iterate(listaSegmentos, (void*)_imprimirSegmento);
@@ -346,7 +374,7 @@ void tablaSegmentos()
 
 void tablaPaginas(int pid)
 {
-	t_list *listaFiltrada = filtrarListaSegmentosPorPid(listaSegmentos, pid);
+	t_list *listaFiltrada = filtrarListaSegmentosPorPid(pid);
 
 	if(list_is_empty(listaFiltrada))
 	{
@@ -390,7 +418,7 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 	*numeroSegmento = (direccion >> 20) & 0xFFF;
 }
 
-t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid)
+t_list* filtrarListaSegmentosPorPid(int pid)
 {
 	bool _pidCorresponde(nodo_segmento *p) {
 		return (p->pid == pid);
@@ -403,10 +431,25 @@ t_list* filtrarListaSegmentosPorPid(t_list* listaSegmentos, int pid)
 	return listaFiltrada;
 }
 
+t_list* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento)
+{
+	bool _numeroCorresponde(nodo_segmento *p) {
+		return (p->numeroSegmento == numeroSegmento);
+	}
+
+	t_list *listaFiltrada;
+
+	listaFiltrada = list_filter(listaSegmentosFiltradosPorPID, (void*)_numeroCorresponde);
+
+	return listaFiltrada;
+}
+
+
+
 t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 {
 
-	t_list* listaFiltradaPorPid = filtrarListaSegmentosPorPid(listaSegmentos, pid);
+	t_list* listaFiltradaPorPid = filtrarListaSegmentosPorPid(pid);
 
 	if (list_is_empty(listaFiltradaPorPid))
 	{
@@ -783,20 +826,20 @@ void conexionConKernelYCPU()
 		t_header header_conexion_MSP = recibirMensaje(newFD, mensajeParaRecibirConexionCpu, logs);
 
 		pthread_t hilo;
-		pthread_t hiloKernel;
 
 		if(header_conexion_MSP == CPU_TO_MSP_HANDSHAKE)
 		{
-			puts("hola cpu");
-			pthread_create(&hilo, NULL, atenderACPU, NULL);
+
+
+			log_info(logs,"cuantas veces lo hace");
+			pthread_create(&hilo, NULL, atenderACPU, (void*)newFD);
+
+
 		}
 
-		if(header_conexion_MSP == KERNEL_TO_CPU_HANDSHAKE)
-		{
-			puts("hola kernel");
-			pthread_create(&hiloKernel, NULL, atenderAKernel, NULL);
-		}
 	}
+
+	pthread_exit(0);
 }
 
 void* atenderAKernel(void* socket_kernel)
@@ -870,64 +913,88 @@ void* atenderACPU(void* socket_cpu)
 	bool socketValidador = true;
 	t_contenido mensaje_aux;
 
-	crearSegmento(1234, 20);
-	crearSegmento(1234, 40);
-	log_info(logs,"Primer Escribir Memoria");
-	escribirMemoria(1234, 1048576, "LOADA3456GETMABADDRBDSUBRDCMULRAB",33);
-
 	while(socketValidador){
 
-		t_contenido mensaje;
-		memset(mensaje,0,sizeof(t_contenido));
-		t_header header_recibido = recibirMensaje((int)socket_cpu, mensaje, logs);
+			t_contenido mensaje;
+			memset(mensaje,0,sizeof(t_contenido));
+			t_header header_recibido = recibirMensaje((int)socket_cpu, mensaje, logs);
 
-		//Cargo lo que recibi --> el pir,dir_logica y tamanio
-
-		char** array = string_get_string_as_array(mensaje);
-		int pid = atoi(array[0]);
-		uint32_t dir_logica = atoi(array[1]);
-		int tamanio = atoi(array[2]);
+			if(header_recibido == CPU_TO_MSP_SOLICITAR_BYTES){
 
 
-		log_info(logs,"pid es %d,dir_logica es %d,tamanio es %d",pid,dir_logica,tamanio);
-
-		void* buffer_instruccion = malloc(sizeof(int32_t));
-		memset(buffer_instruccion,0,sizeof(int32_t));
-		buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
-
-		log_info(logs,"seguimiento de la dir_logica que es : %d",dir_logica);
-
-		if(header_recibido == CPU_TO_MSP_SOLICITAR_BYTES){
-
-					//Envio Instruccion
-					t_contenido mensaje_instruccion;
-					memset(mensaje_instruccion,0,sizeof(t_contenido));
-					memcpy(mensaje_instruccion,buffer_instruccion,4);
-					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
-
-					//Con este header --> Recibo lo que pido despues de pedir la instruccion --> puede ser REGISTRO -- DIRECCION - NUMERO
-					recibirMensaje((int)socket_cpu,mensaje_aux,logs);
-					char** array = string_get_string_as_array(mensaje_aux);
-
-					int32_t program_counter = atoi(array[0]);
-					int32_t auxiliar_cant_bytes = atoi(array[1]);
-
-					log_info(logs,"el auxiliar vale %d y el program_counter %d",auxiliar_cant_bytes,program_counter);
+			//Cargo lo que recibi --> el pir,dir_logica y tamanio
 
 
-					void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
-					t_contenido mensaje_parametros;
-					memset(mensaje_parametros,0,sizeof(t_contenido));
-					memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
-					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
+			log_info(logs,"ENTRO EN EL IF 1");
 
-		}
+			char** array_1 = string_get_string_as_array(mensaje);
+			int pid = atoi(array_1[0]);
+			uint32_t dir_logica = atoi(array_1[1]);
+			int tamanio = atoi(array_1[2]);
+
+
+			log_info(logs,"pid es %d,dir_logica es %d,tamanio es %d",pid,dir_logica,tamanio);
+
+			void* buffer_instruccion = malloc(sizeof(int32_t));
+			memset(buffer_instruccion,0,sizeof(int32_t));
+			buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
+
+			log_info(logs,"seguimiento de la dir_logica que es : %d",dir_logica);
+
+				//Envio Instruccion
+				t_contenido mensaje_instruccion;
+				memset(mensaje_instruccion,0,sizeof(t_contenido));
+				memcpy(mensaje_instruccion,buffer_instruccion,4);
+				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
+
+				//Con este header --> Recibo lo que pido despues de pedir la instruccion --> puede ser REGISTRO -- DIRECCION - NUMERO
+				recibirMensaje((int)socket_cpu,mensaje_aux,logs);
+				char** array = string_get_string_as_array(mensaje_aux);
+
+
+				int32_t program_counter = atoi(array[0]);
+				int32_t auxiliar_cant_bytes = atoi(array[1]);
+
+				log_info(logs,"el auxiliar vale %d y el program_counter %d",auxiliar_cant_bytes,program_counter);
+
+
+				void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
+				t_contenido mensaje_parametros;
+				memset(mensaje_parametros,0,sizeof(t_contenido));
+				memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
+				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
+
+
+				if(string_equals_ignore_case((char*)mensaje_instruccion,"XXXX")){
+
+					socketValidador = false;
+				}
+
+			}
+
+			if(header_recibido == MSP_TO_KERNEL_HANDSHAKE_OK ){
+
+				log_info(logs,"ENTRO EN EL IF 2");
+
+				char** array_1 = string_get_string_as_array(mensaje);
+				int pid = atoi(array_1[0]);
+				int32_t registro = atoi(array_1[1]);
+
+				uint32_t direccion = crearSegmento(pid, registro);
+
+				log_info(logs,"la direccion es : %d",direccion);
+
+				char* direccion_string = string_itoa(direccion);
+				t_contenido mensaje_direccion;
+				memset(mensaje_direccion, 0,sizeof(t_contenido));
+				memcpy(mensaje_direccion, direccion_string, sizeof(t_contenido));
+				enviarMensaje((int)socket_cpu, MSP_TO_CPU_SENTENCE,mensaje_direccion, logs);
+
+			}
 
 	}//Fin while
 
-
-
-	return EXIT_SUCCESS;
+				return EXIT_SUCCESS;
  }
 
 char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina)
@@ -972,7 +1039,9 @@ void elegirVictimaSegunFIFO()
 	int numeroSegmento = nodoMarco.nro_segmento;
 	int numeroPagina = nodoMarco.nro_pagina;
 
-	listaSegmentosDelPid = filtrarListaSegmentosPorPid(listaSegmentos, nodoMarco.pid);
+	listaSegmentosDelPid = filtrarListaSegmentosPorPid(nodoMarco.pid);
+
+
 
 	nodoSegmento = list_get(listaSegmentosDelPid, numeroSegmento);
 
@@ -1045,9 +1114,11 @@ uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar
 
 	obtenerUbicacionLogica(programCounterAnterior, &numeroSegmento, &numeroPagina, &offset);
 
-	if (offset + bytesASumar > TAMANIO_PAGINA)
+	printf("offset: %d    bytes a sumar: %d\n", offset, bytesASumar);
+
+	if (offset + bytesASumar >= TAMANIO_PAGINA)
 	{
-		int faltaParaCompletarPagina = TAMANIO_PAGINA - offset;
+		int faltaParaCompletarPagina = TAMANIO_PAGINA - offset ;
 		int quedaParaSumar = bytesASumar - faltaParaCompletarPagina;
 		int paginaFinal, offsetPaginaFinal;
 
@@ -1060,6 +1131,7 @@ uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar
 
 	else
 	{
+		puts("entro al if");
 		nuevoProgramCounter = generarDireccionLogica(numeroSegmento, numeroPagina, offset + bytesASumar);
 	}
 
