@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <commons/config.h>
+#include <commons/process.h>
 
 #include <commons/collections/dictionary.h>
 
@@ -89,6 +90,7 @@ t_log *logs;
 t_config* config;
 int seguir;
 int32_t puertoKernel;
+int32_t MODO;
 
 //Registro CPU despues veremos como los agrupamos
 
@@ -121,5 +123,10 @@ void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numero
 uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
 
 void conexion_Kernel();
+
+void enviar_parametros(int32_t program_counter,int32_t auxiliar);
+
+
+
 
 #endif /* VARIABLESGLOBALES_FUNCIONES_H_ */

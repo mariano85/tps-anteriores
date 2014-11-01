@@ -842,6 +842,12 @@ void conexionConKernelYCPU()
 	pthread_exit(0);
 }
 
+
+/*
+ * esta funcion la toca MARIANO Y LEANDRO
+ *
+ */
+
 void* atenderAKernel(void* socket_kernel)
 {
 	log_info(logs, "Se creo el hilo para atender al kernel, espero peticiones del kernel:");
@@ -907,6 +913,11 @@ void* atenderAKernel(void* socket_kernel)
 	return EXIT_SUCCESS;
 
 }
+
+/*
+ * esta funcion la toca MARIANO Y LEANDRO
+ *
+ */
 
 void* atenderACPU(void* socket_cpu)
 {

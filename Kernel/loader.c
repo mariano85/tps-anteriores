@@ -20,7 +20,7 @@ void *get_in_addr(struct sockaddr *sa) {
 
 void* loader(t_loaderThread *loaderThread){
 	int myPID = process_get_thread_id();
-	log_info(logKernel, "************** PLP Thread Started!(PID: %d) ***************", myPID);
+	log_info(logKernel, "************** LOADER Thread Started!(PID: %d) ***************", myPID);
 
 	fd_set master; //file descriptor list
 	fd_set read_fds; //file descriptor list temporal para el select()

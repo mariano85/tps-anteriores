@@ -24,14 +24,14 @@ int main(){
 	initKernel();
 
 	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
-	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
+//	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+//	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+//	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
 
 	pthread_join(loaderThread.tid, NULL);
-	pthread_join(planificadorThread.tid, NULL);
-	pthread_join(manejoColaReadyThread.tid, NULL);
-	pthread_join(manejoColaExitThread.tid, NULL);
+//	pthread_join(planificadorThread.tid, NULL);
+//	pthread_join(manejoColaReadyThread.tid, NULL);
+//	pthread_join(manejoColaExitThread.tid, NULL);
 	finishKernel();
 
 	return EXIT_SUCCESS;
@@ -94,7 +94,10 @@ t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, in
 	process_tcb->indicador_modo_kernel = indicadorModo;
 
 	process_tcb->base_segmento_codigo = solicitarSegmento(process_tcb->pid, tamanioCodigo);
-	process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
+
+	if(!PID == SYS_CALLS_PID){
+		process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
+	}
 
 	proceso->process_fd = fd;
 	proceso->tcb = process_tcb;

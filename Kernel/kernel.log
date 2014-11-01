@@ -581,3 +581,157 @@
 [ERROR] 12:29:53:870 Kernel/(7940:7966): #######################################################################
 [INFO] 12:29:53:872 Kernel/(7940:7966): Se envía un PCB al CPU libre elegido
 [INFO] 12:29:53:929 Kernel/(7940:7966): PRUEBA1: PASE EL SEMAFORO (PID: 7966) ***************
+[INFO] 16:43:20:651 Kernel/(3860:3860): ************** WELCOME TO KERNEL V1.0! (PID: 3860) ***************
+
+[INFO] 16:43:25:853 Kernel/(3871:3871): ************** WELCOME TO KERNEL V1.0! (PID: 3871) ***************
+
+[INFO] 16:49:01:905 Kernel/(4114:4114): ************** WELCOME TO KERNEL V1.0! (PID: 4114) ***************
+
+[INFO] 16:49:01:908 Kernel/(4114:4114): Se inicializa el kernel con parametros desde: kernel.conf
+[ERROR] 16:49:01:921 Kernel/(4114:4114): No se encontro la key 'TAMANIO_STACK' en el archivo de configuracion
+[INFO] 16:50:27:612 Kernel/(4151:4151): ************** WELCOME TO KERNEL V1.0! (PID: 4151) ***************
+
+[INFO] 16:50:27:625 Kernel/(4151:4151): Se inicializa el kernel con parametros desde: kernel.conf
+[ERROR] 16:50:27:626 Kernel/(4151:4151): No se encontro la key 'TAMANIO_STACK' en el archivo de configuracion
+[INFO] 16:51:05:342 Kernel/(4164:4164): ************** WELCOME TO KERNEL V1.0! (PID: 4164) ***************
+
+[INFO] 16:51:05:347 Kernel/(4164:4164): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:52:08:449 Kernel/(4164:4164): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:52:08:453 Kernel/(4164:4164): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 16:52:08:454 Kernel/(4164:4164): Se envía un TCB al CPU libre elegido
+[INFO] 16:52:08:455 Kernel/(4164:4164): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 16:52:49:253 Kernel/(4248:4248): ************** WELCOME TO KERNEL V1.0! (PID: 4248) ***************
+
+[INFO] 16:52:49:256 Kernel/(4248:4248): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:53:16:539 Kernel/(4164:4164): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 16:53:48:182 Kernel/(4348:4348): ************** WELCOME TO KERNEL V1.0! (PID: 4348) ***************
+
+[INFO] 16:53:48:191 Kernel/(4348:4348): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:53:52:377 Kernel/(4248:4248): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 16:54:24:355 Kernel/(4164:4164): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 16:59:07:969 Kernel/(4568:4568): ************** WELCOME TO KERNEL V1.0! (PID: 4568) ***************
+
+[INFO] 16:59:07:978 Kernel/(4568:4568): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:59:07:990 Kernel/(4568:4568): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 16:59:23:4 Kernel/(4568:4568): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:59:23:6 Kernel/(4568:4568): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 16:59:23:7 Kernel/(4568:4568): Se envía un TCB al CPU libre elegido
+[INFO] 17:03:09:839 Kernel/(4674:4674): ************** WELCOME TO KERNEL V1.0! (PID: 4674) ***************
+
+[INFO] 17:03:09:842 Kernel/(4674:4674): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:03:09:849 Kernel/(4674:4674): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:03:24:855 Kernel/(4674:4674): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 17:03:24:864 Kernel/(4674:4674): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 17:03:24:866 Kernel/(4674:4674): Se envía un TCB al CPU libre elegido
+[INFO] 17:08:26:910 Kernel/(4775:4775): ************** WELCOME TO KERNEL V1.0! (PID: 4775) ***************
+
+[INFO] 17:08:26:916 Kernel/(4775:4775): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:08:26:929 Kernel/(4775:4775): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:08:30:580 Kernel/(4785:4785): ************** WELCOME TO KERNEL V1.0! (PID: 4785) ***************
+
+[INFO] 17:08:30:581 Kernel/(4785:4785): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:08:30:582 Kernel/(4785:4785): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:08:35:750 Kernel/(4795:4795): ************** WELCOME TO KERNEL V1.0! (PID: 4795) ***************
+
+[INFO] 17:08:35:762 Kernel/(4795:4795): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:08:35:771 Kernel/(4795:4795): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:08:41:934 Kernel/(4775:4775): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:08:45:583 Kernel/(4785:4785): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:08:47:905 Kernel/(4808:4808): ************** WELCOME TO KERNEL V1.0! (PID: 4808) ***************
+
+[INFO] 17:08:47:910 Kernel/(4808:4808): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:08:47:922 Kernel/(4808:4808): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:08:50:782 Kernel/(4795:4795): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:08:56:938 Kernel/(4775:4775): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:09:00:589 Kernel/(4785:4785): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 17:09:00:590 Kernel/(4785:4785): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[1234,1048576]" 
+[INFO] 17:09:00:598 Kernel/(4785:4785): Se envía un TCB al CPU libre elegido
+[INFO] 17:09:00:598 Kernel/(4785:4785): proceso prueba
+[INFO] 17:09:00:601 Kernel/(4785:4785): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 17:09:00:603 Kernel/(4785:4785): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 17:09:00:605 Kernel/(4785:4785): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 17:09:00:609 Kernel/(4785:4785): Un nuevo proceso se insertó en la cola NEW!
+[DEBUG] 17:09:00:883 Kernel/(4785:4785): Un nuevo proceso (PID: 1) ha finalizado. Se inserta en la cola de EXIT :
+[INFO] 17:09:00:883 Kernel/(4785:4785): agregue un proceso de prueba a la cola ready
+[INFO] 17:09:00:884 Kernel/(4785:4837): ************** Exit Manager Thread Started (PID: 4837) ***************
+[INFO] 17:09:00:885 Kernel/(4785:4836): **************Ready Queue Manager Thread Started (PID: 4836) ***************
+[DEBUG] 17:09:00:890 Kernel/(4785:4837): Exit Queue Manager Thread Says: Hey!I Got you dude!
+[INFO] 17:09:00:890 Kernel/(4785:4837): La cola de procesos nuevos Ready se encuentra llena..
+[INFO] 17:09:00:890 Kernel/(4785:4837): implementar killProcess pid: 1
+[INFO] 17:09:00:891 Kernel/(4785:4836): PRUEBA1: PASE EL SEMAFORO (PID: 4836) ***************
+[INFO] 17:09:00:891 Kernel/(4785:4836): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 17:09:00:891 Kernel/(4785:4836): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 17:09:00:891 Kernel/(4785:4836): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 17:09:00:891 Kernel/(4785:4836): entre al if!
+[INFO] 17:09:00:891 Kernel/(4785:4836): agrego un proceso de prueba!
+[INFO] 17:09:00:892 Kernel/(4785:4836): saque algo de la cola ready !
+[INFO] 17:09:00:892 Kernel/(4785:4836): puse un proceso en exec!
+[INFO] 17:09:00:892 Kernel/(4785:4836): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 17:09:00:898 Kernel/(4785:4836): Se ENVIA por SOCKET:1 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[-1217628728, -1217628704, 0]" 
+[ERROR] 17:09:00:898 Kernel/(4785:4836): #######################################################################
+[ERROR] 17:09:00:899 Kernel/(4785:4836): ##    ERROR en el envío de mensajes: no se envió todo. socket: 1    ##
+[ERROR] 17:09:00:899 Kernel/(4785:4836): #######################################################################
+[INFO] 17:09:00:899 Kernel/(4785:4836): Se envía un PCB al CPU libre elegido
+[INFO] 17:09:00:934 Kernel/(4785:4836): PRUEBA1: PASE EL SEMAFORO (PID: 4836) ***************
+[INFO] 17:09:00:934 Kernel/(4785:4836): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 17:09:00:934 Kernel/(4785:4836): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 17:09:00:934 Kernel/(4785:4836): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 17:09:00:934 Kernel/(4785:4836): entre al if!
+[INFO] 17:09:00:934 Kernel/(4785:4836): agrego un proceso de prueba!
+[INFO] 17:09:00:934 Kernel/(4785:4836): saque algo de la cola ready !
+[INFO] 17:09:00:934 Kernel/(4785:4836): puse un proceso en exec!
+[INFO] 17:09:00:935 Kernel/(4785:4836): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 17:09:00:954 Kernel/(4785:4836): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[158150816, -1217629056, 0]" 
+[ERROR] 17:09:00:955 Kernel/(4785:4836): #######################################################################
+[ERROR] 17:09:00:957 Kernel/(4785:4836): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 17:09:00:959 Kernel/(4785:4836): #######################################################################
+[INFO] 17:09:00:960 Kernel/(4785:4836): Se envía un PCB al CPU libre elegido
+[INFO] 17:09:01:91 Kernel/(4785:4836): PRUEBA1: PASE EL SEMAFORO (PID: 4836) ***************
+[INFO] 17:09:01:93 Kernel/(4785:4836): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 17:09:01:96 Kernel/(4785:4836): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 17:09:01:104 Kernel/(4785:4836): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 17:09:01:106 Kernel/(4785:4836): entre al if!
+[INFO] 17:09:01:107 Kernel/(4785:4836): agrego un proceso de prueba!
+[INFO] 17:09:01:116 Kernel/(4785:4836): saque algo de la cola ready !
+[INFO] 17:09:01:119 Kernel/(4785:4836): puse un proceso en exec!
+[INFO] 17:09:01:143 Kernel/(4785:4836): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 17:09:01:198 Kernel/(4785:4836): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[158150816, -1217629056, 0]" 
+[ERROR] 17:09:01:198 Kernel/(4785:4836): #######################################################################
+[ERROR] 17:09:01:199 Kernel/(4785:4836): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 17:09:01:199 Kernel/(4785:4836): #######################################################################
+[INFO] 17:09:01:199 Kernel/(4785:4836): Se envía un PCB al CPU libre elegido
+[INFO] 17:09:01:252 Kernel/(4785:4836): PRUEBA1: PASE EL SEMAFORO (PID: 4836) ***************
+[INFO] 17:09:01:252 Kernel/(4785:4836): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+[INFO] 17:09:01:253 Kernel/(4785:4836): estoy en agregarproceso cola exxec pero me trabe!
+[DEBUG] 17:09:01:258 Kernel/(4785:4836): BUSCO CPU LIBRE PARA EJECUTAR PROGRAMA!
+[INFO] 17:09:01:258 Kernel/(4785:4836): entre al if!
+[INFO] 17:09:01:258 Kernel/(4785:4836): agrego un proceso de prueba!
+[INFO] 17:09:01:259 Kernel/(4785:4836): saque algo de la cola ready !
+[INFO] 17:09:01:260 Kernel/(4785:4836): puse un proceso en exec!
+[INFO] 17:09:01:261 Kernel/(4785:4836): Estoy ejecutando algo !lo envie a una cpu!
+[INFO] 17:09:01:301 Kernel/(4785:4836): Se ENVIA por SOCKET:2 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[158150816, -1217629056, 0]" 
+[ERROR] 17:09:01:302 Kernel/(4785:4836): #######################################################################
+[ERROR] 17:09:01:302 Kernel/(4785:4836): ##    ERROR en el envío de mensajes: no se envió todo. socket: 2    ##
+[ERROR] 17:09:01:310 Kernel/(4785:4836): #######################################################################
+[INFO] 17:09:01:311 Kernel/(4785:4836): Se envía un PCB al CPU libre elegido
+[INFO] 17:09:01:341 Kernel/(4785:4836): PRUEBA1: PASE EL SEMAFORO (PID: 4836) ***************
+[INFO] 17:09:02:928 Kernel/(4808:4808): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:09:05:789 Kernel/(4795:4795): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 17:09:11:940 Kernel/(4775:4775): Despierten al CPU! Se reintenta conexion en unos segundos 
+

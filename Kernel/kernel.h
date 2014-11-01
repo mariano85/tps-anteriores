@@ -39,7 +39,7 @@
 #define KERNEL_CONFIG_PATH "kernel.conf"
 #define CONFIG_KERNEL ""
 
-#define SYS_CALLS_PID 0
+#define SYS_CALLS_PID -1
 #define SYS_CALLS_TID 0
 
 #define MODO_KERNEL 1
