@@ -28,7 +28,7 @@
 
 #include "funciones_CPU.h"
 #include "instrucciones_CPU.h"
-#include <commons/sockets.h>
+#include "commons/sockets.h"
 
 #define MODO_KERNEL 0
 #define MODO_USUARIO 1
@@ -65,13 +65,11 @@ typedef struct{
 
 typedef struct{
     int pid;
-
 	int tid;
-
 	int indicador_modo_kernel;
 	int base_segmento_codigo;
 	int tamanio_segmento_codigo ;
-	int indice_codigo;
+	int tamanio_segmento_stack;
 	int puntero_instruccion;
 	int base_stack;
 	int cursor_stack;
@@ -82,6 +80,14 @@ typedef struct{
 }registro_TCB;
 
 registro_TCB *TCB;
+
+typedef struct s_client_cpu{
+	int32_t processFd;
+	int32_t processPID;
+	int32_t cpuPID;
+	int32_t cpuFD;
+	bool ocupado;
+}t_client_cpu;
 
 
 
@@ -98,12 +104,14 @@ int32_t A,B,C,D,E;
 int EFLAG;
 int ejecutando;
 int systemCall;
-int socketKernel;
+
 int socketMSP;
 int	p_HILO;
 int32_t program_counter;
 char* ipKernel  ;
-
+int32_t QUANTUM;
+int cont;
+int termino_proceso_XXXX;
 int newFD;
 
 sem_t mutex_A;

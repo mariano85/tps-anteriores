@@ -7,30 +7,50 @@
 
 #include "kernel.h"
 extern t_log* logKernel;
-t_log* queueLog;
+
 
 int main(){
 
-	//Crea un archivo de log para el kernel
-	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", true, LOG_LEVEL_DEBUG);
+	///Crea un archivo de log para el kernel
+	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", 1, LOG_LEVEL_DEBUG);
 	//Crea un archivo para log de colas
-	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", false, LOG_LEVEL_INFO);
+	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", 1, LOG_LEVEL_INFO);
 
 	// Hello Kernel!
 	//system("clear");
-	int kernel_pid = getpid();
-	log_info(logKernel, "************** WELCOME TO KERNEL V1.0! (PID: %d) ***************\n", kernel_pid);
-
+	//int kernel_pid = getpid();
+	//log_info(logKernel, "************** WELCOME TO KERNEL V1.0! (PID: %d) ***************\n", kernel_pid);
 	initKernel();
 
-	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
-//	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-//	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+	// Conexion CPU Y HANDSHAKE
+
+	socket_cpu = conectarAServidor(config_kernel.IP_CPU,config_kernel.PUERTO);
+
+	while(socket_cpu == EXIT_FAILURE){
+		log_info(logKernel,"Despierten al CPU! Se reintenta conexion en unos segundos \n");
+			sleep(22);
+		socket_cpu = conectarAServidor(config_kernel.IP_CPU,config_kernel.PUERTO);
+
+	}
+
+	//1) Fase uno es el handshake
+
+		t_contenido mensaje;
+		memset(mensaje,0,sizeof(t_contenido));
+		strcpy(mensaje,"hola");
+
+		enviarMensaje(socket_cpu,KERNEL_TO_CPU_HANDSHAKE,mensaje,logKernel);
+
+
+
+//	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
+	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);
+	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 //	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
 
-	pthread_join(loaderThread.tid, NULL);
-//	pthread_join(planificadorThread.tid, NULL);
-//	pthread_join(manejoColaReadyThread.tid, NULL);
+//	pthread_join(loaderThread.tid, NULL);
+	pthread_join(planificadorThread.tid, NULL);
+	pthread_join(manejoColaReadyThread.tid, NULL);
 //	pthread_join(manejoColaExitThread.tid, NULL);
 	finishKernel();
 
@@ -48,7 +68,7 @@ void initKernel(){
 	loadConfig();
 
 	//Inicializa lista de Cpu's
-	cpu_client_list = list_create();
+	cpu_disponibles_list = list_create();
 
 	pthread_mutex_init(&mutex_cpu_list, NULL);
 
@@ -66,23 +86,47 @@ void initKernel(){
 	pthread_mutex_init(&mutex_exec_queue, NULL );
 	pthread_mutex_init(&mutex_exit_queue, NULL );
 
-	socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
 
-	while (socketMSP == EXIT_FAILURE) {
+
+
+	//******************************************
+	//********************************************************//PRUEBA
+
+			t_process* aProcess = malloc(sizeof(t_process));
+			t_process* aProcess2 = malloc(sizeof(t_process));
+			t_tcb* aTcb1 = malloc(sizeof(t_tcb));
+			t_tcb* aTcb2 = malloc(sizeof(t_tcb));
+			aProcess->tcb = aTcb1;
+			aProcess2->tcb = aTcb2;
+			aTcb1->pid = 1024;
+			aTcb1->indicador_modo_kernel = 0;
+			agregarProcesoColaNew(aProcess);
+			agregarProcesoColaNew(aProcess2);
+			agregarProcesoColaReady(aProcess);
+			agregarProcesoColaReady(aProcess2);
+
+
+
+
+/*
+
+
+	 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+
+	 while (socketMSP == EXIT_FAILURE) {
 		 log_info(logKernel, "Despierten a la MSP! Se reintenta conexion en unos segundos ;) \n");
 		 sleep(5);
 		 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
-	}
+	 }
 
-	log_info(logKernel, "Logro conectarse a la MSP! =)");
+	 handshakeMSP();
 
-	handshakeMSP();
+	 log_info(logKernel, "Se ha establecido conexion con el proceso MSP\n");
 
-	log_info(logKernel, "Se ha establecido conexion con el proceso MSP");
-
-	crearProcesoKM();
+	 */
 
 }
+
 
 t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd)
 {
@@ -94,10 +138,7 @@ t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, in
 	process_tcb->indicador_modo_kernel = indicadorModo;
 
 	process_tcb->base_segmento_codigo = solicitarSegmento(process_tcb->pid, tamanioCodigo);
-
-	if(!PID == SYS_CALLS_PID){
-		process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
-	}
+	process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
 
 	proceso->process_fd = fd;
 	proceso->tcb = process_tcb;
@@ -191,6 +232,7 @@ uint32_t solicitarSegmento(int32_t id_proceso, uint32_t tamanio){
 	return direccionMSP;
 }
 
+
 void handshakeMSP() {
 
 	t_contenido mensaje;
@@ -202,7 +244,7 @@ void handshakeMSP() {
 void loadConfig(){
 
 	log_info(logKernel, "Se inicializa el kernel con parametros desde: %s", KERNEL_CONFIG_PATH);
-	t_config* kernelConfig = config_create(KERNEL_CONFIG_PATH);
+	 kernelConfig = config_create(KERNEL_CONFIG_PATH);
 
 	if (config_has_property(kernelConfig, "PUERTO")) {
 		//strcpy(PUERTO_PROG, (char*) config_get_string_value(configPath, "PUERTO_PROG"));
@@ -214,6 +256,8 @@ void loadConfig(){
 		config_destroy(kernelConfig);
 		exit(EXIT_FAILURE);
 	}
+
+
 
 	if (config_has_property(kernelConfig, "IP_MSP")) {
 		config_kernel.IP_MSP = string_duplicate(
@@ -275,15 +319,6 @@ void loadConfig(){
 		exit(EXIT_FAILURE);
 	}
 
-	if (config_has_property(kernelConfig, "TAMANIO_STACK")) {
-		config_kernel.TAMANIO_STACK = config_get_int_value(kernelConfig,
-				"TAMANIO_STACK");
-	} else {
-		log_error(logKernel,
-				"No se encontro la key 'TAMANIO_STACK' en el archivo de configuracion");
-		config_destroy(kernelConfig);
-		exit(EXIT_FAILURE);
-	}
 }
 
 void comunicarMuertePrograma(int32_t pid, bool wasInMsp){
@@ -308,7 +343,7 @@ void killProcess(t_process* aProcess){
 }
 
 
-t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
+t_client_cpu* encontrarCPUporFd(int32_t cpuFd){
 
 	bool _match_cpu_fd(void* element){
 		if(((t_client_cpu*)element)->cpuFD == cpuFd){
@@ -323,17 +358,15 @@ t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
 
 
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
-
-	int32_t v1 = aProcess->tcb->pid;
-	int32_t v2 = aProcess->tcb->program_counter;
-
-
-
-	t_contenido mensaje;
-	memset(mensaje, 0, sizeof(t_contenido));
-	strcpy(mensaje, string_from_format("[%d, %d, %d]", v1, v2,  config_kernel.QUANTUM));
-	enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
-	log_info(logKernel, "Se envía un PCB al CPU libre elegido");
+	//PROBANDO
+				t_contenido mensaje;
+				memset(mensaje, 0, sizeof(t_contenido));
+				strcpy(mensaje, string_from_format("[%d, %d, %d]", aProcess->tcb->pid,aProcess->tcb->program_counter,  config_kernel.QUANTUM));
+				enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
+				log_info(logKernel, "Se envía un TCB al CPU libre elegido");
 
 }
+
+
+
 

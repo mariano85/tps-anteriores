@@ -91,19 +91,22 @@ int main(int argc, char *argv[]) {
 			TCB->pid = atoi(array[0]); //1234;
 			TCB->base_segmento_codigo = atoi(array[1]);//1048576;
 			TCB->tamanio_segmento_codigo = 9;
-			int32_t QUANTUM = atoi(array[2]);
+			QUANTUM = atoi(array[2]);
 			TCB->indicador_modo_kernel = atoi(array[3]);
 
 			log_info(logs,"el valor del pid es %d",TCB->pid);
 			log_info(logs,"el valor de la base es %d",TCB->base_segmento_codigo);
-			log_info(logs,"el valor del quantum  es %d",TCB->base_segmento_codigo);
+			log_info(logs,"el valor del quantum  es %d",QUANTUM);
 			log_info(logs,"el valor del modo es %d",TCB->indicador_modo_kernel);
 
 			program_counter = TCB->base_segmento_codigo;
 			MODO = TCB->indicador_modo_kernel;
 
-			int cont = 0;
+			log_info(logs,"el modo es %d",MODO);
 
+			systemCall = 0;
+			cont = 0;
+	//		termino_proceso_XXXX = 0;
 
 			while(cont < QUANTUM && MODO == MODO_USUARIO){
 
@@ -128,14 +131,16 @@ int main(int argc, char *argv[]) {
 
 				cont ++;
 
+				log_info(logs,"el contador es %d",cont);
+
 			}// Fin while cont
 
-			while(TCB->indicador_modo_kernel == MODO_KERNEL){ //Para salir modifico en la instruccion XXXX el systemCall = 0
+		while(TCB->indicador_modo_kernel == MODO_KERNEL && systemCall == 1 && termino_proceso_XXXX == 1){ //Para salir modifico en la instruccion XXXX el systemCall = 0
 
 				//Pido la instruccion a la MSP
 				t_contenido mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP;
 				memset(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,0,sizeof(t_contenido));
-				strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",TCB->pid,TCB->indice_codigo,TCB->puntero_instruccion));
+				strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",TCB->pid,TCB->puntero_instruccion));
 				enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);
 
 				t_header header_verificar_mensaje = recibirMensaje(socketMSP,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);
@@ -149,7 +154,7 @@ int main(int argc, char *argv[]) {
 			}//Fin while(systemCall)
 
 
-			if(cont == QUANTUM){
+			if(cont == QUANTUM ){
 
 				t_contenido mensaje_para_el_kernel;
 				memset(mensaje_para_el_kernel,0,sizeof(t_contenido));
@@ -159,6 +164,8 @@ int main(int argc, char *argv[]) {
 				}
 
 			free(TCB);
+
+			log_info(logs,"el contador final  es %d",cont);
 
 		}//Fin while seguir
 
@@ -219,7 +226,7 @@ uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar
 
 	obtenerUbicacionLogica(programCounterAnterior, &numeroSegmento, &numeroPagina, &offset);
 
-	if (offset + bytesASumar > TAMANIO_PAGINA)
+	if (offset + bytesASumar >= TAMANIO_PAGINA)
 	{
 		int faltaParaCompletarPagina = TAMANIO_PAGINA - offset ;
 		int quedaParaSumar = bytesASumar - faltaParaCompletarPagina ;
@@ -286,6 +293,18 @@ void conexion_Kernel(){
 
 				if(header_conexion_kernel == KERNEL_TO_CPU_HANDSHAKE){
 					log_info(logs,"El HandShake se hace con exito");
+
+					t_contenido mensaje_para_el_kernel;
+					t_client_cpu* aCPU = malloc(sizeof(t_client_cpu));
+					aCPU->cpuFD = 001;
+					aCPU->cpuPID = 10024;
+					aCPU->processFd = 0;
+					aCPU->processPID = 0;
+					aCPU->ocupado = false;
+					memset(mensaje_para_el_kernel,0,sizeof(t_contenido));
+					strcpy(mensaje_para_el_kernel, string_from_format("[%d,%d,%d,%d,%d]",aCPU->cpuFD,aCPU->cpuPID ,aCPU->processFd ,aCPU->processPID, aCPU ->ocupado));
+					enviarMensaje(newFD,CPU_TO_KERNEL_HANDSHAKE,mensaje_para_el_kernel,logs);
+					log_info(logs,"Envio una cpu con exito");
 				}
 
 	}
