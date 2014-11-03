@@ -961,10 +961,102 @@ void buscador_de_instruccion(char* instruccion){
 
 	if(string_equals_ignore_case(INTE,instruccion)){
 
+		int32_t auxiliar = 4;
+
+		enviar_parametros(program_counter,auxiliar);
+
+		t_contenido mensaje_para_recibir_bytes;
+		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
+		t_header header_recibir_bytes = recibirMensaje(socketMSP,mensaje_para_recibir_bytes,logs);
+
+		if(header_recibir_bytes == MSP_TO_CPU_BYTES_RECIBIDOS){
+
+			log_info(logs,"voy a ejecutar una instruccion privilegiada");
+
+			int32_t direccion_recibida;
+
+			memcpy(&direccion_recibida,mensaje_para_recibir_bytes,4);
+
+			log_info(logs,"el registro1 es %d",direccion_recibida);
+
+			instruccion_INTE(direccion_recibida);
+
+		}
+	}
+
+	//#21 NOPP
+	//Consume un ciclo del CPU sin hacer nada
+
+	if(string_equals_ignore_case(NOPP,instruccion)){
+
+		int32_t auxiliar = 0;
+
+		enviar_parametros(program_counter,auxiliar);
+
+		t_contenido mensaje_para_recibir_bytes;
+		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
+		recibirMensaje(socketMSP,mensaje_para_recibir_bytes,logs);
+
+		log_info(logs,"Consumo un Quantum");
+
+	}
+
+	//#22 MALC
+
+	if(string_equals_ignore_case(MALC,instruccion)){
+
+		int32_t auxiliar = 0;
+
+		enviar_parametros(program_counter,auxiliar);
+
+		t_contenido mensaje_para_recibir_bytes;
+		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
+		recibirMensaje(socketMSP,mensaje_para_recibir_bytes,logs);
 
 
+		log_info(logs,"El MALC esta por entrar");
 
 
+		instruccion_MALC();
+	}
+
+	//#24 FREE
+
+	if(string_equals_ignore_case(FREE,instruccion)){
+
+		int32_t auxiliar = 0;
+
+		enviar_parametros(program_counter,auxiliar);
+
+		t_contenido mensaje_para_recibir_bytes;
+		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
+		recibirMensaje(socketMSP,mensaje_para_recibir_bytes,logs);
+
+				log_info(logs,"El FREE esta por entrar");
+
+				instruccion_FREE();
+
+	}
+
+
+	//#23 XXXX
+
+	if(string_equals_ignore_case(XXXX,instruccion)){
+
+		int32_t auxiliar = 0;
+
+		enviar_parametros(program_counter,auxiliar);
+
+		t_contenido mensaje_para_recibir_bytes;
+		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
+		recibirMensaje(socketMSP,mensaje_para_recibir_bytes,logs);
+
+		log_info(logs,"El XXXX esta por entrar");
+
+		instruccion_XXXX();
+
+	//	cont = QUANTUM;
+		termino_proceso_XXXX = 1;
 
 	}
 

@@ -94,16 +94,23 @@ void initKernel(){
 
 			t_process* aProcess = malloc(sizeof(t_process));
 			t_process* aProcess2 = malloc(sizeof(t_process));
+			t_process* aProcess3 = malloc(sizeof(t_process));
 			t_tcb* aTcb1 = malloc(sizeof(t_tcb));
 			t_tcb* aTcb2 = malloc(sizeof(t_tcb));
+			t_tcb* aTcb3 = malloc(sizeof(t_tcb));
 			aProcess->tcb = aTcb1;
 			aProcess2->tcb = aTcb2;
+			aProcess3->tcb = aTcb3;
 			aTcb1->pid = 1024;
 			aTcb1->indicador_modo_kernel = 0;
+			aTcb3->pid = 1025;
+			aTcb3->indicador_modo_kernel = 0;
 			agregarProcesoColaNew(aProcess);
 			agregarProcesoColaNew(aProcess2);
-			agregarProcesoColaReady(aProcess);
-			agregarProcesoColaReady(aProcess2);
+			agregarProcesoColaNew(aProcess3);
+
+
+			//ESTE ES UN PROCESO QUE TENGO QUE FINALIZAR
 
 
 
@@ -358,12 +365,12 @@ t_client_cpu* encontrarCPUporFd(int32_t cpuFd){
 
 
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
-	//PROBANDO
+
 				t_contenido mensaje;
 				memset(mensaje, 0, sizeof(t_contenido));
-				strcpy(mensaje, string_from_format("[%d, %d, %d]", aProcess->tcb->pid,aProcess->tcb->program_counter,  config_kernel.QUANTUM));
+				strcpy(mensaje, string_from_format("[%d, %d, %d,%d,%d]", aProcess->tcb->pid,aProcess->tcb->base_segmento_codigo, aProcess->tcb->tamanio_segmento_codigo, config_kernel.QUANTUM,aProcess->tcb->indicador_modo_kernel));
 				enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
-				log_info(logKernel, "Se envía un TCB al CPU libre elegido");
+				log_info(logKernel, "Envie un tcb a la cpu elegida. AHORA LO TIENE QUE EJECUTAR !!!!!!!!!");
 
 }
 

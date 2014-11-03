@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
 
 			systemCall = 0;
 			cont = 0;
-	//		termino_proceso_XXXX = 0;
+			termino_proceso_XXXX = 0;
 
 			while(cont < QUANTUM && MODO == MODO_USUARIO){
 
@@ -160,6 +160,10 @@ int main(int argc, char *argv[]) {
 				memset(mensaje_para_el_kernel,0,sizeof(t_contenido));
 				strcpy(mensaje_para_el_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,program_counter,TCB->indicador_modo_kernel,A,B,C,D,E));
 				enviarMensaje(newFD,CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE,mensaje_para_el_kernel,logs);
+
+
+
+
 
 				}
 
@@ -295,17 +299,26 @@ void conexion_Kernel(){
 					log_info(logs,"El HandShake se hace con exito");
 
 					t_contenido mensaje_para_el_kernel;
+
+					////////AVISO MI ID DE CPU CUANDO ME CONECTO//////////////////
 					t_client_cpu* aCPU = malloc(sizeof(t_client_cpu));
-					aCPU->cpuFD = 001;
-					aCPU->cpuPID = 10024;
+					aCPU->cpuFD = socketFD;
+					aCPU->cpuPID =  process_getpid();
 					aCPU->processFd = 0;
 					aCPU->processPID = 0;
 					aCPU->ocupado = false;
+					/////////////////////////////////////////////////////////////
 					memset(mensaje_para_el_kernel,0,sizeof(t_contenido));
 					strcpy(mensaje_para_el_kernel, string_from_format("[%d,%d,%d,%d,%d]",aCPU->cpuFD,aCPU->cpuPID ,aCPU->processFd ,aCPU->processPID, aCPU ->ocupado));
 					enviarMensaje(newFD,CPU_TO_KERNEL_HANDSHAKE,mensaje_para_el_kernel,logs);
 					log_info(logs,"Envio una cpu con exito");
+
+
+					//PRUEBA QUIERO FINALIZAR UN PROCESO.
+
 				}
+
+
 
 	}
 

@@ -460,7 +460,7 @@ else{
 
 
 	void chequearProcesos(){
-		//if(config_kernel.MULTIPROG > ObtenerCantidadDeProcesosEnSistema()){
+
 			if(queue_size(NEW) > 0){
 				agregarProcesoColaReady(NULL);
 			}
@@ -541,7 +541,7 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 	pthread_mutex_unlock (&mutex_block_queue);
 
 	if(Hit){
-		if(!someoneKilledHim){/*Si nadie lo mató, entonces entró en la cola de EXIT y el PLP lo está expulsando del sistema*/
+		if(!someoneKilledHim){/*Si nadie lo mató, entonces entró en la cola de EXIT a*/
 			//ComunicarMuertePrograma(aProcess->pid);
 		}
 		/*Si el proceso que murió no era uno nuevo, entonces veo si por el gr. de multiprog puedo meter uno nuevo!*/
@@ -566,8 +566,8 @@ void manejo_cola_ready(void){
 	log_info(logKernel, "**************Paso a ready los procesos de la cola new****",myPid);
 
 
-/*
 
+	//PARA IR VERIFICANDO LA COLA NEW
 
 	for(;;){
 		pthread_mutex_lock(&mutex_new_queue);
@@ -575,14 +575,13 @@ void manejo_cola_ready(void){
 
 		}
 		pthread_mutex_unlock(&mutex_new_queue);
-		log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!");
+		log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso en new! Voy a pasarlo a ready!");
 		agregarProcesoColaReady(aProcess);
 
 		pthread_cond_signal(&cond_new_producer);
 
 	}
 
-	*/
 
 
 	for(;;){
@@ -617,7 +616,7 @@ void manejo_cola_ready(void){
 
 void manejo_cola_exit(void){
 
-	int myPid = process_get_thread_id(); 	log_info(logKernel, "************** Exit Manager Thread Started (PID: %d) ***************",myPid);
+	int myPid = process_get_thread_id(); 	log_info(logKernel, "************** Manejo cola exit (PID: %d) ***************",myPid);
 
 	for(;;){
 
@@ -628,7 +627,7 @@ void manejo_cola_exit(void){
 		}
 
 		/*Make things happen here!*/
-		log_debug(logKernel, "Exit Queue Manager Thread Says: Hey!I Got you dude!");
+		log_debug(logKernel, "Hay un proceso ! Vamos a sacarlo!");
 		int32_t counter = 0;
 		for(counter = 0; counter < EXIT->elements->elements_count; counter ++ ){
 			t_tcb* aProcess = (t_tcb*)queue_peek(EXIT);
