@@ -301,3 +301,71 @@ int32_t enviarCodigo(int32_t numSocket, t_header header, t_contenido initialMess
 
 	return 1;
 }
+
+int enviar(int sock, char *buffer, int tamano)
+{
+	int escritos;
+
+	if ((escritos = send (sock, buffer, tamano, 0)) <= 0)
+	{
+		printf("Error en el send\n\n");
+		return WARNING_SOCK;
+	}
+	else if (escritos != tamano)
+	{
+		printf("La cantidad de bytes enviados es distinta de la que se quiere enviar\n\n");
+		return WARNING_SOCK;
+	}
+
+	return EXITO_SOCK;
+}
+
+int recibir(int sock, char *buffer, int tamano)
+{
+	int val;
+	int leidos = 0;
+
+	memset(buffer, '\0', tamano);
+
+	while (leidos < tamano)
+	{
+
+		val = recv(sock, buffer + leidos, tamano - leidos, 0);
+		leidos += val;
+		if (val < 0)
+		{
+			printf("Error al recibir datos: %d - %s\n", val, strerror(val)); //ENOTCONN ENOTSOCK
+			switch(val) {
+				// The  socket  is  marked non-blocking and the receive operation would block, or a receive timeout had been set and the timeout expired before data was received.  POSIX.1-2001 allows either error to be returned for this
+				// case, and does not require these constants to have the same value, so a portable application should check for both possibilities.
+				//case EAGAIN: printf(" - EAGAIN \n The  socket  is  marked non-blocking and the receive operation would block, or a receive timeout had been set and the timeout expired before data was received.\n\n"); break;
+				//case EWOULDBLOCK: printf("EWOULDBLOCK \n The  socket  is  marked non-blocking and the receive operation would block, or a receive timeout had been set and the timeout expired before data was received.\n\n"); break;
+				// The argument sockfd is an invalid descriptor.
+				case EBADF: printf("EBADF \n The argument sockfd is an invalid descriptor.\n\n"); break;
+				// A remote host refused to allow the network connection (typically because it is not running the requested service).
+				case ECONNREFUSED: printf("ECONNREFUSED \n A remote host refused to allow the network connection (typically because it is not running the requested service).\n\n"); break;
+				// The receive buffer pointer(s) point outside the process's address space.
+				case EFAULT: printf("EFAULT \n The receive buffer pointer(s) point outside the process's address space.\n\n"); break;
+				// The receive was interrupted by delivery of a signal before any data were available; see signal(7).
+				case EINTR: printf("EINTR \n The receive was interrupted by delivery of a signal before any data were available; see signal(7).\n\n"); break;
+				// Invalid argument passed.
+				case EINVAL: printf("EINVAL \n Invalid argument passed.\n\n"); break;
+				// Could not allocate memory for recvmsg().
+				case ENOMEM: printf("ENOMEM \n Could not allocate memory for recvmsg().\n\n"); break;
+				// The socket is associated with a connection-oriented protocol and has not been connected (see connect(2) and accept(2)).
+				case ENOTCONN: printf("ENOTCONN \n The socket is associated with a connection-oriented protocol and has not been connected (see connect(2) and accept(2)).\n\n"); break;
+				// The argument sockfd does not refer to a socket.
+				case ENOTSOCK: printf("ENOTSOCK \n The argument sockfd does not refer to a socket.\n\n"); break;
+
+			}
+			return ERROR_SOCK;
+		}
+		// Cuando recv devuelve 0 es porque se desconecto el socket.
+		if(val == 0)
+		{
+			/*printf("%d se desconecto\n", sock);*/
+			return WARNING_SOCK;
+		}
+	}
+	return EXITO_SOCK;
+}
