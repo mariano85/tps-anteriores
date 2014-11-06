@@ -32,7 +32,7 @@
 #include <commons/collections/queue.h>
 #include <commons/process.h>
 
-#include "commons/sockets.h"
+#include <commons/sockets.h>
 
 //Internal variables
 #define KERNEL_LOG_PATH "kernel.log"
@@ -49,8 +49,6 @@
 
 t_log* queueLog;
 t_log* logKernel;
-
-int aux;
 
 t_config* kernelConfig;
 int socket_cpu;

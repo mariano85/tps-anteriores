@@ -8,6 +8,8 @@
 #include "kernel.h"
 t_log* logKernel;
 
+char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo);
+void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio);
 
 // get sockaddr, IPv4 or IPv6:
 void *get_in_addr(struct sockaddr *sa) {
@@ -19,8 +21,8 @@ void *get_in_addr(struct sockaddr *sa) {
 }
 
 void* loader(t_loaderThread *loaderThread){
-	int myPID = process_get_thread_id();
-	log_info(logKernel, "************** PLP Thread Started!(PID: %d) ***************", myPID);
+	int tid = process_get_thread_id();
+	log_info(logKernel, "************** El Thread del Loder comenzó!(PID: %d) ***************", tid);
 
 	fd_set master; //file descriptor list
 	fd_set read_fds; //file descriptor list temporal para el select()
@@ -138,25 +140,31 @@ void* loader(t_loaderThread *loaderThread){
 						enviarMensaje(i, CON_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
 						break;
 					case CON_TO_KRN_CODE: {
-											t_process *procesoNuevo = NULL;
-											char** split = string_get_string_as_array(mensaje);
-											int32_t programPID = atoi(split[0]);
-											int32_t programTID = atoi(split[1]);
+						char *codigoBESO = NULL;
+						t_process *procesoNuevo = NULL;
 
-											char* stringCode = recibirCodigo(i, CON_TO_KRN_CODE, logKernel);
+						char** split = string_get_string_as_array(mensaje);
+						int32_t programPID = atoi(split[0]);
+						int32_t programTID = atoi(split[1]);
+						size_t tamanioCodigo = atoi(split[2]);
 
-											// no es elegante, tengo que recibir desde el mensaje cuantos bytes deberia haber recibido...
-											int32_t tamanioCodigo = strlen(stringCode);
+						codigoBESO = calloc(tamanioCodigo, 1);
 
-											log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
-											log_debug(logKernel, string_from_format( "El codigo recibido es:\n %s \n", stringCode));
+						enviarMensaje(i, CON_TO_KRN_CODE, "Se espera el codigo BESO...", logKernel);
 
-											procesoNuevo = getProcesoDesdeCodigoBESO(MODO_USUARIO, stringCode, tamanioCodigo, programPID, programTID, i);
+						recibir(i, codigoBESO, tamanioCodigo);
 
-											log_info(logKernel, "Se generó la estructura del proceso con éxito!");
-											agregarProcesoColaNew(procesoNuevo);
+						grabarCodigoRecibido(codigoBESO, "beso.bc", tamanioCodigo);
 
-											break;
+						log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
+
+						procesoNuevo = getProcesoDesdeCodigoBESO(MODO_USUARIO, codigoBESO, tamanioCodigo, programPID, programTID, i);
+
+						log_info(logKernel, "Se generó la estructura del proceso con éxito!");
+						agregarProcesoColaNew(procesoNuevo);
+						free(codigoBESO);
+
+						break;
 					}
 					default:
 						;
@@ -166,4 +174,24 @@ void* loader(t_loaderThread *loaderThread){
 		} // END looping through file descriptors
 	} // END for(;;)--and you thought it would never end!
 	return NULL ;
+}
+
+char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo){
+
+	enviarMensaje(socketConsola, CON_TO_KRN_CODE, "Se espera el codigo beso", logKernel);
+	char *codigoBeso = calloc(1, tamanioCodigo);
+
+	if( (recibir(socketConsola, codigoBeso, tamanioCodigo)) != EXITO_SOCK){
+		free(codigoBeso);
+		codigoBeso = NULL;
+	}
+
+	return codigoBeso;
+}
+
+void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio){
+
+	FILE* fp = fopen(nombreArchivo, "w+");
+	fwrite(codigoBeso, tamanio, 1, fp);
+
 }
