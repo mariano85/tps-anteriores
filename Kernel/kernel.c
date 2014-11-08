@@ -7,7 +7,6 @@
 
 #include "kernel.h"
 extern t_log* logKernel;
-t_log* queueLog;
 
 int main(){
 
@@ -48,7 +47,7 @@ void initKernel(){
 	loadConfig();
 
 	//Inicializa lista de Cpu's
-	cpu_client_list = list_create();
+	cpu_disponibles_list = list_create();
 
 	pthread_mutex_init(&mutex_cpu_list, NULL);
 
@@ -163,7 +162,7 @@ int32_t escribirMemoria(int32_t pid, uint32_t direccionSegmento, char* buffer, i
 	recibirMensaje(socketMSP, msjRespuesta, logKernel);
 	log_info(logKernel, "respuesta de la msp: %s", msjRespuesta);
 
-	enviarMensaje(socketMSP, KERNEL_TO_MSP_ENVIAR_BYTES, buffer, logKernel);
+	enviar(socketMSP, buffer, tamanio);
 	recibirMensaje(socketMSP, msjRespuesta, logKernel);
 
 	memset(msjRespuesta,0,sizeof(t_contenido));
@@ -202,7 +201,7 @@ void handshakeMSP() {
 void loadConfig(){
 
 	log_info(logKernel, "Se inicializa el kernel con parametros desde: %s", KERNEL_CONFIG_PATH);
-	t_config* kernelConfig = config_create(KERNEL_CONFIG_PATH);
+	kernelConfig = config_create(KERNEL_CONFIG_PATH);
 
 	if (config_has_property(kernelConfig, "PUERTO")) {
 		//strcpy(PUERTO_PROG, (char*) config_get_string_value(configPath, "PUERTO_PROG"));
@@ -231,26 +230,6 @@ void loadConfig(){
 	} else {
 		log_error(logKernel,
 				"No se encontro la key 'PUERTO_MSP' en el archivo de configuracion");
-		config_destroy(kernelConfig);
-		exit(EXIT_FAILURE);
-	}
-
-	if (config_has_property(kernelConfig, "IP_CPU")) {
-		config_kernel.IP_CPU = string_duplicate(
-				config_get_string_value(kernelConfig, "IP_CPU"));
-	} else {
-		log_error(logKernel,
-				"No se encontro la key 'IP_CPU' en el archivo de configuracion");
-		config_destroy(kernelConfig);
-		exit(EXIT_FAILURE);
-	}
-
-	if (config_has_property(kernelConfig, "PUERTO_CPU")) {
-		config_kernel.PUERTO_CPU = config_get_int_value(kernelConfig,
-				"PUERTO_CPU");
-	} else {
-		log_error(logKernel,
-				"No se encontro la key 'PUERTO_CPU' en el archivo de configuracion");
 		config_destroy(kernelConfig);
 		exit(EXIT_FAILURE);
 	}
@@ -308,7 +287,7 @@ void killProcess(t_process* aProcess){
 }
 
 
-t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
+t_client_cpu* encontrarCPUporFd(int32_t cpuFd){
 
 	bool _match_cpu_fd(void* element){
 		if(((t_client_cpu*)element)->cpuFD == cpuFd){
@@ -324,16 +303,11 @@ t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
 
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
 
-	int32_t v1 = aProcess->tcb->pid;
-	int32_t v2 = aProcess->tcb->program_counter;
-
-
-
-	t_contenido mensaje;
-	memset(mensaje, 0, sizeof(t_contenido));
-	strcpy(mensaje, string_from_format("[%d, %d, %d]", v1, v2,  config_kernel.QUANTUM));
-	enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
-	log_info(logKernel, "Se envía un PCB al CPU libre elegido");
-
+	//PROBANDO
+				t_contenido mensaje;
+				memset(mensaje, 0, sizeof(t_contenido));
+				strcpy(mensaje, string_from_format("[%d, %d, %d]", aProcess->tcb->pid,aProcess->tcb->program_counter,  config_kernel.QUANTUM));
+				enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
+				log_info(logKernel, "Se envía un TCB al CPU libre elegido");
 }
 

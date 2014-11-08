@@ -14,9 +14,10 @@
 #include <arpa/inet.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <asm-generic/errno-base.h>
+#include <asm-generic/errno.h>
 
 /*Commons includes*/
-#include <string.h>
 #include "log.h"
 #include "string.h"
 
@@ -208,5 +209,12 @@ char* separarLineas(char* codigo);
  * ej: cerrarSocket(mySocket, &read_fds);t_header recibirCodigo(int numSocket, t_header authorizedHeader, char**t_header recibirCodigo(int numSocket, t_header authorizedHeader, char** stringCode, t_log *logger) stringCode, t_log *logger)
  */
 int cerrarSocket(int numSocket, fd_set* fd);
+
+#define ERROR_SOCK		    0
+#define EXITO_SOCK		    1
+#define WARNING_SOCK         2
+
+int enviar(int sock, char *buffer, int tamano);
+int recibir(int sock, char *buffer, int tamano);
 
 #endif

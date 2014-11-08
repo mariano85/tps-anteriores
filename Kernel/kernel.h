@@ -24,6 +24,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <stdbool.h>
 
 #include <commons/string.h>
 #include <commons/log.h>
@@ -37,10 +38,11 @@
 #define KERNEL_LOG_PATH "kernel.log"
 #define QUEUE_LOG_PATH "queues.lHog"
 #define KERNEL_CONFIG_PATH "kernel.conf"
-#define CONFIG_KERNEL ""
-
-#define SYS_CALLS_PID -1
+#define SYS_CALLS_PID 0
 #define SYS_CALLS_TID 0
+
+
+
 
 #define MODO_KERNEL 1
 #define MODO_USUARIO 0
@@ -48,6 +50,8 @@
 t_log* queueLog;
 t_log* logKernel;
 
+t_config* kernelConfig;
+int socket_cpu;
 
 typedef struct{
 
@@ -59,21 +63,35 @@ typedef struct{
 
 }t_registros_de_programacion;
 
-typedef struct s_tcb{
-    int32_t pid;
-	int32_t tid;
-	bool indicador_modo_kernel;
-	int32_t base_segmento_codigo;
-	uint32_t tamanio_indice_codigo ;
-	int32_t indice_codigo;
-	int32_t program_counter;
-	int32_t puntero_instruccion;
-	int32_t base_stack;
-	int32_t cursor_stack;
-	int32_t instruction;
 
-	t_registros_de_programacion registros_de_programacion;
-} t_tcb;
+typedef struct{
+    int pid;
+	int tid;
+	int indicador_modo_kernel;
+	int base_segmento_codigo;
+	int tamanio_segmento_codigo ;
+	int indice_codigo;
+	int program_counter;
+	int base_stack;
+	int cursor_stack;
+	t_registros_de_programacion* registros_de_programacion;
+
+
+}t_tcb;
+
+
+typedef struct{
+
+	char A;
+	char B;
+	char C;
+	char D;
+	char E;
+
+}t_registros_programacion;
+
+
+
 
 typedef struct s_thread {
 	t_tcb* tcb;
@@ -89,8 +107,8 @@ typedef struct s_config_kernel{
 	char* IP_CPU;
 	int32_t PUERTO_CPU;
 	int32_t QUANTUM;
-	int32_t TAMANIO_STACK;
 	char* SYSCALLS;
+	int32_t TAMANIO_STACK;
 } t_config_kernel;
 
 
@@ -165,9 +183,9 @@ void comunicarMuertePrograma(int32_t processFd, bool wasInUmv);
 void eliminarSegmentos(int32_t pID) ;
 void killProcess(t_process* aProcess);
 void conectarse_Planificador();
-t_client_cpu* GetCPUByCPUFd(int32_t cpuFd);
+t_client_cpu* encontrarCPUporFd(int32_t cpuFd);
 int32_t getProcessPidByFd(int32_t fd);
-t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd);
+
 
 // el loader
 void* loader(t_loaderThread *loaderThread);
@@ -176,6 +194,15 @@ void *get_in_addr(struct sockaddr *sa);
 void* planificador(t_loaderThread *loaderThread);
 
 
+//LAS QUE AGREGUE YO
+//t_client_cpu* encontrarCPUporFd(int32_t cpuFd);
+t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd);
+int32_t encontrarProcesoPorFD(int32_t fd);
+int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
+int32_t solicitarSegmentoStack();
+int32_t solicitarSegmentoCodigo();
+void pruebasKernel();
+void conexionCPU();
 
 
 
@@ -194,11 +221,11 @@ void mostrarColas();
 void mostrarCola(t_queue* aQueue, pthread_mutex_t queueMutex, t_log* logger);
 void agregarProcesoColaNew(t_process* aProcess);
 void agregarProcesoKernel(t_process* aProcess);
-void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
 void agregarProcesoColaReady(t_process* aProcess);
 void agregarProcesoColaExec();
 void agregarProcesoColaExecEnPrimerLugar(t_process* aProcess);
 void agregarProcesoColaExit(t_process* aProcess);
+void agregarProcesoColaBlock(int32_t processFd, char* semaphoreKey);
 void manejo_cola_ready(void);
 void manejo_cola_exit(void);
 void chequearProcesos();
@@ -207,8 +234,9 @@ bool NoBodyHereBySemaphore(t_list* aList);
 void removeProcess(int32_t processPID, bool someoneKilledHim);
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess);
 bool stillInside(int32_t processFd);
+bool cpuLibre(void* element);
 
-pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, condpBlockedProcess;
+pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, cond_new_producer, cond_new_consumer,condpBlockedProcess;
 
 
 char* NO_SEMAPHORE;

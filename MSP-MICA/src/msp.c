@@ -915,11 +915,14 @@ void* atenderAKernel(void* socket_kernel)
 
 			buffer = calloc(tamanio, 1);
 
-			recibirMensaje((int)socket_kernel, mensaje, logs);
+			recibir((int)socket_kernel, buffer, tamanio);
 
-			memcpy(buffer, mensaje, tamanio);
+			grabarCodigoRecibido(buffer, "syscalls.bc", tamanio);
 
 			exito = escribirMemoria(pid, direccion, buffer, tamanio);
+
+			listarMarcos();
+
 			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_ENVIO_BYTES, string_from_format("%d", exito), logs);
 		}
 
