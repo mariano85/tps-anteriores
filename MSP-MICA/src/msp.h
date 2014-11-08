@@ -24,6 +24,10 @@
 #include <commons/temporal.h>
 #include <unistd.h>
 
+#define CANTIDAD_MAX_SEGMENTOS_POR_PID 5
+#define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 5
+#define TAMANIO_PAGINA 10
+
 
 
 //ESTRUCTURAS
@@ -82,7 +86,10 @@ int swapRestante;
 
 int cantidadMarcos;
 
-t_config *config;
+int consola;
+
+
+
 
 typedef enum {
 	CREAR_SEGMENTO,
@@ -112,7 +119,7 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegment
 
 void tablaSegmentos();
 
-t_configuracion levantarArchivoDeConfiguracion();
+void levantarArchivoDeConfiguracion();
 
 void inicializarMSP();
 
@@ -120,9 +127,11 @@ int consola_msp();
 
 int buscarComando(char* buffer);
 
+void liberarSubstrings(char** sub);
+
 void listarMarcos();
 
-void crearTablaDeMarcos(); //arreglado
+void crearTablaDeMarcos();
 
 uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset);
 
@@ -163,6 +172,8 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina);
 uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
 
 void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas *nodoPagina);
+
+
 
 
 #endif /* MSP_H_ */

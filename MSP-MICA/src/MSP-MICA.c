@@ -10,12 +10,99 @@
 
 #include "msp.h"
 
-int main() {
+#include <stddef.h>
+
+
+char* getBytesFromFile(FILE* entrada, size_t *tam_archivo);
+
+int main(int argc, char *argv[]) {
 
 	inicializarMSP();
 
 
+	puts("tabla segmentos");
+	tablaSegmentos();
 
+	crearSegmento(4545, 0);
+	crearSegmento(4545, 30);
+
+	puts("tabla segmentos");
+	tablaSegmentos();
+
+	puts("tabla de paginas");
+	tablaPaginas(4545);
+
+	FILE *entrada;
+
+
+		char * NOM_ARCHIVO = malloc(30);
+		NOM_ARCHIVO = "systemCalls.bc";
+
+			if ((entrada = fopen(NOM_ARCHIVO, "r")) == NULL){
+				perror(NOM_ARCHIVO);
+				return EXIT_FAILURE;
+			}
+
+			size_t cantBytes = 0;
+			char *literal = getBytesFromFile(entrada, &cantBytes);
+
+
+			puts("Hola aca te mando la instruccion");
+			puts(literal);
+
+			fclose(entrada);
+
+			puts("eso es todo el archivo");
+			crearSegmento(1234, 20);
+			crearSegmento(1234, 40);
+
+	escribirMemoria(1234,1048576,literal,40);
+
+	listarMarcos();
+
+	//conexionConKernelYCPU();
+
+
+	char* pepe = malloc(5);
+	memset(pepe, '\0', 5);
+	memcpy(pepe, solicitarMemoria(1234, 1049350, 4), 4);
+	printf("%s\n", pepe);
+
+	//int numero;
+
+	/*char* buffer = malloc(4);
+	memset(buffer,0,4);
+
+	buffer = solicitarMemoria(1234,1048581,1);
+
+	memcpy(&numero,buffer,sizeof(int));
+
+	log_info(logs,"el valor es %d",numero);*/
+
+
+	free(literal);
+		return 0;
+
+
+
+}
+
+
+char* getBytesFromFile(FILE* entrada, size_t *tam_archivo){
+	fseek(entrada, 0L, SEEK_END);
+	*tam_archivo = ftell(entrada);
+	char * literal = (char*) calloc(1, *tam_archivo);
+	fseek(entrada, 0L, 0L);
+
+	fgets(literal, *tam_archivo, entrada);
+	return literal;
+
+}
+
+
+/*int main() {
+
+	inicializarMSP();
 
 	//conexionConKernelYCPU();
 
@@ -30,9 +117,27 @@ int main() {
 	puts("tabla segmentos antes");
 	tablaSegmentos();
 
+	puts("destruyo el segmento 2 del pid 1234");
+	destruirSegmento(1234, 2097152);
+
+	puts("tabla segmentos despues de destruir");
+	tablaSegmentos();
+
+	puts("creo un segmento mas para el pid 1234");
+
+	crearSegmento(1234, 20);
+	crearSegmento(1234, 20);
+
 	destruirSegmento(1234, 1048576);
 
 	crearSegmento(1234, 20);
+	crearSegmento(1234, 20);
+	crearSegmento(1234, 20);
+
+
+
+
+
 
 	puts("tabla segmentos despues");
 
@@ -64,27 +169,27 @@ int main() {
 
 	//escribirMemoria(5678, 256, "3333333333", 10);
 
-/*	printf("memoria restante: %d\n", memoriaRestante);
+	printf("memoria restante: %d\n", memoriaRestante);
 	printf("swap restante: %d\n", swapRestante);
 	printf("retorno escribir: %d\n", escribir);
-	listarMarcos();*/
+	listarMarcos();
 
 
 
-/*
+
 
 	int numeroSegmento, numeroPagina, offset;
 	obtenerUbicacionLogica(1048842, &numeroSegmento, &numeroPagina, &offset);
 	printf("segmento %d   numeropagina %d   off %d\n", numeroSegmento, numeroPagina, offset);
 	uint32_t direccion = generarDireccionLogica(1, 3, 6);
-	printf("direccion: %zu\n", direccion);*/
+	printf("direccion: %zu\n", direccion);
 
 
 
 
 
 
-	/*escribirMemoria(5678, 768, "gggggggggg", 10);
+	escribirMemoria(5678, 768, "gggggggggg", 10);
 	 *
 
 
@@ -99,22 +204,22 @@ int main() {
 	puts("solicitaaaas 5678");
 	puts(solicitarMemoria(5678, 0, 30));
 	puts("solicitar 1234");
-	puts(solicitarMemoria(1234, 1048832, 30));*/
+	puts(solicitarMemoria(1234, 1048832, 30));
 
-/*	destruirSegmento(5678, 0);
+	destruirSegmento(5678, 0);
 	destruirSegmento(1234, 0);
 	destruirSegmento(1234, 1048576);
 
 	puts("lista marcos despues de destruir");
 	listarMarcos();
 	printf("memoria restante: %d\n", memoriaRestante);
-	printf("swap restante: %d\n", swapRestante);*/
+	printf("swap restante: %d\n", swapRestante);
 
 	//moverPaginaDeSwapAMemoria(1234, 0, 0);
 	//listarMarcos();
 
 
-	/*//PRUEBA PARA AUMENTARPROGRAMCOUNTER
+	//PRUEBA PARA AUMENTARPROGRAMCOUNTER
 	uint32_t programCounterAnterior = 1048838;
 	uint32_t nuevoProgramCounter;
 	int bytesASumar = 4;
@@ -136,7 +241,7 @@ int main() {
 
 	obtenerUbicacionLogica(direccion, &numeroSegmento, &numeroPagina, &offset);
 
-	printf("OTRO PC: Numero segmento: %d    numero pagina: %d     offset: %d\n", numeroSegmento, numeroPagina, offset);*/
+	printf("OTRO PC: Numero segmento: %d    numero pagina: %d     offset: %d\n", numeroSegmento, numeroPagina, offset);
 
 
 
@@ -144,4 +249,4 @@ int main() {
 	return 0;
 
 
-}
+}*/

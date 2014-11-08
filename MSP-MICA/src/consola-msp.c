@@ -19,9 +19,6 @@
 
 int consola_msp() {
 
-
-	//t_comando opcion;
-
 	printf("MSP - CONSOLA\n");
 	printf("Para ver la lista de comandos, escriba 'ayuda'.\n");
 
@@ -30,17 +27,14 @@ int consola_msp() {
 	{
 		printf("\n> ");
 
-		char* buffer = malloc(30);
+		char* buffer = malloc(256);
 
 		scanf("%[^\n]", buffer);
 		while(getchar()!='\n');
 
-		puts("texto entrada");
-		printf("%s\n", buffer);
-
 		if (buscarComando(buffer) == EXIT_FAILURE)
 		{
-			puts("Error");
+			puts("Error, comando inválido.");
 		}
 
 		free(buffer);
@@ -73,25 +67,41 @@ int buscarComando(char* buffer)
 
 	if (string_equals_ignore_case(substrings[0], "tabla"))
 	{
-		if ((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "de")) || (substrings[2] == NULL) || (!string_equals_ignore_case(substrings[2], "paginas")) || (substrings[3] == NULL) || (substrings[4] != NULL ))
+		if ((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "de")) || (substrings[2] == NULL) ||
+				(!string_equals_ignore_case(substrings[2], "paginas")) || (substrings[3] == NULL) || (substrings[4] != NULL ))
 		{
-			if((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "de")) || (substrings[2] == NULL) || (!string_equals_ignore_case(substrings[2], "segmentos")) || (substrings[3] != NULL))
+			if((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "de")) || (substrings[2] == NULL) ||
+					(!string_equals_ignore_case(substrings[2], "segmentos")) || (substrings[3] != NULL))
 			{
+				liberarSubstrings(substrings);
+
 				return EXIT_FAILURE;
 			}
 			else
 			{
-				printf("La instruccion es %s %s %s\n", substrings[0], substrings[1], substrings[2]);
+				//printf("La instruccion es %s %s %s\n", substrings[0], substrings[1], substrings[2]);
 
+				consola = 1;
 				tablaSegmentos();
+				consola = 0;
+				liberarSubstrings(substrings);
+
 				return EXIT_SUCCESS;
 
 			}
+			liberarSubstrings(substrings);
+
 
 			return EXIT_FAILURE;
 		}
 
-		printf("El comando es %s %s %s %d\n", substrings[0], substrings[1], substrings[2], atoi(substrings[3]));
+		consola = 1;
+		tablaPaginas(atoi(substrings[3]));
+		consola = 0;
+		//printf("El comando es %s %s %s %d\n", substrings[0], substrings[1], substrings[2], atoi(substrings[3]));
+
+		liberarSubstrings(substrings);
+
 
 		return EXIT_SUCCESS;
 	}
@@ -101,13 +111,21 @@ int buscarComando(char* buffer)
 	{
 		if((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "segmento")) || (substrings[2] == NULL) || (substrings[3] == NULL) || (substrings[4] != NULL))
 		{
+			liberarSubstrings(substrings);
+
 			return EXIT_FAILURE;
 		}
 
 		int pid = atoi(substrings[2]);
 		int tamanio = atoi(substrings[3]);
 
-		printf("La instruccion %s %s %d %d\n", substrings[0], substrings[1], pid, tamanio);
+		consola = 1;
+		crearSegmento(pid, tamanio);
+		consola = 0;
+
+		//printf("La instruccion %s %s %d %d\n", substrings[0], substrings[1], pid, tamanio);
+
+		liberarSubstrings(substrings);
 
 		return EXIT_SUCCESS;
 	}
@@ -116,6 +134,7 @@ int buscarComando(char* buffer)
 	{
 		if((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "segmento")) || (substrings[2] == NULL) || (substrings[3] == NULL) || (substrings[4] != NULL))
 		{
+			liberarSubstrings(substrings);
 
 			return EXIT_FAILURE;
 		}
@@ -123,8 +142,13 @@ int buscarComando(char* buffer)
 		int pid = atoi(substrings[2]);
 		int base = atoi(substrings[3]);
 
-		printf("La instruccion %s %s %d %d\n", substrings[0], substrings[1], pid, base);
+		consola = 1;
+		destruirSegmento(pid, base);
+		consola = 0;
 
+		//printf("La instruccion %s %s %d %d\n", substrings[0], substrings[1], pid, base);
+
+		liberarSubstrings(substrings);
 
 		return EXIT_SUCCESS;
 	}
@@ -133,6 +157,7 @@ int buscarComando(char* buffer)
 	{
 		if((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "memoria")) || (substrings[2] == NULL) || (substrings[3] == NULL) || (substrings[4] == NULL) || (substrings[5] == NULL) || (substrings[6] != NULL))
 		{
+			liberarSubstrings(substrings);
 
 			return EXIT_FAILURE;
 		}
@@ -141,8 +166,14 @@ int buscarComando(char* buffer)
 		uint32_t direccion = atoi(substrings[3]);
 		int tamanio = atoi(substrings[5]);
 
-		printf("La instruccion %s %s %d %d %s %d\n", substrings[0], substrings[1], pid, direccion, substrings[4], tamanio);
+		consola = 1;
+		escribirMemoria(pid, direccion, substrings[4], tamanio);
+		consola = 0;
 
+		//printf("La instruccion %s %s %d %d %s %d\n", substrings[0], substrings[1], pid, direccion, substrings[4], tamanio);
+
+
+		liberarSubstrings(substrings);
 
 		return EXIT_SUCCESS;
 	}
@@ -152,14 +183,37 @@ int buscarComando(char* buffer)
 	{
 		if((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "memoria")) || (substrings[2] == NULL) || (substrings[3] == NULL) || (substrings[4] == NULL) || (substrings [5] != NULL))
 		{
+			liberarSubstrings(substrings);
+
 			return EXIT_FAILURE;
 		}
 
+
+
 		int pid = atoi(substrings[2]);
 		uint32_t direccion = atoi(substrings[3]);
-		int tamanio = atoi(substrings[5]);
+		int tamanio = atoi(substrings[4]);
 
-		printf("La instruccion %s %s %d %d %d\n", substrings[0], substrings[1], pid, direccion, tamanio);
+
+		buffer = malloc (256);
+		memset(buffer, '\0', 256);
+
+		consola = 1;
+		buffer = solicitarMemoria(pid, direccion, tamanio);
+		consola = 0;
+
+		if (buffer != NULL)
+		{
+			printf("Lo que se obtuvo de la memoria es: ");
+			puts(buffer);
+		}
+
+
+		//printf("La instruccion %s %s %d %d %d\n", substrings[0], substrings[1], pid, direccion, tamanio);
+
+		free(buffer);
+		liberarSubstrings(substrings);
+
 
 		return EXIT_SUCCESS;
 	}
@@ -168,23 +222,37 @@ int buscarComando(char* buffer)
 	{
 		if((substrings[1] == NULL) || (!string_equals_ignore_case(substrings[1], "marcos")) || (substrings[2] != NULL))
 		{
-			free(substrings);
+			liberarSubstrings(substrings);
 
 			return EXIT_FAILURE;
 		}
 
-		printf("La instruccion %s %s\n", substrings[0], substrings[1]);
+		consola = 1;
+		listarMarcos();
+		consola = 0;
 
-		free(substrings);
+		//printf("La instruccion %s %s\n", substrings[0], substrings[1]);
+
+		liberarSubstrings(substrings);
 
 		return EXIT_SUCCESS;
 	}
 
-
-	free(substrings);
-
+	liberarSubstrings(substrings);
 	return EXIT_FAILURE;
 
+}
+
+void liberarSubstrings(char** sub)
+{
+	int i = 0;
+	while (sub[i] != NULL)
+	{
+		free(sub[i]);
+		i++;
+	}
+
+	free(sub);
 
 }
 
