@@ -19,19 +19,6 @@ int main(int argc, char *argv[]) {
 
 	inicializarMSP();
 
-
-	puts("tabla segmentos");
-	tablaSegmentos();
-
-	crearSegmento(4545, 0);
-	crearSegmento(4545, 30);
-
-	puts("tabla segmentos");
-	tablaSegmentos();
-
-	puts("tabla de paginas");
-	tablaPaginas(4545);
-
 	FILE *entrada;
 
 
@@ -54,34 +41,29 @@ int main(int argc, char *argv[]) {
 
 			puts("eso es todo el archivo");
 			crearSegmento(1234, 20);
-			crearSegmento(1234, 40);
+			crearSegmento(1234, 100);
 
-	escribirMemoria(1234,1048576,literal,40);
+	escribirMemoria(1234,1048576,literal,100);
 
 	listarMarcos();
 
 	//conexionConKernelYCPU();
 
 
-	char* pepe = malloc(5);
-	memset(pepe, '\0', 5);
-	memcpy(pepe, solicitarMemoria(1234, 1049350, 4), 4);
+	puts("ksdjflkdsfFREE");
+
+	char* pepe = malloc(20);
+	memset(pepe, '\0', 20);
+	memcpy(pepe, solicitarMemoria(1234, 1049096, 20), 20);
 	printf("%s\n", pepe);
 
 	//int numero;
 
-	/*char* buffer = malloc(4);
-	memset(buffer,0,4);
-
-	buffer = solicitarMemoria(1234,1048581,1);
-
-	memcpy(&numero,buffer,sizeof(int));
-
-	log_info(logs,"el valor es %d",numero);*/
-
-
 	free(literal);
 		return 0;
+
+	listarMarcos();
+
 
 
 

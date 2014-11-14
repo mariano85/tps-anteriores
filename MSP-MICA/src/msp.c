@@ -142,7 +142,7 @@ void inicializarMSP()
 	log_trace(logs, "MSP inicio su ejecucion. Tamaño memoria: %d. Tamaño swap: %d", memoriaRestante, swapRestante);
 }
 
-uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegmentosDeEstePid)
+uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegmentosDeEstePid, int tamanio)
 {
 	nodo_segmento *nodoSegmento;
 	nodoSegmento = malloc(sizeof(nodo_segmento));
@@ -164,13 +164,14 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 
 	nodoSegmento->pid = pid;
 	nodoSegmento->listaPaginas = listaPaginas;
+	nodoSegmento->tamanio = tamanio;
 
 	list_add(listaSegmentos, nodoSegmento);
 
 
 	//Esta es una impresion de prueba.
 	puts("CREACION DE SEGMENTO");
-	printf("Nro seg: %d    PID: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid);
+	printf("Nro seg: %d    PID: %d    Tamanio: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoSegmento->tamanio);
 	int i;
 	for(i=0; i<cantidadDePaginas; i++)
 	{
@@ -233,7 +234,7 @@ uint32_t crearSegmento(int pid, int tamanio)
 	}
 
 
-	uint32_t direccionBase = agregarSegmentoALista(cantidadTotalDePaginas, pid, cantidadSegmentosDeEstePid);
+	uint32_t direccionBase = agregarSegmentoALista(cantidadTotalDePaginas, pid, cantidadSegmentosDeEstePid, tamanio);
 
 	bool _ordenar(nodo_segmento *seg1, nodo_segmento *seg2)	{
 		return (seg1->pid <= seg2->pid);
@@ -506,6 +507,15 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 		return NULL;
 	}
 
+	printf("tamanio segmento: %d   tamanio buffer: %d\n", nodoSegmento->tamanio, tamanio);
+	if (nodoSegmento->tamanio < tamanio)
+	{
+		puts("entre");
+		log_error(logs, "Error, violación de segmento.");
+		if (consola == 1) printf("Error, violacion de segmento.\n");
+		return NULL;
+	}
+
 	//Tengo que transformar el tamanio en paginas, para ver si el segmneto tiene esa cantidad de paginas
 	t_list* paginasQueNecesito;
 	int cantidadPaginasQueOcupaTamanio;
@@ -513,6 +523,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	int quedaDelTamanio = tamanio - faltaParaCompletarPagina;
 	if (quedaDelTamanio < 0)
 	{
+		puts("entre al if");
 		cantidadPaginasQueOcupaTamanio = 1;
 		paginasQueNecesito = paginasQueVoyAUsar(nodoSegmento, nodoPagina->nro_pagina, cantidadPaginasQueOcupaTamanio);
 	}
@@ -530,6 +541,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 		}
 		//Ahora, cantidadPaginasQueOcupaTamanio representa, a partir de la pagina dedse donde empiezo a escribir (y sin contarla) las páginas que
 		//tendría que tener el segmento para que tamanio entre
+/*
 		int cantidadPaginasSegmento = list_size(listaPaginas);
 		if ((nodoPagina->nro_pagina + cantidadPaginasQueOcupaTamanio) > (cantidadPaginasSegmento -1))
 		{
@@ -537,17 +549,14 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 			if (consola == 1) printf("Error, violacion de segmento.\n");
 			return NULL;
 		}
+*/
+
+
 
 		paginasQueNecesito = paginasQueVoyAUsar(nodoSegmento, nodoPagina->nro_pagina, cantidadPaginasQueOcupaTamanio+1);
 	}
 
 
-	/*void _imprimirNumeroPagina(nodo_paginas *nodoPagina)
-	{
-		printf("voy a usar pagina: %d\n", nodoPagina->nro_pagina);
-	}
-
-	list_iterate(paginasQueNecesito, (void*)_imprimirNumeroPagina);*/
 
 	return paginasQueNecesito;
 
@@ -560,6 +569,14 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 						//está en cada cachito de memoria. Despues lo muevo al buffer definitivo, es una cuestion de orden de los cachos.
 	int numeroSegmento, numeroPagina, offset;
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
+
+/*
+	void _imprimirNumeroPagina(nodo_paginas *nodoPagina)
+	{
+		printf("voy a usar pagina: %d\n", nodoPagina->nro_pagina);
+	}
+
+	list_iterate(paginasQueNecesito, (void*)_imprimirNumeroPagina);*/
 
 	if (paginasQueNecesito == NULL)
 	{
@@ -580,7 +597,6 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
 
-
 	void* direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 
 	buffer = malloc(tamanio);
@@ -596,10 +612,11 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	for (i=1; i<((list_size(paginasQueNecesito)) - 1); i++)
 	{
 		nodoPagina = list_get(paginasQueNecesito, i);
-		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+		direccionOrigen = tablaMarcos[nodoPagina->presencia].dirFisica;
 		buffermini = malloc(TAMANIO_PAGINA);
 		memset(buffermini, 0, TAMANIO_PAGINA);
 		memcpy(buffermini, direccionOrigen, TAMANIO_PAGINA);
+
 		memcpy(buffer + yaCopie, buffermini, TAMANIO_PAGINA);
 		yaCopie = yaCopie + TAMANIO_PAGINA;
 		free(buffermini);
@@ -610,7 +627,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	if ((list_size(paginasQueNecesito) > 1))
 	{
 		nodoPagina = list_get(paginasQueNecesito, i);
-		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+		direccionOrigen = tablaMarcos[nodoPagina->presencia].dirFisica;
 		buffermini = malloc(tamanio - yaCopie);
 		memset(buffermini, 0, tamanio - yaCopie);
 		memcpy(buffermini, direccionOrigen, tamanio - yaCopie);
@@ -915,9 +932,9 @@ void* atenderAKernel(void* socket_kernel)
 
 			buffer = calloc(tamanio, 1);
 
-			recibir((int)socket_kernel, buffer, tamanio);
+			//recibir((int)socket_kernel, buffer, tamanio);
 
-			grabarCodigoRecibido(buffer, "syscalls.bc", tamanio);
+			//grabarCodigoRecibido(buffer, "syscalls.bc", tamanio);
 
 			exito = escribirMemoria(pid, direccion, buffer, tamanio);
 

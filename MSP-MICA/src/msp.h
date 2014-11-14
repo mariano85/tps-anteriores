@@ -25,7 +25,7 @@
 #include <unistd.h>
 
 #define CANTIDAD_MAX_SEGMENTOS_POR_PID 5
-#define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 5
+#define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 12
 #define TAMANIO_PAGINA 10
 
 
@@ -44,6 +44,7 @@ typedef struct
 
 typedef struct
 {
+	int tamanio;
 	int pid;
 	int numeroSegmento;
 	t_list* listaPaginas;
@@ -115,7 +116,7 @@ t_list* crearListaPaginas(int cantidadDePaginas);
 
 uint32_t crearSegmento(int pid, int tamanio); //arreglado
 
-uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento);
+uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento, int tamanio);
 
 void tablaSegmentos();
 
