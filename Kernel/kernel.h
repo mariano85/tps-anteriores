@@ -75,29 +75,13 @@ typedef struct{
 	int base_stack;
 	int cursor_stack;
 	t_registros_de_programacion* registros_de_programacion;
-
-
 }t_tcb;
-
-
-typedef struct{
-
-	char A;
-	char B;
-	char C;
-	char D;
-	char E;
-
-}t_registros_programacion;
-
-
-
 
 typedef struct s_thread {
 	t_tcb* tcb;
+	size_t tamanioCodigo;
 	int32_t process_fd;
 	char blockedBySemaphore[100];
-	bool existe_msp;
 } t_process;
 
 typedef struct s_config_kernel{
@@ -110,8 +94,6 @@ typedef struct s_config_kernel{
 	char* SYSCALLS;
 	int32_t TAMANIO_STACK;
 } t_config_kernel;
-
-
 
 t_config_kernel config_kernel;
 
@@ -140,11 +122,12 @@ pthread_mutex_t mutexCPUDISP;
 typedef struct loader {
 	pthread_t tid;
 	//int32_t fdPipe[2];  fdPipe[0] de lectura/ fdPipe[1] de escritura (Prueba)
-} t_loaderThread;
+} t_thread;
 
 typedef struct s_client_cpu{
-	int32_t processFd;
-	int32_t processPID;
+	int32_t socketProceso;
+	int32_t pidTCB;
+	int32_t tidTCB;
 	int32_t cpuPID;
 	int32_t cpuFD;
 	bool ocupado;
@@ -163,11 +146,11 @@ typedef char t_nombre_variable;
 typedef t_nombre_variable* t_nombre_semaforo;
 
 
-t_loaderThread loaderThread;
-t_loaderThread planificadorThread;
-t_loaderThread conectarsePlanificadorThread;
-t_loaderThread manejoColaReadyThread;
-t_loaderThread manejoColaExitThread;
+t_thread loaderThread;
+t_thread planificadorThread;
+t_thread conectarsePlanificadorThread;
+t_thread manejoColaReadyThread;
+t_thread manejoColaExitThread;
 
 
 // funciones del kernel
@@ -185,13 +168,14 @@ void killProcess(t_process* aProcess);
 void conectarse_Planificador();
 t_client_cpu* encontrarCPUporFd(int32_t cpuFd);
 int32_t getProcessPidByFd(int32_t fd);
+t_client_cpu* buscarCpuPorSocket(int32_t cpuFd);
 
 
 // el loader
-void* loader(t_loaderThread *loaderThread);
+void* loader(t_thread *loaderThread);
 void *get_in_addr(struct sockaddr *sa);
 
-void* planificador(t_loaderThread *loaderThread);
+void* planificador(t_thread *loaderThread);
 
 
 //LAS QUE AGREGUE YO
@@ -236,6 +220,9 @@ void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess);
 bool stillInside(int32_t processFd);
 bool cpuLibre(void* element);
 
+void imprimirColas();
+void imprimirCola(t_queue* aQueue, t_log* logger);
+
 pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, cond_new_producer, cond_new_consumer,condpBlockedProcess;
 
 
@@ -249,7 +236,7 @@ char* NO_SEMAPHORE;
 /* SERVICIOS KERNEL
  *
  */
-int32_t socketCPU;
+
 void interrupcion(t_process* aProcess, int32_t dir_memoria);
 void entrada_estandar(int32_t pid, char* tipo);
 void salida_estandar(int32_t pid, char* tipo);

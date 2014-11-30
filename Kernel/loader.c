@@ -20,7 +20,7 @@ void *get_in_addr(struct sockaddr *sa) {
 	return &(((struct sockaddr_in6*) sa)->sin6_addr);
 }
 
-void* loader(t_loaderThread *loaderThread){
+void* loader(t_thread *loaderThread){
 	int tid = process_get_thread_id();
 	log_info(logKernel, "************** El Thread del Loder comenzó!(PID: %d) ***************", tid);
 
@@ -129,7 +129,6 @@ void* loader(t_loaderThread *loaderThread){
 						else if(stillInside(i)){
 							int32_t processPID = encontrarProcesoPorFD(i);
 							removeProcess(processPID, true);
-							mostrarColas();
 						}
 
 						break;

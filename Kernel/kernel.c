@@ -23,14 +23,14 @@ int main(){
 	initKernel();
 
 	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
-//	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-//	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-//	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
+	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
+	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
 
 	pthread_join(loaderThread.tid, NULL);
-//	pthread_join(planificadorThread.tid, NULL);
-//	pthread_join(manejoColaReadyThread.tid, NULL);
-//	pthread_join(manejoColaExitThread.tid, NULL);
+	pthread_join(planificadorThread.tid, NULL);
+	pthread_join(manejoColaReadyThread.tid, NULL);
+	pthread_join(manejoColaExitThread.tid, NULL);
 	finishKernel();
 
 	return EXIT_SUCCESS;
@@ -83,6 +83,10 @@ void initKernel(){
 
 }
 
+
+/*
+ * Si es un proceso Kernel, pido los segmentos en seguida, sino. Los pido cuando el proceso pase a ready
+ */
 t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd)
 {
 	t_process* proceso = calloc(sizeof(t_process), 1);
@@ -94,7 +98,7 @@ t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, in
 
 	process_tcb->base_segmento_codigo = solicitarSegmento(process_tcb->pid, tamanioCodigo);
 
-	if(!PID == SYS_CALLS_PID){
+	if(!process_tcb->pid == SYS_CALLS_PID){
 		process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
 	}
 
@@ -117,6 +121,7 @@ t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, in
 
 	return proceso;
 }
+
 
 void crearProcesoKM(){
 	t_process* proceso = NULL;
@@ -269,10 +274,6 @@ void comunicarMuertePrograma(int32_t pid, bool wasInMsp){
 	log_info(logKernel, "implementar comunicarMuertePrograma( pid: %d, estabaEnLaMSP: %d", pid, wasInMsp);
 }
 
-void eliminarSegmentos(int32_t pid){
-	log_info(logKernel, "implementar eliminarSegmentos pid: %d", pid);
-}
-
 void killProcess(t_process* aProcess){
 
 	if(stillInside(aProcess->process_fd)){
@@ -298,16 +299,3 @@ t_client_cpu* encontrarCPUporFd(int32_t cpuFd){
 
 	return list_find(cpu_client_list, (void*)_match_cpu_fd);
 }
-
-
-
-void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
-
-	//PROBANDO
-				t_contenido mensaje;
-				memset(mensaje, 0, sizeof(t_contenido));
-				strcpy(mensaje, string_from_format("[%d, %d, %d]", aProcess->tcb->pid,aProcess->tcb->program_counter,  config_kernel.QUANTUM));
-				enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
-				log_info(logKernel, "Se envía un TCB al CPU libre elegido");
-}
-
