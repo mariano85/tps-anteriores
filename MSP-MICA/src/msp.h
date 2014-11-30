@@ -89,6 +89,8 @@ int cantidadMarcos;
 
 int consola;
 
+int tamanioRestanteTotal;
+
 
 
 

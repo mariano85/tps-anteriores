@@ -13,6 +13,7 @@
 #include <stddef.h>
 
 
+/*
 char* getBytesFromFile(FILE* entrada, size_t *tam_archivo);
 
 int main(int argc, char *argv[]) {
@@ -80,7 +81,39 @@ char* getBytesFromFile(FILE* entrada, size_t *tam_archivo){
 	return literal;
 
 }
+*/
 
+
+int main(){
+	inicializarMSP();
+
+	crearSegmento(1234, 35);
+
+	escribirMemoria(1234, 0, "1111111111", 10);
+	escribirMemoria(1234, 256, "2222222222", 10);
+	escribirMemoria(1234, 512, "3333333333", 10);
+	escribirMemoria(1234, 768, "44444", 5);
+	escribirMemoria(1234, 1048576, "5555555555", 10);
+
+	puts(solicitarMemoria(1234, 0, 5));
+	puts(solicitarMemoria(1234, 256, 10));
+
+	destruirSegmento(1234, 0);
+
+	crearSegmento(1234, 10);
+
+
+	escribirMemoria(1234, 0, "5555555555", 10);
+
+
+
+
+	listarMarcos();
+
+	return 0;
+
+
+}
 
 /*int main() {
 
@@ -153,7 +186,7 @@ char* getBytesFromFile(FILE* entrada, size_t *tam_archivo){
 
 	printf("memoria restante: %d\n", memoriaRestante);
 	printf("swap restante: %d\n", swapRestante);
-	printf("retorno escribir: %d\n", escribir);
+	printf("retorno escribir: %d\n", escribirMemoria());
 	listarMarcos();
 
 
@@ -172,7 +205,7 @@ char* getBytesFromFile(FILE* entrada, size_t *tam_archivo){
 
 
 	escribirMemoria(5678, 768, "gggggggggg", 10);
-	 *
+
 
 
 
