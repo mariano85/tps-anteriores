@@ -112,19 +112,21 @@ typedef enum {
 
 //FUNCIONES
 
-void tablaPaginas(int pid);
+void tablaPaginas(int pid); //revisada
 
-t_list* crearListaPaginas(int cantidadDePaginas);
+t_list* filtrarListaSegmentosPorPid(int pid); //revisada
 
-uint32_t crearSegmento(int pid, int tamanio); //arreglado
+t_list* crearListaPaginas(int cantidadDePaginas); //revisada
 
-uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento, int tamanio);
+uint32_t crearSegmento(int pid, int tamanio); //revisada
 
-void tablaSegmentos();
+uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadDeSegmentosDeEstePid, int tamanio); //revisada
 
-void levantarArchivoDeConfiguracion();
+void tablaSegmentos(); //revisada
 
-void inicializarMSP();
+void levantarArchivoDeConfiguracion(); //revisada
+
+void inicializarMSP(); //revisada
 
 int consola_msp();
 
@@ -132,25 +134,23 @@ int buscarComando(char* buffer);
 
 void liberarSubstrings(char** sub);
 
-void listarMarcos();
+void listarMarcos(); //revisada
 
-void crearTablaDeMarcos();
+void crearTablaDeMarcos(); //revisada
 
-uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset);
+uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset); //revisada
 
-void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset);
+void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset); //revisada
 
-int destruirSegmento(int pid, uint32_t base);
+int destruirSegmento(int pid, uint32_t base); //revisada
 
-nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento);
-
-t_list* filtrarListaSegmentosPorPid(int pid);
+nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento); //revisada
 
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
 
 t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio);
 
-t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas);
+t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas); //revisada
 
 int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
 

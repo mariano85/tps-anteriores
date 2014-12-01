@@ -1,36 +1,9 @@
-[TRACE] 18:59:08:367 MSP/(6739:6739): MSP inicio su ejecucion. Tamaño memoria: 20. Tamaño swap: 20. Algoritmo sust páginas: FIFO.
-[TRACE] 18:59:08:369 MSP/(6739:6739): Para el PID 1234 se creó el número de segmento 0 de tamanio 35.
-[TRACE] 18:59:08:369 MSP/(6739:6739): El espacio restante en la memoria es de 0 bytes.
-[TRACE] 18:59:08:369 MSP/(6739:6739): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:369 MSP/(6739:6739): Se asignó el marco 1 a la página 1 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:369 MSP/(6739:6739): No hay espacio en la memoria principal.
-[TRACE] 18:59:08:369 MSP/(6739:6739): Se creó el archivo de swap 1234_0_0 para alojar a la página 0 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:369 MSP/(6739:6739): Se desalojó de memoria principal a la página 0 del segmento 0 del PID 1234. El marco liberado es el n° 0.
-[TRACE] 18:59:08:369 MSP/(6739:6739): Se asignó el marco 0 a la página 2 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:369 MSP/(6739:6739): No hay espacio en la memoria principal.
-[TRACE] 18:59:08:370 MSP/(6739:6739): Se creó el archivo de swap 1234_0_1 para alojar a la página 1 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:370 MSP/(6739:6739): Se desalojó de memoria principal a la página 1 del segmento 0 del PID 1234. El marco liberado es el n° 1.
-[TRACE] 18:59:08:370 MSP/(6739:6739): Se asignó el marco 1 a la página 3 del segmento 0 del PID 1234.
-[ERROR] 18:59:08:370 MSP/(6739:6739): Error, la dirección ingresada es inválida.
-[TRACE] 18:59:08:370 MSP/(6739:6739): Se creó el archivo de swap 1234_0_2 para alojar a la página 2 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:370 MSP/(6739:6739): Se desalojó de memoria principal a la página 2 del segmento 0 del PID 1234. El marco liberado es el n° 0.
-[TRACE] 18:59:08:371 MSP/(6739:6739): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:371 MSP/(6739:6739): Se movió a memoria principal la página 0 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se creó el archivo de swap 1234_0_3 para alojar a la página 3 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se desalojó de memoria principal a la página 3 del segmento 0 del PID 1234. El marco liberado es el n° 1.
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se asignó el marco 1 a la página 1 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se movió a memoria principal la página 1 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se liberó el marco n° 0 debido a la destrucción de la página 0 del segmento 0 del PID 1234.
+[TRACE] 23:30:17:216 MSP/(8500:8500): MSP inicio su ejecucion. Tamaño memoria: 20. Tamaño swap: 20. Algoritmo sust páginas: FIFO.
+[TRACE] 23:30:17:220 MSP/(8500:8500): Para el PID 1234 se creó el número de segmento 0 de tamanio 0.
+[TRACE] 23:30:17:220 MSP/(8500:8500): El espacio restante en la memoria es de 40 bytes.
+[INFO] 23:30:17:220 MSP/(8500:8500): TABLA DE PÁGINAS DEL PID 1234.
+[INFO] 23:30:17:220 MSP/(8500:8500): PID: 1234	Nro segmento: 0	No tiene páginas.
 
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se liberó el marco n° 1 debido a la destrucción de la página 1 del segmento 0 del PID 1234.
-
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se eliminó el archivo 1234_0_2 debido a la destrucción de la página 2 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:377 MSP/(6739:6739): Se eliminó el archivo 1234_0_3 debido a la destrucción de la página 3 del segmento 0 del PID 1234.
-[TRACE] 18:59:08:378 MSP/(6739:6739): Se destruyó el segmento 0 del PID 1234, cuyo tamanio era de 35.
-[TRACE] 18:59:08:378 MSP/(6739:6739): El espacio restante en la memoria es de 40 bytes.
-[TRACE] 18:59:08:378 MSP/(6739:6739): Para el PID 1234 se creó el número de segmento 0 de tamanio 10.
-[TRACE] 18:59:08:378 MSP/(6739:6739): El espacio restante en la memoria es de 30 bytes.
-[TRACE] 18:59:08:378 MSP/(6739:6739): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
-[INFO] 18:59:08:378 MSP/(6739:6739): TABLA DE MARCOS
-[INFO] 18:59:08:378 MSP/(6739:6739): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 7
-[INFO] 18:59:08:378 MSP/(6739:6739): Numero marco: 1     PID: 0     Numero segmento: 0     Numero pagina: 0	   Libre: 1     Orden: 0
+[INFO] 23:30:17:220 MSP/(8500:8500): TABLA DE MARCOS
+[INFO] 23:30:17:220 MSP/(8500:8500): Numero marco: 0     PID: 0     Numero segmento: 0     Numero pagina: 0	   Libre: 1     Orden: 0
+[INFO] 23:30:17:220 MSP/(8500:8500): Numero marco: 1     PID: 0     Numero segmento: 0     Numero pagina: 0	   Libre: 1     Orden: 0

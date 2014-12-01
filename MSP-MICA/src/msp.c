@@ -17,7 +17,7 @@ void levantarArchivoDeConfiguracion()
 
 	config = config_create("configuracion");
 
-	//Compruebo si existe el archivo
+	//Compruebo si el archivo tiene todos los datos
 	bool estaPuerto = config_has_property(config, "PUERTO");
 	bool estaCantMemoria = config_has_property(config, "CANTIDAD_MEMORIA");
 	bool estaCantSwap = config_has_property(config, "CANTIDAD_SWAP");
@@ -25,8 +25,8 @@ void levantarArchivoDeConfiguracion()
 
 	if(!estaPuerto || !estaCantMemoria || !estaCantSwap || !estaSust)
 	{
-		printf("Error en el archivo de configuracion\n");
-		log_trace(logs, "Error en el archivo de configuracion");
+		if (consola == 1) printf("Error en el archivo de configuracion\n");
+		log_error(logs, "Error en el archivo de configuracion");
 		abort();
 	}
 
@@ -34,6 +34,21 @@ void levantarArchivoDeConfiguracion()
 	puerto = config_get_int_value(config, "PUERTO");
 	tamanio = config_get_int_value(config, "CANTIDAD_MEMORIA");
 	swap = config_get_int_value(config, "CANTIDAD_SWAP");
+
+	if ((strcmp(algoritmo, "FIFO")) != 0 && (strcmp(algoritmo, "CLOCKM")))
+	{
+		if (consola == 1) printf("El algoritmo de sustitución de páginas no es válido.\n");
+		log_error(logs, "El algoritmo de sustitución de páginas no es válido.");
+		abort();
+	}
+
+	if ((tamanio < 0) || (swap < 0))
+	{
+		if (consola == 1) printf("Error, el tamaño de la memoria o el swap son menores a 0.\n");
+		log_error(logs, "Error, el tamaño de la memoria o el swap son menores a 0.");
+		abort();
+
+	}
 
 	configuracion.sust_pags = algoritmo;
 	configuracion.puerto = puerto;
@@ -129,6 +144,7 @@ void inicializarMSP()
 	memoriaPrincipal = malloc(configuracion.cantidad_memoria);
 	if(memoriaPrincipal == NULL)
 	{
+		if (consola == 1) printf("Error, no se pudo alocar espacio para la memoria principal.\n");
 		log_error(logs, "Error, no se pudo alocar espacio para la memoria principal.");
 		abort();
 	}
@@ -208,13 +224,9 @@ uint32_t crearSegmento(int pid, int tamanio)
 		return EXIT_FAILURE;
 	}
 
-
 	int cantidadTotalDePaginas;
 
-	bool _pidCorresponde(nodo_segmento *p) {
-			return (p->pid == pid);
-		}
-	t_list *listaDeSegmentosDeEstePid = list_filter(listaSegmentos, (void*)_pidCorresponde);
+	t_list *listaDeSegmentosDeEstePid = filtrarListaSegmentosPorPid(pid);
 	int cantidadSegmentosDeEstePid = list_size(listaDeSegmentosDeEstePid);
 	if (cantidadSegmentosDeEstePid == CANTIDAD_MAX_SEGMENTOS_POR_PID)
 	{
@@ -299,62 +311,56 @@ int destruirSegmento(int pid, uint32_t base)
 		if (consola == 1) printf("Error, pid y/o segmento invalidos\n");
 		return EXIT_FAILURE;
 	}
-	else
+	nodo = list_remove_by_condition(listaSegmentos, (void*)_pidYSegmentoCorresponde);
+
+	void _liberarMarcoOBorrarArchivoSwap(nodo_paginas *nodoPagina)
 	{
-		nodo = list_remove_by_condition(listaSegmentos, (void*)_pidYSegmentoCorresponde);
-
-		void _liberarMarcoOBorrarArchivoSwap(nodo_paginas *nodoPagina)
+		if (nodoPagina->presencia == -2)
 		{
-			if (nodoPagina->presencia == -2)
-			{
-				char* nombreArchivo = malloc(60);
+			char* nombreArchivo = malloc(60);
 
-				nombreArchivo = generarNombreArchivo(nodo->pid, nodo->numeroSegmento, nodoPagina->nro_pagina);
+			nombreArchivo = generarNombreArchivo(nodo->pid, nodo->numeroSegmento, nodoPagina->nro_pagina);
 
-				FILE *archivo = fopen(nombreArchivo, "w");
-				remove(nombreArchivo);
-				fclose(archivo);
+			FILE *archivo = fopen(nombreArchivo, "w");
+			remove(nombreArchivo);
+			fflush(archivo);
+			fclose(archivo);
 
-				swapRestante = swapRestante + TAMANIO_PAGINA;
+			swapRestante = swapRestante + TAMANIO_PAGINA;
 
-				log_trace(logs, "Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-				if (consola == 1) printf("Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.\n", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-			}
+			log_trace(logs, "Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
+			if (consola == 1) printf("Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.\n", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
 
-			if ((nodoPagina->presencia >= 0))
-			{
-				int numeroMarco = nodoPagina->presencia;
-
-				liberarMarco(numeroMarco, nodoPagina);
-
-				log_trace(logs, "Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-				if (consola == 1) printf("Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-			}
-
-			free(nodoPagina);
+			free(nombreArchivo);
 		}
 
-		int cantidadPaginas = list_size(nodo->listaPaginas);
-		tamanioRestanteTotal = tamanioRestanteTotal + cantidadPaginas * TAMANIO_PAGINA;
-		int tamanioSegmento = nodo->tamanio;
+		if ((nodoPagina->presencia >= 0))
+		{
+			int numeroMarco = nodoPagina->presencia;
 
-		list_iterate(nodo->listaPaginas, (void*)_liberarMarcoOBorrarArchivoSwap);
+			liberarMarco(numeroMarco, nodoPagina);
 
+			log_trace(logs, "Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
+			if (consola == 1) printf("Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
+		}
 
-
-
-		log_trace(logs, "Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.", nodo->numeroSegmento, pid, tamanioSegmento);
-		if (consola == 1) printf("Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.\n", nodo->numeroSegmento, pid, tamanioSegmento);
-		log_trace(logs, "El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
-		if (consola == 1) printf("El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
-
-		free(nodo->listaPaginas);
-
-		free(nodo);
+		free(nodoPagina);
 	}
 
+	list_iterate(nodo->listaPaginas, (void*)_liberarMarcoOBorrarArchivoSwap);
 
+	int cantidadPaginas = list_size(nodo->listaPaginas);
+	tamanioRestanteTotal = tamanioRestanteTotal + cantidadPaginas * TAMANIO_PAGINA;
+	int tamanioSegmento = nodo->tamanio;
 
+	log_trace(logs, "Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.", nodo->numeroSegmento, pid, tamanioSegmento);
+	if (consola == 1) printf("Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.\n", nodo->numeroSegmento, pid, tamanioSegmento);
+	log_trace(logs, "El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
+	if (consola == 1) printf("El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
+
+	free(nodo->listaPaginas);
+
+	free(nodo);
 
 	return EXIT_SUCCESS;
 }
@@ -421,6 +427,7 @@ void tablaPaginas(int pid)
 	{
 		if (list_is_empty(nodoSegmento->listaPaginas))
 		{
+			log_info(logs, "PID: %d\tNro segmento: %d\tNo tiene páginas.\n", nodoSegmento->pid, nodoSegmento->numeroSegmento);
 			printf("PID: %d\tNro segmento: %d\tNo tiene páginas.\n", nodoSegmento->pid, nodoSegmento->numeroSegmento);
 		}
 
@@ -509,7 +516,6 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 		if (consola == 1) printf("Error, la dirección ingresada es inválida.\n");
 		return NULL;
 	}
-
 
 	//Ahora de la lista de los segmentos correspondientes a este pid, quiero el segmento
 	//que me dice la dirección lógica. La función find me devuelve el primer resultado que encuentra,
@@ -740,8 +746,8 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		{
 			if(memoriaRestante < TAMANIO_PAGINA)
 			{
-				if (consola == 1) printf("No hay espacio en la memoria principal.");
-				log_trace(logs, "No hay espacio en la memoria principal.");
+				if (consola == 1) printf("No hay espacio en la memoria principal, hay que swappear.");
+				log_trace(logs, "No hay espacio en la memoria principal, hay que swappear.");
 /*				if (swapRestante < TAMANIO_PAGINA)
 				{
 					if (consola == 1) printf("No hay espacio en la memoria secundaria.");
