@@ -1,94 +1,30 @@
-[TRACE] 03:56:23:293 MSP/(12534:12534): MSP inicio su ejecucion. Tamaño memoria: 30. Tamaño swap: 20. Algoritmo sust páginas: CLOCKM.
-[TRACE] 03:56:23:305 MSP/(12534:12534): Para el PID 1234 se creó el número de segmento 0 de tamanio 50.
-[TRACE] 03:56:23:305 MSP/(12534:12534): El espacio restante en la memoria es de 0 bytes.
-[TRACE] 03:56:23:307 MSP/(12534:12534): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:308 MSP/(12534:12534): Se asignó el marco 1 a la página 1 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:309 MSP/(12534:12534): Se asignó el marco 2 a la página 2 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:309 MSP/(12534:12534): No hay espacio en la memoria principal, hay que swappear.
-[INFO] 03:56:23:310 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:310 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:310 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:318 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:319 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:319 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:319 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:319 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:320 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:320 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:320 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:320 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:321 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:321 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:321 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:322 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:322 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:322 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:323 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:323 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:323 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:323 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:323 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:324 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:324 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:324 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:324 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:324 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:325 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:325 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:325 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:326 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:326 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:326 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:327 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:327 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:327 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:327 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 1
-[INFO] 03:56:23:327 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:328 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[TRACE] 03:56:23:328 MSP/(12534:12534): Se creó el archivo de swap 1234_0_0 para alojar a la página 0 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:328 MSP/(12534:12534): Se desalojó de memoria principal a la página 0 del segmento 0 del PID 1234. El marco liberado es el n° 0.
-[TRACE] 03:56:23:328 MSP/(12534:12534): Se asignó el marco 0 a la página 3 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:329 MSP/(12534:12534): No hay espacio en la memoria principal, hay que swappear.
-[INFO] 03:56:23:329 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:329 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:329 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:330 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:330 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:330 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:331 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:331 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:331 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:331 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:331 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:332 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:332 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:332 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:332 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 2
-[INFO] 03:56:23:332 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[TRACE] 03:56:23:333 MSP/(12534:12534): Se creó el archivo de swap 1234_0_1 para alojar a la página 1 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:333 MSP/(12534:12534): Se desalojó de memoria principal a la página 1 del segmento 0 del PID 1234. El marco liberado es el n° 1.
-[TRACE] 03:56:23:333 MSP/(12534:12534): Se asignó el marco 1 a la página 4 del segmento 0 del PID 1234.
-[INFO] 03:56:23:342 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:342 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:343 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 4	   Libre: 0     Orden: 5
-[INFO] 03:56:23:344 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:344 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:344 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:344 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 4	   Libre: 0     Orden: 5
-[INFO] 03:56:23:344 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:344 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:344 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:345 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 4	   Libre: 0     Orden: 5
-[INFO] 03:56:23:345 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[INFO] 03:56:23:345 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:345 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:345 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 4	   Libre: 0     Orden: 5
-[INFO] 03:56:23:346 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 3
-[TRACE] 03:56:23:347 MSP/(12534:12534): Se creó el archivo de swap 1234_0_2 para alojar a la página 2 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:347 MSP/(12534:12534): Se desalojó de memoria principal a la página 2 del segmento 0 del PID 1234. El marco liberado es el n° 2.
-[TRACE] 03:56:23:347 MSP/(12534:12534): Se asignó el marco 2 a la página 0 del segmento 0 del PID 1234.
-[TRACE] 03:56:23:347 MSP/(12534:12534): Se movió a memoria principal la página 0 del segmento 0 del PID 1234.
-[INFO] 03:56:23:348 MSP/(12534:12534): TABLA DE MARCOS
-[INFO] 03:56:23:348 MSP/(12534:12534): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 4
-[INFO] 03:56:23:349 MSP/(12534:12534): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 4	   Libre: 0     Orden: 5
-[INFO] 03:56:23:349 MSP/(12534:12534): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 6
+[TRACE] 04:45:57:474 MSP/(13800:13800): MSP inicio su ejecucion. Tamaño memoria: 30. Tamaño swap: 20. Algoritmo sust páginas: CLOCKM.
+[TRACE] 04:45:57:488 MSP/(13800:13800): Para el PID 1234 se creó el número de segmento 0 de tamanio 50.
+[TRACE] 04:45:57:488 MSP/(13800:13800): El espacio restante en la memoria es de 0 bytes.
+[TRACE] 04:45:57:489 MSP/(13800:13800): Se asignó el marco 0 a la página 0 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:489 MSP/(13800:13800): Se asignó el marco 1 a la página 1 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:490 MSP/(13800:13800): Se asignó el marco 2 a la página 2 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:490 MSP/(13800:13800): No hay espacio en la memoria principal, hay que swappear.
+[TRACE] 04:45:57:491 MSP/(13800:13800): Se creó el archivo de swap 1234_0_0 para alojar a la página 0 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:491 MSP/(13800:13800): Se desalojó de memoria principal a la página 0 del segmento 0 del PID 1234. El marco liberado es el n° 0.
+[TRACE] 04:45:57:491 MSP/(13800:13800): Se asignó el marco 0 a la página 3 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:492 MSP/(13800:13800): No hay espacio en la memoria principal, hay que swappear.
+[TRACE] 04:45:57:493 MSP/(13800:13800): Se creó el archivo de swap 1234_0_1 para alojar a la página 1 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:493 MSP/(13800:13800): Se desalojó de memoria principal a la página 1 del segmento 0 del PID 1234. El marco liberado es el n° 1.
+[TRACE] 04:45:57:493 MSP/(13800:13800): Se asignó el marco 1 a la página 4 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:497 MSP/(13800:13800): Se creó el archivo de swap 1234_0_2 para alojar a la página 2 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:497 MSP/(13800:13800): Se desalojó de memoria principal a la página 2 del segmento 0 del PID 1234. El marco liberado es el n° 2.
+[TRACE] 04:45:57:497 MSP/(13800:13800): Se asignó el marco 2 a la página 1 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:497 MSP/(13800:13800): Se movió a memoria principal la página 1 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:498 MSP/(13800:13800): Se creó el archivo de swap 1234_0_3 para alojar a la página 3 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:498 MSP/(13800:13800): Se desalojó de memoria principal a la página 3 del segmento 0 del PID 1234. El marco liberado es el n° 0.
+[TRACE] 04:45:57:498 MSP/(13800:13800): Se asignó el marco 0 a la página 2 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:498 MSP/(13800:13800): Se movió a memoria principal la página 2 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:502 MSP/(13800:13800): Se creó el archivo de swap 1234_0_4 para alojar a la página 4 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:502 MSP/(13800:13800): Se desalojó de memoria principal a la página 4 del segmento 0 del PID 1234. El marco liberado es el n° 1.
+[TRACE] 04:45:57:503 MSP/(13800:13800): Se asignó el marco 1 a la página 3 del segmento 0 del PID 1234.
+[TRACE] 04:45:57:503 MSP/(13800:13800): Se movió a memoria principal la página 3 del segmento 0 del PID 1234.
+[INFO] 04:45:57:503 MSP/(13800:13800): TABLA DE MARCOS
+[INFO] 04:45:57:503 MSP/(13800:13800): Numero marco: 0     PID: 1234     Numero segmento: 0     Numero pagina: 2	   Libre: 0     Orden: 7
+[INFO] 04:45:57:503 MSP/(13800:13800): Numero marco: 1     PID: 1234     Numero segmento: 0     Numero pagina: 3	   Libre: 0     Orden: 8
+[INFO] 04:45:57:503 MSP/(13800:13800): Numero marco: 2     PID: 1234     Numero segmento: 0     Numero pagina: 1	   Libre: 0     Orden: 6

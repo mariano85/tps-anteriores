@@ -90,17 +90,27 @@ int main(){
 	crearSegmento(1234, 50);
 
 
-	escribirMemoria(1234, 0, "1111111111", 10);
-	escribirMemoria(1234, 256, "2222222222", 10);
-	escribirMemoria(1234, 512, "3333333333", 10);
-	escribirMemoria(1234, 768, "4444444444", 10);
-	escribirMemoria(1234, 1024, "5555555555", 10);
+	escribirMemoria(1234, 0, "0000000000", 10);
+	escribirMemoria(1234, 256, "1111111111", 10);
+	escribirMemoria(1234, 512, "2222222222", 10);
+	escribirMemoria(1234, 768, "3333333333", 10);
+	escribirMemoria(1234, 1024, "4444444444", 10);
+	escribirMemoria(1234, 256, "1111111111", 10);
+	escribirMemoria(1234, 512, "2222222222", 10);
 
 
 
+	solicitarMemoria(1234, 512, 10);
+	puts("chau");
+	puts(solicitarMemoria(1234, 768, 10));
+	escribirMemoria(1234, 0, "0000000000", 10);
 
-	puts("chaaaaaaaaaaaaaaaaaar");
-	puts(solicitarMemoria(1234, 0, 10));
+
+
+	//escribirMemoria(1234, 768, "3333333333", 10);
+
+	//solicitarMemoria(1234, 1024, 10);
+
 
 
 
@@ -112,6 +122,7 @@ int main(){
 
 	puts("holaaaaaaaaaaaaaaaaaaaaaa");
 	listarMarcos();
+	printf("puntero; %d\n", puntero);
 
 	return 0;
 

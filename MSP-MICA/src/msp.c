@@ -99,7 +99,7 @@ void crearTablaDeMarcos()
 		memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
 	}
 
-	tablaMarcos[0].puntero = 1;
+	//tablaMarcos[0].puntero = 1;
 
 	free(buffer);
 }
@@ -116,7 +116,7 @@ void listarMarcos()
 		printf("Libre: %d    ", tablaMarcos[i].libre);
 		printf("Referencia: %d     ", tablaMarcos[i].referencia);
 		printf("Modificación: %d     ", tablaMarcos[i].modificacion);
-		printf("Puntero: %d     ", tablaMarcos[i].puntero);
+		//printf("Puntero: %d     ", tablaMarcos[i].puntero);
 		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);
 	}
 }
@@ -874,7 +874,7 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 		//Uso el primer marco libre que encuentro
 		if (tablaMarcos[i].libre == 1)
 		{
-			tablaMarcos[i].puntero = 0;
+/*			tablaMarcos[i].puntero = 0;
 			if ((i+1) == cantidadMarcos)
 			{
 				tablaMarcos[0].puntero = 1;
@@ -882,6 +882,15 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 			else
 			{
 				tablaMarcos[i + 1].puntero = 1;
+			}
+			*/
+			if ((i+1) == cantidadMarcos)
+			{
+				puntero = 0;
+			}
+			else
+			{
+				puntero = i+1;
 			}
 
 			memoriaRestante = memoriaRestante - TAMANIO_PAGINA;
@@ -897,7 +906,7 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 			return (tablaMarcos[i].dirFisica);
 		}
 
-		tablaMarcos[i].puntero = 0;
+/*		tablaMarcos[i].puntero = 0;
 		if ((i+1) == cantidadMarcos)
 		{
 			tablaMarcos[0].puntero = 1;
@@ -905,6 +914,15 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 		else
 		{
 			tablaMarcos[i + 1].puntero = 1;
+		}*/
+
+		if ((i+1) == cantidadMarcos)
+		{
+			puntero = 0;
+		}
+		else
+		{
+			puntero = i+1;
 		}
 	}
 
@@ -1164,14 +1182,14 @@ int primeraVueltaClock(int puntero)
 
 	while ((i < cantidadMarcos) && (primeraVez == 1))
 	{
-
+/*
 		puts ("Lista primera vez");
 		listarMarcos();
-		printf("ii: %d\n", i);
+		printf("ii: %d\n", i);*/
 
 		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 0))
 		{
-			tablaMarcos[i].puntero = 0;
+/*			tablaMarcos[i].puntero = 0;
 			if ((i+1) == cantidadMarcos)
 			{
 				tablaMarcos[0].puntero = 1;
@@ -1179,6 +1197,15 @@ int primeraVueltaClock(int puntero)
 			else
 			{
 				tablaMarcos[i + 1].puntero = 1;
+			}*/
+
+			if ((i+1) == cantidadMarcos)
+			{
+				puntero = 0;
+			}
+			else
+			{
+				puntero = i+1;
 			}
 
 			numeroMarco = i;
@@ -1197,7 +1224,7 @@ int primeraVueltaClock(int puntero)
 			primeraVez = 0;
 		}
 
-		tablaMarcos[i].puntero = 0;
+/*		tablaMarcos[i].puntero = 0;
 		if ((i+1) == cantidadMarcos)
 		{
 			tablaMarcos[0].puntero = 1;
@@ -1205,6 +1232,15 @@ int primeraVueltaClock(int puntero)
 		else
 		{
 			tablaMarcos[i + 1].puntero = 1;
+		}*/
+
+		if ((i+1) == cantidadMarcos)
+		{
+			puntero = 0;
+		}
+		else
+		{
+			puntero = i+1;
 		}
 	}
 
@@ -1219,13 +1255,13 @@ int segundaVueltaClock(int puntero)
 
 	while ((i < cantidadMarcos) && (primeraVez == 1))
 	{
-		puts ("Lista segunda");
+/*		puts ("Lista segunda");
 		listarMarcos();
-		printf("ii: %d\n", i);
+		printf("ii: %d\n", i);*/
 
 		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 1))
 		{
-			tablaMarcos[i].puntero = 0;
+/*			tablaMarcos[i].puntero = 0;
 			if ((i+1) == cantidadMarcos)
 			{
 				tablaMarcos[0].puntero = 1;
@@ -1233,8 +1269,16 @@ int segundaVueltaClock(int puntero)
 			else
 			{
 				tablaMarcos[i + 1].puntero = 1;
-			}
+			}*/
 
+			if ((i+1) == cantidadMarcos)
+			{
+				puntero = 0;
+			}
+			else
+			{
+				puntero = i+1;
+			}
 			numeroMarco = i;
 			tablaMarcos[i].modificacion = 0;
 			return numeroMarco;
@@ -1254,7 +1298,7 @@ int segundaVueltaClock(int puntero)
 			primeraVez = 0;
 		}
 
-		tablaMarcos[i].puntero = 0;
+/*		tablaMarcos[i].puntero = 0;
 		if ((i+1) == cantidadMarcos)
 		{
 			tablaMarcos[0].puntero = 1;
@@ -1262,6 +1306,15 @@ int segundaVueltaClock(int puntero)
 		else
 		{
 			tablaMarcos[i + 1].puntero = 1;
+		}*/
+
+		if ((i+1) == cantidadMarcos)
+		{
+			puntero = 0;
+		}
+		else
+		{
+			puntero = i+1;
 		}
 	}
 
@@ -1271,23 +1324,30 @@ int segundaVueltaClock(int puntero)
 
 void elegirVictimaSegunClockM()
 {
-	int i;
+	//int i = 0;
 	int numeroMarcoVictima = -1;
 
-	//este for lo hago para buscar el puntero
-	for (i = 0; tablaMarcos[i].puntero != 1; i++); // seria mas barato una variable global
+/*	while(tablaMarcos[i].puntero != 1)
+	{
+		i++;
+	}*/
+
+	// seria mas barato una variable global
+
 
 	while (numeroMarcoVictima == -1)
 	{
-		numeroMarcoVictima = primeraVueltaClock(i);
+		numeroMarcoVictima = primeraVueltaClock(puntero);
 
 		if (numeroMarcoVictima == -1)
 		{
-			numeroMarcoVictima = segundaVueltaClock(i);
+			numeroMarcoVictima = segundaVueltaClock(puntero);
 		}
 	}
 
 	t_marco nodoMarco = tablaMarcos[numeroMarcoVictima];
+
+	printf("numero marco: %d\n", numeroMarcoVictima);
 
 	swappearDeMemoriaADisco(nodoMarco);
 

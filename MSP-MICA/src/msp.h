@@ -61,7 +61,7 @@ typedef struct
 	int orden;
 	int referencia; //si vale 1 se ha usado recientemente
 	int modificacion; //si vale 1 se ha modificado recientemente
-	int puntero;
+	//int puntero;
 } t_marco;
 
 typedef struct
@@ -93,6 +93,8 @@ int cantidadMarcos;
 int consola;
 
 int tamanioRestanteTotal;
+
+int puntero;
 
 
 
