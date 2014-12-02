@@ -91,8 +91,6 @@ void crearTablaDeMarcos()
 
 		tablaMarcos[i].dirFisica = memoriaPrincipal + i * TAMANIO_PAGINA;
 
-		tablaMarcos[i].orden = 0;
-
 		//Cuando recién se crea la tabla, todos los marcos están libres.
 		tablaMarcos[i].libre = 1;
 
@@ -100,6 +98,8 @@ void crearTablaDeMarcos()
 
 		memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
 	}
+
+	tablaMarcos[0].puntero = 1;
 
 	free(buffer);
 }
@@ -111,9 +111,12 @@ void listarMarcos()
 	for (i=0; i<cantidadMarcos; i++)
 	{
 		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden);
-		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d		", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
+		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d     ", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
 		printf("Orden: %d    ", tablaMarcos[i].orden);
-		printf("libre: %d     ", tablaMarcos[i].libre);
+		printf("Libre: %d    ", tablaMarcos[i].libre);
+		printf("Referencia: %d     ", tablaMarcos[i].referencia);
+		printf("Modificación: %d     ", tablaMarcos[i].modificacion);
+		printf("Puntero: %d     ", tablaMarcos[i].puntero);
 		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);
 	}
 }
@@ -647,6 +650,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	//copio lo que queda para completar la primera pagina
 	int yaCopie = TAMANIO_PAGINA - offset;
 	memcpy(buffer, direccionOrigen, yaCopie);
+	tablaMarcos[nodoPagina->presencia].referencia = 1;
 
 	//copio las paginas del medio
 	int i;
@@ -661,7 +665,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		memcpy(buffer + yaCopie, buffermini, TAMANIO_PAGINA);
 		yaCopie = yaCopie + TAMANIO_PAGINA;
 		free(buffermini);
-
+		tablaMarcos[nodoPagina->presencia].referencia = 1;
 	}
 
 	//copio lo que me queda del tamanio de la ultima pagina
@@ -674,7 +678,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		memcpy(buffermini, direccionOrigen, tamanio - yaCopie);
 		memcpy(buffer + yaCopie, buffermini, tamanio - yaCopie);
 		free(buffermini);
-
+		tablaMarcos[nodoPagina->presencia].referencia = 1;
 	}
 
 	return buffer;
@@ -693,7 +697,14 @@ void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
 
 	if (memoriaRestante < TAMANIO_PAGINA)
 	{
-		elegirVictimaSegunFIFO();
+		if (strcmp(configuracion.sust_pags, "FIFO") == 0)
+		{
+			elegirVictimaSegunFIFO();
+		}
+		else
+		{
+			elegirVictimaSegunClockM();
+		}
 	}
 
 	void* buffer = malloc(TAMANIO_PAGINA);
@@ -760,7 +771,7 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 				}
 				else
 				{
-					puts("se eligio clock");
+					elegirVictimaSegunClockM();
 				}
 			}
 
@@ -781,12 +792,17 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 			if(tamanio <= quedaParaCompletarPagina)
 			{
 				escribirEnMarco (nodoPagina->presencia, tamanio, bytesAEscribir, offset, 0);
+				tablaMarcos[nodoPagina->presencia].modificacion = 1;
+				tablaMarcos[nodoPagina->presencia].referencia = 1;
 			}
 			else
 			{
 				yaEscribi = yaEscribi + quedaParaCompletarPagina;
 
 				escribirEnMarco (nodoPagina->presencia, quedaParaCompletarPagina, bytesAEscribir, offset, 0);
+				tablaMarcos[nodoPagina->presencia].modificacion = 1;
+				tablaMarcos[nodoPagina->presencia].referencia = 1;
+
 			}
 
 		}
@@ -794,6 +810,8 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		if ((tamanioRestante / TAMANIO_PAGINA == 0) && (i!=0))
 		{
 			escribirEnMarco (nodoPagina->presencia, tamanioRestante, bytesAEscribir, 0, yaEscribi);
+			tablaMarcos[nodoPagina->presencia].modificacion = 1;
+			tablaMarcos[nodoPagina->presencia].referencia = 1;
 			tamanioRestante = tamanioRestante - (tamanioRestante % TAMANIO_PAGINA);
 			yaEscribi = yaEscribi + (tamanioRestante % TAMANIO_PAGINA);
 
@@ -801,6 +819,8 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		else if ((tamanioRestante / TAMANIO_PAGINA > 0) && (i!=0))
 		{
 			escribirEnMarco (nodoPagina->presencia, TAMANIO_PAGINA, bytesAEscribir, 0, yaEscribi);
+			tablaMarcos[nodoPagina->presencia].modificacion = 1;
+			tablaMarcos[nodoPagina->presencia].referencia = 1;
 			tamanioRestante = tamanioRestante - TAMANIO_PAGINA;
 			yaEscribi = yaEscribi + TAMANIO_PAGINA;
 
@@ -850,9 +870,20 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 	int i;
 	for (i = 0; i<cantidadMarcos; i++)
 	{
+
 		//Uso el primer marco libre que encuentro
 		if (tablaMarcos[i].libre == 1)
 		{
+			tablaMarcos[i].puntero = 0;
+			if ((i+1) == cantidadMarcos)
+			{
+				tablaMarcos[0].puntero = 1;
+			}
+			else
+			{
+				tablaMarcos[i + 1].puntero = 1;
+			}
+
 			memoriaRestante = memoriaRestante - TAMANIO_PAGINA;
 
 			tablaMarcos[i].libre = 0;
@@ -864,6 +895,16 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 			log_trace(logs, "Se asignó el marco %d a la página %d del segmento %d del PID %d.", i, nodoPagina->nro_pagina, numeroSegmento, pid);
 
 			return (tablaMarcos[i].dirFisica);
+		}
+
+		tablaMarcos[i].puntero = 0;
+		if ((i+1) == cantidadMarcos)
+		{
+			tablaMarcos[0].puntero = 1;
+		}
+		else
+		{
+			tablaMarcos[i + 1].puntero = 1;
 		}
 	}
 
@@ -1115,6 +1156,170 @@ char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina)
 	return nombreArchivo;
 }
 
+int primeraVueltaClock(int puntero)
+{
+	int numeroMarco = -1;
+	int i = puntero;
+	int primeraVez = 1;
+
+	while ((i < cantidadMarcos) && (primeraVez == 1))
+	{
+
+		puts ("Lista primera vez");
+		listarMarcos();
+		printf("ii: %d\n", i);
+
+		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 0))
+		{
+			tablaMarcos[i].puntero = 0;
+			if ((i+1) == cantidadMarcos)
+			{
+				tablaMarcos[0].puntero = 1;
+			}
+			else
+			{
+				tablaMarcos[i + 1].puntero = 1;
+			}
+
+			numeroMarco = i;
+			return numeroMarco;
+		}
+
+		i++;
+		//esto es para fingir la cola circular
+		if (i == cantidadMarcos)
+		{
+			i = 0;
+		}
+
+		if (i == puntero)
+		{
+			primeraVez = 0;
+		}
+
+		tablaMarcos[i].puntero = 0;
+		if ((i+1) == cantidadMarcos)
+		{
+			tablaMarcos[0].puntero = 1;
+		}
+		else
+		{
+			tablaMarcos[i + 1].puntero = 1;
+		}
+	}
+
+	return numeroMarco;
+}
+
+int segundaVueltaClock(int puntero)
+{
+	int numeroMarco = -1;
+	int i = puntero;
+	int primeraVez = 1;
+
+	while ((i < cantidadMarcos) && (primeraVez == 1))
+	{
+		puts ("Lista segunda");
+		listarMarcos();
+		printf("ii: %d\n", i);
+
+		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 1))
+		{
+			tablaMarcos[i].puntero = 0;
+			if ((i+1) == cantidadMarcos)
+			{
+				tablaMarcos[0].puntero = 1;
+			}
+			else
+			{
+				tablaMarcos[i + 1].puntero = 1;
+			}
+
+			numeroMarco = i;
+			tablaMarcos[i].modificacion = 0;
+			return numeroMarco;
+		}
+
+		tablaMarcos[i].referencia = 0;
+
+		i++;
+		//esto es para fingir la cola circular
+		if (i == cantidadMarcos)
+		{
+			i = 0;
+		}
+
+		if (i == puntero)
+		{
+			primeraVez = 0;
+		}
+
+		tablaMarcos[i].puntero = 0;
+		if ((i+1) == cantidadMarcos)
+		{
+			tablaMarcos[0].puntero = 1;
+		}
+		else
+		{
+			tablaMarcos[i + 1].puntero = 1;
+		}
+	}
+
+	return numeroMarco;
+}
+
+
+void elegirVictimaSegunClockM()
+{
+	int i;
+	int numeroMarcoVictima = -1;
+
+	//este for lo hago para buscar el puntero
+	for (i = 0; tablaMarcos[i].puntero != 1; i++); // seria mas barato una variable global
+
+	while (numeroMarcoVictima == -1)
+	{
+		numeroMarcoVictima = primeraVueltaClock(i);
+
+		if (numeroMarcoVictima == -1)
+		{
+			numeroMarcoVictima = segundaVueltaClock(i);
+		}
+	}
+
+	t_marco nodoMarco = tablaMarcos[numeroMarcoVictima];
+
+	swappearDeMemoriaADisco(nodoMarco);
+
+}
+
+void swappearDeMemoriaADisco(t_marco nodoMarco)
+{
+	nodo_segmento *nodoSegmento;
+	nodo_paginas *nodoPagina;
+	t_list *listaPaginasDelSegmento;
+	t_list *listaSegmentosDelPid;
+
+	swapRestante = swapRestante - TAMANIO_PAGINA;
+
+	int numeroSegmento = nodoMarco.nro_segmento;
+	int numeroPagina = nodoMarco.nro_pagina;
+
+	listaSegmentosDelPid = filtrarListaSegmentosPorPid(nodoMarco.pid);
+
+	nodoSegmento = buscarNumeroSegmento(listaSegmentosDelPid, numeroSegmento);
+
+	listaPaginasDelSegmento = nodoSegmento->listaPaginas;
+
+	nodoPagina = list_get(listaPaginasDelSegmento, numeroPagina);
+
+	crearArchivoDePaginacion(nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina);
+
+	liberarMarco(nodoMarco.nro_marco, nodoPagina);
+
+	log_trace(logs, "Se desalojó de memoria principal a la página %d del segmento %d del PID %d. El marco liberado es el n° %d.", nodoPagina->nro_pagina, nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoMarco.nro_marco);
+}
+
 void elegirVictimaSegunFIFO()
 {
 	nodo_segmento *nodoSegmento;
@@ -1138,7 +1343,6 @@ void elegirVictimaSegunFIFO()
 	int numeroPagina = nodoMarco.nro_pagina;
 
 	listaSegmentosDelPid = filtrarListaSegmentosPorPid(nodoMarco.pid);
-
 
 	nodoSegmento = buscarNumeroSegmento(listaSegmentosDelPid, numeroSegmento);
 
@@ -1176,7 +1380,7 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
 
 int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
 {
-	char* nombreArchivo = malloc(60);
+	char* nombreArchivo;
 	nombreArchivo = generarNombreArchivo(pid, numeroSegmento, nodoPagina->nro_pagina);
 
 	FILE *archivoPaginacion = fopen(nombreArchivo, "w");

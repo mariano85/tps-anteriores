@@ -59,6 +59,9 @@ typedef struct
 	void* dirFisica;
 	int libre;	//si vale 1, el marco está ocupado, si vale 0 está libre
 	int orden;
+	int referencia; //si vale 1 se ha usado recientemente
+	int modificacion; //si vale 1 se ha modificado recientemente
+	int puntero;
 } t_marco;
 
 typedef struct
@@ -152,9 +155,9 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 
 t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas); //revisada
 
-int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
+int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio); //revisada
 
-void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi);
+void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi); //revisada
 
 void *solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
 
@@ -164,17 +167,26 @@ void* atenderACPU(void *socket_cpu);
 
 void* atenderAKernel(void* socket_msp);
 
-int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
+int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina); //revisada
 
-char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina);
+char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina); //revisada
 
-void elegirVictimaSegunFIFO();
+void elegirVictimaSegunFIFO(); //revisada
 
-void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina);
+void elegirVictimaSegunClockM();
+
+void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina); //revisada
 
 uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
 
 void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas *nodoPagina);
+
+void swappearDeMemoriaADisco(t_marco nodoMarco);
+
+int primeraVueltaClock(int puntero);
+
+int segundaVueltaClock(int puntero);
+
 
 
 

@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
 			fclose(entrada);
 
-			puts("eso es todo el archivo");
+			puts("eso es to do el archivo");
 			crearSegmento(1234, 20);
 			crearSegmento(1234, 100);
 
@@ -87,13 +87,30 @@ char* getBytesFromFile(FILE* entrada, size_t *tam_archivo){
 int main(){
 	inicializarMSP();
 
-	crearSegmento(1234, 0);
-	tablaPaginas(1234);
+	crearSegmento(1234, 50);
+
+
+	escribirMemoria(1234, 0, "1111111111", 10);
+	escribirMemoria(1234, 256, "2222222222", 10);
+	escribirMemoria(1234, 512, "3333333333", 10);
+	escribirMemoria(1234, 768, "4444444444", 10);
+	escribirMemoria(1234, 1024, "5555555555", 10);
+
+
+
+
+	puts("chaaaaaaaaaaaaaaaaaar");
+	puts(solicitarMemoria(1234, 0, 10));
 
 
 
 
 
+
+	//elegirVictimaSegunClockM();
+
+
+	puts("holaaaaaaaaaaaaaaaaaaaaaa");
 	listarMarcos();
 
 	return 0;
