@@ -29,15 +29,6 @@ bool stillInside(int32_t processFd){
 		pthread_mutex_unlock(&mutex_ready_queue);
 	}
 
-	pthread_mutex_lock(&mutex_new_queue);
-	if((aProcess = (t_process*)list_find(NEW->elements, (void*)_match_fd)) != NULL){
-		pthread_mutex_unlock(&mutex_new_queue);
-		response = true;
-	}
-	else{
-		pthread_mutex_unlock(&mutex_new_queue);
-	}
-
 	pthread_mutex_lock(&mutex_block_queue);
 	if((aProcess = (t_process*)list_find(BLOCK->elements, (void*)_match_fd)) != NULL){
 		pthread_mutex_unlock(&mutex_block_queue);
@@ -89,16 +80,6 @@ int32_t encontrarProcesoPorFD(int32_t fd){
 	}
 	else{
 		pthread_mutex_unlock(&mutex_ready_queue);
-	}
-
-
-	pthread_mutex_lock(&mutex_new_queue);
-	if((aProcess = (t_process*)list_find(NEW->elements, (void*)_match_fd)) != NULL){
-		pthread_mutex_unlock(&mutex_new_queue);
-		return aProcess->tcb->pid;
-	}
-	else{
-		pthread_mutex_unlock(&mutex_new_queue);
 	}
 
 	pthread_mutex_lock(&mutex_block_queue);
@@ -153,16 +134,6 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 		pthread_mutex_unlock(&mutex_ready_queue);
 	}
 
-
-	pthread_mutex_lock(&mutex_new_queue);
-	if((aProcess = (t_process*)list_find(NEW->elements, (void*)_match_pid_tid)) != NULL){
-		pthread_mutex_unlock(&mutex_new_queue);
-		return aProcess->tcb->pid;
-	}
-	else{
-		pthread_mutex_unlock(&mutex_new_queue);
-	}
-
 	pthread_mutex_lock(&mutex_block_queue);
 	if((aProcess = (t_process*)list_find(BLOCK->elements, (void*)_match_pid_tid)) != NULL){
 		pthread_mutex_unlock(&mutex_block_queue);
@@ -196,11 +167,16 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid){
 
 void agregarProcesoColaNew(t_process* aProcess) {
 
-	pthread_mutex_lock (&mutex_new_queue);
-	queue_push(NEW, aProcess);
-	pthread_mutex_unlock (&mutex_new_queue);
-	puts("Un nuevo proceso se insertó en la cola NEW!");
+	bool estabaVacio = queue_size(READY) == 0;
+
+	pthread_mutex_lock (&mutex_ready_queue);
+	queue_push(READY, aProcess);
+	pthread_mutex_unlock (&mutex_ready_queue);
 	log_info(logKernel, "Un nuevo proceso se insertó en la cola NEW!");
+
+	if(estabaVacio){
+		pthread_cond_signal(&cond_ready_producer);
+	}
 
 }
 
@@ -221,33 +197,6 @@ void agregarProcesoKernel(t_process* aProcess) {
 // aca viene la joda loca, hay que migrar todo tal cual. despues probar y ajustar
 void agregarProcesoColaReady(t_process* aProcess) {
 
-	t_process* process_aux;
-	bool cpuLibre = false;
-
-	if(aProcess != NULL){
-		process_aux = aProcess;
-	} else {
-		// TODO qué me garantiza de que haya algo en la cola NEW? esto no me cierra mucho
-		pthread_mutex_lock (&mutex_new_queue);
-			process_aux = queue_pop(NEW);
-		pthread_mutex_unlock (&mutex_new_queue);
-	}
-
-	pthread_mutex_lock(&mutex_ready_queue);	/* Blocks the buffer */
-	while ((READY->elements->elements_count != 0) && list_any_satisfy(cpu_client_list, (void*)cpuLibre)) {
-		pthread_cond_wait(&cond_ready_producer, &mutex_ready_queue);
-	}
-	/*Magic here, please!*/
-
-	// si está en modo Kernel, lo sitúo al principio de la cola
-	if(aProcess->tcb->indicador_modo_kernel == MODO_KERNEL){
-		list_add_in_index(READY->elements, 0, process_aux);
-	} else if(aProcess->tcb->indicador_modo_kernel == MODO_USUARIO) {
-		queue_push(READY, process_aux);
-	}
-
-		pthread_cond_signal(&cond_ready_consumer);			/* wake up consumer */
-	pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
 
 }
 
@@ -260,6 +209,8 @@ void agregarProcesoColaExec(){
 	t_process* aProcess;
 
 	// me fijo si hay una cpu libre
+	log_info(logKernel, "antes de ver la cpu list");
+
 	pthread_mutex_lock(&mutex_cpu_list);
 		if(list_any_satisfy(cpu_client_list, (void*)cpuLibre)){
 			aCpu = list_find(cpu_client_list, (void*)cpuLibre);
@@ -276,27 +227,29 @@ void agregarProcesoColaExec(){
 		if(aProcess == NULL){
 
 			log_info(logKernel, "Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/");
-			log_info(logKernel, string_from_format("CPU (PID: %d) aguarda instrucciones!", aCpu->cpuPID));
+			log_info(logKernel,"Busco en la cola de NEW y lo nuevo a READY");
 
-		} else {
+			pthread_mutex_lock (&mutex_ready_queue);
+				aProcess = queue_pop(READY);
 
-			pthread_mutex_lock (&mutex_exec_queue);
-				queue_push(EXEC, aProcess);
-			pthread_mutex_unlock (&mutex_exec_queue);
-
-			aCpu->ocupado = true;
-			aCpu->socketProceso = aProcess->process_fd;
-			aCpu->pidTCB = aProcess->tcb->pid;
-			aCpu->tidTCB = aProcess->tcb->tid;
-
-			log_info(logKernel, string_from_format("Un nuevo programa entra en ejecución (PID: %d) (TID: %d) en Procesador PID: %d"
-					, aProcess->tcb->pid
-					, aProcess->tcb->tid
-					, aCpu->cpuPID));
-
-			enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
+			pthread_mutex_unlock (&mutex_ready_queue);
 
 		}
+	pthread_mutex_lock (&mutex_exec_queue);
+			queue_push(EXEC, aProcess);
+		pthread_mutex_unlock (&mutex_exec_queue);
+
+		aCpu->ocupado = true;
+		aCpu->socketProceso = aProcess->process_fd;
+		aCpu->pidTCB = aProcess->tcb->pid;
+		aCpu->tidTCB = aProcess->tcb->tid;
+
+		log_info(logKernel, string_from_format("Un nuevo programa entra en ejecución (PID: %d) (TID: %d) en Procesador PID: %d"
+				, aProcess->tcb->pid
+				, aProcess->tcb->tid
+				, aCpu->cpuPID));
+
+		enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
 
 	}
 
@@ -305,20 +258,20 @@ void agregarProcesoColaExec(){
 
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess){
 
-	int32_t v1 = aProcess->tcb->pid;
-	int32_t v2 = aProcess->tcb->base_segmento_codigo;
-	int32_t v3 = aProcess->tcb->tamanio_segmento_codigo;
-	int32_t v4 = config_kernel.QUANTUM;
-	int32_t v5 = aProcess->tcb->indicador_modo_kernel;
-	int32_t v6 = aProcess->tcb->base_stack;
-	int32_t v7 = aProcess->tcb->cursor_stack;
+	int32_t v0 = aProcess->tcb->pid;
+	int32_t v1 = aProcess->tcb->base_segmento_codigo;
+	int32_t v2 = aProcess->tcb->tamanio_segmento_codigo;
+	int32_t v3 = config_kernel.QUANTUM;
+	int32_t v4 = aProcess->tcb->indicador_modo_kernel;
+	int32_t v5 = aProcess->tcb->base_stack;
+	int32_t v6 = aProcess->tcb->cursor_stack;
 
 	// esto por ahora lo no recibe Nico, pero lo tiene que recibir
 	int32_t v8 = aProcess->tcb->tid;
 
 	t_contenido mensaje;
 	memset(mensaje, 0, sizeof(t_contenido));
-	strcpy(mensaje, string_from_format("[%d, %d, %d, %d, %d, %d, %d, %d]", v1, v2, v3, v4, v5, v6, v7, v8));
+	strcpy(mensaje, string_from_format("[%d, %d, %d, %d, %d, %d, %d]", v0, v1, v2, v3, v4, v5, v6));
 	enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
 	log_info(logKernel, "Se envía un TCB al CPU libre elegido");
 
@@ -376,17 +329,6 @@ void agregarProcesoColaExit(t_process* aProcess){
 }
 
 
-void chequearProcesos(){
-
-	if(queue_size(NEW) > 0){
-		agregarProcesoColaReady(NULL);
-	} else {
-		log_info(logKernel, "La cola de procesos nuevos Ready se encuentra llena..");
-	}
-
-}
-
-
 void removeProcess(int32_t processPID, bool someoneKilledHim){
 
 	bool _match_process_pid(void* element) {
@@ -399,7 +341,6 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 	pthread_mutex_lock (&mutex_block_queue);
 	pthread_mutex_lock (&mutex_ready_queue);
 	pthread_mutex_lock (&mutex_exec_queue);
-	pthread_mutex_lock (&mutex_new_queue);
 	bool wasNew = false;
 
 	/*Busco en qué cola está!*/
@@ -409,11 +350,6 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 	if((aProcess = (t_process*)list_find(READY->elements, (void*)_match_process_pid)) != NULL){
 		Hit = true;
 		list_remove_by_condition(READY->elements, (void*)_match_process_pid);
-	}
-	else if((aProcess = (t_process*)list_find(NEW->elements, (void*)_match_process_pid)) != NULL){
-		wasNew = true;
-		Hit = true;
-		list_remove_by_condition(NEW->elements, (void*)_match_process_pid);
 	}
 	else if((aProcess = (t_process*)list_find(BLOCK->elements, (void*)_match_process_pid)) != NULL){
 		Hit = true;
@@ -427,7 +363,6 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 		Hit = true;
 		list_remove_by_condition(EXIT->elements, (void*)_match_process_pid);
 	}
-	pthread_mutex_unlock (&mutex_new_queue);
 	pthread_mutex_unlock (&mutex_exec_queue);
 	pthread_mutex_unlock (&mutex_ready_queue);
 	pthread_mutex_unlock (&mutex_block_queue);
@@ -436,11 +371,6 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 		if(!someoneKilledHim){/*Si nadie lo mató, entonces entró en la cola de EXIT y el PLP lo está expulsando del sistema*/
 			//ComunicarMuertePrograma(aProcess->pid);
 		}
-		/*Si el proceso que murió no era uno nuevo, entonces veo si por el gr. de multiprog puedo meter uno nuevo!*/
-		if(!wasNew){
-			chequearProcesos();
-		}
-
 
 		killProcess(aProcess);
 	}
@@ -456,7 +386,7 @@ void manejo_cola_ready(void){
 	bool cpuLibre = false;
 
 	while(true){
-		pthread_mutex_lock(&mutex_ready_queue);	/* protect buffer */
+//		pthread_mutex_lock(&mutex_ready_queue);	/* protect buffer */
 
 		while(READY->elements->elements_count == 0 ||
 			(READY->elements->elements_count > 0 && !list_any_satisfy(cpu_client_list, (void*)cpuLibre)) ) {
@@ -469,7 +399,7 @@ void manejo_cola_ready(void){
 		}
 
 	}
-		pthread_mutex_unlock(&mutex_ready_queue);
+	//	pthread_mutex_unlock(&mutex_ready_queue);
 
 	log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!");
 	agregarProcesoColaExec();
@@ -510,7 +440,7 @@ void manejo_cola_exit(void){
 
 
 bool cpuLibre(void* element){
-	return !((t_client_cpu*)element)->ocupado == false;
+	return ((t_client_cpu*)element)->ocupado == false;
 }
 
 t_client_cpu* buscarCpuPorSocket(int32_t cpuFd){

@@ -153,7 +153,7 @@ void* loader(t_loaderThread *loaderThread){
 
 						recibir(i, codigoBESO, tamanioCodigo);
 
-						grabarCodigoRecibido(codigoBESO, "beso.bc", tamanioCodigo);
+						grabarCodigoRecibido(codigoBESO, "stack.bc", tamanioCodigo);
 
 						log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
 
@@ -192,5 +192,6 @@ void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio
 
 	FILE* fp = fopen(nombreArchivo, "w+");
 	fwrite(codigoBeso, tamanio, 1, fp);
+	fclose(fp);
 
 }

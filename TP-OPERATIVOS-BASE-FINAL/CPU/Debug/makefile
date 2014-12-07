@@ -25,7 +25,7 @@ endif
 all: CPU
 
 dependents:
-	-cd /home/utnso/workspace/commons/Debug && $(MAKE) clean all
+	-cd /home/utnso/workspace/commons/Debug && $(MAKE) all
 
 # Tool invocations
 CPU: $(OBJS) $(USER_OBJS) /home/utnso/workspace/commons/Debug/libcommons.so

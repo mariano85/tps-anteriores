@@ -119,12 +119,13 @@ void buscador_de_instruccion(char* instruccion){
 
 			}
 
-			log_info(logs,"el valor del registro %s es %d",registro,numero);
+
 
 			free(registro);
 
 		}
 
+		estado_registros();
 		program_counter = aumentarProgramCounter(program_counter,5);
 	}
 
@@ -171,7 +172,7 @@ void buscador_de_instruccion(char* instruccion){
 												break;
 				} //Fin del switch
 
-				log_info(logs,"el valor del registro A es %d",A);
+				estado_registros();
 				free(registro1);
 				free(registro4);
 
@@ -182,17 +183,85 @@ void buscador_de_instruccion(char* instruccion){
 	}
 	//#3 SETM : Pone tantos bytes desde el segundo registro, hacia la memoria apuntada por el primer registro
 
-/*	if(string_equals_ignore_case(SETM,instruccion)){
+	if(string_equals_ignore_case(SETM,instruccion)){
 
-			int32_t numero = solicitar_numero();
 
-			int32_t registro1 = solicitar_registro();
+		int32_t auxiliar_numero = 4;
+		enviar_parametros(program_counter,auxiliar_numero);
 
-			int32_t registro2 = solicitar_registro();
+		t_contenido mensaje_para_recibir_numero;
+		memset(mensaje_para_recibir_numero,0,sizeof(t_contenido));
+		t_header header_recibir_numero = recibirMensaje(socketMSP,mensaje_para_recibir_numero,logs);
 
-			instruccion_SETM(numero,registro1,registro2);
+			if(header_recibir_numero == MSP_TO_CPU_BYTES_ENVIADOS){
 
-		}*/
+				program_counter = aumentarProgramCounter(program_counter,4);
+
+			}
+
+		int32_t auxiliar_registros = 2;
+		enviar_parametros(program_counter,auxiliar_registros);
+
+		t_contenido mensaje_para_recibir_registros;
+		memset(mensaje_para_recibir_registros,0,sizeof(t_contenido));
+		t_header header_recibir_registro = recibirMensaje(socketMSP,mensaje_para_recibir_registros,logs);
+
+			if(header_recibir_registro == MSP_TO_CPU_BYTES_ENVIADOS){
+
+				int32_t numero;
+				memcpy(&numero,mensaje_para_recibir_numero,4);
+
+				char* registro1 = malloc(1);
+				char* registro2 = malloc(1);
+
+				memset(registro1,0,2);
+				memset(registro2,0,2);
+
+				memcpy(registro1,mensaje_para_recibir_registros,1);
+				memcpy(registro2,mensaje_para_recibir_registros + 1,1);
+
+				int32_t aux1 = verificador_de_registro(registro1);
+				int32_t aux2 = verificador_de_registro(registro2);
+
+
+				void _verificador_segunda_instruccion_SETM(int32_t *var,int32_t aux2){
+
+							switch(aux2){
+								case 0 : instruccion_SETM(numero,var,&A);
+											break;
+								case 1 : instruccion_SETM(numero,var,&B);
+											break;
+								case 2 :  instruccion_SETM(numero,var,&C);
+											break;
+								case 3 :  instruccion_SETM(numero,var,&D);
+											break;
+								case 4 : instruccion_SETM(numero,var,&E);
+									}
+						}
+
+				switch(aux1){
+
+						case 0 :_verificador_segunda_instruccion_SETM(&A,aux2);
+											break;
+						case 1 :_verificador_segunda_instruccion_SETM(&B,aux2);
+											break;
+						case 2 :_verificador_segunda_instruccion_SETM(&C,aux2);
+											break;
+						case 3 :_verificador_segunda_instruccion_SETM(&D,aux2);
+											break;
+						case 4 :_verificador_segunda_instruccion_SETM(&E,aux2);
+											break;
+										}
+
+					free(registro1);
+					free(registro2);
+					estado_registros();
+
+
+			}//fin if
+
+			program_counter = aumentarProgramCounter(program_counter,2);
+		}
 
 	//#4 MOVR : copia el valor del segundo registro al primer registro
 
@@ -251,6 +320,7 @@ void buscador_de_instruccion(char* instruccion){
 
 					free(registro1);
 					free(registro2);
+					estado_registros();
 
 		}// Fin del if
 
@@ -294,7 +364,6 @@ void buscador_de_instruccion(char* instruccion){
 							case 2 : instruccion_ADDR(var,&C);
 										break;
 							case 3 : instruccion_ADDR(var,&D);
-									log_info(logs,"entro en el case 3");
 										break;
 							case 4 :instruccion_ADDR(var,&E);
 				}
@@ -314,10 +383,10 @@ void buscador_de_instruccion(char* instruccion){
 									break;
 			}
 
-			log_info(logs,"el valor deberia dar 100 del registro B y da :%d",B);
-
 			free(registro1);
 			free(registro2);
+			estado_registros();
+
 		}
 
 		program_counter = aumentarProgramCounter(program_counter,2);
@@ -367,7 +436,6 @@ void buscador_de_instruccion(char* instruccion){
 							case 1 :instruccion_SUBR(var,&B);
 											break;
 							case 2 : instruccion_SUBR(var,&C);
-							log_info(logs,"entro en el case 2");
 											break;
 							case 3 : instruccion_SUBR(var,&D);
 											break;
@@ -390,8 +458,7 @@ void buscador_de_instruccion(char* instruccion){
 						}
 						free(registro_1);
 						free(registro_2);
-						log_info(logs,"el valor del registro d es %d",D);
-
+						estado_registros();
 						program_counter = aumentarProgramCounter(program_counter,2);
 
 				}
@@ -433,7 +500,6 @@ void buscador_de_instruccion(char* instruccion){
 						case 0 : instruccion_MULR(var,&A);
 									break;
 						case 1 :instruccion_MULR(var,&B);
-						log_info(logs,"entro en el case 2");
 									break;
 						case 2 : instruccion_MULR(var,&C);
 									break;
@@ -457,10 +523,10 @@ void buscador_de_instruccion(char* instruccion){
 
 										}
 
-				log_info(logs,"el valor del registro A deberia ser 9700 y es : %d",A);
 				program_counter = aumentarProgramCounter(program_counter,2);
 				free(registro_1);
 				free(registro_2);
+				estado_registros();
 			}
 
 
@@ -525,11 +591,10 @@ void buscador_de_instruccion(char* instruccion){
 
 										}
 
-				log_info(logs,"el valor del registro tiene que ser 1 y es %d",D);
-
 				free(registro_1);
 				free(registro_2);
 				program_counter = aumentarProgramCounter(program_counter,2);
+				estado_registros();
 		}
 
 	}
@@ -593,10 +658,9 @@ void buscador_de_instruccion(char* instruccion){
 
 						}
 
-					log_info(logs,"el valor de E es %d",E);
-
 					free(registro_1);
 					free(registro_2);
+					estado_registros();
 
 				program_counter = aumentarProgramCounter(program_counter,2);
 			}
@@ -643,7 +707,7 @@ void buscador_de_instruccion(char* instruccion){
 
 				}
 
-		log_info(logs,"el valor de A es %d",A);
+		estado_registros();
 		program_counter = aumentarProgramCounter(program_counter,1);
 
 		}
@@ -691,7 +755,7 @@ void buscador_de_instruccion(char* instruccion){
 
 						}
 
-				log_info(logs,"el valor de A es %d",A);
+				estado_registros();
 				program_counter = aumentarProgramCounter(program_counter,1);
 				free(registro_1);
 
@@ -759,7 +823,7 @@ void buscador_de_instruccion(char* instruccion){
 								}
 
 
-				log_info(logs,"el valor de A es %d",A);
+				estado_registros();
 				program_counter = aumentarProgramCounter(program_counter,2);
 				free(registro_1);
 				free(registro_2);
@@ -830,7 +894,7 @@ void buscador_de_instruccion(char* instruccion){
 								}
 
 
-					log_info(logs,"el valor de A es %d",A);
+					estado_registros();
 					program_counter = aumentarProgramCounter(program_counter,2);
 					free(registro_1);
 					free(registro_2);
@@ -900,11 +964,10 @@ void buscador_de_instruccion(char* instruccion){
 
 						}
 
-							log_info(logs,"el valor de A es %d",A);
 							program_counter = aumentarProgramCounter(program_counter,2);
 							free(registro_1);
 							free(registro_2);
-
+							estado_registros();
 
 				}
 
@@ -946,8 +1009,7 @@ void buscador_de_instruccion(char* instruccion){
 								break;
 
 					}
-
-				log_info(logs,"el valor de A es %d",A);
+				estado_registros();
 				free(registro_1);
 		}
 }
@@ -956,7 +1018,7 @@ void buscador_de_instruccion(char* instruccion){
 
 	if(string_equals_ignore_case(JMPZ,instruccion)){
 
-			int32_t auxiliar = 1;
+			int32_t auxiliar = 4;
 
 			enviar_parametros(program_counter,auxiliar);
 
@@ -966,18 +1028,16 @@ void buscador_de_instruccion(char* instruccion){
 
 			if(header_recibir_bytes == MSP_TO_CPU_BYTES_ENVIADOS){
 
-				char* direccion_char = malloc(4);
+				int32_t direccion = 0;
 
-				memset(direccion_char,0,4);
-				memcpy(direccion_char,mensaje_para_recibir_bytes,4);
+				memcpy(&direccion,mensaje_para_recibir_bytes,4);
 
-				log_info(logs,"el registro1 es %s",direccion_char);
-				int32_t direccion = atoi(direccion_char);
+				log_info(logs,"el registro1 es %d",direccion);
 
 				instruccion_JMPZ(direccion);
 
+				estado_registros();
 
-				free(direccion_char);
 			}
 	}
 
@@ -996,12 +1056,15 @@ void buscador_de_instruccion(char* instruccion){
 
 		if(header_recibir_bytes == MSP_TO_CPU_BYTES_ENVIADOS){
 
+			int32_t direccion = 0;
 
-			log_info(logs,"el valor de la direccion es %d",(int32_t) mensaje_para_recibir_bytes);
+			memcpy(&direccion,mensaje_para_recibir_bytes,4);
 
-			instruccion_JPNZ((int32_t)mensaje_para_recibir_bytes);
+			log_info(logs,"el registro1 es %d",direccion);
 
+			instruccion_JPNZ(direccion);
 
+			estado_registros();
 
 					}
 
@@ -1033,10 +1096,9 @@ void buscador_de_instruccion(char* instruccion){
 			int32_t direccion_recibida;
 
 			memcpy(&direccion_recibida,mensaje_para_recibir_bytes,4);
-
-			log_info(logs,"el registro1 es %d",direccion_recibida);
-
 			instruccion_INTE(direccion_recibida);
+			program_counter = aumentarProgramCounter(program_counter,4);
+			estado_registros();
 
 		}
 	}
@@ -1046,24 +1108,35 @@ void buscador_de_instruccion(char* instruccion){
 
 	if(string_equals_ignore_case(SHIF,instruccion)){
 
-		int32_t auxiliar = 5;
+		int32_t auxiliar = 4;
 
 		enviar_parametros(program_counter,auxiliar);
 
-		t_contenido mensaje_para_recibir_bytes;
-		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
-		t_header header_recibir_bytes = recibirMensaje(socketMSP,mensaje_para_recibir_bytes,logs);
+		t_contenido mensaje_para_recibir_numero;
+		memset(mensaje_para_recibir_numero,0,sizeof(t_contenido));
+		t_header header_recibir_numero = recibirMensaje(socketMSP,mensaje_para_recibir_numero,logs);
 
-			if(header_recibir_bytes == MSP_TO_CPU_BYTES_RECIBIDOS){
+			if(header_recibir_numero == MSP_TO_CPU_BYTES_ENVIADOS){
 
-					log_info(logs,"voy a ejecutar la instruccion SHIF");
+				program_counter = aumentarProgramCounter(program_counter,4);
+
+			}
+
+			int32_t auxiliar_registro = 1;
+			enviar_parametros(program_counter,auxiliar_registro);
+
+			t_contenido mensaje_para_recibir_registro;
+			memset(mensaje_para_recibir_registro,0,sizeof(t_contenido));
+			t_header header_recibir_registro = recibirMensaje(socketMSP,mensaje_para_recibir_registro,logs);
+
+			if( header_recibir_registro == MSP_TO_CPU_BYTES_ENVIADOS){
 
 					char* registro = malloc(2);
 					int32_t numero;
 
 					memset(registro,0,2);
-					memcpy(&numero,mensaje_para_recibir_bytes,4);
-					memcpy(registro,mensaje_para_recibir_bytes + 4,1);
+					memcpy(&numero,mensaje_para_recibir_numero,4);
+					memcpy(registro,mensaje_para_recibir_registro,2);
 
 					int32_t aux = verificador_de_registro(registro);
 
@@ -1081,13 +1154,15 @@ void buscador_de_instruccion(char* instruccion){
 										break;
 						}
 
+					free(registro);
 
-
-
-
-								free(registro);
 
 			}
+
+
+			estado_registros();
+			program_counter = aumentarProgramCounter(program_counter,1);
+
 	}
 
 
@@ -1135,26 +1210,24 @@ void buscador_de_instruccion(char* instruccion){
 
 				switch(aux){
 
-				case 0:instruccion_PUSH(&A,numero);
+				case 0:instruccion_PUSH(A,numero);
 								break;
-				case 1 : instruccion_PUSH(&B,numero);
-								break;
-
-				case 2 : instruccion_PUSH(&C,numero);
-						log_info(logs,"entre en C");
-
+				case 1 : instruccion_PUSH(B,numero);
 								break;
 
-				case 3 : instruccion_PUSH(&D,numero);
+				case 2 : instruccion_PUSH(C,numero);
 								break;
 
-				case 4 : instruccion_PUSH(&E,numero);
+				case 3 : instruccion_PUSH(D,numero);
+								break;
+
+				case 4 : instruccion_PUSH(E,numero);
 								break;
 
 				}
 
 				program_counter = aumentarProgramCounter(program_counter,1);
-			free(registro);
+				free(registro);
 		}
 
 
@@ -1303,6 +1376,15 @@ void buscador_de_instruccion(char* instruccion){
 		instruccion_OUTN();
 	}
 
+	//#30 OUTC
+	if(string_equals_ignore_case(OUTC,instruccion)){
+
+		log_info(logs,"El OUTC esta por entrar");
+
+		instruccion_OUTC();
+
+	}
+
 
 }
 
@@ -1359,16 +1441,16 @@ int32_t verificador_de_registro(char* valor){
 void funcion_verificador_segundo_registro_GETM(int32_t *var,int32_t aux2){
 
 					switch(aux2){
-							case 0 : instruccion_GETM(var,&A);
+							case 0 : instruccion_GETM(var,A);
 								break;
 							case 1 :
-								instruccion_GETM(var,&B);
+								instruccion_GETM(var,B);
 								break;
-							case 2 : instruccion_GETM(var,&C);
+							case 2 : instruccion_GETM(var,C);
 								break;
-							case 3 : instruccion_GETM(var,&D);
+							case 3 : instruccion_GETM(var,D);
 								break;
-							case 4 : instruccion_GETM(var,&E);
+							case 4 : instruccion_GETM(var,E);
 
 						}
 					}
@@ -1381,5 +1463,13 @@ void enviar_parametros(int32_t program_counter,int32_t auxiliar){
 	memset(mensaje_cantidad_bytes,0,sizeof(t_contenido));
 	strcpy(mensaje_cantidad_bytes, string_from_format("[%d,%d]",program_counter,auxiliar));
 	enviarMensaje(socketMSP,CPU_TO_MSP_PARAMETROS,mensaje_cantidad_bytes,logs);
+}
+
+void estado_registros(){
+
+
+	log_info(logs,"el valor de los registros\n\tA:\t%d\n\tB:\t%d\n\tC:\t%d\n\tD:\t%d\n\tE:\t%d",A,B,C,D,E);
+
+
 }
 

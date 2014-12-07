@@ -17,7 +17,7 @@ void levantarArchivoDeConfiguracion()
 
 	config = config_create("configuracion");
 
-	//Compruebo si existe el archivo
+	//Compruebo si el archivo tiene todos los datos
 	bool estaPuerto = config_has_property(config, "PUERTO");
 	bool estaCantMemoria = config_has_property(config, "CANTIDAD_MEMORIA");
 	bool estaCantSwap = config_has_property(config, "CANTIDAD_SWAP");
@@ -25,22 +25,37 @@ void levantarArchivoDeConfiguracion()
 
 	if(!estaPuerto || !estaCantMemoria || !estaCantSwap || !estaSust)
 	{
-		printf("Error en el archivo de configuracion\n");
-		log_trace(logs, "Error en el archivo de configuracion");
+		if (consola == 1) printf("Error en el archivo de configuracion\n");
+		log_error(logs, "Error en el archivo de configuracion");
 		abort();
 	}
 
-	algoritmo = config_get_string_value(config, "SUST_PAGS");
+	algoritmo = strdup(config_get_string_value(config, "SUST_PAGS"));
 	puerto = config_get_int_value(config, "PUERTO");
 	tamanio = config_get_int_value(config, "CANTIDAD_MEMORIA");
 	swap = config_get_int_value(config, "CANTIDAD_SWAP");
+
+	if ((strcmp(algoritmo, "FIFO")) != 0 && (strcmp(algoritmo, "CLOCKM")))
+	{
+		if (consola == 1) printf("El algoritmo de sustitución de páginas no es válido.\n");
+		log_error(logs, "El algoritmo de sustitución de páginas no es válido.");
+		abort();
+	}
+
+	if ((tamanio < 0) || (swap < 0))
+	{
+		if (consola == 1) printf("Error, el tamaño de la memoria o el swap son menores a 0.\n");
+		log_error(logs, "Error, el tamaño de la memoria o el swap son menores a 0.");
+		abort();
+
+	}
 
 	configuracion.sust_pags = algoritmo;
 	configuracion.puerto = puerto;
 	configuracion.cantidad_memoria = tamanio;
 	configuracion.cantidad_swap = swap;
 
-	//config_destroy(config);
+	config_destroy(config);
 }
 
 void crearTablaDeMarcos()
@@ -54,6 +69,8 @@ void crearTablaDeMarcos()
 		//Si la división no es exacta, necesito un marco más para alojar lo que queda de la memoria.
 		cantidadMarcos = configuracion.cantidad_memoria / TAMANIO_PAGINA + 1;
 	}
+
+	printf("cantidadmarcos: %d\n", cantidadMarcos);
 
 	//Aloco espacio de memoria para una tabla que va tener toda la información de los marcos de memoria.
 	//calloc recibe dos parámetros por separado, la cantidad de espacios que necesito, y el tamaño de cada
@@ -76,8 +93,6 @@ void crearTablaDeMarcos()
 
 		tablaMarcos[i].dirFisica = memoriaPrincipal + i * TAMANIO_PAGINA;
 
-		tablaMarcos[i].orden = 0;
-
 		//Cuando recién se crea la tabla, todos los marcos están libres.
 		tablaMarcos[i].libre = 1;
 
@@ -85,6 +100,8 @@ void crearTablaDeMarcos()
 
 		memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
 	}
+
+	//tablaMarcos[0].puntero = 1;
 
 	free(buffer);
 }
@@ -95,11 +112,14 @@ void listarMarcos()
 	int i;
 	for (i=0; i<cantidadMarcos; i++)
 	{
-		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden);
-		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d		", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
+		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d      %s", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden, (char*)tablaMarcos[i].dirFisica);
+		/*printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d     ", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
 		printf("Orden: %d    ", tablaMarcos[i].orden);
-		printf("libre: %d     ", tablaMarcos[i].libre);
-		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);
+		printf("Libre: %d    ", tablaMarcos[i].libre);
+		printf("Referencia: %d     ", tablaMarcos[i].referencia);
+		printf("Modificación: %d     ", tablaMarcos[i].modificacion);
+		//printf("Puntero: %d     ", tablaMarcos[i].puntero);
+		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);*/
 	}
 }
 
@@ -113,14 +133,22 @@ void inicializarMSP()
 
 	levantarArchivoDeConfiguracion();
 
+	//PASAJE DE MB A BYTES
+	int memoriaEnBytes = configuracion.cantidad_memoria * (pow(2, 20));
+	int swapEnBytes = configuracion.cantidad_swap * (pow(2, 20));
+	configuracion.cantidad_memoria = memoriaEnBytes;
+	configuracion.cantidad_swap = swapEnBytes;
+
 	//Estas variables las uso para, cada vez que asigno un marco o swappeo una pagina, voy restando del
 	//espacio total. Cuando alguna de estas dos variables llegue a 0, significa que no hay mas espacio.
 	memoriaRestante = configuracion.cantidad_memoria;
 	swapRestante = configuracion.cantidad_swap;
+	tamanioRestanteTotal = swapRestante + memoriaRestante;
 
 	memoriaPrincipal = malloc(configuracion.cantidad_memoria);
 	if(memoriaPrincipal == NULL)
 	{
+		if (consola == 1) printf("Error, no se pudo alocar espacio para la memoria principal.\n");
 		log_error(logs, "Error, no se pudo alocar espacio para la memoria principal.");
 		abort();
 	}
@@ -131,15 +159,14 @@ void inicializarMSP()
 
 	consola = 0;
 
-
 	ordenMarco = 0;
 
-/*	pthread_t hilo_consola_1;
+	/*pthread_t hilo_consola_1;
 	if(pthread_create(&hilo_consola_1, NULL, (void*) consola_msp(), NULL)!=0){
 		puts("No se ha podido crear el proceso consola de la MSP.");
 	}*/
 
-	log_trace(logs, "MSP inicio su ejecucion. Tamaño memoria: %d. Tamaño swap: %d", memoriaRestante, swapRestante);
+	log_trace(logs, "MSP inicio su ejecucion. Tamaño memoria: %d. Tamaño swap: %d. Algoritmo sust páginas: %s.", memoriaRestante, swapRestante, configuracion.sust_pags);
 }
 
 uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegmentosDeEstePid, int tamanio)
@@ -199,12 +226,10 @@ uint32_t crearSegmento(int pid, int tamanio)
 		if (consola == 1) printf("Error, el tamaño es negativo.\n");
 		return EXIT_FAILURE;
 	}
+
 	int cantidadTotalDePaginas;
 
-	bool _pidCorresponde(nodo_segmento *p) {
-			return (p->pid == pid);
-		}
-	t_list *listaDeSegmentosDeEstePid = list_filter(listaSegmentos, (void*)_pidCorresponde);
+	t_list *listaDeSegmentosDeEstePid = filtrarListaSegmentosPorPid(pid);
 	int cantidadSegmentosDeEstePid = list_size(listaDeSegmentosDeEstePid);
 	if (cantidadSegmentosDeEstePid == CANTIDAD_MAX_SEGMENTOS_POR_PID)
 	{
@@ -226,6 +251,17 @@ uint32_t crearSegmento(int pid, int tamanio)
 		cantidadTotalDePaginas = tamanio / TAMANIO_PAGINA + 1;
 	}
 
+
+	if (tamanio > tamanioRestanteTotal)
+	{
+		if (consola == 1) printf("No hay espacio en la memoria para crear este segmento.");
+		log_error(logs, "No hay espacio disponible en la memoria para crear este segmento.");
+		return EXIT_FAILURE;
+	}
+
+	tamanioRestanteTotal = tamanioRestanteTotal - (TAMANIO_PAGINA * cantidadTotalDePaginas);
+
+
 	if (cantidadTotalDePaginas > CANTIDAD_MAX_PAGINAS_POR_SEGMENTO)
 	{
 		log_error(logs, "Error, no se puede crear el segmento para el PID %d porque excede el tamaño máximo de %d cantidad de páginas.", pid, CANTIDAD_MAX_PAGINAS_POR_SEGMENTO);
@@ -246,6 +282,8 @@ uint32_t crearSegmento(int pid, int tamanio)
 
 	log_trace(logs, "Para el PID %d se creó el número de segmento %d de tamanio %d.", pid, numeroSegmento, tamanio);
 	if (consola == 1) printf("Para el PID %d se creó el número de segmento %d de tamanio %d.\n", pid, numeroSegmento, tamanio);
+	log_trace(logs, "El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
+	if (consola == 1) printf("El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
 
 	return direccionBase;
 
@@ -276,50 +314,56 @@ int destruirSegmento(int pid, uint32_t base)
 		if (consola == 1) printf("Error, pid y/o segmento invalidos\n");
 		return EXIT_FAILURE;
 	}
-	else
+	nodo = list_remove_by_condition(listaSegmentos, (void*)_pidYSegmentoCorresponde);
+
+	void _liberarMarcoOBorrarArchivoSwap(nodo_paginas *nodoPagina)
 	{
-		nodo = list_remove_by_condition(listaSegmentos, (void*)_pidYSegmentoCorresponde);
-
-		void _liberarMarcoOBorrarArchivoSwap(nodo_paginas *nodoPagina)
+		if (nodoPagina->presencia == -2)
 		{
-			if (nodoPagina->presencia == -2)
-			{
-				char* nombreArchivo = malloc(60);
+			char* nombreArchivo = malloc(60);
 
-				nombreArchivo = generarNombreArchivo(nodo->pid, nodo->numeroSegmento, nodoPagina->nro_pagina);
+			nombreArchivo = generarNombreArchivo(nodo->pid, nodo->numeroSegmento, nodoPagina->nro_pagina);
 
-				FILE *archivo = fopen(nombreArchivo, "w");
-				remove(nombreArchivo);
-				fclose(archivo);
+			FILE *archivo = fopen(nombreArchivo, "w");
+			remove(nombreArchivo);
+			fflush(archivo);
+			fclose(archivo);
 
-				swapRestante = swapRestante + TAMANIO_PAGINA;
+			swapRestante = swapRestante + TAMANIO_PAGINA;
 
-				log_trace(logs, "Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-				if (consola == 1) printf("Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.\n", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-			}
+			log_trace(logs, "Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
+			if (consola == 1) printf("Se eliminó el archivo %s debido a la destrucción de la página %d del segmento %d del PID %d.\n", nombreArchivo, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
 
-			if ((nodoPagina->presencia >= 0))
-			{
-				int numeroMarco = nodoPagina->presencia;
-
-				liberarMarco(numeroMarco, nodoPagina);
-
-				log_trace(logs, "Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-				if (consola == 1) printf("Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
-			}
-
-			free(nodoPagina);
+			free(nombreArchivo);
 		}
 
-		list_iterate(nodo->listaPaginas, (void*)_liberarMarcoOBorrarArchivoSwap);
+		if ((nodoPagina->presencia >= 0))
+		{
+			int numeroMarco = nodoPagina->presencia;
 
-		free(nodo->listaPaginas);
+			liberarMarco(numeroMarco, nodoPagina);
 
-		free(nodo);
+			log_trace(logs, "Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
+			if (consola == 1) printf("Se liberó el marco n° %d debido a la destrucción de la página %d del segmento %d del PID %d.\n", numeroMarco, nodoPagina->nro_pagina, nodo->numeroSegmento, pid);
+		}
 
-		log_trace(logs, "Se destruyó el segmento %d del PID %d.", nodo->numeroSegmento, pid);
-		if (consola == 1) printf("Se destruyó el segmento %d del PID %d.\n", nodo->numeroSegmento, pid);
+		free(nodoPagina);
 	}
+
+	list_iterate(nodo->listaPaginas, (void*)_liberarMarcoOBorrarArchivoSwap);
+
+	int cantidadPaginas = list_size(nodo->listaPaginas);
+	tamanioRestanteTotal = tamanioRestanteTotal + cantidadPaginas * TAMANIO_PAGINA;
+	int tamanioSegmento = nodo->tamanio;
+
+	log_trace(logs, "Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.", nodo->numeroSegmento, pid, tamanioSegmento);
+	if (consola == 1) printf("Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.\n", nodo->numeroSegmento, pid, tamanioSegmento);
+	log_trace(logs, "El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
+	if (consola == 1) printf("El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
+
+	free(nodo->listaPaginas);
+
+	free(nodo);
 
 	return EXIT_SUCCESS;
 }
@@ -386,6 +430,7 @@ void tablaPaginas(int pid)
 	{
 		if (list_is_empty(nodoSegmento->listaPaginas))
 		{
+			log_info(logs, "PID: %d\tNro segmento: %d\tNo tiene páginas.\n", nodoSegmento->pid, nodoSegmento->numeroSegmento);
 			printf("PID: %d\tNro segmento: %d\tNo tiene páginas.\n", nodoSegmento->pid, nodoSegmento->numeroSegmento);
 		}
 
@@ -507,8 +552,9 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 		return NULL;
 	}
 
-	printf("tamanio segmento: %d   tamanio buffer: %d\n", nodoSegmento->tamanio, tamanio);
-	if (nodoSegmento->tamanio < tamanio)
+	//COMPROBACION DE VIOLACION DE SEGMENTO Esta variable me indica los bytes que hay antes de la direccion base
+	int espacioAntesDeLaBase = nodoPagina->nro_pagina *  TAMANIO_PAGINA;
+	if ((espacioAntesDeLaBase + tamanio) > nodoSegmento->tamanio)
 	{
 		log_error(logs, "Error, violación de segmento.");
 		if (consola == 1) printf("Error, violacion de segmento.\n");
@@ -522,7 +568,6 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	int quedaDelTamanio = tamanio - faltaParaCompletarPagina;
 	if (quedaDelTamanio < 0)
 	{
-		puts("entre al if");
 		cantidadPaginasQueOcupaTamanio = 1;
 		paginasQueNecesito = paginasQueVoyAUsar(nodoSegmento, nodoPagina->nro_pagina, cantidadPaginasQueOcupaTamanio);
 	}
@@ -605,6 +650,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	//copio lo que queda para completar la primera pagina
 	int yaCopie = TAMANIO_PAGINA - offset;
 	memcpy(buffer, direccionOrigen, yaCopie);
+	tablaMarcos[nodoPagina->presencia].referencia = 1;
 
 	//copio las paginas del medio
 	int i;
@@ -619,7 +665,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		memcpy(buffer + yaCopie, buffermini, TAMANIO_PAGINA);
 		yaCopie = yaCopie + TAMANIO_PAGINA;
 		free(buffermini);
-
+		tablaMarcos[nodoPagina->presencia].referencia = 1;
 	}
 
 	//copio lo que me queda del tamanio de la ultima pagina
@@ -632,7 +678,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		memcpy(buffermini, direccionOrigen, tamanio - yaCopie);
 		memcpy(buffer + yaCopie, buffermini, tamanio - yaCopie);
 		free(buffermini);
-
+		tablaMarcos[nodoPagina->presencia].referencia = 1;
 	}
 
 	return buffer;
@@ -651,7 +697,14 @@ void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
 
 	if (memoriaRestante < TAMANIO_PAGINA)
 	{
-		elegirVictimaSegunFIFO();
+		if (strcmp(configuracion.sust_pags, "FIFO") == 0)
+		{
+			elegirVictimaSegunFIFO();
+		}
+		else
+		{
+			elegirVictimaSegunClockM();
+		}
 	}
 
 	void* buffer = malloc(TAMANIO_PAGINA);
@@ -680,6 +733,9 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 {
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
+	puts("bytes a escribir");
+	puts((char*)bytesAEscribir);
+
 	if (paginasQueNecesito == NULL) return EXIT_FAILURE;
 
 	int numeroSegmento, numeroPagina, offset;
@@ -701,15 +757,22 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		{
 			if(memoriaRestante < TAMANIO_PAGINA)
 			{
-				if (consola == 1) printf("No hay espacio en la memoria principal.");
-				log_trace(logs, "No hay espacio en la memoria principal.");
-				if (swapRestante < TAMANIO_PAGINA)
+				if (consola == 1) printf("No hay espacio en la memoria principal, hay que swappear.");
+				log_trace(logs, "No hay espacio en la memoria principal, hay que swappear.");
+/*				if (swapRestante < TAMANIO_PAGINA)
 				{
-					if (consola == 1) printf("No hay espacio en la memoria principal.");
+					if (consola == 1) printf("No hay espacio en la memoria secundaria.");
 					log_error(logs, "No hay espacio disponible en memoria secundaria.");
 					return EXIT_FAILURE;
+				}*/
+				if (strcmp(configuracion.sust_pags, "FIFO") == 0)
+				{
+					elegirVictimaSegunFIFO();
 				}
-				elegirVictimaSegunFIFO();
+				else
+				{
+					elegirVictimaSegunClockM();
+				}
 			}
 
 			buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
@@ -729,12 +792,17 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 			if(tamanio <= quedaParaCompletarPagina)
 			{
 				escribirEnMarco (nodoPagina->presencia, tamanio, bytesAEscribir, offset, 0);
+				tablaMarcos[nodoPagina->presencia].modificacion = 1;
+				tablaMarcos[nodoPagina->presencia].referencia = 1;
 			}
 			else
 			{
 				yaEscribi = yaEscribi + quedaParaCompletarPagina;
 
 				escribirEnMarco (nodoPagina->presencia, quedaParaCompletarPagina, bytesAEscribir, offset, 0);
+				tablaMarcos[nodoPagina->presencia].modificacion = 1;
+				tablaMarcos[nodoPagina->presencia].referencia = 1;
+
 			}
 
 		}
@@ -742,6 +810,8 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		if ((tamanioRestante / TAMANIO_PAGINA == 0) && (i!=0))
 		{
 			escribirEnMarco (nodoPagina->presencia, tamanioRestante, bytesAEscribir, 0, yaEscribi);
+			tablaMarcos[nodoPagina->presencia].modificacion = 1;
+			tablaMarcos[nodoPagina->presencia].referencia = 1;
 			tamanioRestante = tamanioRestante - (tamanioRestante % TAMANIO_PAGINA);
 			yaEscribi = yaEscribi + (tamanioRestante % TAMANIO_PAGINA);
 
@@ -749,6 +819,8 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		else if ((tamanioRestante / TAMANIO_PAGINA > 0) && (i!=0))
 		{
 			escribirEnMarco (nodoPagina->presencia, TAMANIO_PAGINA, bytesAEscribir, 0, yaEscribi);
+			tablaMarcos[nodoPagina->presencia].modificacion = 1;
+			tablaMarcos[nodoPagina->presencia].referencia = 1;
 			tamanioRestante = tamanioRestante - TAMANIO_PAGINA;
 			yaEscribi = yaEscribi + TAMANIO_PAGINA;
 
@@ -768,6 +840,7 @@ void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int off
 	tablaMarcos[numeroMarco].orden = ordenMarco;
 
 	memcpy(direccionDestino, bytesAEscribir + yaEscribi, tamanio);
+
 }
 
 t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
@@ -797,9 +870,29 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 	int i;
 	for (i = 0; i<cantidadMarcos; i++)
 	{
+
 		//Uso el primer marco libre que encuentro
 		if (tablaMarcos[i].libre == 1)
 		{
+/*			tablaMarcos[i].puntero = 0;
+			if ((i+1) == cantidadMarcos)
+			{
+				tablaMarcos[0].puntero = 1;
+			}
+			else
+			{
+				tablaMarcos[i + 1].puntero = 1;
+			}
+			*/
+			if ((i+1) == cantidadMarcos)
+			{
+				puntero = 0;
+			}
+			else
+			{
+				puntero = i+1;
+			}
+
 			memoriaRestante = memoriaRestante - TAMANIO_PAGINA;
 
 			tablaMarcos[i].libre = 0;
@@ -812,6 +905,25 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 
 			return (tablaMarcos[i].dirFisica);
 		}
+
+/*		tablaMarcos[i].puntero = 0;
+		if ((i+1) == cantidadMarcos)
+		{
+			tablaMarcos[0].puntero = 1;
+		}
+		else
+		{
+			tablaMarcos[i + 1].puntero = 1;
+		}*/
+
+		if ((i+1) == cantidadMarcos)
+		{
+			puntero = 0;
+		}
+		else
+		{
+			puntero = i+1;
+		}
 	}
 
 	return NULL;
@@ -819,6 +931,8 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 
 void conexionConKernelYCPU()
 {
+	log_info(logs,"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+
 	struct sockaddr_in my_addr, their_addr;
 
 	int socketFD, newFD;
@@ -885,6 +999,11 @@ void conexionConKernelYCPU()
  *
  */
 
+/*
+ * esta funcion la toca MARIANO Y LEANDRO
+ *
+ */
+
 void* atenderAKernel(void* socket_kernel)
 {
 	log_info(logs, "Se creo el hilo para atender al kernel, espero peticiones del kernel:");
@@ -939,15 +1058,12 @@ void* atenderAKernel(void* socket_kernel)
 
 			recibir((int)socket_kernel, buffer, tamanio);
 
-			//grabarCodigoRecibido(buffer, "syscalls.bc", tamanio);
-
 			exito = escribirMemoria(pid, direccion, buffer, tamanio);
 
 			listarMarcos();
 
 			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_ENVIO_BYTES, string_from_format("%d", exito), logs);
 
-			running = false;
 		}
 
 	}
@@ -955,16 +1071,6 @@ void* atenderAKernel(void* socket_kernel)
 	return EXIT_SUCCESS;
 
 }
-
-/*
- * esta funcion la toca MARIANO Y LEANDRO
- *
- */
-
-/*
- * esta funcion la toca MARIANO Y LEANDRO
- *
- */
 
 void* atenderACPU(void* socket_cpu)
 {
@@ -992,19 +1098,13 @@ void* atenderACPU(void* socket_cpu)
 				uint32_t dir_logica = atoi(array_1[1]);
 				int tamanio = atoi(array_1[2]);
 
-
-				log_info(logs,"pid es %d,dir_logica es %d,tamanio es %d",pid,dir_logica,tamanio);
-
-				void* buffer_instruccion = malloc(sizeof(int32_t));
-				memset(buffer_instruccion,0,sizeof(int32_t));
+				void* buffer_instruccion = malloc(tamanio);
+				memset(buffer_instruccion,0,tamanio);
 				buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
 
-				log_info(logs,"seguimiento de la dir_logica que es : %d",dir_logica);
-
-				//Envio Instruccion
 				t_contenido mensaje_instruccion;
 				memset(mensaje_instruccion,0,sizeof(t_contenido));
-				memcpy(mensaje_instruccion,buffer_instruccion,4);
+				memcpy(mensaje_instruccion,buffer_instruccion,tamanio);
 				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
 
 				if(string_equals_ignore_case((char*)mensaje_instruccion,"XXXX")){
@@ -1022,9 +1122,6 @@ void* atenderACPU(void* socket_cpu)
 				int32_t program_counter = atoi(array[0]);
 				int32_t auxiliar_cant_bytes = atoi(array[1]);
 
-				log_info(logs,"el auxiliar vale %d y el program_counter %d",auxiliar_cant_bytes,program_counter);
-
-
 				void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
 				t_contenido mensaje_parametros;
 				memset(mensaje_parametros,0,sizeof(t_contenido));
@@ -1038,34 +1135,26 @@ void* atenderACPU(void* socket_cpu)
 
 			if(header_recibido == CPU_TO_MSP_CREAR_SEGMENTO ){
 
-				log_info(logs,"ENTRO EN EL IF 2");
-
 				char** array_1 = string_get_string_as_array(mensaje);
 				int pid = atoi(array_1[0]);
-				int32_t registro = atoi(array_1[1]);
+				int32_t tamanio = atoi(array_1[1]);
 
-				uint32_t direccion = crearSegmento(pid, registro);
-
-				log_info(logs,"la direccion es : %d",direccion);
+				uint32_t direccion = crearSegmento(pid, tamanio);
 
 				char* direccion_string = string_itoa(direccion);
 				t_contenido mensaje_direccion;
 				memset(mensaje_direccion, 0,sizeof(t_contenido));
 				memcpy(mensaje_direccion, direccion_string, sizeof(t_contenido));
-				enviarMensaje((int)socket_cpu, MSP_TO_CPU_SENTENCE,mensaje_direccion, logs);
+				enviarMensaje((int)socket_cpu,MSP_TO_CPU_SENTENCE,mensaje_direccion, logs);
 
 			}
 
-			// Es para destruir segmento,esta mal el header --> Instruccion FREE
+			// Es para destruir segmento
 			if(header_recibido == CPU_TO_MSP_DESTRUIR_SEGMENTO){
-
-				log_info(logs,"ENTRO EN EL IF 3");
 
 				char** array_1 = string_get_string_as_array(mensaje);
 				int pid = atoi(array_1[0]);
 				int32_t registro = atoi(array_1[1]);
-
-				log_info(logs,"la direccion a destruir es %d",registro);
 
 				destruirSegmento(pid, registro);
 
@@ -1075,9 +1164,8 @@ void* atenderACPU(void* socket_cpu)
 
 			}
 
-			if(header_recibido == CPU_TO_MSP_GUARDA_CADENA){
+			if(header_recibido == CPU_TO_MSP_ESCRIBIR_MEMORIA){
 
-				log_info(logs,"ENTRO EN EL IF 4");
 				char** array = string_get_string_as_array(mensaje);
 
 				int32_t A = atoi(array[0]);
@@ -1086,9 +1174,7 @@ void* atenderACPU(void* socket_cpu)
 
 				char* buffer = malloc(B);
 				memset(buffer,0,sizeof(B));
-				memcpy(buffer,array[2],B);
-
-				log_info(logs,"el valor del buffer es %s y el valor de A es : %d y de B : %d y el pid: %d",buffer,A,B,pid);
+				memcpy(buffer,(void*)array[2],B); //Ver si hay que castear realmente porque tengo un numero tmb en el push
 
 				escribirMemoria(pid,A,buffer,B);
 
@@ -1098,43 +1184,6 @@ void* atenderACPU(void* socket_cpu)
 
 			}
 
-
-			if(header_recibido == CPU_TO_MSP_PUSH){
-
-				log_info(logs,"Entro en el if 5, voy a guardar en la pila");
-				char** array = string_get_string_as_array(mensaje);
-
-				int32_t pid = atoi(array[0]);
-				int32_t cursor_stack = atoi(array[1]);
-
-				int* buffer = malloc(sizeof(int));
-
-				*buffer = atoi(array[2]);
-
-				escribirMemoria(pid,cursor_stack,buffer,4);
-
-				log_info(logs,"Termine de guardar");
-
-				free(buffer);
-
-			}
-
-			if(header_recibido == CPU_TO_MSP_TAKE){
-
-				log_info(logs,"Entro en el if 6, voy a tomar un valor de la pila");
-				char** array = string_get_string_as_array(mensaje);
-
-				int32_t pid = atoi(array[0]);
-				int32_t cursor_stack = atoi(array[1]);
-				int32_t cantidad_de_bytes = atoi(array[2]);
-				void* buffer = solicitarMemoria(pid,cursor_stack,cantidad_de_bytes);
-
-				t_contenido mensaje_parametros;
-				memset(mensaje_parametros,0,sizeof(t_contenido));
-				memcpy(mensaje_parametros, buffer,cantidad_de_bytes);
-				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
-
-			}
 
 
 
@@ -1164,6 +1213,212 @@ char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina)
 	return nombreArchivo;
 }
 
+int primeraVueltaClock(int puntero)
+{
+	int numeroMarco = -1;
+	int i = puntero;
+	int primeraVez = 1;
+
+	while ((i < cantidadMarcos) && (primeraVez == 1))
+	{
+/*
+		puts ("Lista primera vez");
+		listarMarcos();
+		printf("ii: %d\n", i);*/
+
+		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 0))
+		{
+/*			tablaMarcos[i].puntero = 0;
+			if ((i+1) == cantidadMarcos)
+			{
+				tablaMarcos[0].puntero = 1;
+			}
+			else
+			{
+				tablaMarcos[i + 1].puntero = 1;
+			}*/
+
+			if ((i+1) == cantidadMarcos)
+			{
+				puntero = 0;
+			}
+			else
+			{
+				puntero = i+1;
+			}
+
+			numeroMarco = i;
+			return numeroMarco;
+		}
+
+		i++;
+		//esto es para fingir la cola circular
+		if (i == cantidadMarcos)
+		{
+			i = 0;
+		}
+
+		if (i == puntero)
+		{
+			primeraVez = 0;
+		}
+
+/*		tablaMarcos[i].puntero = 0;
+		if ((i+1) == cantidadMarcos)
+		{
+			tablaMarcos[0].puntero = 1;
+		}
+		else
+		{
+			tablaMarcos[i + 1].puntero = 1;
+		}*/
+
+		if ((i+1) == cantidadMarcos)
+		{
+			puntero = 0;
+		}
+		else
+		{
+			puntero = i+1;
+		}
+	}
+
+	return numeroMarco;
+}
+
+int segundaVueltaClock(int puntero)
+{
+	int numeroMarco = -1;
+	int i = puntero;
+	int primeraVez = 1;
+
+	while ((i < cantidadMarcos) && (primeraVez == 1))
+	{
+/*		puts ("Lista segunda");
+		listarMarcos();
+		printf("ii: %d\n", i);*/
+
+		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 1))
+		{
+/*			tablaMarcos[i].puntero = 0;
+			if ((i+1) == cantidadMarcos)
+			{
+				tablaMarcos[0].puntero = 1;
+			}
+			else
+			{
+				tablaMarcos[i + 1].puntero = 1;
+			}*/
+
+			if ((i+1) == cantidadMarcos)
+			{
+				puntero = 0;
+			}
+			else
+			{
+				puntero = i+1;
+			}
+			numeroMarco = i;
+			tablaMarcos[i].modificacion = 0;
+			return numeroMarco;
+		}
+
+		tablaMarcos[i].referencia = 0;
+
+		i++;
+		//esto es para fingir la cola circular
+		if (i == cantidadMarcos)
+		{
+			i = 0;
+		}
+
+		if (i == puntero)
+		{
+			primeraVez = 0;
+		}
+
+/*		tablaMarcos[i].puntero = 0;
+		if ((i+1) == cantidadMarcos)
+		{
+			tablaMarcos[0].puntero = 1;
+		}
+		else
+		{
+			tablaMarcos[i + 1].puntero = 1;
+		}*/
+
+		if ((i+1) == cantidadMarcos)
+		{
+			puntero = 0;
+		}
+		else
+		{
+			puntero = i+1;
+		}
+	}
+
+	return numeroMarco;
+}
+
+
+void elegirVictimaSegunClockM()
+{
+	//int i = 0;
+	int numeroMarcoVictima = -1;
+
+/*	while(tablaMarcos[i].puntero != 1)
+	{
+		i++;
+	}*/
+
+	// seria mas barato una variable global
+
+
+	while (numeroMarcoVictima == -1)
+	{
+		numeroMarcoVictima = primeraVueltaClock(puntero);
+
+		if (numeroMarcoVictima == -1)
+		{
+			numeroMarcoVictima = segundaVueltaClock(puntero);
+		}
+	}
+
+	t_marco nodoMarco = tablaMarcos[numeroMarcoVictima];
+
+	printf("numero marco: %d\n", numeroMarcoVictima);
+
+	swappearDeMemoriaADisco(nodoMarco);
+
+}
+
+void swappearDeMemoriaADisco(t_marco nodoMarco)
+{
+	nodo_segmento *nodoSegmento;
+	nodo_paginas *nodoPagina;
+	t_list *listaPaginasDelSegmento;
+	t_list *listaSegmentosDelPid;
+
+	swapRestante = swapRestante - TAMANIO_PAGINA;
+
+	int numeroSegmento = nodoMarco.nro_segmento;
+	int numeroPagina = nodoMarco.nro_pagina;
+
+	listaSegmentosDelPid = filtrarListaSegmentosPorPid(nodoMarco.pid);
+
+	nodoSegmento = buscarNumeroSegmento(listaSegmentosDelPid, numeroSegmento);
+
+	listaPaginasDelSegmento = nodoSegmento->listaPaginas;
+
+	nodoPagina = list_get(listaPaginasDelSegmento, numeroPagina);
+
+	crearArchivoDePaginacion(nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina);
+
+	liberarMarco(nodoMarco.nro_marco, nodoPagina);
+
+	log_trace(logs, "Se desalojó de memoria principal a la página %d del segmento %d del PID %d. El marco liberado es el n° %d.", nodoPagina->nro_pagina, nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoMarco.nro_marco);
+}
+
 void elegirVictimaSegunFIFO()
 {
 	nodo_segmento *nodoSegmento;
@@ -1187,7 +1442,6 @@ void elegirVictimaSegunFIFO()
 	int numeroPagina = nodoMarco.nro_pagina;
 
 	listaSegmentosDelPid = filtrarListaSegmentosPorPid(nodoMarco.pid);
-
 
 	nodoSegmento = buscarNumeroSegmento(listaSegmentosDelPid, numeroSegmento);
 
@@ -1225,7 +1479,7 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
 
 int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
 {
-	char* nombreArchivo = malloc(60);
+	char* nombreArchivo;
 	nombreArchivo = generarNombreArchivo(pid, numeroSegmento, nodoPagina->nro_pagina);
 
 	FILE *archivoPaginacion = fopen(nombreArchivo, "w");

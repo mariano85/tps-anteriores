@@ -23,10 +23,11 @@
 #include <pthread.h>
 #include <commons/temporal.h>
 #include <unistd.h>
+#include <math.h>
 
-#define CANTIDAD_MAX_SEGMENTOS_POR_PID 5
-#define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 100
-#define TAMANIO_PAGINA 10
+#define CANTIDAD_MAX_SEGMENTOS_POR_PID 4096
+#define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 4096
+#define TAMANIO_PAGINA 256
 
 
 
@@ -59,6 +60,9 @@ typedef struct
 	void* dirFisica;
 	int libre;	//si vale 1, el marco está ocupado, si vale 0 está libre
 	int orden;
+	int referencia; //si vale 1 se ha usado recientemente
+	int modificacion; //si vale 1 se ha modificado recientemente
+	//int puntero;
 } t_marco;
 
 typedef struct
@@ -89,6 +93,10 @@ int cantidadMarcos;
 
 int consola;
 
+int tamanioRestanteTotal;
+
+int puntero;
+
 
 
 
@@ -101,7 +109,7 @@ typedef enum {
 	TABLA_PAGINAS,
 	LISTAR_MARCOS,
 	HELP,
-//	ERROR,
+	//ERROR,
 	EXIT,
 }t_comando;
 
@@ -110,19 +118,21 @@ typedef enum {
 
 //FUNCIONES
 
-void tablaPaginas(int pid);
+void tablaPaginas(int pid); //revisada
 
-t_list* crearListaPaginas(int cantidadDePaginas);
+t_list* filtrarListaSegmentosPorPid(int pid); //revisada
 
-uint32_t crearSegmento(int pid, int tamanio); //arreglado
+t_list* crearListaPaginas(int cantidadDePaginas); //revisada
 
-uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int numeroSegmento, int tamanio);
+uint32_t crearSegmento(int pid, int tamanio); //revisada
 
-void tablaSegmentos();
+uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadDeSegmentosDeEstePid, int tamanio); //revisada
 
-void levantarArchivoDeConfiguracion();
+void tablaSegmentos(); //revisada
 
-void inicializarMSP();
+void levantarArchivoDeConfiguracion(); //revisada
+
+void inicializarMSP(); //revisada
 
 int consola_msp();
 
@@ -130,29 +140,27 @@ int buscarComando(char* buffer);
 
 void liberarSubstrings(char** sub);
 
-void listarMarcos();
+void listarMarcos(); //revisada
 
-void crearTablaDeMarcos();
+void crearTablaDeMarcos(); //revisada
 
-uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset);
+uint32_t generarDireccionLogica(int numeroSegmento, int numeroPagina, int offset); //revisada
 
-void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset);
+void obtenerUbicacionLogica(uint32_t direccion, int *numeroSegmento, int *numeroPagina, int *offset); //revisada
 
-int destruirSegmento(int pid, uint32_t base);
+int destruirSegmento(int pid, uint32_t base); //revisada
 
-nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento);
-
-t_list* filtrarListaSegmentosPorPid(int pid);
+nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento); //revisada
 
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
 
 t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio);
 
-t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas);
+t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas); //revisada
 
-int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio);
+int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio); //revisada
 
-void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi);
+void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int offset, int yaEscribi); //revisada
 
 void *solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio);
 
@@ -162,17 +170,26 @@ void* atenderACPU(void *socket_cpu);
 
 void* atenderAKernel(void* socket_msp);
 
-int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina);
+int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina); //revisada
 
-char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina);
+char* generarNombreArchivo(int pid, int numeroSegmento, int numeroPagina); //revisada
 
-void elegirVictimaSegunFIFO();
+void elegirVictimaSegunFIFO(); //revisada
 
-void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina);
+void elegirVictimaSegunClockM();
+
+void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina); //revisada
 
 uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar);
 
 void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas *nodoPagina);
+
+void swappearDeMemoriaADisco(t_marco nodoMarco);
+
+int primeraVueltaClock(int puntero);
+
+int segundaVueltaClock(int puntero);
+
 
 
 

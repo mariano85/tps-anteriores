@@ -116,6 +116,7 @@ void* planificador(t_loaderThread *planificadorThread){
 										memset(mensaje_de_la_cpu, 0, sizeof(t_contenido));
 										t_header header = recibirMensaje(i, mensaje_de_la_cpu, logKernel);
 										char** array = string_get_string_as_array(mensaje_de_la_cpu);
+										int32_t tipo;
 
 										switch (header) {
 										case ERR_CONEXION_CERRADA:
@@ -140,7 +141,13 @@ void* planificador(t_loaderThread *planificadorThread){
 											agregarCpu(i, mensaje_de_la_cpu);
 
 											// muevo un proceso de READY -> EXEC y lo mando a ejecutar a la pc disponible (que deberia tener)
-											log_info(logKernel, "Se envía un TCB al CPU libre elegido");
+
+											if(queue_size(READY) == 0){
+
+												pthread_cond_wait(&cond_ready_producer, &mutex_ready_queue);
+												pthread_mutex_unlock(&mutex_ready_queue);
+											}
+
 											agregarProcesoColaExec();
 
 											break;
@@ -157,54 +164,58 @@ void* planificador(t_loaderThread *planificadorThread){
 
 										case CPU_TO_KERNEL_END_PROC:
 
+											log_info(logKernel,"Entre al finalizar el proceso");
+
+										//	manejarFinDeProceso(i, mensaje_de_la_cpu);
+											agregarProcesoColaExec();
+
 											log_info(logKernel,"recibi el tcb porque finalizo proceso por XXXX");
 
+
+
 											break;
 
-										case CPU_TO_KERNEL_BLOQUEO_INNN:
 
-											log_info(logKernel,"ENTRE AL IF CON INNN");
+										case CPU_TO_KERNEL_ENTRADA_ESTANDAR :
 
-											int32_t valor;
+											log_info(logKernel,"Entre al if de la entrada estandar");
+											int32_t socketConsola_entrada = atoi(array[0]);
 
-											printf("Ingrese un valor");
-											scanf("%d",&valor);
+											enviarMensaje(socketConsola_entrada,KERNEL_TO_CONSOLA_ENTRADA_ESTANDAR,mensaje_de_la_cpu,logKernel);
+
+											tipo = atoi(array[2]);
 
 											t_contenido mensaje;
-											memset(mensaje,0,sizeof(t_contenido));
-											strcpy(mensaje, string_from_format("[%d]",valor));
+											memset(mensaje,0,sizeof(mensaje));
+											recibirMensaje(socketConsola_entrada,mensaje,logKernel);
+
 											enviarMensaje(i,KERNEL_TO_CPU_OK,mensaje,logKernel);
 
-											break;
 
-										case CPU_TO_KERNEL_BLOQUEO_INNC:
-											log_info(logKernel,"ENTRE AL IF CON INNC");
+													break;
 
 
-											int32_t B = atoi(array[0]);
+										case CPU_TO_KERNEL_SALIDA_ESTANDAR :
 
-											char* cadena = malloc(B);
+											log_info(logKernel,"Entre al if de la salida estandar");
+											int32_t socketConsola_salida = atoi(array[0]);
 
+											enviarMensaje(socketConsola_salida,KERNEL_TO_CONSOLA_SALIDA_ESTANDAR,mensaje_de_la_cpu,logKernel);
 
-											printf("Ingrese una cadena de caracteres menor a %d",B);
-											scanf("%s",cadena);
-
-											log_info(logKernel,"el valor de la cadena es %s",cadena);
-
-											t_contenido mensaje_para_cpu;
-											memset(mensaje_para_cpu,0,B);
-											memcpy(mensaje_para_cpu,cadena,B);
-											enviarMensaje(i,KERNEL_TO_CPU_OK,mensaje_para_cpu,logKernel);
-											break;
-
-										case CPU_TO_KERNEL_BLOQUEO_OUTN :
+													break;
 
 
+										case CPU_TO_KERNEL_INTERRUPCION :
 
-											log_info(logKernel,"el valor del registro A es %d",atoi(array[0]));
+											//Se bloque por interrupcion, recibe el proceso que se bloque y la direccion donde
+											//comienza la instruccion de la llamada al sistema, ver despues como se hace
 
 											break;
 
+										case CPU_TO_KERNEL_CREAR_HILO :
+
+
+											break;
 										default:
 											;
 										}
@@ -260,6 +271,45 @@ void agregarCpu(int32_t socketCpu, char* mensaje){
 	//Agrego el nuevo CPU a la lista.
 	pthread_mutex_lock(&mutex_cpu_list);
 		list_add(cpu_client_list, aCPU);
+	pthread_mutex_unlock(&mutex_cpu_list);
+
+}
+void manejarFinDeProceso(int32_t socketCpu, char* mensajeRecibido) {
+
+	char** split = string_get_string_as_array(mensajeRecibido);
+	int32_t pid = atoi(split[0]);
+	int32_t tid = atoi(split[8]);
+
+	bool _match_tcb(void* element){
+		t_process* unProceso = (t_process*)element;
+		return unProceso->tcb->pid == pid && unProceso->tcb->tid == tid;
+	}
+
+	// busco el proceso que estaba ejecutando
+	pthread_mutex_lock(&mutex_exec_queue);
+		t_process* aProcess = list_find(EXEC->elements, (void*)_match_tcb);
+		list_remove_by_condition(EXEC->elements, (void*)_match_tcb);
+	pthread_mutex_unlock(&mutex_exec_queue);
+
+	t_contenido mensaje;
+
+	// TODO: ver que validar aca en los mensajes
+	if((split[1] != NULL) && !(strlen(split[1]))==0){
+		memset(mensaje, 0, sizeof(t_contenido));
+		strcpy(mensaje, split[1]);
+		// TODO ver aca
+		enviarMensaje(aProcess->process_fd, KERNEL_TO_PRG_IMPR_VARIABLES, mensaje, logKernel);
+	}
+
+	agregarProcesoColaExit(aProcess);
+
+	// dejo la cpu disponible
+	pthread_mutex_lock(&mutex_cpu_list);
+		t_client_cpu* aCPU = buscarCpuPorSocket(socketCpu);
+		aCPU->ocupado = false;
+		aCPU->socketProceso = 0;
+		aCPU->pidTCB = 0;
+		aCPU->tidTCB = 0;
 	pthread_mutex_unlock(&mutex_cpu_list);
 
 }

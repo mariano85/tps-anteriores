@@ -25,7 +25,6 @@ int main(){
 	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
 	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &planificadorThread);
 	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &manejoColaReadyThread);
-//	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
 //	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
 
 	pthread_join(loaderThread.tid, NULL);
@@ -63,14 +62,12 @@ void initKernel(){
 	pthread_mutex_init(&mutex_cpu_list, NULL);
 
 	//Inicializa colas
-	NEW = queue_create();
 	READY = queue_create();
 	BLOCK = queue_create();
 	EXEC = queue_create();
 	EXIT = queue_create();
 
 	//Inicializa semaforo de colas
-	pthread_mutex_init(&mutex_new_queue, NULL );
 	pthread_mutex_init(&mutex_ready_queue, NULL );
 	pthread_mutex_init(&mutex_block_queue, NULL );
 	pthread_mutex_init(&mutex_exec_queue, NULL );
@@ -116,8 +113,11 @@ t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, in
 
 	process_tcb->base_segmento_codigo = solicitarSegmento(process_tcb->pid, tamanioCodigo);
 
+	process_tcb->program_counter = process_tcb->base_segmento_codigo;
+
 	if(!PID == SYS_CALLS_PID){
 		process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
+		process_tcb->cursor_stack = process_tcb->base_stack;
 	}
 
 	proceso->process_fd = fd;

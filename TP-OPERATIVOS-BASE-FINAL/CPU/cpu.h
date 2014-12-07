@@ -30,8 +30,9 @@
 #include "instrucciones_CPU.h"
 #include "commons/sockets.h"
 
-#define MODO_KERNEL 0
-#define MODO_USUARIO 1
+#define MODO_KERNEL 1
+#define MODO_USUARIO 0
+
 
 #define registro_A "A"
 #define registro_B "B"
@@ -51,7 +52,7 @@
 #define ZERO_DIV 1
 #define FLAG_VACIO 0
 
-#define TAMANIO_PAGINA 10
+#define TAMANIO_PAGINA 256
 
 typedef struct{
 
@@ -73,6 +74,9 @@ typedef struct{
 	int puntero_instruccion;
 	int base_stack;
 	int cursor_stack;
+	int cantidad_de_hijos_creados;
+	int contador_de_hijos_activos;
+	int fd;
 
 	t_registros_de_programacion registros_de_programacion;
 
@@ -92,7 +96,7 @@ int32_t MODO;
 
 //Registro CPU despues veremos como los agrupamos
 
-int32_t A,B,C,D,E;
+int32_t A,B,C,D,E,M,P,X,S;
 int EFLAG;
 int ejecutando;
 int systemCall;
@@ -127,7 +131,7 @@ void conexion_Kernel();
 
 void enviar_parametros(int32_t program_counter,int32_t auxiliar);
 
-
+void estado_registros();
 
 
 #endif /* VARIABLESGLOBALES_FUNCIONES_H_ */

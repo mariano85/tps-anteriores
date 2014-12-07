@@ -8,24 +8,21 @@ C_SRCS += \
 ../funciones_manejo_cola.c \
 ../kernel.c \
 ../loader.c \
-../planificador.c \
-../servicios_kernel.c 
+../planificador.c 
 
 OBJS += \
 ./funciones_kernel.o \
 ./funciones_manejo_cola.o \
 ./kernel.o \
 ./loader.o \
-./planificador.o \
-./servicios_kernel.o 
+./planificador.o 
 
 C_DEPS += \
 ./funciones_kernel.d \
 ./funciones_manejo_cola.d \
 ./kernel.d \
 ./loader.d \
-./planificador.d \
-./servicios_kernel.d 
+./planificador.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

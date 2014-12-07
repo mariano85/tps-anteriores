@@ -11,7 +11,7 @@
 
 #include "cpu.h"
 
-int main(int argc, char *argv[]) {
+int main() {
 
 
 
@@ -20,8 +20,6 @@ int main(int argc, char *argv[]) {
 	//	mi_pid = process_getpid();
 
 	//	log_info(logs,"el valor del pid de mi cpu es: %d,",mi_pid);
-
-
 
 		A = 0;
 		B = 0;
@@ -33,11 +31,6 @@ int main(int argc, char *argv[]) {
 
 		log_info(logs,"Los registros inicialmente valen A:%d B:%d C:%d D:%d E:%d",A,B,C,D,E);
 
-		if (argc < 2){
-			log_error(logs, "No se pasaron parametros.");
-			log_destroy(logs);
-			return 0;
-		}
 
 
 		iniciarPrograma(); // Levanto el archivo de configuracion, en caso de que nose pueda tiro error
@@ -106,12 +99,17 @@ int main(int argc, char *argv[]) {
 
 			TCB->pid = atoi(array[0]); //1234;
 			TCB->base_segmento_codigo = atoi(array[1]);//1048576;
-			TCB->tamanio_segmento_codigo = 9;
-			QUANTUM = atoi(array[2]);
-			TCB->indicador_modo_kernel = atoi(array[3]);
-			TCB->base_stack = atoi(array[4]);
-			TCB->cursor_stack = atoi(array[5]);
+			TCB->tamanio_segmento_codigo = atoi(array[2]);
+			QUANTUM = 18;
+		//	TCB->QUANTUM = atoi(array[3]);
+			TCB->indicador_modo_kernel = atoi(array[4]);
+			TCB->base_stack = atoi(array[5]);
+			TCB->cursor_stack = atoi(array[6]);
 
+			M = TCB->base_segmento_codigo;
+			P = TCB->puntero_instruccion;
+			X = TCB->base_stack;
+			S = TCB->cursor_stack;
 
 			log_info(logs,"el valor del pid es %d",TCB->pid);
 			log_info(logs,"el valor de la base es %d",TCB->base_segmento_codigo);
@@ -134,7 +132,7 @@ int main(int argc, char *argv[]) {
 
 				t_contenido mensaje_para_solicitar_bytes_MSP;
 				memset(mensaje_para_solicitar_bytes_MSP,0,sizeof(t_contenido));
-				strcpy(mensaje_para_solicitar_bytes_MSP,string_from_format("[%d,%d,%d]",TCB->pid,program_counter,4));
+				strcpy(mensaje_para_solicitar_bytes_MSP,string_from_format("[%d,%d,%d]",TCB->pid,program_counter,sizeof(int32_t)));
 				enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_solicitar_bytes_MSP,logs);
 
 				usleep(60000);
@@ -162,7 +160,7 @@ int main(int argc, char *argv[]) {
 				//Pido la instruccion a la MSP
 				t_contenido mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP;
 				memset(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,0,sizeof(t_contenido));
-				strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",TCB->pid,TCB->puntero_instruccion));
+				strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",TCB->pid,TCB->puntero_instruccion,sizeof(int32_t)));
 				enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);
 
 				t_header header_verificar_mensaje = recibirMensaje(socketMSP,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);

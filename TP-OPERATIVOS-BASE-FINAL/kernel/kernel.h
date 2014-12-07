@@ -80,20 +80,6 @@ typedef struct{
 
 }t_tcb;
 
-
-typedef struct{
-
-	char A;
-	char B;
-	char C;
-	char D;
-	char E;
-
-}t_registros_programacion;
-
-
-
-
 typedef struct s_thread {
 	t_tcb* tcb;
 	int32_t process_fd;
@@ -119,14 +105,12 @@ t_config_kernel config_kernel;
 int32_t socketMSP;
 t_list *cpu_client_list;
 
-t_queue *NEW;
 t_queue *READY;
 t_queue *BLOCK;
 t_queue *EXEC;
 t_queue *EXIT;
 t_queue *SYSCALLS;
 
-pthread_mutex_t mutex_new_queue;
 pthread_mutex_t mutex_ready_queue;
 pthread_mutex_t mutex_block_queue;
 pthread_mutex_t mutex_exec_queue;
@@ -194,8 +178,10 @@ void* loader(t_loaderThread *loaderThread);
 void *get_in_addr(struct sockaddr *sa);
 
 void* planificador(t_loaderThread *loaderThread);
-void agregarCpu(int32_t socketCpu, char* mensaje);
 void eliminarCpu(int32_t socketCpu);
+void agregarCpu(int32_t socketCpu, char* mensaje);
+void manejarFinDeQuantum(int32_t socketCpu, char* mensaje);
+void manejarFinDeProceso(int32_t socketCpu, char* mensaje);
 
 //LAS QUE AGREGUE YO
 //t_client_cpu* encontrarCPUporFd(int32_t cpuFd);
