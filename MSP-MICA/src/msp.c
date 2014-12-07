@@ -70,6 +70,8 @@ void crearTablaDeMarcos()
 		cantidadMarcos = configuracion.cantidad_memoria / TAMANIO_PAGINA + 1;
 	}
 
+	printf("cantidadmarcos: %d\n", cantidadMarcos);
+
 	//Aloco espacio de memoria para una tabla que va tener toda la información de los marcos de memoria.
 	//calloc recibe dos parámetros por separado, la cantidad de espacios que necesito, y el tamaño de cada
 	//uno de esos espacios, y además, settea cada espacio con el caracter nulo.
@@ -110,14 +112,14 @@ void listarMarcos()
 	int i;
 	for (i=0; i<cantidadMarcos; i++)
 	{
-		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden);
-		printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d     ", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
+		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d      %s", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden, (char*)tablaMarcos[i].dirFisica);
+		/*printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d     ", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
 		printf("Orden: %d    ", tablaMarcos[i].orden);
 		printf("Libre: %d    ", tablaMarcos[i].libre);
 		printf("Referencia: %d     ", tablaMarcos[i].referencia);
 		printf("Modificación: %d     ", tablaMarcos[i].modificacion);
 		//printf("Puntero: %d     ", tablaMarcos[i].puntero);
-		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);
+		printf("%.10s\n", (char*)tablaMarcos[i].dirFisica);*/
 	}
 }
 
@@ -132,17 +134,16 @@ void inicializarMSP()
 	levantarArchivoDeConfiguracion();
 
 	//PASAJE DE MB A BYTES
-/*	int memoriaEnBytes = configuracion.cantidad_memoria * (pow(2, 20));
+	int memoriaEnBytes = configuracion.cantidad_memoria * (pow(2, 20));
 	int swapEnBytes = configuracion.cantidad_swap * (pow(2, 20));
 	configuracion.cantidad_memoria = memoriaEnBytes;
-	configuracion.cantidad_swap = swapEnBytes;*/
+	configuracion.cantidad_swap = swapEnBytes;
 
 	//Estas variables las uso para, cada vez que asigno un marco o swappeo una pagina, voy restando del
 	//espacio total. Cuando alguna de estas dos variables llegue a 0, significa que no hay mas espacio.
 	memoriaRestante = configuracion.cantidad_memoria;
 	swapRestante = configuracion.cantidad_swap;
 	tamanioRestanteTotal = swapRestante + memoriaRestante;
-
 
 	memoriaPrincipal = malloc(configuracion.cantidad_memoria);
 	if(memoriaPrincipal == NULL)
@@ -157,7 +158,6 @@ void inicializarMSP()
 	listaSegmentos = list_create();
 
 	consola = 0;
-
 
 	ordenMarco = 0;
 

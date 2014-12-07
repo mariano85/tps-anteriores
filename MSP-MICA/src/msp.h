@@ -23,10 +23,11 @@
 #include <pthread.h>
 #include <commons/temporal.h>
 #include <unistd.h>
+#include <math.h>
 
-#define CANTIDAD_MAX_SEGMENTOS_POR_PID 5
-#define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 12
-#define TAMANIO_PAGINA 10
+#define CANTIDAD_MAX_SEGMENTOS_POR_PID 4096
+#define CANTIDAD_MAX_PAGINAS_POR_SEGMENTO 4096
+#define TAMANIO_PAGINA 256
 
 
 
