@@ -97,25 +97,6 @@ int tamanioRestanteTotal;
 
 int puntero;
 
-
-
-
-typedef enum {
-	CREAR_SEGMENTO,
-	DESTRUIR_SEGMENTO,
-	ESCRIBIR_MEMORIA,
-	LEER_MEMORIA,
-	TABLA_SEGMENTOS,
-	TABLA_PAGINAS,
-	LISTAR_MARCOS,
-	HELP,
-	//ERROR,
-	EXIT,
-}t_comando;
-
-
-
-
 //FUNCIONES
 
 void tablaPaginas(int pid); //revisada

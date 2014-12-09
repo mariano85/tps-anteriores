@@ -35,7 +35,7 @@ void levantarArchivoDeConfiguracion()
 	tamanio = config_get_int_value(config, "CANTIDAD_MEMORIA");
 	swap = config_get_int_value(config, "CANTIDAD_SWAP");
 
-	if ((strcmp(algoritmo, "FIFO")) != 0 && (strcmp(algoritmo, "CLOCKM")))
+	if ((strcmp(algoritmo, "FIFO")!= 0) && (strcmp(algoritmo, "CLOCKM") != 0))
 	{
 		if (consola == 1) printf("El algoritmo de sustitución de páginas no es válido.\n");
 		log_error(logs, "El algoritmo de sustitución de páginas no es válido.");
@@ -83,8 +83,8 @@ void crearTablaDeMarcos()
 		abort();
 	}
 
-	void* buffer = malloc(TAMANIO_PAGINA);
-	buffer = string_repeat('\0', TAMANIO_PAGINA);
+	//void* buffer = malloc(TAMANIO_PAGINA);
+	//memset(buffer, 0, TAMANIO_PAGINA);
 	int i;
 	for (i=0; i<cantidadMarcos; i++)
 	{
@@ -96,14 +96,14 @@ void crearTablaDeMarcos()
 		//Cuando recién se crea la tabla, todos los marcos están libres.
 		tablaMarcos[i].libre = 1;
 
-		void* direccionDestino = tablaMarcos[i].dirFisica;
+		//void* direccionDestino = tablaMarcos[i].dirFisica;
 
-		memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
+		//memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
 	}
 
 	//tablaMarcos[0].puntero = 1;
 
-	free(buffer);
+	//free(buffer);
 }
 
 void listarMarcos()
@@ -112,7 +112,7 @@ void listarMarcos()
 	int i;
 	for (i=0; i<cantidadMarcos; i++)
 	{
-		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d      %s", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden, (char*)tablaMarcos[i].dirFisica);
+		log_info(logs, "Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d	   Libre: %d     Orden: %d      %.10s", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina, tablaMarcos[i].libre, tablaMarcos[i].orden, (char*)tablaMarcos[i].dirFisica);
 		/*printf("Numero marco: %d     PID: %d     Numero segmento: %d     Numero pagina: %d     ", tablaMarcos[i].nro_marco, tablaMarcos[i].pid, tablaMarcos[i].nro_segmento, tablaMarcos[i].nro_pagina);
 		printf("Orden: %d    ", tablaMarcos[i].orden);
 		printf("Libre: %d    ", tablaMarcos[i].libre);
@@ -129,15 +129,15 @@ void inicializarMSP()
 	fflush(log);
 	fclose(log);
 
-	logs = log_create("logMSP", "MSP", 1, LOG_LEVEL_TRACE);
+	logs = log_create("logMSP", "MSP", 0, LOG_LEVEL_TRACE);
 
 	levantarArchivoDeConfiguracion();
 
-	//PASAJE DE MB A BYTES
+	/*//PASAJE DE MB A BYTES
 	int memoriaEnBytes = configuracion.cantidad_memoria * (pow(2, 20));
 	int swapEnBytes = configuracion.cantidad_swap * (pow(2, 20));
 	configuracion.cantidad_memoria = memoriaEnBytes;
-	configuracion.cantidad_swap = swapEnBytes;
+	configuracion.cantidad_swap = swapEnBytes;*/
 
 	//Estas variables las uso para, cada vez que asigno un marco o swappeo una pagina, voy restando del
 	//espacio total. Cuando alguna de estas dos variables llegue a 0, significa que no hay mas espacio.
@@ -145,7 +145,11 @@ void inicializarMSP()
 	swapRestante = configuracion.cantidad_swap;
 	tamanioRestanteTotal = swapRestante + memoriaRestante;
 
-	memoriaPrincipal = malloc(configuracion.cantidad_memoria);
+	//memoriaPrincipal = malloc(configuracion.cantidad_memoria);
+
+	memoriaPrincipal = calloc(configuracion.cantidad_memoria, 1);
+
+
 	if(memoriaPrincipal == NULL)
 	{
 		if (consola == 1) printf("Error, no se pudo alocar espacio para la memoria principal.\n");
@@ -284,6 +288,8 @@ uint32_t crearSegmento(int pid, int tamanio)
 	if (consola == 1) printf("Para el PID %d se creó el número de segmento %d de tamanio %d.\n", pid, numeroSegmento, tamanio);
 	log_trace(logs, "El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
 	if (consola == 1) printf("El espacio restante en la memoria es de %d bytes.", tamanioRestanteTotal);
+
+	list_destroy(listaDeSegmentosDeEstePid);
 
 	return direccionBase;
 
@@ -601,6 +607,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	}
 
 
+	list_destroy(listaFiltradaPorPid);
 
 	return paginasQueNecesito;
 
@@ -608,7 +615,6 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 
 void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 {
-	void* buffer;
 	void* buffermini; //Este es el buffer auxiliar que uso para copiar lo que
 						//está en cada cachito de memoria. Despues lo muevo al buffer definitivo, es una cuestion de orden de los cachos.
 	int numeroSegmento, numeroPagina, offset;
@@ -639,18 +645,40 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 	list_iterate(paginasQueNecesito, (void*)_traerAMemoriaPaginasSwappeadasParaLeer);
 
+
+	void* buffer = malloc(tamanio+1);
+	memset(buffer, 0, tamanio + 1);
+
+	//Tomo el primer nodo de la lista de paginas que necesito
 	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
 
-	void* direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
-
-	buffer = malloc(tamanio);
-
-	memset(buffer, 0, tamanio);
-
-	//copio lo que queda para completar la primera pagina
 	int yaCopie = TAMANIO_PAGINA - offset;
-	memcpy(buffer, direccionOrigen, yaCopie);
-	tablaMarcos[nodoPagina->presencia].referencia = 1;
+	void* direccionOrigen;
+
+	//Si no se le asigno ningun marco a esa pagina (nunca se usó esa página) pongo vacio ese espacio en el buffer
+/*	if (nodoPagina->presencia == -1)
+	{
+		buffermini = malloc(yaCopie);
+		memset (buffermini, 0, yaCopie);
+		memcpy (buffer, buffermini, yaCopie);
+		free(buffermini);
+	}*/
+	if (yaCopie > tamanio)
+	{
+		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+		memcpy (buffer, direccionOrigen, tamanio);
+		tablaMarcos[nodoPagina->presencia].referencia = 1;
+		//printf("buffffffffffffffer: %s\n", (char*)buffer);
+		list_destroy(paginasQueNecesito);
+		return buffer;
+
+	}
+	else
+	{
+		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
+		memcpy(buffer, direccionOrigen, yaCopie);
+		tablaMarcos[nodoPagina->presencia].referencia = 1;
+	}
 
 	//copio las paginas del medio
 	int i;
@@ -680,6 +708,9 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		free(buffermini);
 		tablaMarcos[nodoPagina->presencia].referencia = 1;
 	}
+
+
+	list_destroy(paginasQueNecesito);
 
 	return buffer;
 }
@@ -732,9 +763,6 @@ void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
 int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
-
-	puts("bytes a escribir");
-	puts((char*)bytesAEscribir);
 
 	if (paginasQueNecesito == NULL) return EXIT_FAILURE;
 
@@ -826,6 +854,8 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 
 		}
 	}
+
+	list_destroy(paginasQueNecesito);
 
 	return EXIT_SUCCESS;
 
@@ -931,7 +961,7 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 
 void conexionConKernelYCPU()
 {
-	log_info(logs,"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+	//log_info(logs,"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 
 	struct sockaddr_in my_addr, their_addr;
 
@@ -978,14 +1008,12 @@ void conexionConKernelYCPU()
 			log_info(logs,"Entre a conexion con cpu");
 			pthread_create(&hilo, NULL, atenderACPU, (void*)newFD);
 
-
 		}
 
 		if(header_conexion_MSP == KERNEL_TO_MSP_HANDSHAKE){
 
 			log_info(logs,"Entre a conexion con kernel");
 			pthread_create(&hilo, NULL, atenderAKernel, (void*)newFD);
-
 		}
 
 	}
@@ -1037,9 +1065,9 @@ void* atenderAKernel(void* socket_kernel)
 			int tamanio = atoi(split[1]);
 			int exito = EXIT_FAILURE;
 
-			log_info(logs,"ELIMINAR SEGMENTO :%d",pid);
-
 			exito = crearSegmento(pid, tamanio);
+
+			puts("Ya puede seguir, se creó el segmento.");
 
 			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_SEGMENTO_CREADO, string_from_format("%d", exito), logs);
 
@@ -1060,8 +1088,9 @@ void* atenderAKernel(void* socket_kernel)
 
 			exito = escribirMemoria(pid, direccion, buffer, tamanio);
 
-			listarMarcos();
+			//listarMarcos();
 
+			puts("Ya puede seguir, se escribio memoria.");
 			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_ENVIO_BYTES, string_from_format("%d", exito), logs);
 
 		}
@@ -1098,9 +1127,7 @@ void* atenderACPU(void* socket_cpu)
 				uint32_t dir_logica = atoi(array_1[1]);
 				int tamanio = atoi(array_1[2]);
 
-				void* buffer_instruccion = malloc(tamanio);
-				memset(buffer_instruccion,0,tamanio);
-				buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
+				void* buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
 
 				t_contenido mensaje_instruccion;
 				memset(mensaje_instruccion,0,sizeof(t_contenido));

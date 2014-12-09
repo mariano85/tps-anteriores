@@ -88,18 +88,24 @@ char* getBytesFromFile(FILE* entrada, size_t *tam_archivo){
 int main() {
 
 	inicializarMSP();
+/*
+	crearSegmento(1234, 50);
+	escribirMemoria(1234, 0, "11111111112222222222", 20);
 
-	crearSegmento(1234, 1280);
-
-	escribirMemoria(1234, 0, "1111111111", 256);
 	listarMarcos();
-	puts(solicitarMemoria(1234, 0, 256));
 
-	puts("hola");
+	char* buffer = solicitarMemoria(1234, 5, 3);
+
+	printf("buffer: %s\n", buffer);
+
+	free(buffer);
+
+	puts("hola");*/
+
+
+	//puts("hola");
 
 	conexionConKernelYCPU();
-
-	puts("hola");
 
 
 /*	//PRUEBA PARA AUMENTARPROGRAMCOUNTER
