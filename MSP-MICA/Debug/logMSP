@@ -1,0 +1,8 @@
+[TRACE] 02:58:48:173 MSP/(6268:6268): MSP inicio su ejecucion. Tamaño memoria: 768. Tamaño swap: 768. Tamañio total: 1536. Algoritmo sust páginas: FIFO.
+[TRACE] 02:59:07:6 MSP/(6268:6268): Para el PID 12 se creó el número de segmento 0 de tamanio 400. El tamanio que ocupa en la memoria es de: 512.
+[TRACE] 02:59:08:11 MSP/(6268:6268): El espacio restante en la memoria es de 1024 bytes.
+[TRACE] 03:05:00:355 MSP/(6268:6268): Se asignó el marco 0 a la página 0 del segmento 0 del PID 12.
+[INFO] 03:05:46:376 MSP/(6268:6268): TABLA DE MARCOS
+[INFO] 03:05:46:382 MSP/(6268:6268): Numero marco: 0     PID: 12     Numero segmento: 0     Numero pagina: 0	   Libre: 0     Orden: 2      222
+[INFO] 03:05:46:388 MSP/(6268:6268): Numero marco: 1     PID: 0     Numero segmento: 0     Numero pagina: 0	   Libre: 1     Orden: 0      
+[INFO] 03:05:46:394 MSP/(6268:6268): Numero marco: 2     PID: 0     Numero segmento: 0     Numero pagina: 0	   Libre: 1     Orden: 0      
