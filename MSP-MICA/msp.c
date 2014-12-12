@@ -25,10 +25,13 @@ void levantarArchivoDeConfiguracion()
 
 	if(!estaPuerto || !estaCantMemoria || !estaCantSwap || !estaSust)
 	{
-		if (consola == 1) printf("Error en el archivo de configuracion\n");
-		log_error(logs, "Error en el archivo de configuracion");
+		if (consola == 1) printf("Error en el archivo de configuración. Ruta: %s\n", config->path);
+		log_error(logs, "Error en el archivo de configuración. Ruta: %s.", config->path);
 		abort();
 	}
+
+	log_info(logs, "La ruta del archivo de configuración es: %s.", config->path);
+
 
 	algoritmo = strdup(config_get_string_value(config, "SUST_PAGS"));
 	puerto = config_get_int_value(config, "PUERTO");
@@ -129,6 +132,12 @@ void listarMarcos()
 
 void inicializarMSP()
 {
+	//pthread_mutex_init(&mutexMemoriaTotalRestante, NULL);
+	//pthread_mutex_init(&mutexMPRestante, NULL);
+	//pthread_mutex_init(&mutexSwapRestante, NULL);
+
+	pthread_mutex_init(&mutexCrearSegmento, NULL);
+
 	FILE *log = fopen("logMSP", "w");
 	fflush(log);
 	fclose(log);
@@ -137,8 +146,8 @@ void inicializarMSP()
 
 	levantarArchivoDeConfiguracion();
 
-	/*//PASAJE DE MB A BYTES
-	int memoriaEnBytes = configuracion.cantidad_memoria * (pow(2, 20));
+	/*//PASAJE DE MB Y KB A BYTES
+	int memoriaEnBytes = configuracion.cantidad_memoria * (pow(2, 10));
 	int swapEnBytes = configuracion.cantidad_swap * (pow(2, 20));
 	configuracion.cantidad_memoria = memoriaEnBytes;
 	configuracion.cantidad_swap = swapEnBytes;*/
@@ -169,12 +178,15 @@ void inicializarMSP()
 
 	ordenMarco = 0;
 
-	log_trace(logs, "MSP inicio su ejecucion. Tamaño memoria: %d. Tamaño swap: %d. Tamañio total: %d. Algoritmo sust páginas: %s.", memoriaRestante, swapRestante, memoriaRestante+swapRestante, configuracion.sust_pags);
+	log_trace(logs, "MSP inicio su ejecución. Tamaño memoria: %d. Tamaño swap: %d. Tamañio total: %d. Algoritmo sust páginas: %s.", memoriaRestante, swapRestante, memoriaRestante+swapRestante, configuracion.sust_pags);
 
-	pthread_t hilo_consola_1;
-	if(pthread_create(&hilo_consola_1, NULL, (void*) consola_msp(), NULL)!=0){
+
+
+
+	if(pthread_create(&hilo_consola_1, NULL, (void*)consola_msp, NULL)!=0){
 		puts("No se ha podido crear el proceso consola de la MSP.");
 	}
+
 
 }
 
@@ -206,7 +218,7 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 
 
 	//Esta es una impresion de prueba.
-	puts("CREACION DE SEGMENTO");
+/*	puts("CREACION DE SEGMENTO");
 	printf("Nro seg: %d    PID: %d    Tamanio: %d\n", nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoSegmento->tamanio);
 	int i;
 	for(i=0; i<cantidadDePaginas; i++)
@@ -217,7 +229,7 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 
 		printf("		 Nro pag: %d      presencia: %d       direccion: %zu\n",  nodoPagina->nro_pagina, nodoPagina->presencia, direccion);
 
-	}
+	}*/
 	//Acá termina la impresion de prueba.
 
 	uint32_t direccionBase = generarDireccionLogica(nodoSegmento->numeroSegmento, 0, 0);
@@ -261,14 +273,18 @@ uint32_t crearSegmento(int pid, int tamanio)
 	}
 
 
+	//pthread_mutex_lock(&mutexMemoriaTotalRestante);
 	if (tamanio > tamanioRestanteTotal)
 	{
 		if (consola == 1) printf("No hay espacio en la memoria para crear este segmento.");
 		log_error(logs, "No hay espacio disponible en la memoria para crear este segmento.");
+		//pthread_mutex_unlock(&mutexMemoriaTotalRestante);
 		return EXIT_FAILURE;
 	}
 
 	tamanioRestanteTotal = tamanioRestanteTotal - (TAMANIO_PAGINA * cantidadTotalDePaginas);
+	//pthread_mutex_unlock(&mutexMemoriaTotalRestante);
+
 
 
 	if (cantidadTotalDePaginas > CANTIDAD_MAX_PAGINAS_POR_SEGMENTO)
@@ -754,7 +770,10 @@ void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
 
 	fclose(archivo);
 
+	//pthread_mutex_lock(&mutexSwapRestante);
 	swapRestante = swapRestante + TAMANIO_PAGINA;
+	//pthread_mutex_unlock(&mutexSwapRestante);
+
 
 	buscarYAsignarMarcoLibre(pid, segmento, nodoPagina);
 
@@ -762,7 +781,7 @@ void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
 
 	escribirEnMarco(numeroMarco, TAMANIO_PAGINA, buffer, 0, 0);
 
-	log_trace(logs, "Se movió a memoria principal la página %d del segmento %d del PID %d.", pagina, segmento, pid);
+	log_trace(logs, "Se movió a memoria principal la página %d del segmento %d del PID %d. Swap restante: %d.", pagina, segmento, pid, swapRestante);
 
 	free(buffer);
 	free(nombreArchivo);
@@ -771,6 +790,7 @@ void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
 int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
+
 
 	if (paginasQueNecesito == NULL)
 	{
@@ -795,8 +815,11 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 
 		if (nodoPagina->presencia == -1)
 		{
+			//pthread_mutex_lock(&mutexMPRestante);
 			if(memoriaRestante < TAMANIO_PAGINA)
 			{
+				//pthread_mutex_unlock(&mutexMPRestante);
+
 				if (consola == 1) printf("No hay espacio en la memoria principal, hay que swappear.");
 				log_trace(logs, "No hay espacio en la memoria principal, hay que swappear.");
 /*				if (swapRestante < TAMANIO_PAGINA)
@@ -937,7 +960,10 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 				puntero = i+1;
 			}
 
+			//pthread_mutex_lock(&mutexMPRestante);
 			memoriaRestante = memoriaRestante - TAMANIO_PAGINA;
+			//pthread_mutex_unlock(&mutexMPRestante);
+
 
 			tablaMarcos[i].libre = 0;
 			tablaMarcos[i].nro_pagina = nodoPagina->nro_pagina;
@@ -1079,7 +1105,9 @@ void* atenderAKernel(void* socket_kernel)
 			int tamanio = atoi(split[1]);
 			int exito = EXIT_FAILURE;
 
+			pthread_mutex_lock(&mutexCrearSegmento);
 			exito = crearSegmento(pid, tamanio);
+			pthread_mutex_unlock(&mutexCrearSegmento);
 
 			log_info(logs, "Ya puede seguir, se creó el segmento.");
 
@@ -1184,7 +1212,9 @@ void* atenderACPU(void* socket_cpu)
 				int pid = atoi(array_1[0]);
 				int32_t tamanio = atoi(array_1[1]);
 
+				pthread_mutex_lock(&mutexCrearSegmento);
 				uint32_t direccion = crearSegmento(pid, tamanio);
+				pthread_mutex_unlock(&mutexCrearSegmento);
 
 				char* direccion_string = string_itoa(direccion);
 				t_contenido mensaje_direccion;
@@ -1223,7 +1253,7 @@ void* atenderACPU(void* socket_cpu)
 
 				escribirMemoria(pid,A,buffer,B);
 
-				listarMarcos();
+				//listarMarcos();
 
 				free(buffer);
 
@@ -1461,7 +1491,7 @@ void swappearDeMemoriaADisco(t_marco nodoMarco)
 
 	liberarMarco(nodoMarco.nro_marco, nodoPagina);
 
-	log_trace(logs, "Se desalojó de memoria principal a la página %d del segmento %d del PID %d. El marco liberado es el n° %d.", nodoPagina->nro_pagina, nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoMarco.nro_marco);
+	log_trace(logs, "Se desalojó de memoria principal a la página %d del segmento %d del PID %d. El marco liberado es el n° %d. El espacio de swap restante es de: %d.", nodoPagina->nro_pagina, nodoSegmento->numeroSegmento, nodoSegmento->pid, nodoMarco.nro_marco, swapRestante);
 }
 
 void elegirVictimaSegunFIFO()
@@ -1519,7 +1549,10 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
 
 	free(buffer);
 
+	//pthread_mutex_lock(&mutexMPRestante);
 	memoriaRestante = memoriaRestante + TAMANIO_PAGINA;
+	//pthread_mutex_unlock(&mutexMPRestante);
+
 }
 
 int crearArchivoDePaginacion(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
@@ -1579,6 +1612,26 @@ uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar
 
 
 	return nuevoProgramCounter;
+}
+
+void terminarMSP()
+{
+	//pthread_mutex_destroy(&mutexMemoriaTotalRestante);
+	//pthread_mutex_destroy(&mutexMPRestante);
+	//pthread_mutex_destroy(&mutexSwapRestante);
+
+	pthread_mutex_destroy(&mutexCrearSegmento);
+
+	//free(memoriaPrincipal);
+
+	//faltan destruir los segmentos
+
+	puts("chauchis");
+
+	//free(tablaMarcos);
+	//log_destroy(logs);
+
+
 }
 
 

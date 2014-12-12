@@ -200,6 +200,7 @@ int buscarComando(char* buffer)
 
 		consola = 1;
 		buffer = solicitarMemoria(pid, direccion, tamanio);
+
 		consola = 0;
 
 		if (buffer != NULL)
@@ -247,10 +248,10 @@ int buscarComando(char* buffer)
 			return EXIT_FAILURE;
 		}
 
-
-		free(memoriaPrincipal);
-		free(tablaMarcos);
 		log_info(logs, "La MSP terminó su ejecución.");
+
+
+		terminarMSP();
 		liberarSubstrings(substrings);
 		exit(0);
 	}

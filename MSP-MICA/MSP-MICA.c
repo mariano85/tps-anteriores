@@ -89,6 +89,13 @@ int main() {
 
 	inicializarMSP();
 
+	puts("HOLA MSP");
+
+	conexionConKernelYCPU();
+
+	pthread_exit(0);
+
+
 
 	//crearSegmento(1234, 50);
 	//escribirMemoria(1234, 0, "11111111112222222222", 20);
@@ -105,8 +112,6 @@ int main() {
 
 
 	//puts("hola");
-
-	//conexionConKernelYCPU();
 
 
 /*	//PRUEBA PARA AUMENTARPROGRAMCOUNTER

@@ -97,6 +97,16 @@ int tamanioRestanteTotal;
 
 int puntero;
 
+//pthread_mutex_t mutexMemoriaTotalRestante;
+//pthread_mutex_t mutexSwapRestante;
+//pthread_mutex_t mutexMPRestante;
+
+pthread_mutex_t mutexCrearSegmento;
+
+
+pthread_t hilo_consola_1;
+
+
 //FUNCIONES
 
 void tablaPaginas(int pid); //revisada
@@ -170,6 +180,9 @@ void swappearDeMemoriaADisco(t_marco nodoMarco);
 int primeraVueltaClock(int puntero);
 
 int segundaVueltaClock(int puntero);
+
+void terminarMSP();
+
 
 
 
