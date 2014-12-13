@@ -106,6 +106,9 @@ void* planificador(t_thread *planificadorThread) {
 					t_contenido mensaje_de_la_cpu; //buffer para el dato del cliente
 					memset(mensaje_de_la_cpu, 0, sizeof(t_contenido));
 					t_header header = recibirMensaje(i, mensaje_de_la_cpu, logPlanificador);
+					if(strlen(mensaje_de_la_cpu) == 0){
+						strcpy(mensaje_de_la_cpu, "[0]");
+					}
 					char** array = string_get_string_as_array(mensaje_de_la_cpu);
 
 					switch (header) {
