@@ -62,7 +62,6 @@ typedef struct
 	int orden;
 	int referencia; //si vale 1 se ha usado recientemente
 	int modificacion; //si vale 1 se ha modificado recientemente
-	//int puntero;
 } t_marco;
 
 typedef struct
@@ -97,11 +96,9 @@ int tamanioRestanteTotal;
 
 int puntero;
 
-//pthread_mutex_t mutexMemoriaTotalRestante;
-//pthread_mutex_t mutexSwapRestante;
-//pthread_mutex_t mutexMPRestante;
-
-pthread_mutex_t mutexCrearSegmento;
+pthread_mutex_t mutexMemoriaTotalRestante;
+pthread_mutex_t mutexSwapRestante;
+pthread_mutex_t mutexMPRestante;
 
 
 pthread_t hilo_consola_1;
