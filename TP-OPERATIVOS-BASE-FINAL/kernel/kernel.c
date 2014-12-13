@@ -13,8 +13,8 @@ int main(){
 	// TODO: agregar logs para el planificador y para el loader
 	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", 1, LOG_LEVEL_DEBUG);
 	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", 1, LOG_LEVEL_INFO);
-	logKernel = log_create(LOADER_LOG_PATH, "Kernel - Loader", 1, LOG_LEVEL_INFO);
-	queueLog = log_create(PCP_LOG_PATH, "Kernel - Planificador", 1, LOG_LEVEL_INFO);
+	logLoader = log_create(LOADER_LOG_PATH, "Kernel - Loader", 1, LOG_LEVEL_INFO);
+	logPlanificador = log_create(PCP_LOG_PATH, "Kernel - Planificador", 1, LOG_LEVEL_INFO);
 
 	// Hello Kernel!
 	system("clear");
@@ -24,10 +24,12 @@ int main(){
 
 	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
 	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &planificadorThread);
+	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &manejoColaReadyThread);
 	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &manejoColaExitThread);
 
 	pthread_join(loaderThread.tid, NULL);
 	pthread_join(planificadorThread.tid, NULL);
+	pthread_join(manejoColaReadyThread.tid, NULL);
 	pthread_join(manejoColaExitThread.tid, NULL);
 
 	finishKernel();
