@@ -171,10 +171,10 @@ void agregarProcesoColaSyscall(t_process* unProceso, uint32_t direccion){
 /*
  * esta funcion TIENE que funcionar, junto con el hilo
  */
-void agregarProcesoColaExit(t_process* aProcess){
+void agregarProcesoColaExit(t_process* aProcess, t_cola condicionDeSalida){
 
 	// aca seteo directamente porque se que aca no va a entrar el proceso km
-	aProcess->tcb->cola = EXIT;
+	aProcess->tcb->cola = condicionDeSalida;
 
 	pthread_mutex_lock(&mutex_exit_queue);	/* protect buffer */
 	while (COLA_EXIT->elements->elements_count != 0){/* If there is something in the buffer then wait */
@@ -208,14 +208,59 @@ void manejo_cola_exit() {
 		log_debug(logKernel, "Exit Queue Manager Thread Says: Hey!I Got you dude!");
 		int32_t counter = 0;
 		for(counter = 0; counter < COLA_EXIT->elements->elements_count; counter ++ ){
-			t_process* aProcess = (t_process*)queue_peek(COLA_EXIT);
+			t_process* aProcess = (t_process*)queue_pop(COLA_EXIT);
 
-			removeProcess(aProcess->tcb->pid, false);
+			liberarProceso(aProcess);
 		}
 		pthread_cond_signal(&cond_exit_producer);	/* wake up producer */
 		pthread_mutex_unlock(&mutex_exit_queue);	/* release the buffer */
 
 	}
+
+}
+
+
+void liberarProceso(t_process* proceso){
+
+	// notificar al padre que terminó
+	notificarAlPadre(proceso);
+
+	// elimino segmentos
+	eliminarSegmento(proceso->tcb->pid, proceso->tcb->base_stack);
+
+	// si el tcb es padre, elimino tambien el segmento de codigo
+	if(proceso->tcb->tid == 0){
+		eliminarSegmento(proceso->tcb->pid, proceso->tcb->segmento_codigo);
+		notificarALosHijos(proceso);
+	}
+
+	/*
+	 * en este switch veo qué mensaje le mando a la consola para que termine
+	 */
+	switch((char)proceso->tcb->cola){
+	case EXIT:
+		break;
+	case EXIT_ERROR:
+		break;
+	case EXIT_ABORT_CPU:
+		break;
+	case EXIT_ABORT_CON:
+		break;
+	}
+
+	// libero el proceso en si!
+	free(proceso->tcb);
+	free(proceso);
+
+}
+
+
+void notificarAlPadre(t_process* proceso){
+
+}
+
+
+void notificarALosHijos(t_process* proceso){
 
 }
 
@@ -231,7 +276,6 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 
 	pthread_mutex_lock (&mutex_syscalls_queue);
 	pthread_mutex_lock (&mutex_ready_queue);
-	pthread_mutex_lock (&mutex_exec_queue);
 
 	/*Busco en qué cola está!*/
 	t_process* aProcess;
@@ -245,11 +289,6 @@ void removeProcess(int32_t processPID, bool someoneKilledHim){
 		Hit = true;
 		list_remove_by_condition(COLA_SYSCALLS->elements, (void*)_match_process_pid);
 	}
-	else if((aProcess = (t_process*)list_find(COLA_EXIT->elements, (void*)_match_process_pid)) != NULL){
-		Hit = true;
-		list_remove_by_condition(COLA_EXIT->elements, (void*)_match_process_pid);
-	}
-	pthread_mutex_unlock (&mutex_exec_queue);
 	pthread_mutex_unlock (&mutex_ready_queue);
 	pthread_mutex_unlock (&mutex_syscalls_queue);
 
@@ -268,27 +307,46 @@ bool cpuLibre(void* element){
 }
 
 
-bool cpuEjecutaTCBKM(void *element){
-	return ((t_client_cpu*)element)->procesoExec != NULL && ((t_client_cpu*)element)->procesoExec->tcb->kernel_mode;
-}
-
-
 /*
- * TODO: implementarla
+ * TODO: faltan las colas de bloqueados por recursos...
  */
-bool stillInside(int32_t processFd){
+t_process* encontrarYRemoverProcesoPorFD(int32_t fd) {
 
-	return true;
+	/*Busco en qué cola está!*/
+	t_process* aProcess = NULL;
+	t_client_cpu* cpu = NULL;
+	bool Hit = false; //Verifica si no se mato el proceso mientras lo buscaba
 
-}
+	bool _match_fd(void* element) {
+		return ((t_process*)element)->process_fd == fd;
+	}
 
+	bool _match_cpu_fd(void* element){
+		cpu = (t_client_cpu*)element;
+		return cpu == NULL ? false : cpu->procesoExec->process_fd == fd;
+	}
 
-/*
- * TODO: implementarla
- */
-int32_t encontrarProcesoPorFD(int32_t fd) {
+	if(aProcess == NULL){
+		pthread_mutex_lock (&mutex_syscalls_queue);
+		aProcess = list_remove_by_condition(COLA_SYSCALLS->elements, (void*)_match_fd);
+		pthread_mutex_unlock (&mutex_syscalls_queue);
+	}
 
-	return 0;
+	if(aProcess == NULL){
+		pthread_mutex_lock (&mutex_ready_queue);
+		aProcess = list_remove_by_condition(COLA_READY->elements, (void*)_match_fd);
+		pthread_mutex_unlock (&mutex_ready_queue);
+	}
+
+	if(aProcess == NULL){
+		pthread_mutex_lock (&mutex_cpu_list);
+		t_client_cpu* cpu = list_find(cpu_client_list, (void*)_match_cpu_fd);
+		aProcess = cpu->procesoExec;
+		cpu->procesoExec = NULL;
+		pthread_mutex_unlock (&mutex_cpu_list);
+	}
+
+	return aProcess;
 }
 
 

@@ -219,7 +219,7 @@ void eliminarCpu(int32_t socketCpu) {
 
 		// si estaba ejecutando un proceso, lo mando a la cola de EXIT
 		if(cpu->procesoExec != NULL){
-			agregarProcesoColaExit(cpu->procesoExec);
+			agregarProcesoColaExit(cpu->procesoExec, EXIT_ABORT_CPU);
 		}
 
 		list_remove_and_destroy_by_condition(cpu_client_list, (void*)_match_cpu_fd, (void*)free);
@@ -288,7 +288,7 @@ void manejarFinDeProceso(int32_t socketCpu, char* mensajeRecibido) {
 
 	} else {
 
-		agregarProcesoColaExit(aProcess);
+		agregarProcesoColaExit(aProcess, EXIT);
 
 		if((split[1] != NULL) && !(strlen(split[1]))==0){
 			memset(mensaje, 0, sizeof(t_contenido));

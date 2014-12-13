@@ -8,7 +8,6 @@
 #include "kernel.h"
 t_log* logLoader;
 
-char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo);
 void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio);
 
 // get sockaddr, IPv4 or IPv6:
@@ -124,11 +123,13 @@ void* loader(t_thread *loaderThread){
 						FD_CLR(i, &master); // remove from master set
 
 						if(i == socketMSP){
+							// no parece posible que llegue aca, porque el kernel se conecta a la msp y no al reves
 							log_info(logLoader, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
 						}
-						else if(stillInside(i)){
-							int32_t processPID = encontrarProcesoPorFD(i);
-							removeProcess(processPID, true);
+						else {
+							t_process* aProcess = encontrarYRemoverProcesoPorFD(i);
+							// agrego proceso a la cola de EXIT
+							agregarProcesoColaExit(aProcess, EXIT_ABORT_CON);
 						}
 
 						break;

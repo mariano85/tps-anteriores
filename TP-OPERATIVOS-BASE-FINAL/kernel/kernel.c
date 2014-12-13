@@ -42,7 +42,6 @@ void finishKernel(){
 	// destruyo semaforos
 	pthread_mutex_destroy(&mutex_cpu_list);
 	pthread_mutex_destroy(&mutex_ready_queue);
-	pthread_mutex_destroy(&mutex_exec_queue);
 	pthread_mutex_destroy(&mutex_syscalls_queue);
 	pthread_mutex_destroy(&mutex_join_queue);
 	pthread_mutex_destroy(&mutex_exit_queue);
@@ -89,7 +88,6 @@ void initKernel(){
 	pthread_mutex_init(&mutex_ready_queue, NULL );
 	pthread_mutex_init(&mutex_syscalls_queue, NULL );
 	pthread_mutex_init(&mutex_join_queue, NULL );
-	pthread_mutex_init(&mutex_exec_queue, NULL );
 	pthread_mutex_init(&mutex_exit_queue, NULL );
 
 	/*Se valida que en el sistema exista una instancia de la MSP levantada. Esto es indispensable
@@ -174,6 +172,13 @@ uint32_t solicitarSegmento(int32_t id_proceso, uint32_t tamanio){
 	return direccionMSP;
 }
 
+void eliminarSegmento(int32_t id_proceso, uint32_t tamanio){
+	t_contenido msjRespuesta;
+	memset(msjRespuesta,0,sizeof(t_contenido));
+
+	enviarMensaje(socketMSP, KERNEL_TO_MSP_ELIMINAR_SEGMENTOS, string_from_format("[%d,%d]", id_proceso, tamanio), logKernel);
+}
+
 void loadConfig(){
 
 	log_info(logKernel, "Se inicializa el kernel con parametros desde: %s", KERNEL_CONFIG_PATH);
@@ -254,14 +259,6 @@ void eliminarSegmentos(int32_t pid){
 
 void killProcess(t_process* aProcess){
 
-	if(stillInside(aProcess->process_fd)){
-			log_info(logKernel, string_from_format("Se elimina del sistema las estructuras asociadas al proceso con PID: %d", aProcess->tcb->pid));
-			free(aProcess->tcb);
-			free(aProcess);
-		}
-		else{
-			aProcess->process_fd = 0;
-		}
 	log_info(logKernel, "implementar killProcess pid: %d", aProcess->tcb->pid);
 }
 
