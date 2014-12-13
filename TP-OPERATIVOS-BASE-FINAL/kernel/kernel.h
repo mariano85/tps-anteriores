@@ -113,6 +113,7 @@ t_list* semaforos_list;
 
 t_thread loaderThread;
 t_thread planificadorThread;
+t_thread manejoColaReadyThread;
 t_thread manejoColaExitThread;
 
 pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, cond_new_producer, cond_new_consumer,condpBlockedProcess;

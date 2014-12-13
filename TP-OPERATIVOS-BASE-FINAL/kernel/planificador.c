@@ -230,7 +230,7 @@ void agregarCpu(int32_t socketCpu, char* mensaje){
 	//Creo la estructura del nuevo CPU con todos sus datos
 	t_client_cpu* aCPU = malloc(sizeof(t_client_cpu));
 	aCPU->cpuFD = socketCpu;
-	aCPU->cpuPID = atoi(mensaje);
+	aCPU->cpuPID = socketCpu;
 	aCPU->procesoExec = NULL;
 
 	log_info(logPlanificador, string_from_format("Planificador Thread dice: Nuevo CPU conectado (PID: %d) aguarda instrucciones", aCPU->cpuPID));

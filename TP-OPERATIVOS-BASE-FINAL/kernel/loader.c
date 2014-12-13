@@ -124,7 +124,7 @@ void* loader(t_thread *loaderThread){
 						FD_CLR(i, &master); // remove from master set
 
 						if(i == socketMSP){
-							log_info(logLoader, "Wow! La UMV se desconectó! Imposible seguir funcionando! :/");
+							log_info(logLoader, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
 						}
 						else if(stillInside(i)){
 							int32_t processPID = encontrarProcesoPorFD(i);
@@ -143,8 +143,8 @@ void* loader(t_thread *loaderThread){
 						t_process *procesoNuevo = NULL;
 
 						char** split = string_get_string_as_array(mensaje);
-						int32_t programPID = atoi(split[0]);
-						int32_t programTID = atoi(split[1]);
+						int32_t programPID = i;//atoi(split[0]);
+						int32_t programTID = 0;//atoi(split[1]);
 						size_t tamanioCodigo = atoi(split[2]);
 
 						codigoBESO = calloc(tamanioCodigo, 1);
