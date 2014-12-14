@@ -93,6 +93,9 @@ int main() {
 
 	conexionConKernelYCPU();
 
+	pthread_join(hilo_consola_1, NULL);
+
+
 	pthread_exit(0);
 
 

@@ -68,6 +68,7 @@ typedef struct
 {
 	int nro_pagina;
 	int presencia;	//si vale -1, no se le asignó ningun marco, si vale -2 está en swap, si no indica numero de marco
+	pthread_rwlock_t rwPagina;
 } nodo_paginas;
 
 //VARIABLES globales
@@ -99,6 +100,8 @@ int puntero;
 pthread_mutex_t mutexMemoriaTotalRestante;
 pthread_mutex_t mutexSwapRestante;
 pthread_mutex_t mutexMPRestante;
+
+pthread_rwlock_t rwListaSegmentos;
 
 
 pthread_t hilo_consola_1;

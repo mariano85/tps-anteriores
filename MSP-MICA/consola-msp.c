@@ -83,6 +83,7 @@ int buscarComando(char* buffer)
 
 				consola = 1;
 				tablaSegmentos();
+				puts("holaa");
 				consola = 0;
 				liberarSubstrings(substrings);
 
@@ -175,6 +176,7 @@ int buscarComando(char* buffer)
 
 		liberarSubstrings(substrings);
 
+
 		return EXIT_SUCCESS;
 	}
 
@@ -195,24 +197,22 @@ int buscarComando(char* buffer)
 		int tamanio = atoi(substrings[4]);
 
 
-		buffer = malloc (600);
-		memset(buffer, '\0', 600);
+		void* recibido;
 
 		consola = 1;
-		buffer = solicitarMemoria(pid, direccion, tamanio);
+		recibido = solicitarMemoria(pid, direccion, tamanio);
 
 		consola = 0;
 
-		if (buffer != NULL)
+		if (recibido != NULL || tamanio == 0)
 		{
-			printf("Lo que se obtuvo de la memoria es: ");
-			puts(buffer);
+			printf("Lo que se obtuvo de la memoria es: %s", (char*)recibido);
 		}
 
+		free(recibido);
 
 		//printf("La instruccion %s %s %d %d %d\n", substrings[0], substrings[1], pid, direccion, tamanio);
 
-		free(buffer);
 		liberarSubstrings(substrings);
 
 
@@ -252,6 +252,8 @@ int buscarComando(char* buffer)
 
 
 		terminarMSP();
+
+		free(buffer);
 		liberarSubstrings(substrings);
 		exit(0);
 	}
