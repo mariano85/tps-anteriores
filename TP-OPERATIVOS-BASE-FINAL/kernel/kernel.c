@@ -115,6 +115,40 @@ void handshakeMSP() {
 
 }
 
+t_process* getProcesoDesdeMensaje(char* mensaje){
+
+	t_process* proceso = calloc(sizeof(t_process), 1);
+	t_hilo* process_tcb = calloc(sizeof(t_hilo), 1);
+	proceso->tcb = process_tcb;
+	char** split = string_get_string_as_array(mensaje);
+
+	proceso->tcb->pid = atoi(split[0]);
+	proceso->process_fd = atoi(split[0]);
+	proceso->tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
+
+	if(proceso->tcb->base_stack == EXIT_FAILURE){
+		log_error(logKernel, "No pudieron reservarse los segmentos para el proceso %d", proceso->tcb->pid);
+		free(proceso);
+		return NULL;
+	}
+
+	proceso->tcb->tid = atoi(split[1]);
+	proceso->tcb->kernel_mode = atoi(split[2]);
+	proceso->tcb->segmento_codigo = atoi(split[3]);
+	proceso->tcb->segmento_codigo_size = atoi(split[4]);
+	proceso->tcb->puntero_instruccion = atoi(split[5]);
+	proceso->tcb->base_stack = atoi(split[6]);
+	proceso->tcb->cursor_stack = atoi(split[7]);
+
+	proceso->tcb->registros[0] = atoi(split[8]);
+	proceso->tcb->registros[1] = atoi(split[9]);
+	proceso->tcb->registros[2] = atoi(split[10]);
+	proceso->tcb->registros[3] = atoi(split[11]);
+	proceso->tcb->registros[4] = atoi(split[12]);
+
+	return proceso;
+}
+
 
 t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd)
 {
@@ -275,15 +309,6 @@ t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
 	return list_find(cpu_client_list, (void*)_match_cpu_fd);
 }
 
-
-t_process* getProcessStructureByBESOCode(char* code, int32_t pid, int32_t fd){
-
-	t_process* proceso = malloc(sizeof(t_process));
-//	t_tcb* process_tcb = malloc(sizeof(t_tcb));
-	proceso->process_fd = fd;
-
-	return proceso;
-}
 
 int32_t escribirMemoria(int32_t pid, uint32_t direccionSegmento, char* buffer, int32_t tamanio){
 	t_contenido msjRespuesta;

@@ -146,12 +146,10 @@ t_client_cpu* buscarCPUPorFD(int32_t socketCpu);
 t_process* desocuparCPU(int32_t socketCpu);
 
 //LAS QUE AGREGUE YO
-//t_client_cpu* encontrarCPUporFd(int32_t cpuFd);
+t_process* getProcesoDesdeMensaje(char* mensaje);
 t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd);
 int32_t solicitarSegmentoStack();
 int32_t solicitarSegmentoCodigo();
-void pruebasKernel();
-void conexionCPU();
 
 /**
  * FUNCIONES MANEJO COLA
@@ -185,7 +183,7 @@ int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
 void interrupcion(int32_t socketCpu, char* mensaje);
 void entrada_estandar(int32_t socketCpu, char* mensaje);
 void salida_estandar(int32_t socketCpu, char* mensaje);
-void crear_hilo(int32_t socketCpu, char* mensaje);
+void crear_hilo(char* mensaje);
 void join (int32_t tid1,int32_t tid2);
 void bloquear(t_process* aProceess, int32_t id);
 void despertar(int32_t id);

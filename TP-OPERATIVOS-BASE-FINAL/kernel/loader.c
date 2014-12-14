@@ -136,10 +136,10 @@ void* loader(t_thread *loaderThread){
 					case ERR_ERROR_AL_RECIBIR_MSG:
 						//TODO retry?l
 						break;
-					case CON_TO_KRN_HANDSHAKE:
-						enviarMensaje(i, CON_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logLoader);
+					case PRG_TO_KRN_HANDSHAKE:
+						enviarMensaje(i, PRG_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logLoader);
 						break;
-					case CON_TO_KRN_CODE: {
+					case PRG_TO_KRN_CODE: {
 						char *codigoBESO = NULL;
 						t_process *procesoNuevo = NULL;
 
@@ -150,7 +150,7 @@ void* loader(t_thread *loaderThread){
 
 						codigoBESO = calloc(tamanioCodigo, 1);
 
-						enviarMensaje(i, CON_TO_KRN_CODE, "Se espera el codigo BESO...", logLoader);
+						enviarMensaje(i, PRG_TO_KRN_CODE, "Se espera el codigo BESO...", logLoader);
 
 						recibir(i, codigoBESO, tamanioCodigo);
 
@@ -160,9 +160,14 @@ void* loader(t_thread *loaderThread){
 
 						procesoNuevo = getProcesoDesdeCodigoBESO(MODO_USUARIO, codigoBESO, tamanioCodigo, programPID, programTID, i);
 
+						free(codigoBESO);
+
+						if(procesoNuevo == NULL){
+							enviarMensaje(i, KERNEL_TO_PRG_NO_MEMORY, "No hay memoria suficiente", logLoader);
+						}
+
 						log_info(logLoader, "Se generó la estructura del proceso con éxito!");
 						agregarProcesoColaNew(procesoNuevo);
-						free(codigoBESO);
 
 						break;
 					}
@@ -178,7 +183,7 @@ void* loader(t_thread *loaderThread){
 
 char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo){
 
-	enviarMensaje(socketConsola, CON_TO_KRN_CODE, "Se espera el codigo beso", logLoader);
+	enviarMensaje(socketConsola, PRG_TO_KRN_CODE, "Se espera el codigo beso", logLoader);
 	char *codigoBeso = calloc(1, tamanioCodigo);
 
 	if( (recibir(socketConsola, codigoBeso, tamanioCodigo)) != EXITO_SOCK){
