@@ -91,20 +91,23 @@ void manejo_cola_ready() {
 
 void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess) {
 
-	int32_t v1 = aProcess->tcb->pid;
-	int32_t v2 = aProcess->tcb->segmento_codigo;
-	int32_t v3 = aProcess->tcb->segmento_codigo_size;
-	int32_t v4 = config_kernel.QUANTUM;
-	int32_t v5 = aProcess->tcb->kernel_mode;
+	int32_t v0 = aProcess->tcb->pid;
+	int32_t v1 = aProcess->tcb->tid;
+	int32_t v2 = aProcess->tcb->kernel_mode;
+	int32_t v3 = aProcess->tcb->segmento_codigo;
+	int32_t v4 = aProcess->tcb->segmento_codigo_size;
+	int32_t v5 = aProcess->tcb->puntero_instruccion;
 	int32_t v6 = aProcess->tcb->base_stack;
 	int32_t v7 = aProcess->tcb->cursor_stack;
-
-	// esto por ahora lo no recibe Nico, pero lo tiene que recibir
-	int32_t v8 = aProcess->tcb->tid;
+	int32_t v8 = aProcess->tcb->registros[0];
+	int32_t v9 = aProcess->tcb->registros[1];
+	int32_t v10 = aProcess->tcb->registros[2];
+	int32_t v11 = aProcess->tcb->registros[3];
+	int32_t v12 = aProcess->tcb->registros[4];
 
 	t_contenido mensaje;
 	memset(mensaje, 0, sizeof(t_contenido));
-	strcpy(mensaje, string_from_format("[%d, %d, %d, %d, %d, %d, %d, %d]", v1, v2, v3, v4, v5, v6, v7, v8));
+	strcpy(mensaje, string_from_format("[%d, %d, %d, %d, %d, %d, %d, %d,%d,%d,%d,%d,%d]", v0, v1, v2, v3, v4, v5, v6, v7,v8,v9,v10,v11,v12));
 	enviarMensaje(socketCPU, KERNEL_TO_CPU_TCB, mensaje, logKernel);
 	log_info(logKernel, "Se envía un TCB al CPU libre elegido");
 

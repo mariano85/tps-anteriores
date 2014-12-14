@@ -1,0 +1,91 @@
+16:33:31:35 (8365): ************** Comienza el planificador!(PID: 8370) ***************
+16:34:07:929 (8365): selectserver: new connection from 127.0.0.1 on socket 11
+
+16:34:07:947 (8365): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+16:50:42:675 (8365): recibi el tcb porque finalizo proceso por XXXX
+16:50:42:678 (8365): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:50:42:696 (8365): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+16:51:53:139 (8365): El socket 11 cerró la conexion.
+16:51:53:143 (8365): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+16:53:19:99 (8899): ************** Comienza el planificador!(PID: 8904) ***************
+16:54:44:631 (8899): selectserver: new connection from 127.0.0.1 on socket 13
+
+16:54:44:644 (8899): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+16:54:45:944 (8899): recibi el tcb porque finalizo proceso por XXXX
+16:54:45:945 (8899): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+16:54:45:961 (8899): Se ENVIA por SOCKET:11 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+17:17:56:927 (8899): El socket 13 cerró la conexion.
+17:17:56:929 (8899): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+17:18:22:963 (9455): ************** Comienza el planificador!(PID: 9460) ***************
+17:18:29:746 (9455): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:18:29:758 (9455): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:18:35:518 (9455): recibi el tcb porque finalizo proceso por XXXX
+17:18:35:518 (9455): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:18:35:520 (9455): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+17:20:33:165 (9549): ************** Comienza el planificador!(PID: 9554) ***************
+17:20:55:429 (9549): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:20:55:451 (9549): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:21:01:210 (9549): recibi el tcb porque finalizo proceso por XXXX
+17:21:01:210 (9549): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:21:01:221 (9549): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+17:23:51:165 (9661): ************** Comienza el planificador!(PID: 9666) ***************
+17:24:27:240 (9661): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:24:27:260 (9661): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:24:31:979 (9661): recibi el tcb porque finalizo proceso por XXXX
+17:24:31:980 (9661): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:24:31:999 (9661): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+17:28:59:577 (9834): ************** Comienza el planificador!(PID: 9839) ***************
+17:29:12:839 (9834): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:29:12:868 (9834): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:29:18:382 (9834): recibi el tcb porque finalizo proceso por XXXX
+17:29:18:384 (9834): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:29:18:407 (9834): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+17:30:51:842 (9834): El socket 11 cerró la conexion.
+17:30:51:844 (9834): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+17:31:11:905 (9899): ************** Comienza el planificador!(PID: 9904) ***************
+17:31:17:995 (9899): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:31:18:15 (9899): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:31:22:317 (9899): recibi el tcb porque finalizo proceso por XXXX
+17:31:22:317 (9899): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:31:22:332 (9899): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+17:32:54:624 (9899): El socket 11 cerró la conexion.
+17:32:54:628 (9899): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+17:33:25:782 (10050): ************** Comienza el planificador!(PID: 10055) ***************
+17:33:30:342 (10050): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:33:30:360 (10050): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:33:35:172 (10050): recibi el tcb porque finalizo proceso por XXXX
+17:33:35:176 (10050): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:33:35:190 (10050): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"0" 
+17:35:07:679 (10050): El socket 11 cerró la conexion.
+17:35:07:681 (10050): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+17:35:32:218 (10139): ************** Comienza el planificador!(PID: 10144) ***************
+17:35:35:806 (10139): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:35:35:818 (10139): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:36:50:458 (10139): El socket 11 cerró la conexion.
+17:36:50:460 (10139): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+17:37:10:889 (10200): ************** Comienza el planificador!(PID: 10205) ***************
+17:37:14:962 (10200): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:37:14:976 (10200): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:41:11:362 (10200): El socket 11 cerró la conexion.
+17:41:11:363 (10200): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+17:41:28:33 (10307): ************** Comienza el planificador!(PID: 10312) ***************
+17:41:34:157 (10307): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:41:34:165 (10307): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:43:39:552 (10373): ************** Comienza el planificador!(PID: 10378) ***************
+17:43:43:223 (10373): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:43:43:241 (10373): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:44:39:624 (10444): ************** Comienza el planificador!(PID: 10449) ***************
+17:44:42:862 (10444): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:44:42:878 (10444): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:44:46:40 (10444): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones

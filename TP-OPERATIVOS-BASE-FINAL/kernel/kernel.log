@@ -1,0 +1,1282 @@
+[INFO] 16:22:23:920 Kernel/(6135:6135): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:22:23:954 Kernel/(6135:6135): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:22:23:963 Kernel/(6135:6135): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:22:23:973 Kernel/(6135:6135): Se ha establecido conexion con el proceso MSP
+[INFO] 16:22:23:978 Kernel/(6135:6135): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:22:23:982 Kernel/(6135:6135): Estoy en espera
+[DEBUG] 16:22:24:230 Kernel/(6135:6135): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:22:24:232 Kernel/(6135:6135): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:22:24:235 Kernel/(6135:6135): Estoy en espera
+[DEBUG] 16:22:24:248 Kernel/(6135:6135): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:22:24:250 Kernel/(6135:6135): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:22:24:252 Kernel/(6135:6135): Estoy en espera
+[DEBUG] 16:22:25:873 Kernel/(6135:6135): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:22:25:874 Kernel/(6135:6135): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:22:25:882 Kernel/(6135:6135): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:22:25:905 Kernel/(6135:6143): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:22:25:919 Kernel/(6135:6142): ************** PLP Thread Started!(PID: 6142) ***************
+[INFO] 16:22:25:933 Kernel/(6135:6143): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:24:33:12 Kernel/(6181:6181): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:24:34:35 Kernel/(6181:6181): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:24:34:48 Kernel/(6181:6181): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:24:34:49 Kernel/(6181:6181): Se ha establecido conexion con el proceso MSP
+[INFO] 16:24:34:50 Kernel/(6181:6181): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:24:34:52 Kernel/(6181:6181): Estoy en espera
+[DEBUG] 16:24:34:85 Kernel/(6181:6181): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"2097152" 
+[INFO] 16:24:34:86 Kernel/(6181:6181): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,2097152]" 
+[DEBUG] 16:24:34:87 Kernel/(6181:6181): Estoy en espera
+[DEBUG] 16:24:34:90 Kernel/(6181:6181): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:24:34:91 Kernel/(6181:6181): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:24:34:92 Kernel/(6181:6181): Estoy en espera
+[DEBUG] 16:24:35:147 Kernel/(6181:6181): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:24:35:149 Kernel/(6181:6181): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:24:35:156 Kernel/(6181:6181): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:24:35:170 Kernel/(6181:6188): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:24:35:172 Kernel/(6181:6187): ************** PLP Thread Started!(PID: 6187) ***************
+[INFO] 16:24:35:195 Kernel/(6181:6188): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:29:44:744 Kernel/(6277:6277): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:29:44:786 Kernel/(6277:6277): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:29:44:801 Kernel/(6277:6277): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:29:44:804 Kernel/(6277:6277): Se ha establecido conexion con el proceso MSP
+[INFO] 16:29:44:811 Kernel/(6277:6277): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:29:44:815 Kernel/(6277:6277): Estoy en espera
+[DEBUG] 16:29:44:904 Kernel/(6277:6277): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"4194304" 
+[INFO] 16:29:44:906 Kernel/(6277:6277): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,4194304]" 
+[DEBUG] 16:29:44:908 Kernel/(6277:6277): Estoy en espera
+[DEBUG] 16:29:44:915 Kernel/(6277:6277): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:29:44:917 Kernel/(6277:6277): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:29:44:919 Kernel/(6277:6277): Estoy en espera
+[DEBUG] 16:29:46:195 Kernel/(6277:6277): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:29:46:196 Kernel/(6277:6277): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:29:46:202 Kernel/(6277:6277): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:29:46:215 Kernel/(6277:6286): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:29:46:218 Kernel/(6277:6285): ************** PLP Thread Started!(PID: 6285) ***************
+[INFO] 16:29:46:232 Kernel/(6277:6286): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:30:59:594 Kernel/(6318:6318): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:30:59:623 Kernel/(6318:6318): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:30:59:630 Kernel/(6318:6318): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:30:59:631 Kernel/(6318:6318): Se ha establecido conexion con el proceso MSP
+[INFO] 16:30:59:634 Kernel/(6318:6318): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:30:59:641 Kernel/(6318:6318): Estoy en espera
+[DEBUG] 16:30:59:648 Kernel/(6318:6318): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1" 
+[ERROR] 16:30:59:648 Kernel/(6318:6318): No pudieron reservarse los segmentos para el proceso 0
+[ERROR] 16:30:59:649 Kernel/(6318:6318): Ocurrio un error al intentar crear el proceso de syscalls. El Kernel aborta...
+[INFO] 16:31:22:44 Kernel/(6339:6339): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:31:22:63 Kernel/(6339:6339): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:31:22:74 Kernel/(6339:6339): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:31:22:76 Kernel/(6339:6339): Se ha establecido conexion con el proceso MSP
+[INFO] 16:31:22:78 Kernel/(6339:6339): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:31:22:81 Kernel/(6339:6339): Estoy en espera
+[DEBUG] 16:31:22:101 Kernel/(6339:6339): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1" 
+[ERROR] 16:31:22:109 Kernel/(6339:6339): No pudieron reservarse los segmentos para el proceso 0
+[ERROR] 16:31:22:110 Kernel/(6339:6339): Ocurrio un error al intentar crear el proceso de syscalls. El Kernel aborta...
+[INFO] 16:31:56:844 Kernel/(6395:6395): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:31:56:873 Kernel/(6395:6395): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:31:56:887 Kernel/(6395:6395): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:31:56:896 Kernel/(6395:6395): Se ha establecido conexion con el proceso MSP
+[INFO] 16:31:56:905 Kernel/(6395:6395): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:31:56:908 Kernel/(6395:6395): Estoy en espera
+[DEBUG] 16:31:56:918 Kernel/(6395:6395): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1" 
+[ERROR] 16:31:56:920 Kernel/(6395:6395): No pudieron reservarse los segmentos para el proceso 0
+[ERROR] 16:31:56:921 Kernel/(6395:6395): Ocurrio un error al intentar crear el proceso de syscalls. El Kernel aborta...
+[INFO] 16:33:08:512 Kernel/(6454:6454): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:33:08:546 Kernel/(6454:6454): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:33:08:554 Kernel/(6454:6454): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:33:08:555 Kernel/(6454:6454): Se ha establecido conexion con el proceso MSP
+[INFO] 16:33:08:557 Kernel/(6454:6454): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:33:08:560 Kernel/(6454:6454): Estoy en espera
+[DEBUG] 16:33:08:653 Kernel/(6454:6454): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:33:08:654 Kernel/(6454:6454): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:33:08:656 Kernel/(6454:6454): Estoy en espera
+[DEBUG] 16:33:08:669 Kernel/(6454:6454): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:33:08:671 Kernel/(6454:6454): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:33:08:673 Kernel/(6454:6454): Estoy en espera
+[DEBUG] 16:33:09:743 Kernel/(6454:6454): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:33:09:751 Kernel/(6454:6454): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:33:09:755 Kernel/(6454:6454): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:33:09:793 Kernel/(6454:6461): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:33:09:795 Kernel/(6454:6460): ************** PLP Thread Started!(PID: 6460) ***************
+[INFO] 16:33:09:829 Kernel/(6454:6461): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:39:20:268 Kernel/(6514:6514): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:39:20:307 Kernel/(6514:6514): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 16:39:25:312 Kernel/(6514:6514): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 16:39:30:319 Kernel/(6514:6514): Despierten a la MSP! Se reintenta conexion en unos segundos ;) 
+
+[INFO] 16:39:35:331 Kernel/(6514:6514): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:39:35:341 Kernel/(6514:6514): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:39:35:345 Kernel/(6514:6514): Se ha establecido conexion con el proceso MSP
+[INFO] 16:39:35:347 Kernel/(6514:6514): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:39:35:351 Kernel/(6514:6514): Estoy en espera
+[DEBUG] 16:39:35:421 Kernel/(6514:6514): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:39:35:422 Kernel/(6514:6514): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:39:35:423 Kernel/(6514:6514): Estoy en espera
+[DEBUG] 16:39:35:433 Kernel/(6514:6514): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:39:35:433 Kernel/(6514:6514): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:39:35:438 Kernel/(6514:6514): Estoy en espera
+[DEBUG] 16:39:36:736 Kernel/(6514:6514): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:39:36:737 Kernel/(6514:6514): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:39:36:740 Kernel/(6514:6514): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 16:39:58:756 Kernel/(6514:6514): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:39:58:778 Kernel/(6514:6568): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:39:58:780 Kernel/(6514:6567): ************** PLP Thread Started!(PID: 6567) ***************
+[INFO] 16:39:58:791 Kernel/(6514:6568): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:40:32:357 Kernel/(6607:6607): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:40:32:387 Kernel/(6607:6607): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:40:32:395 Kernel/(6607:6607): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:40:32:401 Kernel/(6607:6607): Se ha establecido conexion con el proceso MSP
+[INFO] 16:40:32:403 Kernel/(6607:6607): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:40:32:412 Kernel/(6607:6607): Estoy en espera
+[DEBUG] 16:40:32:528 Kernel/(6607:6607): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:40:32:531 Kernel/(6607:6607): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:40:32:534 Kernel/(6607:6607): Estoy en espera
+[DEBUG] 16:40:32:548 Kernel/(6607:6607): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:40:32:549 Kernel/(6607:6607): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:40:32:559 Kernel/(6607:6607): Estoy en espera
+[DEBUG] 16:40:33:862 Kernel/(6607:6607): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:40:33:863 Kernel/(6607:6607): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:40:33:871 Kernel/(6607:6607): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 16:40:55:879 Kernel/(6607:6607): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 16:41:17:898 Kernel/(6607:6607): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:41:17:922 Kernel/(6607:6652): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:41:17:923 Kernel/(6607:6651): ************** PLP Thread Started!(PID: 6651) ***************
+[INFO] 16:41:17:946 Kernel/(6607:6652): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:45:51:293 Kernel/(6835:6835): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:45:51:304 Kernel/(6835:6835): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:45:51:307 Kernel/(6835:6835): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:45:51:313 Kernel/(6835:6835): Se ha establecido conexion con el proceso MSP
+[INFO] 16:45:51:314 Kernel/(6835:6835): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:45:51:315 Kernel/(6835:6835): Estoy en espera
+[DEBUG] 16:45:51:390 Kernel/(6835:6835): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:45:51:390 Kernel/(6835:6835): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:45:51:391 Kernel/(6835:6835): Estoy en espera
+[DEBUG] 16:45:51:401 Kernel/(6835:6835): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:45:51:401 Kernel/(6835:6835): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:45:51:402 Kernel/(6835:6835): Estoy en espera
+[DEBUG] 16:45:52:485 Kernel/(6835:6835): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:45:52:485 Kernel/(6835:6835): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:45:58:882 Kernel/(6835:6835): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 16:46:20:886 Kernel/(6835:6835): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:46:21:29 Kernel/(6835:6872): ************** PLP Thread Started!(PID: 6872) ***************
+[INFO] 16:46:21:66 Kernel/(6835:6874): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:46:21:67 Kernel/(6835:6874): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:48:41:755 Kernel/(6940:6940): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:48:41:766 Kernel/(6940:6940): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:48:41:769 Kernel/(6940:6940): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:48:41:774 Kernel/(6940:6940): Se ha establecido conexion con el proceso MSP
+[INFO] 16:48:41:775 Kernel/(6940:6940): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:48:41:777 Kernel/(6940:6940): Estoy en espera
+[DEBUG] 16:48:41:822 Kernel/(6940:6940): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:48:41:823 Kernel/(6940:6940): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:48:41:824 Kernel/(6940:6940): Estoy en espera
+[DEBUG] 16:48:41:890 Kernel/(6940:6940): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:48:41:890 Kernel/(6940:6940): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:48:41:892 Kernel/(6940:6940): Estoy en espera
+[DEBUG] 16:48:43:654 Kernel/(6940:6940): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:48:43:654 Kernel/(6940:6940): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:48:43:656 Kernel/(6940:6940): Despierten al CPU! Se reintenta conexion en unos segundos 
+
+[INFO] 16:49:05:665 Kernel/(6940:6940): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:49:05:814 Kernel/(6940:6969): ************** PLP Thread Started!(PID: 6969) ***************
+[INFO] 16:49:05:861 Kernel/(6940:6971): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:49:05:862 Kernel/(6940:6971): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:52:33:944 Kernel/(7085:7085): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:52:33:975 Kernel/(7085:7085): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:52:33:980 Kernel/(7085:7085): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:52:33:981 Kernel/(7085:7085): Se ha establecido conexion con el proceso MSP
+[INFO] 16:52:33:982 Kernel/(7085:7085): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:52:33:985 Kernel/(7085:7085): Estoy en espera
+[DEBUG] 16:52:34:28 Kernel/(7085:7085): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:52:34:28 Kernel/(7085:7085): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:52:34:29 Kernel/(7085:7085): Estoy en espera
+[DEBUG] 16:52:34:32 Kernel/(7085:7085): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:52:34:33 Kernel/(7085:7085): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:52:34:33 Kernel/(7085:7085): Estoy en espera
+[DEBUG] 16:52:35:220 Kernel/(7085:7085): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:52:35:227 Kernel/(7085:7085): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:52:35:228 Kernel/(7085:7085): Se ENVIA por SOCKET:0 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[ERROR] 16:52:35:230 Kernel/(7085:7085): #######################################################################
+[ERROR] 16:52:35:231 Kernel/(7085:7085): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 16:52:35:241 Kernel/(7085:7085): #######################################################################
+[INFO] 16:52:35:275 Kernel/(7085:7091): ************** PLP Thread Started!(PID: 7091) ***************
+[INFO] 16:52:35:284 Kernel/(7085:7092): Se ENVIA por SOCKET:1 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[ERROR] 16:52:35:284 Kernel/(7085:7092): #######################################################################
+[ERROR] 16:52:35:285 Kernel/(7085:7092): ##    ERROR en el envío de mensajes: no se envió todo. socket: 1    ##
+[ERROR] 16:52:35:292 Kernel/(7085:7092): #######################################################################
+[INFO] 16:52:35:293 Kernel/(7085:7092): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:53:18:21 Kernel/(7127:7127): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:53:18:42 Kernel/(7127:7127): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:53:18:55 Kernel/(7127:7127): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:53:18:56 Kernel/(7127:7127): Se ha establecido conexion con el proceso MSP
+[INFO] 16:53:18:57 Kernel/(7127:7127): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:53:18:59 Kernel/(7127:7127): Estoy en espera
+[DEBUG] 16:53:18:113 Kernel/(7127:7127): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 16:53:18:114 Kernel/(7127:7127): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,1048576]" 
+[DEBUG] 16:53:18:115 Kernel/(7127:7127): Estoy en espera
+[DEBUG] 16:53:18:119 Kernel/(7127:7127): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:53:18:120 Kernel/(7127:7127): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:53:18:121 Kernel/(7127:7127): Estoy en espera
+[DEBUG] 16:53:18:879 Kernel/(7127:7127): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:53:18:880 Kernel/(7127:7127): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:53:18:882 Kernel/(7127:7127): Se ENVIA por SOCKET:0 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[ERROR] 16:53:18:883 Kernel/(7127:7127): #######################################################################
+[ERROR] 16:53:18:886 Kernel/(7127:7127): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+[ERROR] 16:53:18:896 Kernel/(7127:7127): #######################################################################
+[INFO] 16:53:18:939 Kernel/(7127:7134): ************** PLP Thread Started!(PID: 7134) ***************
+[INFO] 16:53:18:943 Kernel/(7127:7135): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:53:18:975 Kernel/(7127:7135): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 16:54:34:137 Kernel/(7242:7242): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 16:54:34:170 Kernel/(7242:7242): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 16:54:34:177 Kernel/(7242:7242): Se ha establecido conexion con el proceso MSP
+
+[INFO] 16:54:34:180 Kernel/(7242:7242): Se ha establecido conexion con el proceso MSP
+[INFO] 16:54:34:192 Kernel/(7242:7242): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 16:54:34:194 Kernel/(7242:7242): Estoy en espera
+[DEBUG] 16:54:34:252 Kernel/(7242:7242): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 16:54:34:255 Kernel/(7242:7242): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 16:54:34:256 Kernel/(7242:7242): Estoy en espera
+[DEBUG] 16:54:34:265 Kernel/(7242:7242): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 16:54:34:266 Kernel/(7242:7242): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 16:54:34:267 Kernel/(7242:7242): Estoy en espera
+[DEBUG] 16:54:35:221 Kernel/(7242:7242): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 16:54:35:222 Kernel/(7242:7242): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 16:54:35:226 Kernel/(7242:7242): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 16:54:35:239 Kernel/(7242:7250): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 16:54:35:241 Kernel/(7242:7249): ************** PLP Thread Started!(PID: 7249) ***************
+[INFO] 16:54:35:254 Kernel/(7242:7250): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 17:24:43:625 Kernel/(7781:7781): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:24:43:646 Kernel/(7781:7781): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:24:43:652 Kernel/(7781:7781): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:24:43:653 Kernel/(7781:7781): Se ha establecido conexion con el proceso MSP
+[INFO] 17:24:43:655 Kernel/(7781:7781): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:24:43:658 Kernel/(7781:7781): Estoy en espera
+[DEBUG] 17:24:43:704 Kernel/(7781:7781): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:24:43:705 Kernel/(7781:7781): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:24:43:706 Kernel/(7781:7781): Estoy en espera
+[DEBUG] 17:24:43:717 Kernel/(7781:7781): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:24:43:718 Kernel/(7781:7781): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:24:43:719 Kernel/(7781:7781): Estoy en espera
+[DEBUG] 17:24:44:469 Kernel/(7781:7781): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:24:44:470 Kernel/(7781:7781): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:26:05:575 Kernel/(7878:7878): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:26:05:607 Kernel/(7878:7878): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:26:05:616 Kernel/(7878:7878): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:26:05:618 Kernel/(7878:7878): Se ha establecido conexion con el proceso MSP
+[INFO] 17:26:05:619 Kernel/(7878:7878): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:26:05:623 Kernel/(7878:7878): Estoy en espera
+[DEBUG] 17:26:05:667 Kernel/(7878:7878): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:26:05:668 Kernel/(7878:7878): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:26:05:669 Kernel/(7878:7878): Estoy en espera
+[DEBUG] 17:26:05:677 Kernel/(7878:7878): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:26:05:678 Kernel/(7878:7878): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:26:05:682 Kernel/(7878:7878): Estoy en espera
+[DEBUG] 17:26:06:888 Kernel/(7878:7878): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:26:06:897 Kernel/(7878:7878): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:28:27:680 Kernel/(8028:8028): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:28:27:694 Kernel/(8028:8028): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:28:27:696 Kernel/(8028:8028): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:28:27:696 Kernel/(8028:8028): Se ha establecido conexion con el proceso MSP
+[INFO] 17:28:27:703 Kernel/(8028:8028): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:28:27:704 Kernel/(8028:8028): Estoy en espera
+[INFO] 17:33:40:762 Kernel/(8160:8160): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:33:40:818 Kernel/(8160:8160): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:33:40:828 Kernel/(8160:8160): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:33:40:833 Kernel/(8160:8160): Se ha establecido conexion con el proceso MSP
+[INFO] 17:33:40:848 Kernel/(8160:8160): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:33:40:853 Kernel/(8160:8160): Estoy en espera
+[DEBUG] 17:33:40:952 Kernel/(8160:8160): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:33:40:954 Kernel/(8160:8160): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:33:40:957 Kernel/(8160:8160): Estoy en espera
+[DEBUG] 17:33:40:967 Kernel/(8160:8160): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:33:40:968 Kernel/(8160:8160): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:33:40:971 Kernel/(8160:8160): Estoy en espera
+[DEBUG] 17:33:42:217 Kernel/(8160:8160): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:33:42:220 Kernel/(8160:8160): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:37:12:424 Kernel/(8288:8288): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:37:12:444 Kernel/(8288:8288): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:37:12:459 Kernel/(8288:8288): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:37:12:460 Kernel/(8288:8288): Se ha establecido conexion con el proceso MSP
+[INFO] 17:37:12:461 Kernel/(8288:8288): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:37:12:464 Kernel/(8288:8288): Estoy en espera
+[DEBUG] 17:37:12:539 Kernel/(8288:8288): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 17:37:12:540 Kernel/(8288:8288): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,1048576]" 
+[DEBUG] 17:37:12:541 Kernel/(8288:8288): Estoy en espera
+[DEBUG] 17:37:12:551 Kernel/(8288:8288): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:37:12:552 Kernel/(8288:8288): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:37:12:554 Kernel/(8288:8288): Estoy en espera
+[DEBUG] 17:37:13:650 Kernel/(8288:8288): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:37:13:651 Kernel/(8288:8288): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:37:13:659 Kernel/(8288:8295): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:37:13:661 Kernel/(8288:8294): ************** PLP Thread Started!(PID: 8294) ***************
+[INFO] 17:38:57:513 Kernel/(8355:8355): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:38:57:537 Kernel/(8355:8355): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:38:57:563 Kernel/(8355:8355): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:38:57:565 Kernel/(8355:8355): Se ha establecido conexion con el proceso MSP
+[INFO] 17:38:57:579 Kernel/(8355:8355): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:38:57:581 Kernel/(8355:8355): Estoy en espera
+[DEBUG] 17:38:57:649 Kernel/(8355:8355): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:38:57:650 Kernel/(8355:8355): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:38:57:652 Kernel/(8355:8355): Estoy en espera
+[DEBUG] 17:38:57:662 Kernel/(8355:8355): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:38:57:663 Kernel/(8355:8355): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:38:57:665 Kernel/(8355:8355): Estoy en espera
+[DEBUG] 17:38:58:736 Kernel/(8355:8355): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:38:58:737 Kernel/(8355:8355): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:38:58:743 Kernel/(8355:8362): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:38:58:745 Kernel/(8355:8361): ************** PLP Thread Started!(PID: 8361) ***************
+[INFO] 17:40:54:189 Kernel/(8417:8417): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:40:54:222 Kernel/(8417:8417): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:40:54:232 Kernel/(8417:8417): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:40:54:235 Kernel/(8417:8417): Se ha establecido conexion con el proceso MSP
+[INFO] 17:40:54:245 Kernel/(8417:8417): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:40:54:250 Kernel/(8417:8417): Estoy en espera
+[DEBUG] 17:40:54:339 Kernel/(8417:8417): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 17:40:54:347 Kernel/(8417:8417): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,1048576]" 
+[DEBUG] 17:40:54:361 Kernel/(8417:8417): Estoy en espera
+[DEBUG] 17:40:54:363 Kernel/(8417:8417): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:40:54:364 Kernel/(8417:8417): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:40:54:373 Kernel/(8417:8417): Estoy en espera
+[DEBUG] 17:40:55:681 Kernel/(8417:8417): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:40:55:682 Kernel/(8417:8417): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:40:55:693 Kernel/(8417:8425): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:40:55:695 Kernel/(8417:8424): ************** PLP Thread Started!(PID: 8424) ***************
+[INFO] 17:42:06:713 Kernel/(8465:8465): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:42:06:759 Kernel/(8465:8465): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:42:06:771 Kernel/(8465:8465): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:42:06:776 Kernel/(8465:8465): Se ha establecido conexion con el proceso MSP
+[INFO] 17:42:06:781 Kernel/(8465:8465): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:42:06:792 Kernel/(8465:8465): Estoy en espera
+[DEBUG] 17:42:06:889 Kernel/(8465:8465): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:42:06:890 Kernel/(8465:8465): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:42:06:892 Kernel/(8465:8465): Estoy en espera
+[DEBUG] 17:42:06:899 Kernel/(8465:8465): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:42:06:901 Kernel/(8465:8465): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:42:06:903 Kernel/(8465:8465): Estoy en espera
+[DEBUG] 17:42:08:294 Kernel/(8465:8465): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:42:08:295 Kernel/(8465:8465): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:42:08:304 Kernel/(8465:8472): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:42:08:306 Kernel/(8465:8471): ************** PLP Thread Started!(PID: 8471) ***************
+[INFO] 17:48:12:99 Kernel/(1731:1731): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:48:12:160 Kernel/(1731:1731): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:48:12:181 Kernel/(1731:1731): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:48:12:183 Kernel/(1731:1731): Se ha establecido conexion con el proceso MSP
+[INFO] 17:48:12:205 Kernel/(1731:1731): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:48:12:210 Kernel/(1731:1731): Estoy en espera
+[DEBUG] 17:48:12:289 Kernel/(1731:1731): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:48:12:294 Kernel/(1731:1731): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:48:12:296 Kernel/(1731:1731): Estoy en espera
+[DEBUG] 17:48:12:306 Kernel/(1731:1731): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:48:12:307 Kernel/(1731:1731): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:48:12:308 Kernel/(1731:1731): Estoy en espera
+[DEBUG] 17:48:13:527 Kernel/(1731:1731): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:48:13:529 Kernel/(1731:1731): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:48:13:534 Kernel/(1731:1738): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:48:13:535 Kernel/(1731:1737): ************** PLP Thread Started!(PID: 1737) ***************
+[INFO] 17:48:41:707 Kernel/(1731:1737): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 17:48:41:723 Kernel/(1731:1737): Estoy en espera
+[DEBUG] 17:48:41:725 Kernel/(1731:1737): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 17:53:15:266 Kernel/(1855:1855): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:53:15:289 Kernel/(1855:1855): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:53:15:296 Kernel/(1855:1855): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:53:15:298 Kernel/(1855:1855): Se ha establecido conexion con el proceso MSP
+[INFO] 17:53:15:300 Kernel/(1855:1855): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:53:15:306 Kernel/(1855:1855): Estoy en espera
+[DEBUG] 17:53:15:399 Kernel/(1855:1855): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:53:15:400 Kernel/(1855:1855): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:53:15:403 Kernel/(1855:1855): Estoy en espera
+[DEBUG] 17:53:15:419 Kernel/(1855:1855): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:53:15:420 Kernel/(1855:1855): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:53:15:422 Kernel/(1855:1855): Estoy en espera
+[DEBUG] 17:53:16:550 Kernel/(1855:1855): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:53:16:552 Kernel/(1855:1855): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:53:16:562 Kernel/(1855:1862): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:53:16:563 Kernel/(1855:1861): ************** PLP Thread Started!(PID: 1861) ***************
+[INFO] 17:53:26:520 Kernel/(1855:1861): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 17:53:26:592 Kernel/(1855:1861): Estoy en espera
+[DEBUG] 17:53:26:593 Kernel/(1855:1861): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 17:55:34:761 Kernel/(1938:1938): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:55:34:788 Kernel/(1938:1938): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:55:34:797 Kernel/(1938:1938): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:55:34:804 Kernel/(1938:1938): Se ha establecido conexion con el proceso MSP
+[INFO] 17:55:34:808 Kernel/(1938:1938): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:55:34:822 Kernel/(1938:1938): Estoy en espera
+[DEBUG] 17:55:34:938 Kernel/(1938:1938): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:55:34:940 Kernel/(1938:1938): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:55:34:942 Kernel/(1938:1938): Estoy en espera
+[DEBUG] 17:55:34:949 Kernel/(1938:1938): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:55:34:950 Kernel/(1938:1938): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:55:34:952 Kernel/(1938:1938): Estoy en espera
+[DEBUG] 17:55:36:105 Kernel/(1938:1938): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:55:36:106 Kernel/(1938:1938): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:55:36:113 Kernel/(1938:1945): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:55:36:115 Kernel/(1938:1944): ************** PLP Thread Started!(PID: 1944) ***************
+[INFO] 17:56:32:319 Kernel/(1938:1945): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 17:56:32:340 Kernel/(1938:1945): Estoy en espera
+[DEBUG] 17:56:32:341 Kernel/(1938:1945): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 17:56:32:343 Kernel/(1938:1945): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 17:56:32:345 Kernel/(1938:1945): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 17:58:37:896 Kernel/(2029:2029): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 17:58:37:949 Kernel/(2029:2029): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 17:58:37:978 Kernel/(2029:2029): Se ha establecido conexion con el proceso MSP
+
+[INFO] 17:58:37:1 Kernel/(2029:2029): Se ha establecido conexion con el proceso MSP
+[INFO] 17:58:37:4 Kernel/(2029:2029): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 17:58:38:20 Kernel/(2029:2029): Estoy en espera
+[DEBUG] 17:58:38:113 Kernel/(2029:2029): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 17:58:38:114 Kernel/(2029:2029): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 17:58:38:116 Kernel/(2029:2029): Estoy en espera
+[DEBUG] 17:58:38:130 Kernel/(2029:2029): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 17:58:38:131 Kernel/(2029:2029): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 17:58:38:132 Kernel/(2029:2029): Estoy en espera
+[DEBUG] 17:58:38:918 Kernel/(2029:2029): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 17:58:38:919 Kernel/(2029:2029): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 17:58:38:923 Kernel/(2029:2036): ENTRO AL PLANIFICADORRRRR
+[INFO] 17:58:38:925 Kernel/(2029:2035): ************** PLP Thread Started!(PID: 2035) ***************
+[INFO] 17:58:46:494 Kernel/(2029:2036): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 17:58:46:508 Kernel/(2029:2036): Estoy en espera
+[DEBUG] 17:58:46:510 Kernel/(2029:2036): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 17:58:46:511 Kernel/(2029:2036): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 17:58:46:513 Kernel/(2029:2036): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[INFO] 18:00:54:290 Kernel/(2124:2124): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 18:00:54:318 Kernel/(2124:2124): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 18:00:54:334 Kernel/(2124:2124): Se ha establecido conexion con el proceso MSP
+
+[INFO] 18:00:54:339 Kernel/(2124:2124): Se ha establecido conexion con el proceso MSP
+[INFO] 18:00:54:351 Kernel/(2124:2124): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 18:00:54:363 Kernel/(2124:2124): Estoy en espera
+[DEBUG] 18:00:54:496 Kernel/(2124:2124): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 18:00:54:497 Kernel/(2124:2124): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 18:00:54:498 Kernel/(2124:2124): Estoy en espera
+[DEBUG] 18:00:54:513 Kernel/(2124:2124): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 18:00:54:514 Kernel/(2124:2124): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 18:00:54:515 Kernel/(2124:2124): Estoy en espera
+[DEBUG] 18:00:55:567 Kernel/(2124:2124): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 18:00:55:568 Kernel/(2124:2124): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 18:00:55:573 Kernel/(2124:2131): ENTRO AL PLANIFICADORRRRR
+[INFO] 18:00:55:575 Kernel/(2124:2130): ************** PLP Thread Started!(PID: 2130) ***************
+[INFO] 18:01:06:124 Kernel/(2124:2131): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 18:01:06:162 Kernel/(2124:2131): Estoy en espera
+[DEBUG] 18:01:06:164 Kernel/(2124:2131): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 18:01:06:165 Kernel/(2124:2131): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 18:01:06:173 Kernel/(2124:2131): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[DEBUG] 18:01:06:987 Kernel/(2124:2131): Estoy en espera
+[DEBUG] 18:01:06:988 Kernel/(2124:2131): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KRN_END_PROC  MENSAJE:"[0,-1217207184,1,0,9,80,0,0,1048576,0,0,0,0]" 
+[INFO] 18:01:06:989 Kernel/(2124:2131): recibi el tcb porque finalizo proceso por XXXX
+[INFO] 18:35:42:529 Kernel/(3455:3455): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 18:35:42:548 Kernel/(3455:3455): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 18:35:42:551 Kernel/(3455:3455): Se ha establecido conexion con el proceso MSP
+
+[INFO] 18:35:42:554 Kernel/(3455:3455): Se ha establecido conexion con el proceso MSP
+[INFO] 18:35:42:561 Kernel/(3455:3455): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 18:35:42:564 Kernel/(3455:3455): Estoy en espera
+[DEBUG] 18:36:02:961 Kernel/(3455:3455): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 18:36:02:963 Kernel/(3455:3455): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 18:36:02:965 Kernel/(3455:3455): Estoy en espera
+[DEBUG] 18:36:02:989 Kernel/(3455:3455): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 18:36:02:990 Kernel/(3455:3455): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 18:36:02:992 Kernel/(3455:3455): Estoy en espera
+[DEBUG] 18:36:04:159 Kernel/(3455:3455): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 18:36:04:160 Kernel/(3455:3455): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 18:36:04:164 Kernel/(3455:3463): **************Manejo cola ready (PID: 3463) ***************
+[INFO] 18:36:04:168 Kernel/(3455:3462): ENTRO AL PLANIFICADORRRRR
+[INFO] 18:36:04:169 Kernel/(3455:3461): ************** El Thread del Loder comenzó!(PID: 3461) ***************
+[INFO] 18:36:04:170 Kernel/(3455:3463): **************Paso a ready los procesos de la cola new****
+[INFO] 18:41:07:976 Kernel/(2099:2099): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 18:41:08:76 Kernel/(2099:2099): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 18:41:08:86 Kernel/(2099:2099): Se ha establecido conexion con el proceso MSP
+
+[INFO] 18:41:08:96 Kernel/(2099:2099): Se ha establecido conexion con el proceso MSP
+[INFO] 18:41:08:110 Kernel/(2099:2099): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 18:41:08:113 Kernel/(2099:2099): Estoy en espera
+[DEBUG] 18:41:08:209 Kernel/(2099:2099): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 18:41:08:210 Kernel/(2099:2099): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 18:41:08:213 Kernel/(2099:2099): Estoy en espera
+[DEBUG] 18:41:08:227 Kernel/(2099:2099): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 18:41:08:228 Kernel/(2099:2099): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 18:41:08:229 Kernel/(2099:2099): Estoy en espera
+[DEBUG] 18:41:09:339 Kernel/(2099:2099): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 18:41:09:340 Kernel/(2099:2099): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 18:41:09:351 Kernel/(2099:2107): **************Manejo cola ready (PID: 2107) ***************
+[INFO] 18:41:09:352 Kernel/(2099:2106): ENTRO AL PLANIFICADORRRRR
+[INFO] 18:41:09:353 Kernel/(2099:2105): ************** El Thread del Loder comenzó!(PID: 2105) ***************
+[INFO] 18:41:09:355 Kernel/(2099:2107): **************Paso a ready los procesos de la cola new****
+[INFO] 18:42:02:3 Kernel/(2099:2106): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 18:42:03:16 Kernel/(2099:2106): Estoy en espera
+[DEBUG] 18:42:03:18 Kernel/(2099:2106): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 18:42:03:19 Kernel/(2099:2106): Se ENVIA por SOCKET:9 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 18:42:03:20 Kernel/(2099:2106): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[DEBUG] 18:42:03:740 Kernel/(2099:2106): Estoy en espera
+[DEBUG] 18:42:03:745 Kernel/(2099:2106): Se RECIBE por SOCKET:9 - HEADER:CPU_TO_KRN_END_PROC  MENSAJE:"[0,-1216743896,1,0,9,1095059488,0,0,1048576,0,0,0,0]" 
+[INFO] 18:42:03:745 Kernel/(2099:2106): recibi el tcb porque finalizo proceso por XXXX
+[INFO] 18:50:05:17 Kernel/(2099:2106): selectserver: new connection from 127.0.0.1 on socket 10
+
+[DEBUG] 18:50:05:37 Kernel/(2099:2106): Estoy en espera
+[DEBUG] 18:50:05:38 Kernel/(2099:2106): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 18:50:05:40 Kernel/(2099:2106): Se ENVIA por SOCKET:10 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[0,0,7,1,0,0]" 
+[INFO] 18:50:05:42 Kernel/(2099:2106): Se envía un TCB al CPU libre elegidoooooooooooooooooooooo
+[DEBUG] 18:50:05:732 Kernel/(2099:2106): Estoy en espera
+[DEBUG] 18:50:05:733 Kernel/(2099:2106): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KRN_END_PROC  MENSAJE:"[0,-1216829912,1,0,9,1095059488,0,0,2097152,0,0,0,0]" 
+[INFO] 18:50:05:734 Kernel/(2099:2106): recibi el tcb porque finalizo proceso por XXXX
+[DEBUG] 18:50:24:126 Kernel/(2099:2106): Estoy en espera
+[INFO] 18:50:24:128 Kernel/(2099:2106): El socket 9 cerró la conexion.
+[INFO] 19:00:55:590 Kernel/(3596:3596): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 19:00:55:618 Kernel/(3596:3596): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 19:00:55:637 Kernel/(3596:3596): Se ha establecido conexion con el proceso MSP
+
+[INFO] 19:00:55:641 Kernel/(3596:3596): Se ha establecido conexion con el proceso MSP
+[INFO] 19:00:55:647 Kernel/(3596:3596): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 19:00:55:661 Kernel/(3596:3596): Estoy en espera
+[DEBUG] 19:00:55:705 Kernel/(3596:3596): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 19:00:55:707 Kernel/(3596:3596): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 19:00:55:708 Kernel/(3596:3596): Estoy en espera
+[DEBUG] 19:00:55:711 Kernel/(3596:3596): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 19:00:55:712 Kernel/(3596:3596): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 19:00:55:720 Kernel/(3596:3596): Estoy en espera
+[DEBUG] 19:00:56:801 Kernel/(3596:3596): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 19:00:56:802 Kernel/(3596:3596): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 19:00:56:813 Kernel/(3596:3604): **************Manejo cola ready (PID: 3604) ***************
+[INFO] 19:00:56:814 Kernel/(3596:3603): ENTRO AL PLANIFICADORRRRR
+[INFO] 19:00:56:816 Kernel/(3596:3602): ************** El Thread del Loder comenzó!(PID: 3602) ***************
+[INFO] 19:00:56:834 Kernel/(3596:3604): **************Paso a ready los procesos de la cola new****
+[INFO] 19:01:31:360 Kernel/(3596:3602): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 19:01:31:364 Kernel/(3596:3602): Estoy en espera
+[DEBUG] 19:01:31:365 Kernel/(3596:3602): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 19:01:31:368 Kernel/(3596:3602): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 19:01:31:377 Kernel/(3596:3602): Estoy en espera
+[DEBUG] 19:01:31:377 Kernel/(3596:3602): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[3836,3836,97]" 
+[INFO] 19:01:31:378 Kernel/(3596:3602): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 19:01:31:382 Kernel/(3596:3602): Se recibio codigo completo del programa con FD: 9
+[INFO] 19:01:31:383 Kernel/(3596:3602): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[3836,97]" 
+[DEBUG] 19:01:31:384 Kernel/(3596:3602): Estoy en espera
+[INFO] 19:03:29:643 Kernel/(3596:3603): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 19:03:29:673 Kernel/(3596:3603): Estoy en espera
+[DEBUG] 19:03:29:675 Kernel/(3596:3603): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 19:03:29:677 Kernel/(3596:3603): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 19:03:29:678 Kernel/(3596:3603): Se envía un TCB al CPU libre elegido
+[INFO] 19:06:55:448 Kernel/(4479:4479): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 19:06:55:457 Kernel/(4479:4479): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 19:06:55:460 Kernel/(4479:4479): Se ha establecido conexion con el proceso MSP
+
+[INFO] 19:06:55:462 Kernel/(4479:4479): Se ha establecido conexion con el proceso MSP
+[INFO] 19:06:55:465 Kernel/(4479:4479): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 19:06:55:469 Kernel/(4479:4479): Estoy en espera
+[DEBUG] 19:06:55:659 Kernel/(4479:4479): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 19:06:55:660 Kernel/(4479:4479): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 19:06:55:661 Kernel/(4479:4479): Estoy en espera
+[DEBUG] 19:06:55:669 Kernel/(4479:4479): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 19:06:55:669 Kernel/(4479:4479): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 19:06:55:670 Kernel/(4479:4479): Estoy en espera
+[DEBUG] 19:06:57:222 Kernel/(4479:4479): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 19:06:57:222 Kernel/(4479:4479): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 19:06:57:294 Kernel/(4479:4491): ************** El Thread del Loder comenzó!(PID: 4491) ***************
+[INFO] 19:06:57:333 Kernel/(4479:4492): ENTRO AL PLANIFICADORRRRR
+[INFO] 19:06:57:358 Kernel/(4479:4493): **************Manejo cola ready (PID: 4493) ***************
+[INFO] 19:06:57:359 Kernel/(4479:4493): **************Paso a ready los procesos de la cola new****
+[INFO] 19:07:37:931 Kernel/(4479:4492): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 19:07:37:941 Kernel/(4479:4492): Estoy en espera
+[DEBUG] 19:07:37:941 Kernel/(4479:4492): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 19:07:54:241 Kernel/(4479:4492): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 19:07:54:242 Kernel/(4479:4492): Se envía un TCB al CPU libre elegido
+[INFO] 19:26:57:914 Kernel/(5880:5880): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 19:26:57:923 Kernel/(5880:5880): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 19:26:57:925 Kernel/(5880:5880): Se ha establecido conexion con el proceso MSP
+
+[INFO] 19:26:57:929 Kernel/(5880:5880): Se ha establecido conexion con el proceso MSP
+[INFO] 19:26:57:930 Kernel/(5880:5880): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 19:26:57:932 Kernel/(5880:5880): Estoy en espera
+[DEBUG] 19:26:58:27 Kernel/(5880:5880): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 19:26:58:28 Kernel/(5880:5880): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 19:26:58:29 Kernel/(5880:5880): Estoy en espera
+[DEBUG] 19:26:58:47 Kernel/(5880:5880): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 19:26:58:47 Kernel/(5880:5880): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 19:26:58:48 Kernel/(5880:5880): Estoy en espera
+[DEBUG] 19:26:59:390 Kernel/(5880:5880): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 19:26:59:390 Kernel/(5880:5880): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 19:26:59:486 Kernel/(5880:5890): ************** El Thread del Loder comenzó!(PID: 5890) ***************
+[INFO] 19:26:59:555 Kernel/(5880:5891): ENTRO AL PLANIFICADORRRRR
+[INFO] 19:26:59:605 Kernel/(5880:5892): **************Manejo cola ready (PID: 5892) ***************
+[INFO] 19:26:59:605 Kernel/(5880:5892): **************Paso a ready los procesos de la cola new****
+[INFO] 19:28:00:96 Kernel/(5880:5891): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 19:28:00:111 Kernel/(5880:5891): Estoy en espera
+[DEBUG] 19:28:00:112 Kernel/(5880:5891): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 19:28:00:112 Kernel/(5880:5891): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 19:28:00:112 Kernel/(5880:5891): Se envía un TCB al CPU libre elegido
+[INFO] 19:28:59:593 Kernel/(5880:5891): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 19:29:00:502 Kernel/(5880:5891): CPU (PID: 0) aguarda instrucciones!
+[DEBUG] 19:29:58:690 Kernel/(5880:5891): Estoy en espera
+[INFO] 19:29:58:691 Kernel/(5880:5891): El socket 11 cerró la conexion.
+[INFO] 21:07:35:360 Kernel/(2364:2364): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 21:07:35:386 Kernel/(2364:2364): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 21:07:35:394 Kernel/(2364:2364): Se ha establecido conexion con el proceso MSP
+
+[INFO] 21:07:35:395 Kernel/(2364:2364): Se ha establecido conexion con el proceso MSP
+[INFO] 21:07:35:396 Kernel/(2364:2364): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 21:07:35:403 Kernel/(2364:2364): Estoy en espera
+[DEBUG] 21:07:35:560 Kernel/(2364:2364): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 21:07:35:563 Kernel/(2364:2364): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 21:07:35:571 Kernel/(2364:2364): Estoy en espera
+[DEBUG] 21:07:35:582 Kernel/(2364:2364): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 21:07:35:583 Kernel/(2364:2364): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 21:07:35:586 Kernel/(2364:2364): Estoy en espera
+[DEBUG] 21:07:36:790 Kernel/(2364:2364): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 21:07:36:791 Kernel/(2364:2364): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 21:07:36:798 Kernel/(2364:2372): **************Manejo cola ready (PID: 2372) ***************
+[INFO] 21:07:36:800 Kernel/(2364:2371): ENTRO AL PLANIFICADORRRRR
+[INFO] 21:07:36:800 Kernel/(2364:2370): ************** El Thread del Loder comenzó!(PID: 2370) ***************
+[INFO] 21:07:36:801 Kernel/(2364:2372): **************Paso a ready los procesos de la cola new****
+[INFO] 21:08:08:992 Kernel/(2364:2370): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 21:08:08:996 Kernel/(2364:2370): Estoy en espera
+[DEBUG] 21:08:08:997 Kernel/(2364:2370): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 21:08:08:997 Kernel/(2364:2370): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 21:08:09:7 Kernel/(2364:2370): Estoy en espera
+[DEBUG] 21:08:09:8 Kernel/(2364:2370): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[2605,2605,97]" 
+[INFO] 21:08:09:9 Kernel/(2364:2370): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 21:08:09:25 Kernel/(2364:2370): Se recibio codigo completo del programa con FD: 9
+[INFO] 21:08:09:31 Kernel/(2364:2370): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[2605,97]" 
+[DEBUG] 21:08:09:34 Kernel/(2364:2370): Estoy en espera
+[INFO] 21:08:46:535 Kernel/(2364:2371): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 21:08:46:563 Kernel/(2364:2371): Estoy en espera
+[DEBUG] 21:08:46:565 Kernel/(2364:2371): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 21:08:46:567 Kernel/(2364:2371): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 21:08:46:570 Kernel/(2364:2371): Se envía un TCB al CPU libre elegido
+[INFO] 21:08:46:588 Kernel/(2364:2371): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 21:08:46:592 Kernel/(2364:2371): CPU (PID: 21) aguarda instrucciones!
+[INFO] 22:36:01:407 Kernel/(3861:3861): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 22:36:01:436 Kernel/(3861:3861): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 22:36:01:441 Kernel/(3861:3861): Se ha establecido conexion con el proceso MSP
+
+[INFO] 22:36:01:442 Kernel/(3861:3861): Se ha establecido conexion con el proceso MSP
+[INFO] 22:36:01:442 Kernel/(3861:3861): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 22:36:01:443 Kernel/(3861:3861): Estoy en espera
+[DEBUG] 22:36:01:510 Kernel/(3861:3861): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:36:01:512 Kernel/(3861:3861): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 22:36:01:514 Kernel/(3861:3861): Estoy en espera
+[DEBUG] 22:36:01:518 Kernel/(3861:3861): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 22:36:01:519 Kernel/(3861:3861): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 22:36:01:520 Kernel/(3861:3861): Estoy en espera
+[DEBUG] 22:36:02:213 Kernel/(3861:3861): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:36:02:214 Kernel/(3861:3861): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 22:36:02:221 Kernel/(3861:3869): **************Manejo cola ready (PID: 3869) ***************
+[INFO] 22:36:02:223 Kernel/(3861:3867): ************** El Thread del Loder comenzó!(PID: 3867) ***************
+[INFO] 22:36:02:224 Kernel/(3861:3868): ENTRO AL PLANIFICADORRRRR
+[INFO] 22:36:02:230 Kernel/(3861:3869): **************Paso a ready los procesos de la cola new****
+[INFO] 22:36:48:763 Kernel/(3861:3867): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 22:36:48:765 Kernel/(3861:3867): Estoy en espera
+[DEBUG] 22:36:48:766 Kernel/(3861:3867): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 22:36:48:766 Kernel/(3861:3867): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 22:36:48:772 Kernel/(3861:3867): Estoy en espera
+[DEBUG] 22:36:48:773 Kernel/(3861:3867): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[4099,4099,97]" 
+[INFO] 22:36:48:773 Kernel/(3861:3867): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 22:36:48:786 Kernel/(3861:3867): Se recibio codigo completo del programa con FD: 9
+[INFO] 22:36:48:787 Kernel/(3861:3867): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[4099,97]" 
+[DEBUG] 22:36:48:791 Kernel/(3861:3867): Estoy en espera
+[DEBUG] 22:36:48:807 Kernel/(3861:3867): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:36:48:808 Kernel/(3861:3867): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[4099,100]" 
+[DEBUG] 22:36:48:809 Kernel/(3861:3867): Estoy en espera
+[DEBUG] 22:36:48:830 Kernel/(3861:3867): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 22:36:48:831 Kernel/(3861:3867): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[4099,97,0]" 
+[DEBUG] 22:36:48:834 Kernel/(3861:3867): Estoy en espera
+[DEBUG] 22:36:48:850 Kernel/(3861:3867): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 4099" 
+[INFO] 22:36:48:851 Kernel/(3861:3867): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 4099
+[DEBUG] 22:36:48:853 Kernel/(3861:3867): Estoy en espera
+[DEBUG] 22:36:49:557 Kernel/(3861:3867): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:36:49:558 Kernel/(3861:3867): Se generó la estructura del proceso con éxito!
+[INFO] 22:36:49:567 Kernel/(3861:3867): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 22:37:27:385 Kernel/(3861:3868): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 22:37:27:411 Kernel/(3861:3868): Estoy en espera
+[DEBUG] 22:37:27:414 Kernel/(3861:3868): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:37:27:415 Kernel/(3861:3868): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 22:37:27:418 Kernel/(3861:3868): Se envía un TCB al CPU libre elegido
+[INFO] 22:37:27:422 Kernel/(3861:3868): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 22:37:27:425 Kernel/(3861:3868): CPU (PID: 21) aguarda instrucciones!
+[INFO] 22:41:31:356 Kernel/(4855:4855): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 22:41:31:392 Kernel/(4855:4855): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 22:41:31:402 Kernel/(4855:4855): Se ha establecido conexion con el proceso MSP
+
+[INFO] 22:41:31:405 Kernel/(4855:4855): Se ha establecido conexion con el proceso MSP
+[INFO] 22:41:31:408 Kernel/(4855:4855): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 22:41:31:418 Kernel/(4855:4855): Estoy en espera
+[DEBUG] 22:41:31:500 Kernel/(4855:4855): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:41:31:501 Kernel/(4855:4855): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 22:41:31:503 Kernel/(4855:4855): Estoy en espera
+[DEBUG] 22:41:31:508 Kernel/(4855:4855): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 22:41:31:509 Kernel/(4855:4855): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 22:41:31:510 Kernel/(4855:4855): Estoy en espera
+[DEBUG] 22:41:32:159 Kernel/(4855:4855): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:41:32:160 Kernel/(4855:4855): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 22:41:32:163 Kernel/(4855:4863): **************Manejo cola ready (PID: 4863) ***************
+[INFO] 22:41:32:169 Kernel/(4855:4862): ENTRO AL PLANIFICADORRRRR
+[INFO] 22:41:32:170 Kernel/(4855:4861): ************** El Thread del Loder comenzó!(PID: 4861) ***************
+[INFO] 22:41:32:170 Kernel/(4855:4863): **************Paso a ready los procesos de la cola new****
+[INFO] 22:42:09:642 Kernel/(4855:4861): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 22:42:09:663 Kernel/(4855:4861): Estoy en espera
+[DEBUG] 22:42:09:664 Kernel/(4855:4861): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 22:42:09:666 Kernel/(4855:4861): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 22:42:09:675 Kernel/(4855:4861): Estoy en espera
+[DEBUG] 22:42:09:676 Kernel/(4855:4861): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[5094,5094,97]" 
+[INFO] 22:42:09:678 Kernel/(4855:4861): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 22:42:09:689 Kernel/(4855:4861): Se recibio codigo completo del programa con FD: 9
+[INFO] 22:42:09:691 Kernel/(4855:4861): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[5094,97]" 
+[DEBUG] 22:42:09:702 Kernel/(4855:4861): Estoy en espera
+[DEBUG] 22:42:09:751 Kernel/(4855:4861): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:42:09:753 Kernel/(4855:4861): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[5094,100]" 
+[DEBUG] 22:42:09:756 Kernel/(4855:4861): Estoy en espera
+[DEBUG] 22:42:09:797 Kernel/(4855:4861): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 22:42:09:799 Kernel/(4855:4861): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[5094,97,0]" 
+[DEBUG] 22:42:09:801 Kernel/(4855:4861): Estoy en espera
+[DEBUG] 22:42:09:815 Kernel/(4855:4861): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 5094" 
+[INFO] 22:42:09:816 Kernel/(4855:4861): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 5094
+[DEBUG] 22:42:09:822 Kernel/(4855:4861): Estoy en espera
+[DEBUG] 22:42:10:759 Kernel/(4855:4861): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:42:10:760 Kernel/(4855:4861): Se generó la estructura del proceso con éxito!
+[INFO] 22:42:10:762 Kernel/(4855:4861): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 22:42:40:84 Kernel/(4855:4862): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 22:42:40:104 Kernel/(4855:4862): Estoy en espera
+[DEBUG] 22:42:40:106 Kernel/(4855:4862): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:42:40:107 Kernel/(4855:4862): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 22:42:40:113 Kernel/(4855:4862): Se envía un TCB al CPU libre elegido
+[INFO] 22:42:40:124 Kernel/(4855:4862): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 22:42:40:128 Kernel/(4855:4862): Busco en la cola de NEW y lo nuevo a READY
+[INFO] 22:47:56:712 Kernel/(5857:5857): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 22:47:56:724 Kernel/(5857:5857): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 22:47:56:728 Kernel/(5857:5857): Se ha establecido conexion con el proceso MSP
+
+[INFO] 22:47:56:749 Kernel/(5857:5857): Se ha establecido conexion con el proceso MSP
+[INFO] 22:47:56:770 Kernel/(5857:5857): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 22:47:56:774 Kernel/(5857:5857): Estoy en espera
+[DEBUG] 22:47:56:864 Kernel/(5857:5857): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:47:56:866 Kernel/(5857:5857): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 22:47:56:868 Kernel/(5857:5857): Estoy en espera
+[DEBUG] 22:47:56:876 Kernel/(5857:5857): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 22:47:56:877 Kernel/(5857:5857): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 22:47:56:879 Kernel/(5857:5857): Estoy en espera
+[DEBUG] 22:47:57:910 Kernel/(5857:5857): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:47:57:911 Kernel/(5857:5857): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 22:47:57:917 Kernel/(5857:5864): ENTRO AL PLANIFICADORRRRR
+[INFO] 22:47:57:919 Kernel/(5857:5863): ************** El Thread del Loder comenzó!(PID: 5863) ***************
+[INFO] 22:47:57:922 Kernel/(5857:5865): **************Manejo cola ready (PID: 5865) ***************
+[INFO] 22:47:57:923 Kernel/(5857:5865): **************Paso a ready los procesos de la cola new****
+[INFO] 22:48:43:691 Kernel/(5857:5863): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 22:48:43:694 Kernel/(5857:5863): Estoy en espera
+[DEBUG] 22:48:43:695 Kernel/(5857:5863): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 22:48:43:695 Kernel/(5857:5863): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 22:48:43:705 Kernel/(5857:5863): Estoy en espera
+[DEBUG] 22:48:43:705 Kernel/(5857:5863): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[6095,6095,97]" 
+[INFO] 22:48:43:706 Kernel/(5857:5863): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 22:48:43:709 Kernel/(5857:5863): Se recibio codigo completo del programa con FD: 9
+[INFO] 22:48:43:709 Kernel/(5857:5863): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[6095,97]" 
+[DEBUG] 22:48:43:714 Kernel/(5857:5863): Estoy en espera
+[DEBUG] 22:48:43:730 Kernel/(5857:5863): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:48:43:732 Kernel/(5857:5863): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[6095,100]" 
+[DEBUG] 22:48:43:734 Kernel/(5857:5863): Estoy en espera
+[DEBUG] 22:48:43:752 Kernel/(5857:5863): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 22:48:43:752 Kernel/(5857:5863): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[6095,97,0]" 
+[DEBUG] 22:48:43:753 Kernel/(5857:5863): Estoy en espera
+[DEBUG] 22:48:43:762 Kernel/(5857:5863): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 6095" 
+[INFO] 22:48:43:762 Kernel/(5857:5863): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 6095
+[DEBUG] 22:48:43:763 Kernel/(5857:5863): Estoy en espera
+[DEBUG] 22:48:44:703 Kernel/(5857:5863): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:48:44:704 Kernel/(5857:5863): Se generó la estructura del proceso con éxito!
+[INFO] 22:48:44:707 Kernel/(5857:5863): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 22:49:13:555 Kernel/(5857:5864): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 22:49:13:585 Kernel/(5857:5864): Estoy en espera
+[DEBUG] 22:49:13:587 Kernel/(5857:5864): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:49:13:589 Kernel/(5857:5864): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 22:49:13:591 Kernel/(5857:5864): Se envía un TCB al CPU libre elegido
+[INFO] 22:49:13:595 Kernel/(5857:5864): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 22:49:13:601 Kernel/(5857:5864): Busco en la cola de NEW y lo nuevo a READY
+[INFO] 22:56:15:224 Kernel/(6868:6868): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 22:56:15:252 Kernel/(6868:6868): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 22:56:15:261 Kernel/(6868:6868): Se ha establecido conexion con el proceso MSP
+
+[INFO] 22:56:15:264 Kernel/(6868:6868): Se ha establecido conexion con el proceso MSP
+[INFO] 22:56:15:267 Kernel/(6868:6868): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 22:56:15:271 Kernel/(6868:6868): Estoy en espera
+[DEBUG] 22:56:15:358 Kernel/(6868:6868): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:56:15:360 Kernel/(6868:6868): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 22:56:15:362 Kernel/(6868:6868): Estoy en espera
+[DEBUG] 22:56:15:371 Kernel/(6868:6868): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 22:56:15:372 Kernel/(6868:6868): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 22:56:15:373 Kernel/(6868:6868): Estoy en espera
+[DEBUG] 22:56:16:245 Kernel/(6868:6868): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:56:16:246 Kernel/(6868:6868): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 22:56:16:250 Kernel/(6868:6875): ENTRO AL PLANIFICADORRRRR
+[INFO] 22:56:16:251 Kernel/(6868:6874): ************** El Thread del Loder comenzó!(PID: 6874) ***************
+[INFO] 22:56:16:256 Kernel/(6868:6876): **************Manejo cola ready (PID: 6876) ***************
+[INFO] 22:56:16:256 Kernel/(6868:6876): **************Paso a ready los procesos de la cola new****
+[INFO] 22:56:46:583 Kernel/(6868:6874): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 22:56:46:598 Kernel/(6868:6874): Estoy en espera
+[DEBUG] 22:56:46:599 Kernel/(6868:6874): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 22:56:46:601 Kernel/(6868:6874): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 22:56:46:618 Kernel/(6868:6874): Estoy en espera
+[DEBUG] 22:56:46:619 Kernel/(6868:6874): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[7106,7106,97]" 
+[INFO] 22:56:46:621 Kernel/(6868:6874): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 22:56:46:627 Kernel/(6868:6874): Se recibio codigo completo del programa con FD: 9
+[INFO] 22:56:46:629 Kernel/(6868:6874): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[7106,97]" 
+[DEBUG] 22:56:46:645 Kernel/(6868:6874): Estoy en espera
+[DEBUG] 22:56:46:675 Kernel/(6868:6874): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 22:56:46:677 Kernel/(6868:6874): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[7106,100]" 
+[DEBUG] 22:56:46:679 Kernel/(6868:6874): Estoy en espera
+[DEBUG] 22:56:46:716 Kernel/(6868:6874): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 22:56:46:718 Kernel/(6868:6874): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[7106,97,0]" 
+[DEBUG] 22:56:46:720 Kernel/(6868:6874): Estoy en espera
+[DEBUG] 22:56:46:733 Kernel/(6868:6874): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 7106" 
+[INFO] 22:56:46:735 Kernel/(6868:6874): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 7106
+[DEBUG] 22:56:46:740 Kernel/(6868:6874): Estoy en espera
+[DEBUG] 22:56:47:878 Kernel/(6868:6874): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 22:56:47:879 Kernel/(6868:6874): Se generó la estructura del proceso con éxito!
+[INFO] 22:56:47:880 Kernel/(6868:6874): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 22:57:14:384 Kernel/(6868:6875): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 22:57:14:401 Kernel/(6868:6875): Estoy en espera
+[DEBUG] 22:57:14:403 Kernel/(6868:6875): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 22:57:14:404 Kernel/(6868:6875): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 22:57:14:405 Kernel/(6868:6875): Se envía un TCB al CPU libre elegido
+[INFO] 22:57:14:406 Kernel/(6868:6875): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 22:57:14:407 Kernel/(6868:6875): Busco en la cola de NEW y lo nuevo a READY
+[INFO] 23:06:54:460 Kernel/(7917:7917): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 23:06:54:479 Kernel/(7917:7917): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 23:06:54:491 Kernel/(7917:7917): Se ha establecido conexion con el proceso MSP
+
+[INFO] 23:06:54:491 Kernel/(7917:7917): Se ha establecido conexion con el proceso MSP
+[INFO] 23:06:54:492 Kernel/(7917:7917): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 23:06:54:495 Kernel/(7917:7917): Estoy en espera
+[DEBUG] 23:06:54:526 Kernel/(7917:7917): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 23:06:54:526 Kernel/(7917:7917): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 23:06:54:527 Kernel/(7917:7917): Estoy en espera
+[DEBUG] 23:06:54:534 Kernel/(7917:7917): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 23:06:54:535 Kernel/(7917:7917): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 23:06:54:536 Kernel/(7917:7917): Estoy en espera
+[DEBUG] 23:06:55:724 Kernel/(7917:7917): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 23:06:55:725 Kernel/(7917:7917): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 23:06:55:729 Kernel/(7917:7925): **************Manejo cola ready (PID: 7925) ***************
+[INFO] 23:06:55:731 Kernel/(7917:7924): ENTRO AL PLANIFICADORRRRR
+[INFO] 23:06:55:731 Kernel/(7917:7923): ************** El Thread del Loder comenzó!(PID: 7923) ***************
+[INFO] 23:06:55:732 Kernel/(7917:7925): **************Paso a ready los procesos de la cola new****
+[INFO] 23:07:39:459 Kernel/(7917:7923): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 23:07:39:465 Kernel/(7917:7923): Estoy en espera
+[DEBUG] 23:07:39:466 Kernel/(7917:7923): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 23:07:39:466 Kernel/(7917:7923): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 23:07:39:471 Kernel/(7917:7923): Estoy en espera
+[DEBUG] 23:07:39:472 Kernel/(7917:7923): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[8156,8156,97]" 
+[INFO] 23:07:39:473 Kernel/(7917:7923): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 23:07:39:477 Kernel/(7917:7923): Se recibio codigo completo del programa con FD: 9
+[INFO] 23:07:39:477 Kernel/(7917:7923): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[8156,97]" 
+[DEBUG] 23:07:39:483 Kernel/(7917:7923): Estoy en espera
+[DEBUG] 23:07:39:499 Kernel/(7917:7923): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 23:07:39:500 Kernel/(7917:7923): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[8156,100]" 
+[DEBUG] 23:07:39:501 Kernel/(7917:7923): Estoy en espera
+[DEBUG] 23:07:39:521 Kernel/(7917:7923): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 23:07:39:522 Kernel/(7917:7923): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[8156,97,0]" 
+[DEBUG] 23:07:39:523 Kernel/(7917:7923): Estoy en espera
+[DEBUG] 23:07:39:532 Kernel/(7917:7923): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 8156" 
+[INFO] 23:07:39:533 Kernel/(7917:7923): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 8156
+[DEBUG] 23:07:39:534 Kernel/(7917:7923): Estoy en espera
+[DEBUG] 23:07:40:240 Kernel/(7917:7923): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 23:07:40:241 Kernel/(7917:7923): Se generó la estructura del proceso con éxito!
+[INFO] 23:07:40:243 Kernel/(7917:7923): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 23:08:21:115 Kernel/(7917:7924): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 23:08:21:127 Kernel/(7917:7924): Estoy en espera
+[DEBUG] 23:08:21:128 Kernel/(7917:7924): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:08:21:130 Kernel/(7917:7924): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 23:08:21:131 Kernel/(7917:7924): Se envía un TCB al CPU libre elegido
+[INFO] 23:08:31:135 Kernel/(7917:7924): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 23:08:31:145 Kernel/(7917:7924): Busco en la cola de NEW y lo nuevo a READY
+[INFO] 23:16:48:385 Kernel/(9176:9176): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 23:16:48:410 Kernel/(9176:9176): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 23:16:48:417 Kernel/(9176:9176): Se ha establecido conexion con el proceso MSP
+
+[INFO] 23:16:48:422 Kernel/(9176:9176): Se ha establecido conexion con el proceso MSP
+[INFO] 23:16:48:422 Kernel/(9176:9176): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 23:16:48:426 Kernel/(9176:9176): Estoy en espera
+[DEBUG] 23:16:48:464 Kernel/(9176:9176): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 23:16:48:464 Kernel/(9176:9176): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 23:16:48:465 Kernel/(9176:9176): Estoy en espera
+[DEBUG] 23:16:48:469 Kernel/(9176:9176): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 23:16:48:470 Kernel/(9176:9176): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 23:16:48:471 Kernel/(9176:9176): Estoy en espera
+[DEBUG] 23:16:49:619 Kernel/(9176:9176): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 23:16:49:620 Kernel/(9176:9176): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 23:16:49:628 Kernel/(9176:9184): **************Manejo cola ready (PID: 9184) ***************
+[INFO] 23:16:49:630 Kernel/(9176:9183): ENTRO AL PLANIFICADORRRRR
+[INFO] 23:16:49:631 Kernel/(9176:9182): ************** El Thread del Loder comenzó!(PID: 9182) ***************
+[INFO] 23:16:49:641 Kernel/(9176:9184): **************Paso a ready los procesos de la cola new****
+[INFO] 23:17:30:833 Kernel/(9176:9182): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 23:17:30:857 Kernel/(9176:9182): Estoy en espera
+[DEBUG] 23:17:30:859 Kernel/(9176:9182): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 23:17:30:860 Kernel/(9176:9182): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 23:17:30:871 Kernel/(9176:9182): Estoy en espera
+[DEBUG] 23:17:30:872 Kernel/(9176:9182): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[9419,9419,97]" 
+[INFO] 23:17:30:878 Kernel/(9176:9182): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 23:17:30:896 Kernel/(9176:9182): Se recibio codigo completo del programa con FD: 9
+[INFO] 23:17:30:898 Kernel/(9176:9182): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[9419,97]" 
+[DEBUG] 23:17:30:907 Kernel/(9176:9182): Estoy en espera
+[DEBUG] 23:17:30:956 Kernel/(9176:9182): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 23:17:30:957 Kernel/(9176:9182): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[9419,100]" 
+[DEBUG] 23:17:30:959 Kernel/(9176:9182): Estoy en espera
+[DEBUG] 23:17:30:999 Kernel/(9176:9182): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 23:17:30:0 Kernel/(9176:9182): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[9419,97,0]" 
+[DEBUG] 23:17:30:2 Kernel/(9176:9182): Estoy en espera
+[DEBUG] 23:17:31:15 Kernel/(9176:9182): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 9419" 
+[INFO] 23:17:31:16 Kernel/(9176:9182): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 9419
+[DEBUG] 23:17:31:18 Kernel/(9176:9182): Estoy en espera
+[DEBUG] 23:17:32:308 Kernel/(9176:9182): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 23:17:32:309 Kernel/(9176:9182): Se generó la estructura del proceso con éxito!
+[INFO] 23:17:32:311 Kernel/(9176:9182): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 23:18:08:783 Kernel/(9176:9183): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 23:18:08:798 Kernel/(9176:9183): Estoy en espera
+[DEBUG] 23:18:08:799 Kernel/(9176:9183): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:18:08:799 Kernel/(9176:9183): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 23:18:08:800 Kernel/(9176:9183): Se envía un TCB al CPU libre elegido
+[INFO] 23:18:08:800 Kernel/(9176:9183): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 23:18:08:801 Kernel/(9176:9183): Busco en la cola de NEW y lo nuevo a READY
+[INFO] 23:54:52:371 Kernel/(10314:10314): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 23:54:52:400 Kernel/(10314:10314): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 23:54:52:407 Kernel/(10314:10314): Se ha establecido conexion con el proceso MSP
+
+[INFO] 23:54:52:409 Kernel/(10314:10314): Se ha establecido conexion con el proceso MSP
+[INFO] 23:54:52:412 Kernel/(10314:10314): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 23:54:52:414 Kernel/(10314:10314): Estoy en espera
+[DEBUG] 23:54:52:451 Kernel/(10314:10314): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 23:54:52:451 Kernel/(10314:10314): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 23:54:52:452 Kernel/(10314:10314): Estoy en espera
+[DEBUG] 23:54:52:460 Kernel/(10314:10314): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 23:54:52:460 Kernel/(10314:10314): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 23:54:52:461 Kernel/(10314:10314): Estoy en espera
+[DEBUG] 23:54:53:472 Kernel/(10314:10314): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 23:54:53:474 Kernel/(10314:10314): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 23:54:53:494 Kernel/(10314:10321): ENTRO AL PLANIFICADORRRRR
+[INFO] 23:54:53:496 Kernel/(10314:10320): ************** El Thread del Loder comenzó!(PID: 10320) ***************
+[INFO] 23:54:53:503 Kernel/(10314:10322): **************Manejo cola ready (PID: 10322) ***************
+[INFO] 23:54:53:507 Kernel/(10314:10322): **************Paso a ready los procesos de la cola new****
+[INFO] 23:55:25:236 Kernel/(10314:10320): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 23:55:25:238 Kernel/(10314:10320): Estoy en espera
+[DEBUG] 23:55:25:239 Kernel/(10314:10320): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 23:55:25:239 Kernel/(10314:10320): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 23:55:25:252 Kernel/(10314:10320): Estoy en espera
+[DEBUG] 23:55:25:252 Kernel/(10314:10320): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[10552,10552,97]" 
+[INFO] 23:55:25:254 Kernel/(10314:10320): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 23:55:25:258 Kernel/(10314:10320): Se recibio codigo completo del programa con FD: 9
+[INFO] 23:55:25:259 Kernel/(10314:10320): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[10552,97]" 
+[DEBUG] 23:55:25:265 Kernel/(10314:10320): Estoy en espera
+[DEBUG] 23:55:25:279 Kernel/(10314:10320): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 23:55:25:281 Kernel/(10314:10320): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[10552,100]" 
+[DEBUG] 23:55:25:282 Kernel/(10314:10320): Estoy en espera
+[DEBUG] 23:55:25:301 Kernel/(10314:10320): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 23:55:25:302 Kernel/(10314:10320): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[10552,97,0]" 
+[DEBUG] 23:55:25:303 Kernel/(10314:10320): Estoy en espera
+[DEBUG] 23:55:25:307 Kernel/(10314:10320): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 10552" 
+[INFO] 23:55:25:308 Kernel/(10314:10320): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 10552
+[DEBUG] 23:55:25:309 Kernel/(10314:10320): Estoy en espera
+[DEBUG] 23:55:25:840 Kernel/(10314:10320): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 23:55:25:841 Kernel/(10314:10320): Se generó la estructura del proceso con éxito!
+[INFO] 23:55:25:843 Kernel/(10314:10320): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 23:56:09:443 Kernel/(10314:10321): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 23:56:09:454 Kernel/(10314:10321): Estoy en espera
+[DEBUG] 23:56:09:455 Kernel/(10314:10321): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 23:56:09:455 Kernel/(10314:10321): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 23:56:09:456 Kernel/(10314:10321): Se envía un TCB al CPU libre elegido
+[INFO] 23:56:09:456 Kernel/(10314:10321): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 23:56:09:456 Kernel/(10314:10321): Busco en la cola de NEW y lo nuevo a READY
+[INFO] 00:30:24:922 Kernel/(11377:11377): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 00:30:24:940 Kernel/(11377:11377): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 00:30:24:947 Kernel/(11377:11377): Se ha establecido conexion con el proceso MSP
+
+[INFO] 00:30:24:951 Kernel/(11377:11377): Se ha establecido conexion con el proceso MSP
+[INFO] 00:30:24:953 Kernel/(11377:11377): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 00:30:24:956 Kernel/(11377:11377): Estoy en espera
+[DEBUG] 00:30:25:41 Kernel/(11377:11377): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 00:30:25:42 Kernel/(11377:11377): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 00:30:25:44 Kernel/(11377:11377): Estoy en espera
+[DEBUG] 00:30:25:56 Kernel/(11377:11377): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 00:30:25:57 Kernel/(11377:11377): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 00:30:25:58 Kernel/(11377:11377): Estoy en espera
+[DEBUG] 00:30:25:790 Kernel/(11377:11377): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 00:30:25:791 Kernel/(11377:11377): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 00:30:25:796 Kernel/(11377:11385): **************Manejo cola ready (PID: 11385) ***************
+[INFO] 00:30:25:799 Kernel/(11377:11384): ENTRO AL PLANIFICADORRRRR
+[INFO] 00:30:25:801 Kernel/(11377:11383): ************** El Thread del Loder comenzó!(PID: 11383) ***************
+[INFO] 00:30:25:802 Kernel/(11377:11385): **************Paso a ready los procesos de la cola new****
+[INFO] 00:32:03:772 Kernel/(11377:11383): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 00:32:03:791 Kernel/(11377:11383): Estoy en espera
+[DEBUG] 00:32:03:794 Kernel/(11377:11383): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 00:32:03:796 Kernel/(11377:11383): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 00:32:03:807 Kernel/(11377:11383): Estoy en espera
+[DEBUG] 00:32:03:808 Kernel/(11377:11383): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[11615,11615,97]" 
+[INFO] 00:32:03:809 Kernel/(11377:11383): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 00:32:03:814 Kernel/(11377:11383): Se recibio codigo completo del programa con FD: 9
+[INFO] 00:32:03:815 Kernel/(11377:11383): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[11615,97]" 
+[DEBUG] 00:32:03:839 Kernel/(11377:11383): Estoy en espera
+[DEBUG] 00:32:03:850 Kernel/(11377:11383): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 00:32:03:851 Kernel/(11377:11383): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[11615,100]" 
+[DEBUG] 00:32:03:852 Kernel/(11377:11383): Estoy en espera
+[DEBUG] 00:32:03:872 Kernel/(11377:11383): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 00:32:03:873 Kernel/(11377:11383): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[11615,97,0]" 
+[DEBUG] 00:32:03:874 Kernel/(11377:11383): Estoy en espera
+[DEBUG] 00:32:03:885 Kernel/(11377:11383): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 11615" 
+[INFO] 00:32:03:886 Kernel/(11377:11383): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 11615
+[DEBUG] 00:32:03:887 Kernel/(11377:11383): Estoy en espera
+[DEBUG] 00:32:04:576 Kernel/(11377:11383): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 00:32:04:577 Kernel/(11377:11383): Se generó la estructura del proceso con éxito!
+[INFO] 00:32:04:579 Kernel/(11377:11383): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 00:32:29:609 Kernel/(11857:11857): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 00:32:29:677 Kernel/(11857:11857): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 00:32:29:697 Kernel/(11857:11857): Se ha establecido conexion con el proceso MSP
+
+[INFO] 00:32:29:699 Kernel/(11857:11857): Se ha establecido conexion con el proceso MSP
+[INFO] 00:32:29:706 Kernel/(11857:11857): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 00:32:29:709 Kernel/(11857:11857): Estoy en espera
+[DEBUG] 00:32:29:766 Kernel/(11857:11857): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 00:32:29:767 Kernel/(11857:11857): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,1048576]" 
+[DEBUG] 00:32:29:768 Kernel/(11857:11857): Estoy en espera
+[DEBUG] 00:32:29:770 Kernel/(11857:11857): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 00:32:29:770 Kernel/(11857:11857): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 00:32:29:771 Kernel/(11857:11857): Estoy en espera
+[DEBUG] 00:32:30:588 Kernel/(11857:11857): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 00:32:30:590 Kernel/(11857:11857): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 00:32:30:598 Kernel/(11857:11865): **************Manejo cola ready (PID: 11865) ***************
+[INFO] 00:32:30:599 Kernel/(11857:11864): ENTRO AL PLANIFICADORRRRR
+[INFO] 00:32:30:599 Kernel/(11857:11863): ************** El Thread del Loder comenzó!(PID: 11863) ***************
+[INFO] 00:32:30:600 Kernel/(11857:11865): **************Paso a ready los procesos de la cola new****
+[INFO] 00:33:06:333 Kernel/(11377:11384): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 00:33:06:345 Kernel/(11377:11384): Estoy en espera
+[DEBUG] 00:33:06:346 Kernel/(11377:11384): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 00:33:06:347 Kernel/(11377:11384): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 00:33:06:347 Kernel/(11377:11384): Se envía un TCB al CPU libre elegido
+[INFO] 00:33:06:348 Kernel/(11377:11384): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+[INFO] 00:33:06:349 Kernel/(11377:11384): Busco en la cola de NEW y lo nuevo a READY
+[INFO] 00:36:34:596 Kernel/(12357:12357): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 00:36:34:617 Kernel/(12357:12357): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 00:36:34:623 Kernel/(12357:12357): Se ha establecido conexion con el proceso MSP
+
+[INFO] 00:36:34:624 Kernel/(12357:12357): Se ha establecido conexion con el proceso MSP
+[INFO] 00:36:34:627 Kernel/(12357:12357): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 00:36:34:650 Kernel/(12357:12357): Estoy en espera
+[DEBUG] 00:36:34:657 Kernel/(12357:12357): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 00:36:34:658 Kernel/(12357:12357): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 00:36:34:658 Kernel/(12357:12357): Estoy en espera
+[DEBUG] 00:36:34:659 Kernel/(12357:12357): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 00:36:34:659 Kernel/(12357:12357): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 00:36:34:660 Kernel/(12357:12357): Estoy en espera
+[DEBUG] 00:36:35:611 Kernel/(12357:12357): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 00:36:35:612 Kernel/(12357:12357): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 00:36:35:616 Kernel/(12357:12366): **************Manejo cola ready (PID: 12366) ***************
+[INFO] 00:36:35:616 Kernel/(12357:12365): ENTRO AL PLANIFICADORRRRR
+[INFO] 00:36:35:617 Kernel/(12357:12364): ************** El Thread del Loder comenzó!(PID: 12364) ***************
+[INFO] 00:36:35:617 Kernel/(12357:12366): **************Paso a ready los procesos de la cola new****
+[INFO] 00:37:39:53 Kernel/(12357:12364): selectserver: new connection from 127.0.0.1 on socket 9
+
+[DEBUG] 00:37:39:63 Kernel/(12357:12364): Estoy en espera
+[DEBUG] 00:37:39:64 Kernel/(12357:12364): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 00:37:39:65 Kernel/(12357:12364): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 00:37:39:71 Kernel/(12357:12364): Estoy en espera
+[DEBUG] 00:37:39:71 Kernel/(12357:12364): Se RECIBE por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[12380,12380,97]" 
+[INFO] 00:37:39:72 Kernel/(12357:12364): Se ENVIA por SOCKET:9 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 00:37:39:77 Kernel/(12357:12364): Se recibio codigo completo del programa con FD: 9
+[INFO] 00:37:39:78 Kernel/(12357:12364): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[12380,97]" 
+[DEBUG] 00:37:39:87 Kernel/(12357:12364): Estoy en espera
+[DEBUG] 00:37:39:106 Kernel/(12357:12364): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 00:37:39:108 Kernel/(12357:12364): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[12380,100]" 
+[DEBUG] 00:37:39:109 Kernel/(12357:12364): Estoy en espera
+[DEBUG] 00:37:39:130 Kernel/(12357:12364): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 00:37:39:131 Kernel/(12357:12364): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[12380,97,0]" 
+[DEBUG] 00:37:39:133 Kernel/(12357:12364): Estoy en espera
+[DEBUG] 00:37:39:139 Kernel/(12357:12364): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 12380" 
+[INFO] 00:37:39:140 Kernel/(12357:12364): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 12380
+[DEBUG] 00:37:39:142 Kernel/(12357:12364): Estoy en espera
+[DEBUG] 00:37:39:794 Kernel/(12357:12364): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 00:37:39:794 Kernel/(12357:12364): Se generó la estructura del proceso con éxito!
+[INFO] 00:37:39:794 Kernel/(12357:12364): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 00:38:46:892 Kernel/(12357:12365): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 00:38:46:911 Kernel/(12357:12365): Estoy en espera
+[DEBUG] 00:38:46:912 Kernel/(12357:12365): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 00:38:46:912 Kernel/(12357:12365): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 19:55:28:677 Kernel/(6701:6701): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 19:55:28:724 Kernel/(6701:6701): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 19:55:28:729 Kernel/(6701:6701): Se ha establecido conexion con el proceso MSP
+
+[INFO] 19:55:28:729 Kernel/(6701:6701): Se ha establecido conexion con el proceso MSP
+[INFO] 19:55:28:731 Kernel/(6701:6701): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 19:55:28:733 Kernel/(6701:6701): Estoy en espera
+[DEBUG] 19:55:28:770 Kernel/(6701:6701): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 19:55:28:770 Kernel/(6701:6701): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 19:55:28:771 Kernel/(6701:6701): Estoy en espera
+[DEBUG] 19:55:28:777 Kernel/(6701:6701): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 19:55:28:778 Kernel/(6701:6701): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 19:55:28:779 Kernel/(6701:6701): Estoy en espera
+[DEBUG] 19:55:30:30 Kernel/(6701:6701): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 19:55:30:31 Kernel/(6701:6701): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 19:55:30:36 Kernel/(6701:6712): **************Manejo cola ready (PID: 6712) ***************
+[INFO] 19:55:30:38 Kernel/(6701:6711): ENTRO AL PLANIFICADORRRRR
+[INFO] 19:55:30:38 Kernel/(6701:6710): ************** El Thread del Loder comenzó!(PID: 6710) ***************
+[INFO] 19:55:30:39 Kernel/(6701:6712): **************Paso a ready los procesos de la cola new****
+[INFO] 20:34:58:929 Kernel/(2166:2166): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 20:34:58:966 Kernel/(2166:2166): Se ENVIA por SOCKET:5 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 20:34:58:975 Kernel/(2166:2166): Se ha establecido conexion con el proceso MSP
+
+[INFO] 20:34:58:977 Kernel/(2166:2166): Se ha establecido conexion con el proceso MSP
+[INFO] 20:34:58:986 Kernel/(2166:2166): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 20:34:58:990 Kernel/(2166:2166): Estoy en espera
+[DEBUG] 20:34:59:144 Kernel/(2166:2166): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 20:34:59:145 Kernel/(2166:2166): Se ENVIA por SOCKET:5 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 20:34:59:147 Kernel/(2166:2166): Estoy en espera
+[DEBUG] 20:34:59:164 Kernel/(2166:2166): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 20:34:59:165 Kernel/(2166:2166): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 20:34:59:167 Kernel/(2166:2166): Estoy en espera
+[DEBUG] 20:34:59:944 Kernel/(2166:2166): Se RECIBE por SOCKET:5 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 20:34:59:945 Kernel/(2166:2166): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 20:34:59:948 Kernel/(2166:2175): **************Manejo cola ready (PID: 2175) ***************
+[INFO] 20:34:59:949 Kernel/(2166:2174): ENTRO AL PLANIFICADORRRRR
+[INFO] 20:34:59:954 Kernel/(2166:2173): ************** El Thread del Loder comenzó!(PID: 2173) ***************
+[INFO] 20:34:59:954 Kernel/(2166:2175): **************Paso a ready los procesos de la cola new****
+[INFO] 21:13:27:586 Kernel/(3260:3260): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 21:13:27:642 Kernel/(3260:3260): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 21:13:27:648 Kernel/(3260:3260): Se ha establecido conexion con el proceso MSP
+
+[INFO] 21:13:27:652 Kernel/(3260:3260): Se ha establecido conexion con el proceso MSP
+[INFO] 21:13:27:652 Kernel/(3260:3260): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 21:13:27:653 Kernel/(3260:3260): Estoy en espera
+[DEBUG] 21:13:27:682 Kernel/(3260:3260): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 21:13:27:682 Kernel/(3260:3260): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 21:13:27:683 Kernel/(3260:3260): Estoy en espera
+[DEBUG] 21:13:27:691 Kernel/(3260:3260): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 21:13:27:691 Kernel/(3260:3260): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 21:13:27:692 Kernel/(3260:3260): Estoy en espera
+[DEBUG] 21:13:28:89 Kernel/(3260:3260): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 21:13:28:89 Kernel/(3260:3260): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 21:13:28:253 Kernel/(3260:3269): ************** El Thread del Loder comenzó!(PID: 3269) ***************
+[INFO] 21:13:28:363 Kernel/(3260:3270): ENTRO AL PLANIFICADORRRRR
+[INFO] 21:13:28:428 Kernel/(3260:3271): **************Manejo cola ready (PID: 3271) ***************
+[INFO] 21:13:28:428 Kernel/(3260:3271): **************Paso a ready los procesos de la cola new****
+[INFO] 21:13:35:239 Kernel/(3260:3270): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 21:13:35:263 Kernel/(3260:3270): Estoy en espera
+[DEBUG] 21:13:35:263 Kernel/(3260:3270): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 21:13:35:264 Kernel/(3260:3270): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 21:13:39:96 Kernel/(3260:3269): selectserver: new connection from 127.0.0.1 on socket 12
+
+[DEBUG] 21:13:39:103 Kernel/(3260:3269): Estoy en espera
+[DEBUG] 21:13:39:103 Kernel/(3260:3269): Se RECIBE por SOCKET:12 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 21:13:39:104 Kernel/(3260:3269): Se ENVIA por SOCKET:12 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 21:13:39:115 Kernel/(3260:3269): Estoy en espera
+[DEBUG] 21:13:39:115 Kernel/(3260:3269): Se RECIBE por SOCKET:12 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[3275,3275,98]" 
+[INFO] 21:13:39:116 Kernel/(3260:3269): Se ENVIA por SOCKET:12 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 21:13:39:122 Kernel/(3260:3269): Se recibio codigo completo del programa con FD: 12
+[INFO] 21:13:39:123 Kernel/(3260:3269): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[3275,98]" 
+[DEBUG] 21:13:39:126 Kernel/(3260:3269): Estoy en espera
+[DEBUG] 21:13:39:135 Kernel/(3260:3269): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 21:13:39:135 Kernel/(3260:3269): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[3275,100]" 
+[DEBUG] 21:13:39:135 Kernel/(3260:3269): Estoy en espera
+[DEBUG] 21:13:39:154 Kernel/(3260:3269): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 21:13:39:155 Kernel/(3260:3269): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[3275,98,0]" 
+[DEBUG] 21:13:39:155 Kernel/(3260:3269): Estoy en espera
+[DEBUG] 21:13:39:166 Kernel/(3260:3269): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 3275" 
+[INFO] 21:13:39:166 Kernel/(3260:3269): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 3275
+[DEBUG] 21:13:39:166 Kernel/(3260:3269): Estoy en espera
+[DEBUG] 21:13:39:837 Kernel/(3260:3269): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 21:13:39:837 Kernel/(3260:3269): Se generó la estructura del proceso con éxito!
+[INFO] 21:13:39:838 Kernel/(3260:3269): Un nuevo proceso se insertó en la cola NEW!
+[INFO] 21:14:39:406 Kernel/(3329:3329): Se inicializa el kernel con parametros desde: kernel.conf
+[INFO] 21:14:39:422 Kernel/(3329:3329): Se ENVIA por SOCKET:7 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+[INFO] 21:14:39:429 Kernel/(3329:3329): Se ha establecido conexion con el proceso MSP
+
+[INFO] 21:14:39:439 Kernel/(3329:3329): Se ha establecido conexion con el proceso MSP
+[INFO] 21:14:39:440 Kernel/(3329:3329): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[0,332]" 
+[DEBUG] 21:14:39:445 Kernel/(3329:3329): Estoy en espera
+[DEBUG] 21:14:39:465 Kernel/(3329:3329): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 21:14:39:465 Kernel/(3329:3329): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[0,332,0]" 
+[DEBUG] 21:14:39:466 Kernel/(3329:3329): Estoy en espera
+[DEBUG] 21:14:39:470 Kernel/(3329:3329): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 0" 
+[INFO] 21:14:39:471 Kernel/(3329:3329): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 0
+[DEBUG] 21:14:39:471 Kernel/(3329:3329): Estoy en espera
+[DEBUG] 21:14:39:871 Kernel/(3329:3329): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 21:14:39:871 Kernel/(3329:3329): Se inserta el proceso de Kernel en la cola BLOCK!
+[INFO] 21:14:40:36 Kernel/(3329:3336): ************** El Thread del Loder comenzó!(PID: 3336) ***************
+[INFO] 21:14:40:99 Kernel/(3329:3338): ENTRO AL PLANIFICADORRRRR
+[INFO] 21:14:40:158 Kernel/(3329:3339): **************Manejo cola ready (PID: 3339) ***************
+[INFO] 21:14:40:159 Kernel/(3329:3339): **************Paso a ready los procesos de la cola new****
+[INFO] 21:14:45:364 Kernel/(3329:3338): selectserver: new connection from 127.0.0.1 on socket 11
+
+[DEBUG] 21:14:45:392 Kernel/(3329:3338): Estoy en espera
+[DEBUG] 21:14:45:393 Kernel/(3329:3338): Se RECIBE por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+[INFO] 21:14:50:578 Kernel/(3329:3338): PCP Thread says: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+[INFO] 21:15:21:114 Kernel/(3329:3336): selectserver: new connection from 127.0.0.1 on socket 12
+
+[DEBUG] 21:15:21:122 Kernel/(3329:3336): Estoy en espera
+[DEBUG] 21:15:21:123 Kernel/(3329:3336): Se RECIBE por SOCKET:12 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[INFO] 21:15:21:123 Kernel/(3329:3336): Se ENVIA por SOCKET:12 - HEADER:CON_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[DEBUG] 21:15:21:130 Kernel/(3329:3336): Estoy en espera
+[DEBUG] 21:15:21:130 Kernel/(3329:3336): Se RECIBE por SOCKET:12 - HEADER:CON_TO_KRN_CODE  MENSAJE:"[3356,3356,98]" 
+[INFO] 21:15:21:131 Kernel/(3329:3336): Se ENVIA por SOCKET:12 - HEADER:CON_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 21:15:21:144 Kernel/(3329:3336): Se recibio codigo completo del programa con FD: 12
+[INFO] 21:15:21:144 Kernel/(3329:3336): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[3356,98]" 
+[DEBUG] 21:15:21:149 Kernel/(3329:3336): Estoy en espera
+[DEBUG] 21:15:21:150 Kernel/(3329:3336): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+[INFO] 21:15:21:150 Kernel/(3329:3336): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[3356,100]" 
+[DEBUG] 21:15:21:150 Kernel/(3329:3336): Estoy en espera
+[DEBUG] 21:15:21:157 Kernel/(3329:3336): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+[INFO] 21:15:21:157 Kernel/(3329:3336): Se ENVIA por SOCKET:7 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[3356,98,0]" 
+[DEBUG] 21:15:21:157 Kernel/(3329:3336): Estoy en espera
+[DEBUG] 21:15:21:171 Kernel/(3329:3336): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"Ahora esperamos el buffer de escritura del proceso 3356" 
+[INFO] 21:15:21:171 Kernel/(3329:3336): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 3356
+[DEBUG] 21:15:21:171 Kernel/(3329:3336): Estoy en espera
+[DEBUG] 21:15:21:581 Kernel/(3329:3336): Se RECIBE por SOCKET:7 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+[INFO] 21:15:21:581 Kernel/(3329:3336): Se generó la estructura del proceso con éxito!
+[INFO] 21:15:44:819 Kernel/(3329:3336): Un nuevo proceso se insertó en la cola NEW!

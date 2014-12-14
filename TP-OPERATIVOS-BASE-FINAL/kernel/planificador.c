@@ -248,12 +248,12 @@ void actualizarTCB(t_process* aProcess, char* mensaje) {
 
 	char** split = string_get_string_as_array(mensaje);
 
-	aProcess->tcb->puntero_instruccion = atoi(split[1]);
-	aProcess->tcb->registros[0] = atoi(split[3]);
-	aProcess->tcb->registros[1] = atoi(split[4]);
-	aProcess->tcb->registros[2] = atoi(split[5]);
-	aProcess->tcb->registros[3] = atoi(split[6]);
-	aProcess->tcb->registros[4] = atoi(split[7]);
+	aProcess->tcb->puntero_instruccion = atoi(split[5]);
+	aProcess->tcb->registros[0] = atoi(split[8]);
+	aProcess->tcb->registros[1] = atoi(split[9]);
+	aProcess->tcb->registros[2] = atoi(split[10]);
+	aProcess->tcb->registros[3] = atoi(split[11]);
+	aProcess->tcb->registros[4] = atoi(split[12]);
 
 }
 
