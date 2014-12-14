@@ -25,13 +25,13 @@ endif
 all: kernel
 
 dependents:
-	-cd /home/utnso/workspace/commons/Debug && $(MAKE) all
+	-cd /home/utnso/workspace/ansisop-panel/Debug && $(MAKE) all
 
 # Tool invocations
-kernel: $(OBJS) $(USER_OBJS) /home/utnso/workspace/commons/Debug/libcommons.so
+kernel: $(OBJS) $(USER_OBJS) /home/utnso/workspace/ansisop-panel/Debug/libansisop-panel.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/workspace/commons/Debug" -o "kernel" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/workspace/ansisop-panel/Debug" -o "kernel" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -42,6 +42,6 @@ clean:
 
 .PHONY: all clean dependents
 .SECONDARY:
-/home/utnso/workspace/commons/Debug/libcommons.so:
+/home/utnso/workspace/ansisop-panel/Debug/libansisop-panel.so:
 
 -include ../makefile.targets

@@ -7,6 +7,8 @@
 
 #include "consola.h"
 
+bool loTermino = false;
+
 int main(int argc, char *argv[]){
 
 	if (argc < 2) {
@@ -42,9 +44,31 @@ int main(int argc, char *argv[]){
 		return EXIT_FAILURE;
 	}
 
+	t_contenido mensaje;
+	memset(mensaje, 0, sizeof(t_contenido));
+
 	hacerHandshakeConKernel(socketKernel);
+
 	enviarCodigoBESO(id_proceso, id_hilo, tamanioArchivo, besoCode);
-	char *mensaje = string_from_format("se envia el codigo de la consola con pid %d y tid %d", id_proceso, id_hilo);
+
+	while(!loTermino){
+		t_header header = recibirMensaje(socketKernel, mensaje, LOGGER);
+
+		if(header == ERR_CONEXION_CERRADA){
+			log_info(LOGGER,
+					"El Kernel se fue! Entonces cierro mi conexion y aborto la ejecución");
+			return EXIT_FAILURE;
+		} else
+
+		if(header == KRN_TO_PRG_NO_MEMORY){
+
+		} else
+
+		if(header == KRN_TO_PRG_END_PRG){
+
+		}
+
+	}
 
 	fclose(entrada);
 	return EXIT_SUCCESS;
@@ -89,7 +113,7 @@ char *getCodigoBESO(size_t *tam_archivo, FILE* entrada)
 	char * literal = (char*) calloc(1, *tam_archivo);
 	fseek(entrada, 0L, 0L);
 
-	fgets(literal, *tam_archivo, entrada);
+	fread(literal, *tam_archivo, 1, entrada);
 	return literal;
 }
 
