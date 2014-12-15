@@ -27,6 +27,10 @@ int main() {
 		C = 0;
 		E = 0;
 
+		FILE *log = fopen("log","w");
+		fflush(log);
+		fclose(log);
+
 		logs = log_create("log", "CPU.c", 1, LOG_LEVEL_TRACE);
 
 		log_info(logs,"Los registros inicialmente valen A:%d B:%d C:%d D:%d E:%d",A,B,C,D,E);
@@ -139,8 +143,6 @@ int main() {
 				memset(mensaje_para_solicitar_bytes_MSP,0,sizeof(t_contenido));
 				strcpy(mensaje_para_solicitar_bytes_MSP,string_from_format("[%d,%d,%d]",TCB->pid,P,sizeof(int32_t)));
 				enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_solicitar_bytes_MSP,logs);
-
-				usleep(60000);
 
 				//Recibo Instruccion
 				t_contenido mensaje_para_recibir_direccion;
