@@ -4,32 +4,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../funciones_kernel.c \
-../funciones_manejo_cola.c \
-../kernel.c \
-../loader.c \
-../planificador.c \
-../servicios_kernel.c 
+../commons/collections/dictionary.c \
+../commons/collections/list.c \
+../commons/collections/queue.c 
 
 OBJS += \
-./funciones_kernel.o \
-./funciones_manejo_cola.o \
-./kernel.o \
-./loader.o \
-./planificador.o \
-./servicios_kernel.o 
+./commons/collections/dictionary.o \
+./commons/collections/list.o \
+./commons/collections/queue.o 
 
 C_DEPS += \
-./funciones_kernel.d \
-./funciones_manejo_cola.d \
-./kernel.d \
-./loader.d \
-./planificador.d \
-./servicios_kernel.d 
+./commons/collections/dictionary.d \
+./commons/collections/list.d \
+./commons/collections/queue.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.c
+commons/collections/%.o: ../commons/collections/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
 	gcc -I"/home/utnso/workspace/commons" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"

@@ -8,6 +8,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include commons/collections/subdir.mk
+-include commons/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -25,13 +27,13 @@ endif
 all: kernel
 
 dependents:
-	-cd /home/utnso/workspace/ansisop-panel/Debug && $(MAKE) all
+	-cd /home/utnso/workspace/commons/Debug && $(MAKE) all
 
 # Tool invocations
-kernel: $(OBJS) $(USER_OBJS) /home/utnso/workspace/ansisop-panel/Debug/libansisop-panel.so
+kernel: $(OBJS) $(USER_OBJS) /home/utnso/workspace/commons/Debug/libcommons.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/workspace/ansisop-panel/Debug" -o "kernel" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/workspace/commons/Debug" -o "kernel" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -42,6 +44,6 @@ clean:
 
 .PHONY: all clean dependents
 .SECONDARY:
-/home/utnso/workspace/ansisop-panel/Debug/libansisop-panel.so:
+/home/utnso/workspace/commons/Debug/libcommons.so:
 
 -include ../makefile.targets

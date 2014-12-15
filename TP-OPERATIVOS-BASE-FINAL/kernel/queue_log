@@ -1,0 +1,492 @@
+[DEBUG] 15:40:07:428 kernel.c/(6460:6460): prueba
+[DEBUG] 15:42:39:876 kernel.c/(6567:6567): prueba
+[DEBUG] 15:45:32:396 kernel.c/(6666:6666): prueba
+[DEBUG] 15:47:24:972 kernel.c/(6745:6745): prueba
+[DEBUG] 15:49:08:316 kernel.c/(6837:6837): prueba
+[DEBUG] 15:49:08:328 kernel.c/(6837:6837): NEW QUEUE -
+[INFO] 15:49:08:328 kernel.c/(6837:6837): ********************Process Status Report********************
+[DEBUG] 15:49:08:329 kernel.c/(6837:6837): There is any process here yet!
+
+[INFO] 15:49:08:329 kernel.c/(6837:6837):  
+[INFO] 15:49:08:330 kernel.c/(6837:6837): READY QUEUE -
+[INFO] 15:49:08:330 kernel.c/(6837:6837): ********************Process Status Report********************
+[DEBUG] 15:49:08:331 kernel.c/(6837:6837): There is any process here yet!
+
+[INFO] 15:49:08:332 kernel.c/(6837:6837):  
+[INFO] 15:49:08:333 kernel.c/(6837:6837): EXEC QUEUE -
+[INFO] 15:49:08:338 kernel.c/(6837:6837): ********************Process Status Report********************
+[DEBUG] 15:49:08:338 kernel.c/(6837:6837): There is any process here yet!
+
+[INFO] 15:49:08:339 kernel.c/(6837:6837):  
+[INFO] 15:49:08:340 kernel.c/(6837:6837): BLOCK QUEUE -
+[INFO] 15:49:08:341 kernel.c/(6837:6837): ********************Process Status Report********************
+[DEBUG] 15:49:08:341 kernel.c/(6837:6837): There is any process here yet!
+
+[INFO] 15:49:08:342 kernel.c/(6837:6837):  
+[INFO] 15:49:08:343 kernel.c/(6837:6837): EXIT QUEUE -
+[INFO] 15:49:08:343 kernel.c/(6837:6837): ********************Process Status Report********************
+[DEBUG] 15:49:08:344 kernel.c/(6837:6837): There is any process here yet!
+
+[INFO] 15:49:08:346 kernel.c/(6837:6837):  
+[DEBUG] 15:50:06:188 kernel.c/(6888:6888): prueba
+[DEBUG] 15:50:06:203 kernel.c/(6888:6888): NEW QUEUE -
+[INFO] 15:50:06:203 kernel.c/(6888:6888): ********************Process Status Report********************
+[DEBUG] 15:50:06:204 kernel.c/(6888:6888): There is any process here yet!
+
+[INFO] 15:50:06:205 kernel.c/(6888:6888):  
+[INFO] 15:50:06:205 kernel.c/(6888:6888): READY QUEUE -
+[INFO] 15:50:06:206 kernel.c/(6888:6888): ********************Process Status Report********************
+[DEBUG] 15:50:06:207 kernel.c/(6888:6888): There is any process here yet!
+
+[INFO] 15:50:06:215 kernel.c/(6888:6888):  
+[INFO] 15:50:06:216 kernel.c/(6888:6888): EXEC QUEUE -
+[INFO] 15:50:06:217 kernel.c/(6888:6888): ********************Process Status Report********************
+[DEBUG] 15:50:06:217 kernel.c/(6888:6888): There is any process here yet!
+
+[INFO] 15:50:06:218 kernel.c/(6888:6888):  
+[INFO] 15:50:06:218 kernel.c/(6888:6888): BLOCK QUEUE -
+[INFO] 15:50:06:219 kernel.c/(6888:6888): ********************Process Status Report********************
+[DEBUG] 15:50:06:219 kernel.c/(6888:6888): There is any process here yet!
+
+[INFO] 15:50:06:220 kernel.c/(6888:6888):  
+[INFO] 15:50:06:220 kernel.c/(6888:6888): EXIT QUEUE -
+[INFO] 15:50:06:221 kernel.c/(6888:6888): ********************Process Status Report********************
+[DEBUG] 15:50:06:221 kernel.c/(6888:6888): There is any process here yet!
+
+[INFO] 15:50:06:222 kernel.c/(6888:6888):  
+[DEBUG] 16:46:27:46 kernel.c/(8971:8971): prueba
+[DEBUG] 16:46:27:62 kernel.c/(8971:8971): NEW QUEUE -
+[INFO] 16:46:27:63 kernel.c/(8971:8971): ********************Process Status Report********************
+[DEBUG] 16:46:27:63 kernel.c/(8971:8971): There is any process here yet!
+
+[INFO] 16:46:27:64 kernel.c/(8971:8971):  
+[INFO] 16:46:27:65 kernel.c/(8971:8971): READY QUEUE -
+[INFO] 16:46:27:65 kernel.c/(8971:8971): ********************Process Status Report********************
+[DEBUG] 16:46:27:66 kernel.c/(8971:8971): There is any process here yet!
+
+[INFO] 16:46:27:66 kernel.c/(8971:8971):  
+[INFO] 16:46:27:68 kernel.c/(8971:8971): EXEC QUEUE -
+[INFO] 16:46:27:68 kernel.c/(8971:8971): ********************Process Status Report********************
+[DEBUG] 16:46:27:68 kernel.c/(8971:8971): There is any process here yet!
+
+[INFO] 16:46:27:69 kernel.c/(8971:8971):  
+[INFO] 16:46:27:69 kernel.c/(8971:8971): BLOCK QUEUE -
+[INFO] 16:46:27:70 kernel.c/(8971:8971): ********************Process Status Report********************
+[DEBUG] 16:46:27:70 kernel.c/(8971:8971): There is any process here yet!
+
+[INFO] 16:46:27:71 kernel.c/(8971:8971):  
+[INFO] 16:46:27:71 kernel.c/(8971:8971): EXIT QUEUE -
+[INFO] 16:46:27:72 kernel.c/(8971:8971): ********************Process Status Report********************
+[DEBUG] 16:46:27:72 kernel.c/(8971:8971): There is any process here yet!
+
+[INFO] 16:46:27:73 kernel.c/(8971:8971):  
+[DEBUG] 16:47:13:849 kernel.c/(9056:9056): prueba
+[DEBUG] 16:47:13:857 kernel.c/(9056:9056): NEW QUEUE -
+[INFO] 16:47:13:858 kernel.c/(9056:9056): ********************Process Status Report********************
+[DEBUG] 16:47:13:858 kernel.c/(9056:9056): No hay proesos :(!
+
+[INFO] 16:47:13:859 kernel.c/(9056:9056):  
+[INFO] 16:47:13:860 kernel.c/(9056:9056): READY QUEUE -
+[INFO] 16:47:13:860 kernel.c/(9056:9056): ********************Process Status Report********************
+[DEBUG] 16:47:13:861 kernel.c/(9056:9056): No hay proesos :(!
+
+[INFO] 16:47:13:861 kernel.c/(9056:9056):  
+[INFO] 16:47:13:862 kernel.c/(9056:9056): EXEC QUEUE -
+[INFO] 16:47:13:862 kernel.c/(9056:9056): ********************Process Status Report********************
+[DEBUG] 16:47:13:863 kernel.c/(9056:9056): No hay proesos :(!
+
+[INFO] 16:47:13:863 kernel.c/(9056:9056):  
+[INFO] 16:47:13:864 kernel.c/(9056:9056): BLOCK QUEUE -
+[INFO] 16:47:13:864 kernel.c/(9056:9056): ********************Process Status Report********************
+[DEBUG] 16:47:13:865 kernel.c/(9056:9056): No hay proesos :(!
+
+[INFO] 16:47:13:866 kernel.c/(9056:9056):  
+[INFO] 16:47:13:867 kernel.c/(9056:9056): EXIT QUEUE -
+[INFO] 16:47:13:867 kernel.c/(9056:9056): ********************Process Status Report********************
+[DEBUG] 16:47:13:867 kernel.c/(9056:9056): No hay proesos :(!
+
+[INFO] 16:47:13:868 kernel.c/(9056:9056):  
+[DEBUG] 17:12:45:992 kernel.c/(9854:9854): prueba
+[DEBUG] 17:12:45:0 kernel.c/(9854:9854): NEW QUEUE -
+[INFO] 17:12:45:0 kernel.c/(9854:9854): ********************Process Status Report********************
+[DEBUG] 17:12:45:1 kernel.c/(9854:9854): No hay proesos :(!
+
+[INFO] 17:12:45:2 kernel.c/(9854:9854):  
+[INFO] 17:12:45:2 kernel.c/(9854:9854): READY QUEUE -
+[INFO] 17:12:45:3 kernel.c/(9854:9854): ********************Process Status Report********************
+[DEBUG] 17:12:45:3 kernel.c/(9854:9854): No hay proesos :(!
+
+[INFO] 17:12:46:4 kernel.c/(9854:9854):  
+[INFO] 17:12:46:4 kernel.c/(9854:9854): EXEC QUEUE -
+[INFO] 17:12:46:8 kernel.c/(9854:9854): ********************Process Status Report********************
+[DEBUG] 17:12:46:8 kernel.c/(9854:9854): No hay proesos :(!
+
+[INFO] 17:12:46:9 kernel.c/(9854:9854):  
+[INFO] 17:12:46:9 kernel.c/(9854:9854): BLOCK QUEUE -
+[INFO] 17:12:46:10 kernel.c/(9854:9854): ********************Process Status Report********************
+[DEBUG] 17:12:46:11 kernel.c/(9854:9854): No hay proesos :(!
+
+[INFO] 17:12:46:12 kernel.c/(9854:9854):  
+[INFO] 17:12:46:12 kernel.c/(9854:9854): EXIT QUEUE -
+[INFO] 17:12:46:13 kernel.c/(9854:9854): ********************Process Status Report********************
+[DEBUG] 17:12:46:13 kernel.c/(9854:9854): No hay proesos :(!
+
+[INFO] 17:12:46:20 kernel.c/(9854:9854):  
+[DEBUG] 17:19:39:215 kernel.c/(10236:10236): prueba
+[DEBUG] 17:19:39:218 kernel.c/(10236:10236): NEW QUEUE -
+[INFO] 17:19:39:219 kernel.c/(10236:10236): ********************Process Status Report********************
+[DEBUG] 17:19:39:219 kernel.c/(10236:10236): No hay proesos :(!
+
+[INFO] 17:19:39:219 kernel.c/(10236:10236):  
+[INFO] 17:19:39:219 kernel.c/(10236:10236): READY QUEUE -
+[INFO] 17:19:39:219 kernel.c/(10236:10236): ********************Process Status Report********************
+[DEBUG] 17:19:39:220 kernel.c/(10236:10236): No hay proesos :(!
+
+[INFO] 17:19:39:220 kernel.c/(10236:10236):  
+[INFO] 17:19:39:220 kernel.c/(10236:10236): EXEC QUEUE -
+[INFO] 17:19:39:220 kernel.c/(10236:10236): ********************Process Status Report********************
+[DEBUG] 17:19:39:220 kernel.c/(10236:10236): No hay proesos :(!
+
+[INFO] 17:19:39:221 kernel.c/(10236:10236):  
+[INFO] 17:19:39:221 kernel.c/(10236:10236): BLOCK QUEUE -
+[INFO] 17:19:39:221 kernel.c/(10236:10236): ********************Process Status Report********************
+[DEBUG] 17:19:39:221 kernel.c/(10236:10236): No hay proesos :(!
+
+[INFO] 17:19:39:221 kernel.c/(10236:10236):  
+[INFO] 17:19:39:221 kernel.c/(10236:10236): EXIT QUEUE -
+[INFO] 17:19:39:222 kernel.c/(10236:10236): ********************Process Status Report********************
+[DEBUG] 17:19:39:222 kernel.c/(10236:10236): No hay proesos :(!
+
+[INFO] 17:19:39:222 kernel.c/(10236:10236):  
+[DEBUG] 17:28:02:900 kernel.c/(10532:10532): prueba
+[DEBUG] 17:28:02:910 kernel.c/(10532:10532): NEW QUEUE -
+[INFO] 17:28:02:911 kernel.c/(10532:10532): ********************Process Status Report********************
+[INFO] 17:28:02:911 kernel.c/(10532:10532): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:28:02:912 kernel.c/(10532:10532): -----------------32-----------0------------0---------------
+[INFO] 17:28:02:912 kernel.c/(10532:10532): *************************************************************
+[INFO] 17:28:02:913 kernel.c/(10532:10532):  
+[INFO] 17:28:02:913 kernel.c/(10532:10532): READY QUEUE -
+[INFO] 17:28:02:914 kernel.c/(10532:10532): ********************Process Status Report********************
+[DEBUG] 17:28:02:914 kernel.c/(10532:10532): No hay proesos :(!
+
+[INFO] 17:28:02:915 kernel.c/(10532:10532):  
+[INFO] 17:28:02:915 kernel.c/(10532:10532): EXEC QUEUE -
+[INFO] 17:28:02:916 kernel.c/(10532:10532): ********************Process Status Report********************
+[DEBUG] 17:28:02:916 kernel.c/(10532:10532): No hay proesos :(!
+
+[INFO] 17:28:02:917 kernel.c/(10532:10532):  
+[INFO] 17:28:02:918 kernel.c/(10532:10532): BLOCK QUEUE -
+[INFO] 17:28:02:918 kernel.c/(10532:10532): ********************Process Status Report********************
+[DEBUG] 17:28:02:919 kernel.c/(10532:10532): No hay proesos :(!
+
+[INFO] 17:28:02:919 kernel.c/(10532:10532):  
+[INFO] 17:28:02:920 kernel.c/(10532:10532): EXIT QUEUE -
+[INFO] 17:28:02:920 kernel.c/(10532:10532): ********************Process Status Report********************
+[DEBUG] 17:28:02:921 kernel.c/(10532:10532): No hay proesos :(!
+
+[INFO] 17:28:02:929 kernel.c/(10532:10532):  
+[DEBUG] 17:28:44:945 kernel.c/(10606:10606): prueba
+[DEBUG] 17:28:44:947 kernel.c/(10606:10606): NEW QUEUE -
+[INFO] 17:28:44:949 kernel.c/(10606:10606): ********************Process Status Report********************
+[INFO] 17:28:44:949 kernel.c/(10606:10606): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:28:44:950 kernel.c/(10606:10606): -----------------32-----------0------------0---------------
+[INFO] 17:28:44:950 kernel.c/(10606:10606): *************************************************************
+[INFO] 17:28:44:951 kernel.c/(10606:10606):  
+[INFO] 17:28:44:952 kernel.c/(10606:10606): READY QUEUE -
+[INFO] 17:28:44:953 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:960 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:960 kernel.c/(10606:10606):  
+[INFO] 17:28:44:961 kernel.c/(10606:10606): EXEC QUEUE -
+[INFO] 17:28:44:961 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:962 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:963 kernel.c/(10606:10606):  
+[INFO] 17:28:44:963 kernel.c/(10606:10606): BLOCK QUEUE -
+[INFO] 17:28:44:963 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:964 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:965 kernel.c/(10606:10606):  
+[INFO] 17:28:44:965 kernel.c/(10606:10606): EXIT QUEUE -
+[INFO] 17:28:44:966 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:966 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:968 kernel.c/(10606:10606):  
+[DEBUG] 17:28:44:977 kernel.c/(10606:10606): NEW QUEUE -
+[INFO] 17:28:44:978 kernel.c/(10606:10606): ********************Process Status Report********************
+[INFO] 17:28:44:978 kernel.c/(10606:10606): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:28:44:979 kernel.c/(10606:10606): -----------------32-----------0------------0---------------
+[INFO] 17:28:44:980 kernel.c/(10606:10606): *************************************************************
+[INFO] 17:28:44:980 kernel.c/(10606:10606):  
+[INFO] 17:28:44:981 kernel.c/(10606:10606): READY QUEUE -
+[INFO] 17:28:44:981 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:982 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:982 kernel.c/(10606:10606):  
+[INFO] 17:28:44:983 kernel.c/(10606:10606): EXEC QUEUE -
+[INFO] 17:28:44:984 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:985 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:985 kernel.c/(10606:10606):  
+[INFO] 17:28:44:986 kernel.c/(10606:10606): BLOCK QUEUE -
+[INFO] 17:28:44:986 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:987 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:988 kernel.c/(10606:10606):  
+[INFO] 17:28:44:989 kernel.c/(10606:10606): EXIT QUEUE -
+[INFO] 17:28:44:989 kernel.c/(10606:10606): ********************Process Status Report********************
+[DEBUG] 17:28:44:990 kernel.c/(10606:10606): No hay proesos :(!
+
+[INFO] 17:28:44:990 kernel.c/(10606:10606):  
+[DEBUG] 17:30:48:817 kernel.c/(10689:10689): prueba
+[DEBUG] 17:30:48:823 kernel.c/(10689:10689): NEW QUEUE -
+[INFO] 17:30:48:823 kernel.c/(10689:10689): ********************Process Status Report********************
+[INFO] 17:30:48:824 kernel.c/(10689:10689): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:30:48:824 kernel.c/(10689:10689): -----------------32-----------0------------0---------------
+[INFO] 17:30:48:825 kernel.c/(10689:10689): *************************************************************
+[INFO] 17:30:48:826 kernel.c/(10689:10689):  
+[INFO] 17:30:48:827 kernel.c/(10689:10689): READY QUEUE -
+[INFO] 17:30:48:827 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:828 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:828 kernel.c/(10689:10689):  
+[INFO] 17:30:48:834 kernel.c/(10689:10689): EXEC QUEUE -
+[INFO] 17:30:48:834 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:835 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:837 kernel.c/(10689:10689):  
+[INFO] 17:30:48:838 kernel.c/(10689:10689): BLOCK QUEUE -
+[INFO] 17:30:48:838 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:839 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:840 kernel.c/(10689:10689):  
+[INFO] 17:30:48:840 kernel.c/(10689:10689): EXIT QUEUE -
+[INFO] 17:30:48:841 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:842 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:843 kernel.c/(10689:10689):  
+[DEBUG] 17:30:48:853 kernel.c/(10689:10689): NEW QUEUE -
+[INFO] 17:30:48:854 kernel.c/(10689:10689): ********************Process Status Report********************
+[INFO] 17:30:48:854 kernel.c/(10689:10689): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:30:48:855 kernel.c/(10689:10689): -----------------32-----------0------------0---------------
+[INFO] 17:30:48:856 kernel.c/(10689:10689): *************************************************************
+[INFO] 17:30:48:856 kernel.c/(10689:10689):  
+[INFO] 17:30:48:856 kernel.c/(10689:10689): READY QUEUE -
+[INFO] 17:30:48:857 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:858 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:858 kernel.c/(10689:10689):  
+[INFO] 17:30:48:859 kernel.c/(10689:10689): EXEC QUEUE -
+[INFO] 17:30:48:861 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:863 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:864 kernel.c/(10689:10689):  
+[INFO] 17:30:48:865 kernel.c/(10689:10689): BLOCK QUEUE -
+[INFO] 17:30:48:865 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:868 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:869 kernel.c/(10689:10689):  
+[INFO] 17:30:48:871 kernel.c/(10689:10689): EXIT QUEUE -
+[INFO] 17:30:48:871 kernel.c/(10689:10689): ********************Process Status Report********************
+[DEBUG] 17:30:48:875 kernel.c/(10689:10689): No hay proesos :(!
+
+[INFO] 17:30:48:876 kernel.c/(10689:10689):  
+[DEBUG] 17:34:07:332 kernel.c/(10834:10834): prueba
+[DEBUG] 17:34:07:339 kernel.c/(10834:10834): NEW QUEUE -
+[INFO] 17:34:07:341 kernel.c/(10834:10834): ********************Process Status Report********************
+[INFO] 17:34:07:342 kernel.c/(10834:10834): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:34:07:342 kernel.c/(10834:10834): -----------------32-----------0------------0---------------
+[INFO] 17:34:07:343 kernel.c/(10834:10834): -----------------35-----------0------------0---------------
+[INFO] 17:34:07:346 kernel.c/(10834:10834): *************************************************************
+[INFO] 17:34:07:348 kernel.c/(10834:10834):  
+[INFO] 17:34:07:351 kernel.c/(10834:10834): READY QUEUE -
+[INFO] 17:34:07:351 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:352 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:361 kernel.c/(10834:10834):  
+[INFO] 17:34:07:362 kernel.c/(10834:10834): EXEC QUEUE -
+[INFO] 17:34:07:363 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:363 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:364 kernel.c/(10834:10834):  
+[INFO] 17:34:07:365 kernel.c/(10834:10834): BLOCK QUEUE -
+[INFO] 17:34:07:365 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:366 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:366 kernel.c/(10834:10834):  
+[INFO] 17:34:07:367 kernel.c/(10834:10834): EXIT QUEUE -
+[INFO] 17:34:07:368 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:368 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:370 kernel.c/(10834:10834):  
+[DEBUG] 17:34:07:379 kernel.c/(10834:10834): NEW QUEUE -
+[INFO] 17:34:07:380 kernel.c/(10834:10834): ********************Process Status Report********************
+[INFO] 17:34:07:380 kernel.c/(10834:10834): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:34:07:381 kernel.c/(10834:10834): -----------------32-----------0------------0---------------
+[INFO] 17:34:07:381 kernel.c/(10834:10834): -----------------35-----------0------------0---------------
+[INFO] 17:34:07:382 kernel.c/(10834:10834): *************************************************************
+[INFO] 17:34:07:382 kernel.c/(10834:10834):  
+[INFO] 17:34:07:383 kernel.c/(10834:10834): READY QUEUE -
+[INFO] 17:34:07:383 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:384 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:386 kernel.c/(10834:10834):  
+[INFO] 17:34:07:387 kernel.c/(10834:10834): EXEC QUEUE -
+[INFO] 17:34:07:387 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:388 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:389 kernel.c/(10834:10834):  
+[INFO] 17:34:07:394 kernel.c/(10834:10834): BLOCK QUEUE -
+[INFO] 17:34:07:394 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:395 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:396 kernel.c/(10834:10834):  
+[INFO] 17:34:07:396 kernel.c/(10834:10834): EXIT QUEUE -
+[INFO] 17:34:07:397 kernel.c/(10834:10834): ********************Process Status Report********************
+[DEBUG] 17:34:07:397 kernel.c/(10834:10834): No hay proesos :(!
+
+[INFO] 17:34:07:398 kernel.c/(10834:10834):  
+[DEBUG] 17:38:58:27 kernel.c/(10897:10897): prueba
+[DEBUG] 17:38:58:35 kernel.c/(10897:10897): NEW QUEUE -
+[INFO] 17:38:58:35 kernel.c/(10897:10897): ********************Process Status Report********************
+[INFO] 17:38:58:36 kernel.c/(10897:10897): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:38:58:36 kernel.c/(10897:10897): -----------------32-----------0------------0---------------
+[INFO] 17:38:58:37 kernel.c/(10897:10897): -----------------35-----------0------------0---------------
+[INFO] 17:38:58:37 kernel.c/(10897:10897): *************************************************************
+[INFO] 17:38:58:38 kernel.c/(10897:10897):  
+[INFO] 17:38:58:42 kernel.c/(10897:10897): READY QUEUE -
+[INFO] 17:38:58:43 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:43 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:44 kernel.c/(10897:10897):  
+[INFO] 17:38:58:44 kernel.c/(10897:10897): EXEC QUEUE -
+[INFO] 17:38:58:45 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:45 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:46 kernel.c/(10897:10897):  
+[INFO] 17:38:58:46 kernel.c/(10897:10897): BLOCK QUEUE -
+[INFO] 17:38:58:47 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:47 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:48 kernel.c/(10897:10897):  
+[INFO] 17:38:58:49 kernel.c/(10897:10897): EXIT QUEUE -
+[INFO] 17:38:58:49 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:49 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:51 kernel.c/(10897:10897):  
+[DEBUG] 17:38:58:62 kernel.c/(10897:10897): NEW QUEUE -
+[INFO] 17:38:58:63 kernel.c/(10897:10897): ********************Process Status Report********************
+[INFO] 17:38:58:63 kernel.c/(10897:10897): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:38:58:64 kernel.c/(10897:10897): -----------------32-----------0------------0---------------
+[INFO] 17:38:58:64 kernel.c/(10897:10897): -----------------35-----------0------------0---------------
+[INFO] 17:38:58:65 kernel.c/(10897:10897): *************************************************************
+[INFO] 17:38:58:65 kernel.c/(10897:10897):  
+[INFO] 17:38:58:66 kernel.c/(10897:10897): READY QUEUE -
+[INFO] 17:38:58:67 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:67 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:68 kernel.c/(10897:10897):  
+[INFO] 17:38:58:68 kernel.c/(10897:10897): EXEC QUEUE -
+[INFO] 17:38:58:69 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:70 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:70 kernel.c/(10897:10897):  
+[INFO] 17:38:58:71 kernel.c/(10897:10897): BLOCK QUEUE -
+[INFO] 17:38:58:71 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:72 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:73 kernel.c/(10897:10897):  
+[INFO] 17:38:58:73 kernel.c/(10897:10897): EXIT QUEUE -
+[INFO] 17:38:58:74 kernel.c/(10897:10897): ********************Process Status Report********************
+[DEBUG] 17:38:58:74 kernel.c/(10897:10897): No hay proesos :(!
+
+[INFO] 17:38:58:75 kernel.c/(10897:10897):  
+[DEBUG] 17:47:43:385 kernel.c/(11044:11044): prueba
+[DEBUG] 17:47:43:388 kernel.c/(11044:11044): NEW QUEUE -
+[INFO] 17:47:43:390 kernel.c/(11044:11044): ********************Process Status Report********************
+[INFO] 17:47:43:392 kernel.c/(11044:11044): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:47:43:395 kernel.c/(11044:11044): -----------------32-----------0------------0---------------
+[INFO] 17:47:43:395 kernel.c/(11044:11044): -----------------35-----------0------------0---------------
+[INFO] 17:47:43:396 kernel.c/(11044:11044): *************************************************************
+[INFO] 17:47:43:396 kernel.c/(11044:11044):  
+[INFO] 17:47:43:401 kernel.c/(11044:11044): READY QUEUE -
+[INFO] 17:47:43:401 kernel.c/(11044:11044): ********************Process Status Report********************
+[INFO] 17:47:43:402 kernel.c/(11044:11044): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:47:43:402 kernel.c/(11044:11044): -----------------32-----------0------------0---------------
+[INFO] 17:47:43:403 kernel.c/(11044:11044): -----------------35-----------0------------0---------------
+[INFO] 17:47:43:403 kernel.c/(11044:11044): *************************************************************
+[INFO] 17:47:43:404 kernel.c/(11044:11044):  
+[INFO] 17:47:43:405 kernel.c/(11044:11044): EXEC QUEUE -
+[INFO] 17:47:43:405 kernel.c/(11044:11044): ********************Process Status Report********************
+[DEBUG] 17:47:43:406 kernel.c/(11044:11044): No hay proesos :(!
+
+[INFO] 17:47:43:407 kernel.c/(11044:11044):  
+[INFO] 17:47:43:407 kernel.c/(11044:11044): BLOCK QUEUE -
+[INFO] 17:47:43:408 kernel.c/(11044:11044): ********************Process Status Report********************
+[DEBUG] 17:47:43:409 kernel.c/(11044:11044): No hay proesos :(!
+
+[INFO] 17:47:43:416 kernel.c/(11044:11044):  
+[INFO] 17:47:43:416 kernel.c/(11044:11044): EXIT QUEUE -
+[INFO] 17:47:43:417 kernel.c/(11044:11044): ********************Process Status Report********************
+[DEBUG] 17:47:43:417 kernel.c/(11044:11044): No hay proesos :(!
+
+[INFO] 17:47:43:418 kernel.c/(11044:11044):  
+[DEBUG] 17:47:43:421 kernel.c/(11044:11044): NEW QUEUE -
+[INFO] 17:47:43:422 kernel.c/(11044:11044): ********************Process Status Report********************
+[INFO] 17:47:43:423 kernel.c/(11044:11044): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:47:43:423 kernel.c/(11044:11044): -----------------32-----------0------------0---------------
+[INFO] 17:47:43:423 kernel.c/(11044:11044): -----------------35-----------0------------0---------------
+[INFO] 17:47:43:424 kernel.c/(11044:11044): *************************************************************
+[INFO] 17:47:43:425 kernel.c/(11044:11044):  
+[INFO] 17:47:43:426 kernel.c/(11044:11044): READY QUEUE -
+[INFO] 17:47:43:427 kernel.c/(11044:11044): ********************Process Status Report********************
+[INFO] 17:47:43:429 kernel.c/(11044:11044): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 17:47:43:429 kernel.c/(11044:11044): -----------------32-----------0------------0---------------
+[INFO] 17:47:43:430 kernel.c/(11044:11044): -----------------35-----------0------------0---------------
+[INFO] 17:47:43:432 kernel.c/(11044:11044): *************************************************************
+[INFO] 17:47:43:433 kernel.c/(11044:11044):  
+[INFO] 17:47:43:433 kernel.c/(11044:11044): EXEC QUEUE -
+[INFO] 17:47:43:434 kernel.c/(11044:11044): ********************Process Status Report********************
+[DEBUG] 17:47:43:436 kernel.c/(11044:11044): No hay proesos :(!
+
+[INFO] 17:47:43:437 kernel.c/(11044:11044):  
+[INFO] 17:47:43:439 kernel.c/(11044:11044): BLOCK QUEUE -
+[INFO] 17:47:43:440 kernel.c/(11044:11044): ********************Process Status Report********************
+[DEBUG] 17:47:43:445 kernel.c/(11044:11044): No hay proesos :(!
+
+[INFO] 17:47:43:445 kernel.c/(11044:11044):  
+[INFO] 17:47:43:446 kernel.c/(11044:11044): EXIT QUEUE -
+[INFO] 17:47:43:447 kernel.c/(11044:11044): ********************Process Status Report********************
+[DEBUG] 17:47:43:447 kernel.c/(11044:11044): No hay proesos :(!
+
+[INFO] 17:47:43:448 kernel.c/(11044:11044):  
+[DEBUG] 14:35:13:877 kernel.c/(2236:2236): prueba
+[DEBUG] 14:35:13:900 kernel.c/(2236:2236): NEW QUEUE -
+[INFO] 14:35:13:900 kernel.c/(2236:2236): ********************Process Status Report********************
+[INFO] 14:35:13:900 kernel.c/(2236:2236): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 14:35:13:900 kernel.c/(2236:2236): -----------------32-----------0------------0---------------
+[INFO] 14:35:13:901 kernel.c/(2236:2236): -----------------35-----------0------------0---------------
+[INFO] 14:35:13:901 kernel.c/(2236:2236): *************************************************************
+[INFO] 14:35:13:901 kernel.c/(2236:2236):  
+[INFO] 14:35:13:901 kernel.c/(2236:2236): READY QUEUE -
+[INFO] 14:35:13:901 kernel.c/(2236:2236): ********************Process Status Report********************
+[INFO] 14:35:13:905 kernel.c/(2236:2236): -----------------PID---------WEIGHT---------FD---------------
+[INFO] 14:35:13:907 kernel.c/(2236:2236): -----------------32-----------0------------0---------------
+[INFO] 14:35:13:909 kernel.c/(2236:2236): -----------------35-----------0------------0---------------
+[INFO] 14:35:13:909 kernel.c/(2236:2236): *************************************************************
+[INFO] 14:35:13:909 kernel.c/(2236:2236):  
+[INFO] 14:35:13:909 kernel.c/(2236:2236): EXEC QUEUE -
+[INFO] 14:35:13:909 kernel.c/(2236:2236): ********************Process Status Report********************
+[DEBUG] 14:35:13:910 kernel.c/(2236:2236): No hay proesos :(!
+
+[INFO] 14:35:13:910 kernel.c/(2236:2236):  
+[INFO] 14:35:13:910 kernel.c/(2236:2236): BLOCK QUEUE -
+[INFO] 14:35:13:910 kernel.c/(2236:2236): ********************Process Status Report********************
+[DEBUG] 14:35:13:910 kernel.c/(2236:2236): No hay proesos :(!
+
+[INFO] 14:35:13:911 kernel.c/(2236:2236):  
+[INFO] 14:35:13:911 kernel.c/(2236:2236): EXIT QUEUE -
+[INFO] 14:35:13:915 kernel.c/(2236:2236): ********************Process Status Report********************
+[DEBUG] 14:35:13:915 kernel.c/(2236:2236): No hay proesos :(!
+
+[INFO] 14:35:13:916 kernel.c/(2236:2236):  

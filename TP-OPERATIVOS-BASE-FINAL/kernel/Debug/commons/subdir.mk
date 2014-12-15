@@ -4,32 +4,41 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../funciones_kernel.c \
-../funciones_manejo_cola.c \
-../kernel.c \
-../loader.c \
-../planificador.c \
-../servicios_kernel.c 
+../commons/bitarray.c \
+../commons/config.c \
+../commons/error.c \
+../commons/log.c \
+../commons/process.c \
+../commons/sockets.c \
+../commons/string.c \
+../commons/temporal.c \
+../commons/txt.c 
 
 OBJS += \
-./funciones_kernel.o \
-./funciones_manejo_cola.o \
-./kernel.o \
-./loader.o \
-./planificador.o \
-./servicios_kernel.o 
+./commons/bitarray.o \
+./commons/config.o \
+./commons/error.o \
+./commons/log.o \
+./commons/process.o \
+./commons/sockets.o \
+./commons/string.o \
+./commons/temporal.o \
+./commons/txt.o 
 
 C_DEPS += \
-./funciones_kernel.d \
-./funciones_manejo_cola.d \
-./kernel.d \
-./loader.d \
-./planificador.d \
-./servicios_kernel.d 
+./commons/bitarray.d \
+./commons/config.d \
+./commons/error.d \
+./commons/log.d \
+./commons/process.d \
+./commons/sockets.d \
+./commons/string.d \
+./commons/temporal.d \
+./commons/txt.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.c
+commons/%.o: ../commons/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
 	gcc -I"/home/utnso/workspace/commons" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
