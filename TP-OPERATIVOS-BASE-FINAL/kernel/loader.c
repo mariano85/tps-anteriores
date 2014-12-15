@@ -6,8 +6,9 @@
  */
 
 #include "kernel.h"
-t_log* logKernel;
+t_log* logLoader;
 
+void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio);
 
 // get sockaddr, IPv4 or IPv6:
 void *get_in_addr(struct sockaddr *sa) {
@@ -18,9 +19,9 @@ void *get_in_addr(struct sockaddr *sa) {
 	return &(((struct sockaddr_in6*) sa)->sin6_addr);
 }
 
-void* loader(t_loaderThread *loaderThread){
-	int myPID = process_get_thread_id();
-	log_info(logKernel, "************** PLP Thread Started!(PID: %d) ***************", myPID);
+void* loader(t_thread *loaderThread){
+	int tid = process_get_thread_id();
+	log_info(logLoader, "************** El Thread del Loder comenzó!(PID: %d) ***************", tid);
 
 	fd_set master; //file descriptor list
 	fd_set read_fds; //file descriptor list temporal para el select()
@@ -92,7 +93,7 @@ void* loader(t_loaderThread *loaderThread){
 							&addrlen);
 
 					if (newfd == -1) {
-						log_error(logKernel, string_from_format( "Hubo un error en el accept para el fd: %i", i));
+						log_error(logLoader, string_from_format( "Hubo un error en el accept para el fd: %i", i));
 					} else {
 						FD_SET(newfd, &master); // add to master set
 						if (newfd > fdmax) {    // keep track of the max
@@ -100,7 +101,7 @@ void* loader(t_loaderThread *loaderThread){
 						}
 
 						//Shows the new connection administrated
-						log_info(logKernel,
+						log_info(logLoader,
 								string_from_format(
 										"selectserver: new connection from %s on socket %d\n",
 										inet_ntop(remoteaddr.ss_family,
@@ -112,7 +113,7 @@ void* loader(t_loaderThread *loaderThread){
 				} else {
 					t_contenido mensaje; //buffer para el dato del cliente
 					memset(mensaje, 0, sizeof(t_contenido));
-					t_header header = recibirMensaje(i, mensaje, logKernel);
+					t_header header = recibirMensaje(i, mensaje, logLoader);
 
 					switch (header) {
 					case ERR_CONEXION_CERRADA:
@@ -122,40 +123,80 @@ void* loader(t_loaderThread *loaderThread){
 						FD_CLR(i, &master); // remove from master set
 
 						if(i == socketMSP){
-							log_info(logKernel, "Wow! La UMV se desconectó! Imposible seguir funcionando! :/");
+							// no parece posible que llegue aca, porque el kernel se conecta a la msp y no al reves
+							log_info(logLoader, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
 						}
-						else if(stillInside(i)){
-							int32_t processPID = getProcessPidByFd(i);
-							removeProcess(processPID, true);
-							mostrarColas();
+						else {
+							t_process* aProcess = encontrarYRemoverProcesoPorFD(i);
+							// agrego proceso a la cola de EXIT
+							agregarProcesoColaExit(aProcess, EXIT_ABORT_CON);
 						}
 
 						break;
 					case ERR_ERROR_AL_RECIBIR_MSG:
 						//TODO retry?l
 						break;
-					case CON_TO_KRN_HANDSHAKE:
-						enviarMensaje(i, CON_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
+					case PRG_TO_KRN_HANDSHAKE:
+						enviarMensaje(i, PRG_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logLoader);
 						break;
-					case CON_TO_KRN_CODE: {
-						char* stringCode = recibirCodigo(i, CON_TO_KRN_CODE, logKernel);
+					case PRG_TO_KRN_CODE: {
+						char *codigoBESO = NULL;
+						t_process *procesoNuevo = NULL;
 
-						log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
-						log_debug(logKernel, string_from_format( "El codigo recibido es:\n %s \n", stringCode));
+						char** split = string_get_string_as_array(mensaje);
+						int32_t programPID = i;//atoi(split[0]);
+						int32_t programTID = 0;//atoi(split[1]);
+						size_t tamanioCodigo = atoi(split[2]);
 
-						int32_t programPID = atoi(mensaje);
-						t_process* aProcess = getProcessStructureByBESOCode(stringCode, programPID, i);
-						log_info(logKernel, "Se generó la estructura del proceso con éxito!");
-						agregarProcesoColaNew(aProcess);
+						codigoBESO = calloc(tamanioCodigo, 1);
+
+						enviarMensaje(i, PRG_TO_KRN_CODE, "Se espera el codigo BESO...", logLoader);
+
+						recibir(i, codigoBESO, tamanioCodigo);
+
+						grabarCodigoRecibido(codigoBESO, "beso.bc", tamanioCodigo);
+
+						log_debug(logLoader, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
+
+						procesoNuevo = getProcesoDesdeCodigoBESO(MODO_USUARIO, codigoBESO, tamanioCodigo, programPID, programTID, i);
+
+						free(codigoBESO);
+
+						if(procesoNuevo == NULL){
+							enviarMensaje(i, KERNEL_TO_PRG_NO_MEMORY, "No hay memoria suficiente", logLoader);
+						}
+
+						log_info(logLoader, "Se generó la estructura del proceso con éxito!");
+						agregarProcesoColaNew(procesoNuevo);
 
 						break;
 					}
 					default:
 						;
 					}
-				} // END handle data from client
-			} // END got new incoming connection
-		} // END looping through file descriptors
-	} // END for(;;)--and you thought it would never end!
-	return NULL ;
+				}
+			}
+		}
+	}
+	return NULL;
+}
+
+char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo){
+
+	enviarMensaje(socketConsola, PRG_TO_KRN_CODE, "Se espera el codigo beso", logLoader);
+	char *codigoBeso = calloc(1, tamanioCodigo);
+
+	if( (recibir(socketConsola, codigoBeso, tamanioCodigo)) != EXITO_SOCK){
+		free(codigoBeso);
+		codigoBeso = NULL;
+	}
+
+	return codigoBeso;
+}
+
+void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio){
+
+	FILE* fp = fopen(nombreArchivo, "w+");
+	fwrite(codigoBeso, tamanio, 1, fp);
+
 }
