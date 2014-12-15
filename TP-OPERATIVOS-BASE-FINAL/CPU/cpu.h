@@ -39,6 +39,10 @@
 #define registro_C "C"
 #define registro_D "D"
 #define registro_E "E"
+#define registro_M "M"
+#define registro_P "P"
+#define registro_X "X"
+#define registro_S "S"
 
 #define PROGRAMA_CONF_PATH "configuracion.conf"
 #define PUERTO_KERNEL "PUERTO_KERNEL"
@@ -107,6 +111,7 @@ int	p_HILO;
 int32_t program_counter;
 char* ipKernel  ;
 int32_t QUANTUM;
+int32_t aux_INTE;
 int cont;
 int termino_proceso_XXXX;
 int newFD;

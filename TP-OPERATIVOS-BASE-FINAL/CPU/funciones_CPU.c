@@ -69,9 +69,9 @@
 
 void buscador_de_instruccion(char* instruccion){
 
-	program_counter = aumentarProgramCounter(program_counter,4);
+	P = aumentarProgramCounter(P,4);
 
-	log_info(logs,"el program_counter es %d",program_counter);
+	log_info(logs,"el program_counter es %d",P);
 
 	//#1 LOAD : carga en el registro el numero dado
 
@@ -79,7 +79,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 5;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -116,7 +116,14 @@ void buscador_de_instruccion(char* instruccion){
 
 			case 4 : instruccion_LOAD(&E,numero);
 							break;
-
+			case 5 : instruccion_LOAD(&M,numero);
+							break;
+			case 6 : instruccion_LOAD(&P,numero);
+							break;
+			case 7 : instruccion_LOAD(&X,numero);
+							break;
+			case 8 : instruccion_LOAD(&S,numero);
+							break;
 			}
 
 
@@ -126,7 +133,7 @@ void buscador_de_instruccion(char* instruccion){
 		}
 
 		estado_registros();
-		program_counter = aumentarProgramCounter(program_counter,5);
+		P = aumentarProgramCounter(P,5);
 	}
 
 //#2 GETM : Obtiene el valor de memoria apuntado por el segundo registro.El valor obtenido lo asigna en el primer registro
@@ -135,7 +142,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 2;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -170,6 +177,15 @@ void buscador_de_instruccion(char* instruccion){
 												break;
 						case 4: funcion_verificador_segundo_registro_GETM(&E,aux2);
 												break;
+						case 5: funcion_verificador_segundo_registro_GETM(&M,aux2);
+												break;
+						case 6: funcion_verificador_segundo_registro_GETM(&P,aux2);
+												break;
+						case 7: funcion_verificador_segundo_registro_GETM(&X,aux2);
+												break;
+						case 8: funcion_verificador_segundo_registro_GETM(&S,aux2);
+												break;
+
 				} //Fin del switch
 
 				estado_registros();
@@ -178,7 +194,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		} //Fin del If
 
-		program_counter = aumentarProgramCounter(program_counter,2);
+		P = aumentarProgramCounter(P,2);
 
 	}
 	//#3 SETM : Pone tantos bytes desde el segundo registro, hacia la memoria apuntada por el primer registro
@@ -187,7 +203,7 @@ void buscador_de_instruccion(char* instruccion){
 
 
 		int32_t auxiliar_numero = 4;
-		enviar_parametros(program_counter,auxiliar_numero);
+		enviar_parametros(P,auxiliar_numero);
 
 		t_contenido mensaje_para_recibir_numero;
 		memset(mensaje_para_recibir_numero,0,sizeof(t_contenido));
@@ -195,12 +211,12 @@ void buscador_de_instruccion(char* instruccion){
 
 			if(header_recibir_numero == MSP_TO_CPU_BYTES_ENVIADOS){
 
-				program_counter = aumentarProgramCounter(program_counter,4);
+				P = aumentarProgramCounter(P,4);
 
 			}
 
 		int32_t auxiliar_registros = 2;
-		enviar_parametros(program_counter,auxiliar_registros);
+		enviar_parametros(P,auxiliar_registros);
 
 		t_contenido mensaje_para_recibir_registros;
 		memset(mensaje_para_recibir_registros,0,sizeof(t_contenido));
@@ -236,6 +252,15 @@ void buscador_de_instruccion(char* instruccion){
 								case 3 :  instruccion_SETM(numero,var,&D);
 											break;
 								case 4 : instruccion_SETM(numero,var,&E);
+											break;
+								case 5 : instruccion_SETM(numero,var,&M);
+											break;
+								case 6 : instruccion_SETM(numero,var,&P);
+											break;
+								case 7 : instruccion_SETM(numero,var,&X);
+											break;
+								case 8 : instruccion_SETM(numero,var,&S);
+											break;
 									}
 						}
 
@@ -251,6 +276,15 @@ void buscador_de_instruccion(char* instruccion){
 											break;
 						case 4 :_verificador_segunda_instruccion_SETM(&E,aux2);
 											break;
+						case 5 :_verificador_segunda_instruccion_SETM(&M,aux2);
+											break;
+						case 6 :_verificador_segunda_instruccion_SETM(&P,aux2);
+											break;
+						case 7 :_verificador_segunda_instruccion_SETM(&X,aux2);
+											break;
+						case 8 :_verificador_segunda_instruccion_SETM(&S,aux2);
+											break;
+
 										}
 
 					free(registro1);
@@ -260,7 +294,7 @@ void buscador_de_instruccion(char* instruccion){
 
 			}//fin if
 
-			program_counter = aumentarProgramCounter(program_counter,2);
+			P = aumentarProgramCounter(P,2);
 		}
 
 	//#4 MOVR : copia el valor del segundo registro al primer registro
@@ -269,7 +303,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 2;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -301,6 +335,16 @@ void buscador_de_instruccion(char* instruccion){
 						case 3 : instruccion_MOVR(var,&D);
 										break;
 						case 4 :instruccion_MOVR(var,&E);
+										break;
+						case 5 :instruccion_MOVR(var,&M);
+										break;
+						case 6 :instruccion_MOVR(var,&P);
+										break;
+						case 7 :instruccion_MOVR(var,&X);
+										break;
+						case 8 :instruccion_MOVR(var,&S);
+										break;
+
 							}
 						}
 
@@ -316,6 +360,14 @@ void buscador_de_instruccion(char* instruccion){
 										break;
 							case 4 :_verificador_segunda_instruccion_movr(&E,aux2);
 										break;
+							case 5 :_verificador_segunda_instruccion_movr(&M,aux2);
+										break;
+							case 6 :_verificador_segunda_instruccion_movr(&P,aux2);
+																	break;
+							case 7 :_verificador_segunda_instruccion_movr(&X,aux2);
+																	break;
+							case 8 :_verificador_segunda_instruccion_movr(&S,aux2);
+																	break;
 						}
 
 					free(registro1);
@@ -324,7 +376,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		}// Fin del if
 
-		program_counter = aumentarProgramCounter(program_counter,2);
+		P = aumentarProgramCounter(P,2);
 
 	}
 
@@ -334,7 +386,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 2;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -366,6 +418,15 @@ void buscador_de_instruccion(char* instruccion){
 							case 3 : instruccion_ADDR(var,&D);
 										break;
 							case 4 :instruccion_ADDR(var,&E);
+										break;
+							case 5 :instruccion_ADDR(var,&M);
+										break;
+							case 6 :instruccion_ADDR(var,&P);
+										break;
+							case 7 :instruccion_ADDR(var,&X);
+										break;
+							case 8 :instruccion_ADDR(var,&S);
+										break;
 				}
 			}
 
@@ -381,6 +442,14 @@ void buscador_de_instruccion(char* instruccion){
 									break;
 					case 4 :_verificador_segunda_instruccion_addr(&E,aux2);
 									break;
+					case 5 :_verificador_segunda_instruccion_addr(&M,aux2);
+														break;
+					case 6 :_verificador_segunda_instruccion_addr(&P,aux2);
+														break;
+					case 7 :_verificador_segunda_instruccion_addr(&X,aux2);
+														break;
+					case 8 :_verificador_segunda_instruccion_addr(&S,aux2);
+														break;
 			}
 
 			free(registro1);
@@ -389,7 +458,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		}
 
-		program_counter = aumentarProgramCounter(program_counter,2);
+		P = aumentarProgramCounter(P,2);
 
 	}
 
@@ -399,7 +468,7 @@ void buscador_de_instruccion(char* instruccion){
 
 				int32_t auxiliar = 2;
 
-				enviar_parametros(program_counter,auxiliar);
+				enviar_parametros(P,auxiliar);
 
 				t_contenido mensaje_para_recibir_bytes;
 				memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -440,6 +509,15 @@ void buscador_de_instruccion(char* instruccion){
 							case 3 : instruccion_SUBR(var,&D);
 											break;
 							case 4 :instruccion_SUBR(var,&E);
+											break;
+							case 5 :instruccion_SUBR(var,&M);
+																		break;
+							case 6 :instruccion_SUBR(var,&P);
+																		break;
+							case 7 :instruccion_SUBR(var,&X);
+																		break;
+							case 8 :instruccion_SUBR(var,&S);
+																		break;
 									}
 						}
 
@@ -454,12 +532,20 @@ void buscador_de_instruccion(char* instruccion){
 											break;
 							case 4 : _verificador_segunda_instruccion_subr(&E,aux2);
 											break;
+							case 5 : _verificador_segunda_instruccion_subr(&M,aux2);
+																		break;
+							case 6 : _verificador_segunda_instruccion_subr(&P,aux2);
+																		break;
+							case 7 : _verificador_segunda_instruccion_subr(&X,aux2);
+																		break;
+							case 8 : _verificador_segunda_instruccion_subr(&S,aux2);
+																		break;
 
 						}
 						free(registro_1);
 						free(registro_2);
 						estado_registros();
-						program_counter = aumentarProgramCounter(program_counter,2);
+						P = aumentarProgramCounter(P,2);
 
 				}
 		}
@@ -470,7 +556,7 @@ void buscador_de_instruccion(char* instruccion){
 
 			int32_t auxiliar = 2;
 
-			enviar_parametros(program_counter,auxiliar);
+			enviar_parametros(P,auxiliar);
 
 			t_contenido mensaje_para_recibir_bytes;
 			memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -506,6 +592,15 @@ void buscador_de_instruccion(char* instruccion){
 						case 3 : instruccion_MULR(var,&D);
 									break;
 						case 4 :instruccion_MULR(var,&E);
+									break;
+						case 5 :instruccion_MULR(var,&M);
+									break;
+						case 6 :instruccion_MULR(var,&P);
+									break;
+						case 7 :instruccion_MULR(var,&X);
+									break;
+						case 8 :instruccion_MULR(var,&S);
+									break;
 								}
 					}
 
@@ -518,12 +613,20 @@ void buscador_de_instruccion(char* instruccion){
 									break;
 					case 3 : _verificador_segunda_instruccion_mulr(&D,aux2);
 									break;
-						case 4 : _verificador_segunda_instruccion_mulr(&E,aux2);
+					case 4 : _verificador_segunda_instruccion_mulr(&E,aux2);
 									break;
+					case 5 : _verificador_segunda_instruccion_mulr(&M,aux2);
+														break;
+					case 6 : _verificador_segunda_instruccion_mulr(&P,aux2);
+														break;
+					case 7 : _verificador_segunda_instruccion_mulr(&X,aux2);
+														break;
+					case 8 : _verificador_segunda_instruccion_mulr(&S,aux2);
+														break;
 
 										}
 
-				program_counter = aumentarProgramCounter(program_counter,2);
+				P = aumentarProgramCounter(P,2);
 				free(registro_1);
 				free(registro_2);
 				estado_registros();
@@ -539,7 +642,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 2;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -574,6 +677,15 @@ void buscador_de_instruccion(char* instruccion){
 						case 3 :  instruccion_MODR(var,&D);
 									break;
 						case 4 : instruccion_MODR(var,&E);
+									break;
+						case 5 : instruccion_MODR(var,&M);
+															break;
+						case 6 : instruccion_MODR(var,&P);
+															break;
+						case 7 : instruccion_MODR(var,&X);
+															break;
+						case 8 : instruccion_MODR(var,&S);
+															break;
 								}
 					}
 
@@ -588,12 +700,20 @@ void buscador_de_instruccion(char* instruccion){
 									break;
 					case 4 : _verificador_segunda_instruccion_modr(&E,aux2);
 									break;
+					case 5 : _verificador_segunda_instruccion_modr(&M,aux2);
+														break;
+					case 6 : _verificador_segunda_instruccion_modr(&P,aux2);
+														break;
+					case 7 : _verificador_segunda_instruccion_modr(&X,aux2);
+														break;
+					case 8 : _verificador_segunda_instruccion_modr(&S,aux2);
+														break;
 
 										}
 
 				free(registro_1);
 				free(registro_2);
-				program_counter = aumentarProgramCounter(program_counter,2);
+				P = aumentarProgramCounter(P,2);
 				estado_registros();
 		}
 
@@ -605,7 +725,7 @@ void buscador_de_instruccion(char* instruccion){
 
 			int32_t auxiliar = 2;
 
-			enviar_parametros(program_counter,auxiliar);
+			enviar_parametros(P,auxiliar);
 
 
 			t_contenido mensaje_para_recibir_bytes;
@@ -641,6 +761,15 @@ void buscador_de_instruccion(char* instruccion){
 							case 3 :  instruccion_DIVR(var,&D);
 										break;
 							case 4 : instruccion_DIVR(var,&E);
+										break;
+							case 5 : instruccion_DIVR(var,&M);
+																	break;
+							case 6 : instruccion_DIVR(var,&P);
+																	break;
+							case 7 : instruccion_DIVR(var,&X);
+																	break;
+							case 8 : instruccion_DIVR(var,&S);
+																	break;
 									}
 						}
 
@@ -655,6 +784,14 @@ void buscador_de_instruccion(char* instruccion){
 										break;
 						case 4 : _verificador_segunda_instruccion_divr(&E,aux2);
 										break;
+						case 5 : _verificador_segunda_instruccion_divr(&M,aux2);
+																break;
+						case 6 : _verificador_segunda_instruccion_divr(&P,aux2);
+																break;
+						case 7 : _verificador_segunda_instruccion_divr(&X,aux2);
+																break;
+						case 8 : _verificador_segunda_instruccion_divr(&S,aux2);
+																break;
 
 						}
 
@@ -662,7 +799,7 @@ void buscador_de_instruccion(char* instruccion){
 					free(registro_2);
 					estado_registros();
 
-				program_counter = aumentarProgramCounter(program_counter,2);
+				P = aumentarProgramCounter(P,2);
 			}
 	}
 
@@ -672,7 +809,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 1;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -704,11 +841,19 @@ void buscador_de_instruccion(char* instruccion){
 
 				case 4 :instruccion_INCR(&E);
 								break;
+				case 5 :instruccion_INCR(&M);
+												break;
+				case 6 :instruccion_INCR(&P);
+												break;
+				case 7 :instruccion_INCR(&X);
+												break;
+				case 8 :instruccion_INCR(&S);
+												break;
 
 				}
 
 		estado_registros();
-		program_counter = aumentarProgramCounter(program_counter,1);
+		P = aumentarProgramCounter(P,1);
 
 		}
 
@@ -720,7 +865,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 1;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -752,11 +897,19 @@ void buscador_de_instruccion(char* instruccion){
 
 				case 4 :instruccion_DECR(&E);
 							break;
+				case 5 :instruccion_DECR(&M);
+											break;
+				case 6 :instruccion_DECR(&P);
+											break;
+				case 7 :instruccion_DECR(&X);
+											break;
+				case 8 :instruccion_DECR(&S);
+											break;
 
 						}
 
 				estado_registros();
-				program_counter = aumentarProgramCounter(program_counter,1);
+				P = aumentarProgramCounter(P,1);
 				free(registro_1);
 
 			}
@@ -770,7 +923,7 @@ void buscador_de_instruccion(char* instruccion){
 
 			int32_t auxiliar = 2;
 
-			enviar_parametros(program_counter,auxiliar);
+			enviar_parametros(P,auxiliar);
 
 			t_contenido mensaje_para_recibir_bytes;
 			memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -805,6 +958,16 @@ void buscador_de_instruccion(char* instruccion){
 							case 3 :  instruccion_COMP(var,&D);
 											break;
 							case 4 : instruccion_COMP(var,&E);
+											break;
+							case 5 : instruccion_COMP(var,&M);
+																		break;
+							case 6 : instruccion_COMP(var,&P);
+																		break;
+							case 7 : instruccion_COMP(var,&X);
+																		break;
+							case 8 : instruccion_COMP(var,&S);
+																		break;
+
 								}
 					}
 
@@ -819,12 +982,20 @@ void buscador_de_instruccion(char* instruccion){
 										break;
 					case 4 : _verificador_segunda_instruccion_comp(&E,aux2);
 										break;
+					case 5 : _verificador_segunda_instruccion_comp(&M,aux2);
+															break;
+					case 6 : _verificador_segunda_instruccion_comp(&P,aux2);
+															break;
+					case 7 : _verificador_segunda_instruccion_comp(&X,aux2);
+															break;
+					case 8 : _verificador_segunda_instruccion_comp(&S,aux2);
+															break;
 
 								}
 
 
 				estado_registros();
-				program_counter = aumentarProgramCounter(program_counter,2);
+				P = aumentarProgramCounter(P,2);
 				free(registro_1);
 				free(registro_2);
 
@@ -839,7 +1010,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 2;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -876,7 +1047,17 @@ void buscador_de_instruccion(char* instruccion){
 						case 3 :  instruccion_CGEQ(var,&D);
 										break;
 						case 4 : instruccion_CGEQ(var,&E);
+										break;
+						case 5 : instruccion_CGEQ(var,&M);
+																break;
+						case 6 : instruccion_CGEQ(var,&P);
+																break;
+						case 7 : instruccion_CGEQ(var,&X);
+																break;
+						case 8 : instruccion_CGEQ(var,&S);
+																break;
 							}
+
 				}
 
 					switch(aux1){
@@ -890,12 +1071,20 @@ void buscador_de_instruccion(char* instruccion){
 										break;
 						case 4 : _verificador_segunda_instruccion_cgeq(&E,aux2);
 										break;
+						case 5 : _verificador_segunda_instruccion_cgeq(&M,aux2);
+																break;
+						case 6 : _verificador_segunda_instruccion_cgeq(&P,aux2);
+																break;
+						case 7 : _verificador_segunda_instruccion_cgeq(&X,aux2);
+																break;
+						case 8 : _verificador_segunda_instruccion_cgeq(&S,aux2);
+																break;
 
 								}
 
 
 					estado_registros();
-					program_counter = aumentarProgramCounter(program_counter,2);
+					P = aumentarProgramCounter(P,2);
 					free(registro_1);
 					free(registro_2);
 
@@ -910,7 +1099,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 2;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -947,6 +1136,15 @@ void buscador_de_instruccion(char* instruccion){
 						case 3 :  instruccion_CLEQ(var,&D);
 										break;
 						case 4 : instruccion_CLEQ(var,&E);
+										break;
+						case 5 : instruccion_CLEQ(var,&M);
+															break;
+						case 6 : instruccion_CLEQ(var,&P);
+															break;
+						case 7 : instruccion_CLEQ(var,&X);
+															break;
+						case 8 : instruccion_CLEQ(var,&S);
+															break;
 						}
 				}
 
@@ -961,10 +1159,18 @@ void buscador_de_instruccion(char* instruccion){
 										break;
 						case 4 : _verificador_segunda_instruccion_cleq(&E,aux2);
 										break;
+						case 5 : _verificador_segunda_instruccion_cleq(&M,aux2);
+																break;
+						case 6 : _verificador_segunda_instruccion_cleq(&P,aux2);
+																break;
+						case 7 : _verificador_segunda_instruccion_cleq(&X,aux2);
+																break;
+						case 8 : _verificador_segunda_instruccion_cleq(&S,aux2);
+																break;
 
 						}
 
-							program_counter = aumentarProgramCounter(program_counter,2);
+							P = aumentarProgramCounter(P,2);
 							free(registro_1);
 							free(registro_2);
 							estado_registros();
@@ -979,7 +1185,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 1;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -1007,6 +1213,14 @@ void buscador_de_instruccion(char* instruccion){
 								break;
 				case 4 :instruccion_GOTO(&E);
 								break;
+				case 5 :instruccion_GOTO(&M);
+											break;
+				case 6 :instruccion_GOTO(&P);
+											break;
+				case 7 :instruccion_GOTO(&X);
+											break;
+				case 8 :instruccion_GOTO(&S);
+											break;
 
 					}
 				estado_registros();
@@ -1020,7 +1234,7 @@ void buscador_de_instruccion(char* instruccion){
 
 			int32_t auxiliar = 4;
 
-			enviar_parametros(program_counter,auxiliar);
+			enviar_parametros(P,auxiliar);
 
 			t_contenido mensaje_para_recibir_bytes;
 			memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -1048,7 +1262,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 4;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
@@ -1083,24 +1297,23 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 4;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_bytes;
 		memset(mensaje_para_recibir_bytes,0,sizeof(t_contenido));
 		t_header header_recibir_bytes = recibirMensaje(socketMSP,mensaje_para_recibir_bytes,logs);
 
-		if(header_recibir_bytes == MSP_TO_CPU_BYTES_RECIBIDOS){
-
-			log_info(logs,"voy a ejecutar una instruccion privilegiada");
+		if(header_recibir_bytes == MSP_TO_CPU_BYTES_ENVIADOS){
 
 			int32_t direccion_recibida;
 
 			memcpy(&direccion_recibida,mensaje_para_recibir_bytes,4);
 			instruccion_INTE(direccion_recibida);
-			program_counter = aumentarProgramCounter(program_counter,4);
-			estado_registros();
 
 		}
+
+		estado_registros();
+
 	}
 
 	//#20 SHIF [numero][registro]
@@ -1110,7 +1323,7 @@ void buscador_de_instruccion(char* instruccion){
 
 		int32_t auxiliar = 4;
 
-		enviar_parametros(program_counter,auxiliar);
+		enviar_parametros(P,auxiliar);
 
 		t_contenido mensaje_para_recibir_numero;
 		memset(mensaje_para_recibir_numero,0,sizeof(t_contenido));
@@ -1118,12 +1331,12 @@ void buscador_de_instruccion(char* instruccion){
 
 			if(header_recibir_numero == MSP_TO_CPU_BYTES_ENVIADOS){
 
-				program_counter = aumentarProgramCounter(program_counter,4);
+				P = aumentarProgramCounter(P,4);
 
 			}
 
 			int32_t auxiliar_registro = 1;
-			enviar_parametros(program_counter,auxiliar_registro);
+			enviar_parametros(P,auxiliar_registro);
 
 			t_contenido mensaje_para_recibir_registro;
 			memset(mensaje_para_recibir_registro,0,sizeof(t_contenido));
@@ -1152,6 +1365,14 @@ void buscador_de_instruccion(char* instruccion){
 										break;
 						case 4 : instruccion_SHIF(&E,numero);
 										break;
+						case 5 : instruccion_SHIF(&M,numero);
+																break;
+						case 6 : instruccion_SHIF(&P,numero);
+																break;
+						case 7 : instruccion_SHIF(&X,numero);
+																break;
+						case 8 : instruccion_SHIF(&S,numero);
+																break;
 						}
 
 					free(registro);
@@ -1161,7 +1382,7 @@ void buscador_de_instruccion(char* instruccion){
 
 
 			estado_registros();
-			program_counter = aumentarProgramCounter(program_counter,1);
+			P = aumentarProgramCounter(P,1);
 
 	}
 
@@ -1174,7 +1395,7 @@ void buscador_de_instruccion(char* instruccion){
 		log_info(logs,"entre al push");
 
 		int32_t auxiliar_numero = 4;
-		enviar_parametros(program_counter,auxiliar_numero);
+		enviar_parametros(P,auxiliar_numero);
 
 		t_contenido mensaje_para_recibir_numero;
 		memset(mensaje_para_recibir_numero,0,sizeof(t_contenido));
@@ -1182,12 +1403,12 @@ void buscador_de_instruccion(char* instruccion){
 
 		if(header_recibir_numero == MSP_TO_CPU_BYTES_ENVIADOS){
 
-			program_counter = aumentarProgramCounter(program_counter,4);
+			P = aumentarProgramCounter(P,4);
 
 		}
 
 		int32_t auxiliar_registro = 1;
-		enviar_parametros(program_counter,auxiliar_registro);
+		enviar_parametros(P,auxiliar_registro);
 
 		t_contenido mensaje_para_recibir_registro;
 		memset(mensaje_para_recibir_registro,0,sizeof(t_contenido));
@@ -1223,24 +1444,32 @@ void buscador_de_instruccion(char* instruccion){
 
 				case 4 : instruccion_PUSH(E,numero);
 								break;
+				case 5 : instruccion_PUSH(M,numero);
+												break;
+				case 6 : instruccion_PUSH(P,numero);
+												break;
+				case 7 : instruccion_PUSH(X,numero);
+												break;
+				case 8 : instruccion_PUSH(S,numero);
+												break;
 
 				}
 
-				program_counter = aumentarProgramCounter(program_counter,1);
+				P = aumentarProgramCounter(P,1);
 				free(registro);
 		}
 
 
 
 	}
-	//#TAKE
+	//#23 TAKE
 
 	if(string_equals_ignore_case(TAKE,instruccion)){
 
 		log_info(logs,"entre al take");
 
 		int32_t auxiliar_numero = 4;
-		enviar_parametros(program_counter,auxiliar_numero);
+		enviar_parametros(P,auxiliar_numero);
 
 		t_contenido mensaje_para_recibir_numero;
 		memset(mensaje_para_recibir_numero,0,sizeof(t_contenido));
@@ -1248,12 +1477,12 @@ void buscador_de_instruccion(char* instruccion){
 
 		if(header_recibir_numero == MSP_TO_CPU_BYTES_ENVIADOS){
 
-			program_counter = aumentarProgramCounter(program_counter,4);
+			P = aumentarProgramCounter(P,4);
 
 		}
 
 		int32_t auxiliar_registro = 1;
-		enviar_parametros(program_counter,auxiliar_registro);
+		enviar_parametros(P,auxiliar_registro);
 
 		t_contenido mensaje_para_recibir_registro;
 		memset(mensaje_para_recibir_registro,0,sizeof(t_contenido));
@@ -1286,10 +1515,18 @@ void buscador_de_instruccion(char* instruccion){
 									break;
 					case 4 : instruccion_TAKE(&E,numero);
 									break;
+					case 5 : instruccion_TAKE(&M,numero);
+														break;
+					case 6 : instruccion_TAKE(&P,numero);
+														break;
+					case 7 : instruccion_TAKE(&X,numero);
+														break;
+					case 8 : instruccion_TAKE(&S,numero);
+														break;
 
 							}
 
-				program_counter = aumentarProgramCounter(program_counter,1);
+				P = aumentarProgramCounter(P,1);
 				free(registro);
 
 			}
@@ -1307,9 +1544,6 @@ void buscador_de_instruccion(char* instruccion){
 
 	if(string_equals_ignore_case(MALC,instruccion)){
 
-		log_info(logs,"El MALC esta por entrar");
-
-
 		instruccion_MALC();
 	}
 
@@ -1317,7 +1551,6 @@ void buscador_de_instruccion(char* instruccion){
 
 	if(string_equals_ignore_case(FREE,instruccion)){
 
-				log_info(logs,"El FREE esta por entrar");
 
 				instruccion_FREE();
 
@@ -1326,8 +1559,6 @@ void buscador_de_instruccion(char* instruccion){
 	//#27 INNN
 
 	if(string_equals_ignore_case(INNN,instruccion)){
-
-				log_info(logs,"El INNN esta por entrar");
 
 				instruccion_INNN();
 
@@ -1338,13 +1569,10 @@ void buscador_de_instruccion(char* instruccion){
 
 	if(string_equals_ignore_case(XXXX,instruccion)){
 
-
-		log_info(logs,"El XXXX esta por entrar");
-
 		instruccion_XXXX();
 
 		cont = QUANTUM;
-		termino_proceso_XXXX = 1;
+		termino_proceso_XXXX = 0;
 
 	}
 
@@ -1364,6 +1592,14 @@ void buscador_de_instruccion(char* instruccion){
 		log_info(logs,"El CREA esta por entrar");
 
 		instruccion_CREA();
+
+
+	}
+
+	//#32 JOIN
+	if(string_equals_ignore_case(JOIN,instruccion)){
+
+
 
 
 	}
@@ -1434,7 +1670,24 @@ int32_t verificador_de_registro(char* valor){
 
 						return 4;
 				}
+	if(string_equals_ignore_case(valor,registro_M)){
 
+						return 5;
+	}
+
+	if(string_equals_ignore_case(valor,registro_P)){
+						return 6;
+	}
+
+	if(string_equals_ignore_case(valor,registro_X)){
+
+						return 7;
+	}
+
+	if(string_equals_ignore_case(valor,registro_S)){
+
+						return 8;
+	}
 	return -1;
 }
 
@@ -1451,6 +1704,15 @@ void funcion_verificador_segundo_registro_GETM(int32_t *var,int32_t aux2){
 							case 3 : instruccion_GETM(var,D);
 								break;
 							case 4 : instruccion_GETM(var,E);
+								break;
+							case 5 : instruccion_GETM(var,M);
+								break;
+							case 6 : instruccion_GETM(var,P);
+								break;
+							case 7 : instruccion_GETM(var,X);
+								break;
+							case 8 : instruccion_GETM(var,S);
+								break;
 
 						}
 					}
@@ -1461,14 +1723,14 @@ void enviar_parametros(int32_t program_counter,int32_t auxiliar){
 
 	t_contenido mensaje_cantidad_bytes;
 	memset(mensaje_cantidad_bytes,0,sizeof(t_contenido));
-	strcpy(mensaje_cantidad_bytes, string_from_format("[%d,%d]",program_counter,auxiliar));
+	strcpy(mensaje_cantidad_bytes, string_from_format("[%d,%d]",P,auxiliar));
 	enviarMensaje(socketMSP,CPU_TO_MSP_PARAMETROS,mensaje_cantidad_bytes,logs);
 }
 
 void estado_registros(){
 
 
-	log_info(logs,"el valor de los registros\n\tA:\t%d\n\tB:\t%d\n\tC:\t%d\n\tD:\t%d\n\tE:\t%d",A,B,C,D,E);
+	log_info(logs,"el valor de los registros\n\tA:\t%d\n\tB:\t%d\n\tC:\t%d\n\tD:\t%d\n\tE:\t%d\n\tX:\t%d\n\tS:\t%d\n\tP:\t%d\n\tM:\t%d",A,B,C,D,E,X,S,P,M);
 
 
 }

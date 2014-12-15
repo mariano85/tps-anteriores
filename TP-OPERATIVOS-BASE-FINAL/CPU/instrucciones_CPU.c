@@ -22,7 +22,7 @@ void instruccion_GETM(int32_t *Registro1,int32_t Registro2){
 
 	t_contenido mensaje_para_la_msp;
 	memset(mensaje_para_la_msp,0,sizeof(t_contenido));
-	strcpy(mensaje_para_la_msp,string_from_format("[%d,%d,%d]",TCB->pid,Registro2,sizeof(int32_t)));
+	strcpy(mensaje_para_la_msp,string_from_format("[%d,%d,%d]",TCB->pid,Registro2,1));
 	enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_la_msp,logs);
 
 	t_contenido mensaje_para_recibir_de_la_msp;
@@ -46,7 +46,7 @@ void instruccion_SETM(int32_t numero,int32_t *Registro1,int32_t *Registro2){
 
 	t_contenido mensaje_para_la_msp;
 	memset(mensaje_para_la_msp,0,sizeof(t_contenido));
-	strcpy(mensaje_para_la_msp, string_from_format("[%d,%d,%d,%d]",direccion_logica,4,numero_auxiliar,TCB->pid));
+	strcpy(mensaje_para_la_msp, string_from_format("[%d,%d,%d,%d]",direccion_logica,numero,numero_auxiliar,TCB->pid));
 	enviarMensaje(socketMSP,CPU_TO_MSP_ESCRIBIR_MEMORIA, mensaje_para_la_msp,logs);
 }
 
@@ -189,7 +189,7 @@ void instruccion_CLEQ(int32_t *Registro1,int32_t *Registro2){
 
 void instruccion_GOTO(int32_t *Registro){
 
-		program_counter =aumentarProgramCounter(TCB->base_segmento_codigo,*Registro);
+		P =aumentarProgramCounter(M,*Registro);
 
 }
 
@@ -199,7 +199,7 @@ void instruccion_JMPZ(int32_t Direccion){
 
 	if(A == 0){
 
-		program_counter = Direccion;
+		P = Direccion;
 
 	}
 }
@@ -211,7 +211,7 @@ void instruccion_JPNZ(int32_t Direccion){
 
 	if(A != 0){
 
-		program_counter = Direccion;
+		P = Direccion;
 
 		}
 }
@@ -220,17 +220,23 @@ void instruccion_JPNZ(int32_t Direccion){
 
 void instruccion_INTE(int32_t Direccion){
 
+	puts("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
 	systemCall = 1; //Se produjo un llamado al sistema
 
-	cargar_registros_TCB();
+//	cargar_registros_TCB();
+
+	P = aumentarProgramCounter(P,4);
 
 	// Envio TCB
 	t_contenido mensaje_para_mandar_TCB;
 	memset(mensaje_para_mandar_TCB,0,sizeof(t_contenido));
-	strcpy(mensaje_para_mandar_TCB,string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,TCB->base_segmento_codigo,TCB->tamanio_segmento_codigo,TCB->puntero_instruccion,TCB->base_stack,TCB->cursor_stack,TCB->registros_de_programacion.A,TCB->registros_de_programacion.B,TCB->registros_de_programacion.C,TCB->registros_de_programacion.D,TCB->registros_de_programacion.E,Direccion));
-	enviarMensaje(newFD,CPU_TO_KERNEL_INTERRUPCION,mensaje_para_mandar_TCB,logs);
+	strcpy(mensaje_para_mandar_TCB,string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,M,TCB->tamanio_segmento_codigo,P,X,S,A,B,C,D,E,Direccion));
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_INTERRUPCION,mensaje_para_mandar_TCB,logs);
 
+	puts("voy a setear aux_INTE");
 
+	aux_INTE = 1;
 
 }
 
@@ -364,11 +370,11 @@ void instruccion_CREA(){
 	recibirMensaje(socketMSP,mensaje_de_la_msp,logs);
 
 	tcb_HIJO->base_stack = atoi(mensaje_de_la_msp);
-	int tamanioUsado = TCB->cursor_stack - TCB->base_stack;
+	int tamanioUsado = S - X;
 	tcb_HIJO->cursor_stack = aumentarProgramCounter(tcb_HIJO->base_stack, tamanioUsado);
 
 	memset(mensaje_para_la_msp,0,sizeof(t_contenido));
-	strcpy(mensaje_para_la_msp, string_from_format("[%d,%d,%d]",tcb_HIJO->pid,TCB->base_stack,tamanioUsado));
+	strcpy(mensaje_para_la_msp, string_from_format("[%d,%d,%d]",tcb_HIJO->pid,X,tamanioUsado));
 	enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_la_msp,logs);
 
 
@@ -385,10 +391,10 @@ void instruccion_CREA(){
 
 	t_contenido mensaje_tcb_hijo_para_kernel;
 	memset(mensaje_tcb_hijo_para_kernel,0,sizeof(t_contenido));
-	strcpy(mensaje_tcb_hijo_para_kernel, string_from_format("[%d,%d,%d]",tcb_HIJO->pid,tcb_HIJO->tid,tcb_HIJO->puntero_instruccion));
+	strcpy(mensaje_tcb_hijo_para_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",tcb_HIJO->pid,tcb_HIJO->tid,tcb_HIJO->indicador_modo_kernel,M,TCB->tamanio_segmento_codigo,tcb_HIJO->puntero_instruccion,X,S,A,B,C,D,E));
 
 
-	enviarMensaje(newFD,CPU_TO_KERNEL_CREAR_HILO,mensaje_tcb_hijo_para_kernel,logs);
+	enviarMensaje(socketKernel,CPU_TO_KERNEL_CREAR_HILO,mensaje_tcb_hijo_para_kernel,logs);
 
 	free(tcb_HIJO);
 }
@@ -433,27 +439,27 @@ void instruccion_PUSH(int32_t Registro,int32_t numero){
 
 		t_contenido mensaje_para_guardar_numero_stack;
 		memset(mensaje_para_guardar_numero_stack,0,sizeof(t_contenido));
-		strcpy(mensaje_para_guardar_numero_stack,string_from_format("[%d,%d,%d,%d]",TCB->cursor_stack,4,a,TCB->pid));
+		strcpy(mensaje_para_guardar_numero_stack,string_from_format("[%d,%d,%d,%d]",S,4,a,TCB->pid));
 
 		enviarMensaje(socketMSP,CPU_TO_MSP_ESCRIBIR_MEMORIA,mensaje_para_guardar_numero_stack,logs);
 
 
-		TCB->cursor_stack = aumentarProgramCounter(TCB->cursor_stack,4);
+		S = aumentarProgramCounter(S,4);
 		estado_registros();
 
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void instruccion_TAKE(int32_t *Registro,int32_t numero){
 
-		int32_t tamanioUsadoStack = TCB->cursor_stack - TCB->base_stack;
+		int32_t tamanioUsadoStack = S - X;
 		int32_t bytesAAgregarParaNuevoCursor = tamanioUsadoStack - sizeof(int32_t);
-		int32_t nuevoCursor = aumentarProgramCounter(TCB->base_stack,bytesAAgregarParaNuevoCursor);
+		int32_t nuevoCursor = aumentarProgramCounter(X,bytesAAgregarParaNuevoCursor);
 
-		TCB->cursor_stack = nuevoCursor;
+		S = nuevoCursor;
 
 		t_contenido mensaje_para_desapilar_el_stack;
 		memset(mensaje_para_desapilar_el_stack,0,sizeof(t_contenido));
-		strcpy(mensaje_para_desapilar_el_stack, string_from_format("[%d,%d,%d]",TCB->pid,TCB->cursor_stack,4));
+		strcpy(mensaje_para_desapilar_el_stack, string_from_format("[%d,%d,%d]",TCB->pid,S,4));
 		enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_desapilar_el_stack,logs);
 
 		t_contenido recibir_mensaje;
@@ -468,9 +474,6 @@ void instruccion_TAKE(int32_t *Registro,int32_t numero){
 		memcpy(Registro,&valor_recibido,numero);
 
 		estado_registros();
-
-		log_info(logs,"LLEGO HASTA ACA");
-
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -529,6 +532,7 @@ void cargar_registros_TCB(){
 		TCB->registros_de_programacion.C = C;
 		TCB->registros_de_programacion.D = D;
 		TCB->registros_de_programacion.E = E;
+
 
 }
 

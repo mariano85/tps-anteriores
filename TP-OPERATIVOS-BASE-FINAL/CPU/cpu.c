@@ -89,6 +89,8 @@ int main() {
 
 			// Aca deberia quedarme a la escucha de que el Kernel me me mande el TCB
 
+
+
 			t_contenido mensaje_para_recibir_TCB;
 			memset(mensaje_para_recibir_TCB,0,sizeof(t_contenido));
 			recibirMensaje(socketKernel,mensaje_para_recibir_TCB,logs);
@@ -98,41 +100,44 @@ int main() {
 			TCB = malloc(sizeof(registro_TCB));
 
 			TCB->pid = atoi(array[0]); //1234;
-			TCB->base_segmento_codigo = atoi(array[1]);//1048576;
-			TCB->tamanio_segmento_codigo = atoi(array[2]);
-			QUANTUM = 18;
+			TCB->tid = atoi(array[1]);
+			TCB->indicador_modo_kernel = atoi(array[2]);
+			TCB->base_segmento_codigo = atoi(array[3]);//1048576;
+			TCB->tamanio_segmento_codigo = atoi(array[4]);
+			TCB->puntero_instruccion = atoi(array[5]);
+			TCB->base_stack = atoi(array[6]);
+			TCB->cursor_stack = atoi(array[7]);
+
+			A = atoi(array[8]);
+			B = atoi(array[9]);
+			C = atoi(array[10]);
+ 			D =	atoi(array[11]);
+			E =	atoi(array[12]);
+
+			QUANTUM = 500;
 		//	TCB->QUANTUM = atoi(array[3]);
-			TCB->indicador_modo_kernel = atoi(array[4]);
-			TCB->base_stack = atoi(array[5]);
-			TCB->cursor_stack = atoi(array[6]);
 
 			M = TCB->base_segmento_codigo;
 			P = TCB->puntero_instruccion;
 			X = TCB->base_stack;
 			S = TCB->cursor_stack;
 
+			MODO = TCB->indicador_modo_kernel;
+
 			log_info(logs,"el valor del pid es %d",TCB->pid);
 			log_info(logs,"el valor de la base es %d",TCB->base_segmento_codigo);
 			log_info(logs,"el valor del quantum  es %d",QUANTUM);
-			log_info(logs,"el valor del modo es %d",TCB->indicador_modo_kernel);
-			log_info(logs,"el valor de la base del stack es %d",TCB->base_stack);
-			log_info(logs,"el valor de la base del stack es %d",TCB->cursor_stack);
-
-
-			program_counter = TCB->base_segmento_codigo;
-			MODO = TCB->indicador_modo_kernel;
-
 			log_info(logs,"el modo es %d",MODO);
 
-			systemCall = 0;
 			cont = 0;
-			termino_proceso_XXXX = 0;
+			termino_proceso_XXXX = 1;
+			aux_INTE = 0;
 
-			while(cont < QUANTUM && MODO == MODO_USUARIO){
+			while(cont < QUANTUM && MODO == MODO_USUARIO && aux_INTE == 0){
 
 				t_contenido mensaje_para_solicitar_bytes_MSP;
 				memset(mensaje_para_solicitar_bytes_MSP,0,sizeof(t_contenido));
-				strcpy(mensaje_para_solicitar_bytes_MSP,string_from_format("[%d,%d,%d]",TCB->pid,program_counter,sizeof(int32_t)));
+				strcpy(mensaje_para_solicitar_bytes_MSP,string_from_format("[%d,%d,%d]",TCB->pid,P,sizeof(int32_t)));
 				enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_solicitar_bytes_MSP,logs);
 
 				usleep(60000);
@@ -155,12 +160,13 @@ int main() {
 
 			}// Fin while cont
 
-		while(TCB->indicador_modo_kernel == MODO_KERNEL && systemCall == 1 && termino_proceso_XXXX == 1){ //Para salir modifico en la instruccion XXXX el systemCall = 0
+
+		while(TCB->indicador_modo_kernel == MODO_KERNEL && termino_proceso_XXXX == 1){ //Para salir modifico en la instruccion XXXX el systemCall = 0
 
 				//Pido la instruccion a la MSP
 				t_contenido mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP;
 				memset(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,0,sizeof(t_contenido));
-				strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",TCB->pid,TCB->puntero_instruccion,sizeof(int32_t)));
+				strcpy(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP, string_from_format("[%d,%d,%d]",-1,P,sizeof(int32_t)));
 				enviarMensaje(socketMSP,CPU_TO_MSP_SOLICITAR_BYTES,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);
 
 				t_header header_verificar_mensaje = recibirMensaje(socketMSP,mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP,logs);
@@ -168,8 +174,9 @@ int main() {
 				if(header_verificar_mensaje == MSP_TO_CPU_BYTES_ENVIADOS){
 					log_info(logs,"La instruccion es %s",mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP);
 					buscador_de_instruccion(mensaje_para_pedirle_la_proxima_instruccion_a_la_MSP);
-					seguir = 0; //Es para salir el por el momento
 				}
+
+				cont = 0;
 
 			}//Fin while(systemCall)
 
@@ -178,10 +185,11 @@ int main() {
 
 				t_contenido mensaje_para_el_kernel;
 				memset(mensaje_para_el_kernel,0,sizeof(t_contenido));
-				strcpy(mensaje_para_el_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,program_counter,TCB->indicador_modo_kernel,A,B,C,D,E));
+				strcpy(mensaje_para_el_kernel, string_from_format("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",TCB->pid,TCB->tid,TCB->indicador_modo_kernel,M,TCB->tamanio_segmento_codigo,P,X,S,A,B,C,D,E));
 				enviarMensaje(socketKernel,CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE,mensaje_para_el_kernel,logs);
 
 				}
+
 
 			free(TCB);
 
