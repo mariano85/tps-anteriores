@@ -6,7 +6,7 @@
  */
 
 #include "kernel.h"
-t_log* logLoader;
+t_log* logKernel;
 
 void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio);
 
@@ -21,7 +21,7 @@ void *get_in_addr(struct sockaddr *sa) {
 
 void* loader(t_thread *loaderThread){
 	int tid = process_get_thread_id();
-	log_info(logLoader, "************** El Thread del Loder comenzó!(PID: %d) ***************", tid);
+	log_info(logKernel, "************** El Thread del Loder comenzó!(PID: %d) ***************", tid);
 
 	fd_set master; //file descriptor list
 	fd_set read_fds; //file descriptor list temporal para el select()
@@ -93,7 +93,7 @@ void* loader(t_thread *loaderThread){
 							&addrlen);
 
 					if (newfd == -1) {
-						log_error(logLoader, string_from_format( "Hubo un error en el accept para el fd: %i", i));
+						log_error(logKernel, string_from_format( "Hubo un error en el accept para el fd: %i", i));
 					} else {
 						FD_SET(newfd, &master); // add to master set
 						if (newfd > fdmax) {    // keep track of the max
@@ -101,7 +101,7 @@ void* loader(t_thread *loaderThread){
 						}
 
 						//Shows the new connection administrated
-						log_info(logLoader,
+						log_info(logKernel,
 								string_from_format(
 										"selectserver: new connection from %s on socket %d\n",
 										inet_ntop(remoteaddr.ss_family,
@@ -113,7 +113,7 @@ void* loader(t_thread *loaderThread){
 				} else {
 					t_contenido mensaje; //buffer para el dato del cliente
 					memset(mensaje, 0, sizeof(t_contenido));
-					t_header header = recibirMensaje(i, mensaje, logLoader);
+					t_header header = recibirMensaje(i, mensaje, logKernel);
 
 					switch (header) {
 					case ERR_CONEXION_CERRADA:
@@ -124,14 +124,17 @@ void* loader(t_thread *loaderThread){
 
 						t_process* aProcess = encontrarYRemoverProcesoPorFD(i);
 						// agrego proceso a la cola de EXIT
-						agregarProcesoColaExit(aProcess, EXIT_ABORT_CON);
+						if(aProcess != NULL){
+							log_info(logKernel, string_from_format( "Si llega hasta aca significa que la consola (PID = %d) tuvo una terminación anormal", i));
+							agregarProcesoColaExit(aProcess, EXIT_ABORT_CON);
+						}
 
 						break;
 					case ERR_ERROR_AL_RECIBIR_MSG:
 						//TODO retry?l
 						break;
 					case PRG_TO_KRN_HANDSHAKE:
-						enviarMensaje(i, PRG_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logLoader);
+						enviarMensaje(i, PRG_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
 						break;
 					case PRG_TO_KRN_CODE: {
 						char *codigoBESO = NULL;
@@ -143,23 +146,22 @@ void* loader(t_thread *loaderThread){
 
 						codigoBESO = calloc(tamanioCodigo, 1);
 
-						enviarMensaje(i, PRG_TO_KRN_CODE, "Se espera el codigo BESO...", logLoader);
+						enviarMensaje(i, PRG_TO_KRN_CODE, "Se espera el codigo BESO...", logKernel);
 
 						recibir(i, codigoBESO, tamanioCodigo);
 
 						grabarCodigoRecibido(codigoBESO, "beso.bc", tamanioCodigo);
 
-						log_debug(logLoader, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
-
 						procesoNuevo = getProcesoDesdeCodigoBESO(nombreBESO, MODO_USUARIO, codigoBESO, tamanioCodigo, i);
 
 						free(codigoBESO);
 
-						if(procesoNuevo == NULL){
-							enviarMensaje(i, KERNEL_TO_PRG_NO_MEMORY, "No hay memoria suficiente", logLoader);
+						if(procesoNuevo != NULL){
+							log_debug(logKernel, string_from_format( "Inserto en la cola de NEW el programa con FD: %i", i));
+							agregarProcesoColaNew(procesoNuevo);
+						} else {
+							enviarMensaje(i, KERNEL_TO_PRG_NO_MEMORY, "", logKernel);
 						}
-
-						agregarProcesoColaNew(procesoNuevo);
 
 						break;
 					}
@@ -175,7 +177,7 @@ void* loader(t_thread *loaderThread){
 
 char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo){
 
-	enviarMensaje(socketConsola, PRG_TO_KRN_CODE, "Se espera el codigo beso", logLoader);
+	enviarMensaje(socketConsola, PRG_TO_KRN_CODE, "Se espera el codigo beso", logKernel);
 	char *codigoBeso = calloc(1, tamanioCodigo);
 
 	if( (recibir(socketConsola, codigoBeso, tamanioCodigo)) != EXITO_SOCK){
