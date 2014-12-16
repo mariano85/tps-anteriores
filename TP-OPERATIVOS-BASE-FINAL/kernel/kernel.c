@@ -10,10 +10,6 @@ extern t_log* logKernel;
 
 int main(){
 
-	FILE *log = fopen(KERNEL_LOG_PATH,"w");
-	fflush(log);
-	fclose(log);
-
 	// TODO: agregar logs para el planificador y para el loader
 	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", 1, LOG_LEVEL_DEBUG);
 	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", 1, LOG_LEVEL_INFO);
@@ -115,6 +111,7 @@ void initKernel(){
 void handshakeMSP() {
 
 	t_contenido mensaje;
+	memset(mensaje,0,sizeof(t_contenido));
 	enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
 
 }
@@ -154,19 +151,22 @@ t_process* getProcesoDesdeMensaje(char* mensaje){
 }
 
 
-t_process* getProcesoDesdeCodigoBESO(bool indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd)
+t_process* getProcesoDesdeCodigoBESO(char* nombreBESO, bool indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t fd)
 {
 	t_process* proceso = calloc(sizeof(t_process), 1);
 	t_hilo* process_tcb = calloc(sizeof(t_hilo), 1);
 
-	process_tcb->pid = PID;
-	process_tcb->tid = TID;
+	process_tcb->pid = fd;
+	process_tcb->tid = 0;
 	process_tcb->kernel_mode = indicadorModo;
+	strcpy(proceso->nombre, nombreBESO);
 
+	log_info(logKernel, "Solicitamos segmento de codigo para pid %d", fd);
 	process_tcb->segmento_codigo = solicitarSegmento(process_tcb->pid, tamanioCodigo);
 	process_tcb->segmento_codigo_size = tamanioCodigo;
 
 	if(!process_tcb->kernel_mode){
+		log_info(logKernel, "Solicitamos segmento de stack para pid %d", fd);
 		process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
 	}
 
@@ -174,40 +174,33 @@ t_process* getProcesoDesdeCodigoBESO(bool indicadorModo, char* codigoBESO, int32
 	proceso->tcb = process_tcb;
 
 	if(process_tcb->segmento_codigo == EXIT_FAILURE || process_tcb->base_stack == EXIT_FAILURE){
-		log_error(logKernel, "No pudieron reservarse los segmentos para el proceso %d", PID);
+		log_error(logKernel, "No pudieron reservarse los segmentos para el proceso %d", fd);
 		free(proceso);
 
 		return NULL;
 	}
 
 	if(escribirMemoria(process_tcb->pid, process_tcb->segmento_codigo, codigoBESO, tamanioCodigo) == EXIT_FAILURE){
-		log_error(logKernel, "No pudo escribirse en el segmento de codigo del proceso %d", PID);
+		log_error(logKernel, "No pudo escribirse en el segmento de codigo del proceso %d", fd);
 		free(proceso);
 
 		return NULL;
 	}
 
+	log_info(logKernel, "Se generó la estructura del proceso con éxito! NOMBRE: %s; PID: %d", proceso->nombre, fd);
 	return proceso;
 }
 
 uint32_t solicitarSegmento(int32_t id_proceso, uint32_t tamanio){
 
 	t_contenido msjRespuesta;
-	int32_t direccionMSP = EXIT_FAILURE;
 	memset(msjRespuesta,0,sizeof(t_contenido));
-
 
 	enviarMensaje(socketMSP, KERNEL_TO_MSP_MEM_REQ, string_from_format("[%d,%d]", id_proceso, tamanio), logKernel);
 
-	t_header header = recibirMensaje(socketMSP, msjRespuesta, logKernel);
+	recibirMensaje(socketMSP, msjRespuesta, logKernel);
 
-	if(header == MSP_TO_KERNEL_SEGMENTO_CREADO){
-		direccionMSP = atoi(msjRespuesta);
-	} else {
-		log_error(logKernel, "no deberia recibir el header MSP_TO_KERNEL_MEM_REQ ???");
-	}
-
-	return direccionMSP;
+	return atoi(msjRespuesta);
 }
 
 void eliminarSegmento(int32_t id_proceso, uint32_t tamanio){
@@ -233,8 +226,6 @@ void loadConfig(){
 		exit(EXIT_FAILURE);
 	}
 
-
-
 	if (config_has_property(kernelConfig, "IP_MSP")) {
 		config_kernel.IP_MSP = string_duplicate(
 				config_get_string_value(kernelConfig, "IP_MSP"));
@@ -256,8 +247,8 @@ void loadConfig(){
 	}
 
 	if (config_has_property(kernelConfig, "QUANTUM")) {
-		config_kernel.PUERTO_CPU = config_get_int_value(kernelConfig,
-				"QUANTUM");
+		config_kernel.QUANTUM = string_duplicate(
+				config_get_string_value(kernelConfig, "QUANTUM"));
 	} else {
 		log_error(logKernel,
 				"No se encontro la key 'QUANTUM' en el archivo de configuracion");
@@ -295,24 +286,6 @@ void eliminarSegmentos(int32_t pid){
 	log_info(logKernel, "implementar eliminarSegmentos pid: %d", pid);
 }
 
-void killProcess(t_process* aProcess){
-
-	log_info(logKernel, "implementar killProcess pid: %d", aProcess->tcb->pid);
-}
-
-
-t_client_cpu* GetCPUByCPUFd(int32_t cpuFd){
-
-	bool _match_cpu_fd(void* element){
-		if(((t_client_cpu*)element)->cpuFD == cpuFd){
-			return true;
-		}
-		return false;
-	}
-
-	return list_find(cpu_client_list, (void*)_match_cpu_fd);
-}
-
 
 int32_t escribirMemoria(int32_t pid, uint32_t direccionSegmento, char* buffer, int32_t tamanio){
 	t_contenido msjRespuesta;
@@ -331,9 +304,7 @@ int32_t escribirMemoria(int32_t pid, uint32_t direccionSegmento, char* buffer, i
 	return atoi(msjRespuesta);
 }
 
-/*
- * el proceso Kernel tiene que ser global!!!
- */
+
 void crearProcesoKM(){
 	FILE *entrada;
 	size_t cantBytes = 0;
@@ -348,11 +319,11 @@ void crearProcesoKM(){
 
 	// por ahora le mando el socket de la conexion de la msp, deberia mandarle un 0 (creo)
 	// si: el tcb de kernel es una variable global
-	procesoKernel = getProcesoDesdeCodigoBESO(MODO_KERNEL, bufferArchivoSysCalls, cantBytes, KERNEL_PID, KERNEL_TID, socketMSP);
+	procesoKernel = getProcesoDesdeCodigoBESO(config_kernel.SYSCALLS, MODO_KERNEL, bufferArchivoSysCalls, cantBytes, KERNEL_PID);
 
 	if(procesoKernel == NULL){
 		log_error(logKernel, "Ocurrio un error al intentar crear el proceso de syscalls. El Kernel aborta...");
-
+		finishKernel();
 		exit(EXIT_FAILURE);
 	}
 

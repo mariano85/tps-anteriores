@@ -41,7 +41,6 @@
 #define PCP_LOG_PATH "planificador.log"
 
 #define KERNEL_PID -1
-#define KERNEL_TID 0
 
 #define MODO_KERNEL true
 #define MODO_USUARIO false
@@ -53,20 +52,24 @@ t_log* logPlanificador;
 t_log* queueLog;
 
 typedef struct {
+	char nombre[INET6_ADDRSTRLEN]; //45+1
 	t_hilo* tcb;
-	int32_t process_fd;
 	uint32_t direccion_syscall;
+	uint32_t tid_llamador_join;
+	// campos agregados por Nico
+	uint32_t cantidad_hijos_creados;
+	uint32_t contador_hijos_activos;
 } t_process;
 
 typedef struct {
-	int32_t PUERTO;
+	uint32_t PUERTO;
 	char* IP_MSP;
-	int32_t PUERTO_MSP;
+	uint32_t PUERTO_MSP;
 	char* IP_CPU;
-	int32_t PUERTO_CPU;
-	int32_t QUANTUM;
+	uint32_t PUERTO_CPU;
+	char* QUANTUM;
 	char* SYSCALLS;
-	int32_t TAMANIO_STACK;
+	uint32_t TAMANIO_STACK;
 } t_config_kernel;
 
 /*
@@ -85,10 +88,9 @@ typedef struct {
 
 // TODO: migrarlo a un mapa... a un mapa!!!
 typedef struct {
-	int32_t id;
 	int32_t valor;
 	t_queue *colaBloqueados;
-} t_semaforos;
+} t_recurso;
 
 t_config_kernel config_kernel;
 
@@ -108,14 +110,17 @@ pthread_mutex_t mutex_exit_queue;
 pthread_mutex_t mutex_cpu_list;
 pthread_mutex_t mutex_tcb_km;
 
+// podría haber sido un diccionario!
 t_list* semaforos_list;
+// en este diccionario guardo una cola por cada hilo que espera a sus hijos (o una lista?)
+t_dictionary *MAPA_RECURSOS;
 
 t_thread loaderThread;
 t_thread planificadorThread;
 t_thread manejoColaReadyThread;
 t_thread manejoColaExitThread;
 
-pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer, cond_new_producer, cond_new_consumer,condpBlockedProcess;
+pthread_cond_t cond_exit_consumer, cond_exit_producer,cond_ready_consumer, cond_ready_producer;
 
 // funciones del kernel
 void finishKernel();
@@ -127,14 +132,15 @@ uint32_t solicitarSegmento(int32_t id_proceso, uint32_t tamanio);
 void eliminarSegmento(int32_t id_proceso, uint32_t tamanio);
 void handshakeMSP();
 void loadConfig();
-void comunicarMuertePrograma(int32_t processFd, bool wasInUmv);
-void eliminarSegmentos(int32_t pID) ;
-void killProcess(t_process* aProcess);
-int32_t getProcessPidByFd(int32_t fd);
+
+//LAS QUE AGREGUE YO
+t_process* getProcesoDesdeMensaje(char* mensaje);
+t_process* getProcesoDesdeCodigoBESO(char* nombreBESO, bool indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t fd);
 
 // el loader
 void* loader(t_thread *loaderThread);
 void *get_in_addr(struct sockaddr *sa);
+char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo);
 
 void* planificador(t_thread *planificadorThread);
 void actualizarTCB(t_process* aProcess, char* mensaje);
@@ -145,38 +151,6 @@ void manejarFinDeProceso(int32_t socketCpu, char* mensaje);
 t_client_cpu* buscarCPUPorFD(int32_t socketCpu);
 t_process* desocuparCPU(int32_t socketCpu);
 
-//LAS QUE AGREGUE YO
-t_process* getProcesoDesdeMensaje(char* mensaje);
-t_process* getProcesoDesdeCodigoBESO(bool indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd);
-int32_t solicitarSegmentoStack();
-int32_t solicitarSegmentoCodigo();
-
-/**
- * FUNCIONES MANEJO COLA
- */
-void setearProcesoCola(t_process* aProcess, t_cola cola);
-void agregarProcesoColaNew(t_process* aProcess);
-void agregarProcesoColaReady(t_process* aProcess);
-void pushColaReady(t_process* aProcess);
-void manejo_cola_ready();
-void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess);
-void agregarProcesoColaExec();
-void context_switch_ida();
-t_process* context_switch_vuelta();
-void agregarProcesoColaSyscall(t_process* unProceso, uint32_t direccion);
-void agregarProcesoColaExit(t_process* aProcess, t_cola condicionDeSalida);
-bool cpuLibre(void* element);
-void liberarProceso(t_process* proceso);
-void notificarAlPadre(t_process* proceso);
-void notificarALosHijos(t_process* proceso);
-void removeProcess(int32_t fdprocessPID, bool someoneKilledHim);
-void manejo_cola_exit();
-t_client_cpu* buscarCpuPorSocket(int32_t cpuFd);
-bool stillInside(int32_t processFd);
-t_process* encontrarYRemoverProcesoPorFD(int32_t fd);
-int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
-
-
 /* SERVICIOS KERNEL
  *
  */
@@ -184,11 +158,32 @@ void interrupcion(int32_t socketCpu, char* mensaje);
 void entrada_estandar(int32_t socketCpu, char* mensaje);
 void salida_estandar(int32_t socketCpu, char* mensaje);
 void crear_hilo(char* mensaje);
-void join (int32_t tid1,int32_t tid2);
+void join (int32_t socketCpu, char* mensaje);
 void bloquear(t_process* aProceess, int32_t id);
 void despertar(int32_t id);
-void manejo_cola_exit();
 
+/**
+ * FUNCIONES MANEJO COLA
+ */
+void setearProcesoCola(t_process* aProcess, t_cola cola);
+void agregarProcesoColaNew(t_process* aProcess);
+void agregarProcesoColaReady(t_process* aProcess);
+void agregarProcesoColaExec();
+void agregarProcesoColaSyscall(t_process* unProceso, uint32_t direccion);
+void agregarProcesoColaExit(t_process* aProcess, t_cola condicionDeSalida);
+void pushColaReady(t_process* aProcess);
+void manejo_cola_ready();
+void enviarAEjecutar(int32_t socketCPU, t_process* aProcess);
+void context_switch_ida();
+t_process* context_switch_vuelta();
+bool cpuLibre(void* element);
+void liberarProceso(t_process* proceso);
+void notificarAlPadre(t_process* proceso);
+void notificarALosHijos(t_process* proceso);
+void manejo_cola_exit();
+t_client_cpu* buscarCpuPorSocket(int32_t cpuFd);
+t_process* encontrarYRemoverProcesoPorFD(int32_t fd);
+t_process* encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid);
 
 #endif /* KERNEL_H_ */
 

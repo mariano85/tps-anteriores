@@ -122,15 +122,9 @@ void* loader(t_thread *loaderThread){
 
 						FD_CLR(i, &master); // remove from master set
 
-						if(i == socketMSP){
-							// no parece posible que llegue aca, porque el kernel se conecta a la msp y no al reves
-							log_info(logLoader, "Wow! La MSP se desconectó! Imposible seguir funcionando! :/");
-						}
-						else {
-							t_process* aProcess = encontrarYRemoverProcesoPorFD(i);
-							// agrego proceso a la cola de EXIT
-							agregarProcesoColaExit(aProcess, EXIT_ABORT_CON);
-						}
+						t_process* aProcess = encontrarYRemoverProcesoPorFD(i);
+						// agrego proceso a la cola de EXIT
+						agregarProcesoColaExit(aProcess, EXIT_ABORT_CON);
 
 						break;
 					case ERR_ERROR_AL_RECIBIR_MSG:
@@ -144,9 +138,8 @@ void* loader(t_thread *loaderThread){
 						t_process *procesoNuevo = NULL;
 
 						char** split = string_get_string_as_array(mensaje);
-						int32_t programPID = i;//atoi(split[0]);
-						int32_t programTID = 0;//atoi(split[1]);
-						size_t tamanioCodigo = atoi(split[2]);
+						char* nombreBESO = split[0];
+						size_t tamanioCodigo = atoi(split[1]);
 
 						codigoBESO = calloc(tamanioCodigo, 1);
 
@@ -158,7 +151,7 @@ void* loader(t_thread *loaderThread){
 
 						log_debug(logLoader, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
 
-						procesoNuevo = getProcesoDesdeCodigoBESO(MODO_USUARIO, codigoBESO, tamanioCodigo, programPID, programTID, i);
+						procesoNuevo = getProcesoDesdeCodigoBESO(nombreBESO, MODO_USUARIO, codigoBESO, tamanioCodigo, i);
 
 						free(codigoBESO);
 
@@ -166,7 +159,6 @@ void* loader(t_thread *loaderThread){
 							enviarMensaje(i, KERNEL_TO_PRG_NO_MEMORY, "No hay memoria suficiente", logLoader);
 						}
 
-						log_info(logLoader, "Se generó la estructura del proceso con éxito!");
 						agregarProcesoColaNew(procesoNuevo);
 
 						break;
