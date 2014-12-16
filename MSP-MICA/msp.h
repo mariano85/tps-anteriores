@@ -106,6 +106,19 @@ pthread_rwlock_t rwListaSegmentos;
 
 pthread_t hilo_consola_1;
 
+typedef enum
+{
+	ENUM_FANTASMA,
+	VIOLACION_DE_SEGMENTO,
+	DIRECCION_INVALIDA,
+	PID_INEXISTENTE,
+	MEMORIA_INSUFICIENTE,
+	DIRECCION_VALIDA,
+	PID_EXCEDE_CANT_MAX_SEGMENTO,
+	TAMANIO_NEGATIVO,
+	SEGMENTO_EXCEDE_TAM_MAX
+} t_error;
+
 
 //FUNCIONES
 
@@ -183,6 +196,11 @@ int segundaVueltaClock(int puntero);
 
 void terminarMSP();
 
+int direccionInValida(uint32_t direccionLogica, int pid, int tamanio);
+
+int mandarErrorkernel (int socket_kernel, int dirLogica, int pid, int tamanio);
+
+int mandarErrorCPU (int socket_cpu, int dirLogica, int pid, int tamanio);
 
 
 

@@ -177,6 +177,8 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 	nodo_segmento *nodoSegmento;
 	nodoSegmento = malloc(sizeof(nodo_segmento));
 
+	t_list *listaSegmentosDelPID = filtrarListaSegmentosPorPid(pid);
+
 	t_list *listaPaginas;
 	listaPaginas = crearListaPaginas(cantidadDePaginas);
 
@@ -189,7 +191,7 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 
 	else
 	{
-		ultimoNodo = list_get(listaSegmentos, cantidadSegmentosDeEstePid - 1);
+		ultimoNodo = list_get(listaSegmentosDelPID, cantidadSegmentosDeEstePid - 1);
 		nodoSegmento->numeroSegmento = (ultimoNodo->numeroSegmento)+1;
 	}
 
@@ -229,7 +231,7 @@ uint32_t crearSegmento(int pid, int tamanio)
 		log_error(logs, "Error, el tamaño es negativo.");
 
 		if (consola == 1) printf("Error, el tamaño es negativo.\n");
-		return EXIT_FAILURE;
+		return TAMANIO_NEGATIVO;
 	}
 
 	int cantidadTotalDePaginas;
@@ -240,7 +242,7 @@ uint32_t crearSegmento(int pid, int tamanio)
 	{
 		log_error(logs, "Error, ya no se pueden agregar más segmentos para PID %d. La cantidad máxima de segmentos por PID es de %d.", pid, CANTIDAD_MAX_SEGMENTOS_POR_PID);
 		if (consola == 1) printf("Error, ya no se pueden agregar más segmentos para PID %d. La cantidad máxima de segmentos por PID es de %d.\n", pid, CANTIDAD_MAX_SEGMENTOS_POR_PID);
-		return EXIT_FAILURE;
+		return PID_EXCEDE_CANT_MAX_SEGMENTO;
 	}
 
 	//Si el resto de la división entre el tamaño y TAMANIO_PAGINA (que es el tamaño máximo de la pagina) da 0...
@@ -263,7 +265,7 @@ uint32_t crearSegmento(int pid, int tamanio)
 		if (consola == 1) printf("No hay espacio en la memoria para crear este segmento.");
 		log_error(logs, "No hay espacio disponible en la memoria para crear este segmento.");
 		pthread_mutex_unlock(&mutexMemoriaTotalRestante);
-		return EXIT_FAILURE;
+		return MEMORIA_INSUFICIENTE;
 	}
 
 
@@ -278,7 +280,7 @@ uint32_t crearSegmento(int pid, int tamanio)
 
 		log_error(logs, "Error, no se puede crear el segmento para el PID %d porque excede el tamaño máximo de %d cantidad de páginas.", pid, CANTIDAD_MAX_PAGINAS_POR_SEGMENTO);
 		if (consola == 1) printf("Error, no se puede crear el segmento para el PID %d porque excede el tamaño máximo de %d cantidad de páginas.\n", pid, CANTIDAD_MAX_PAGINAS_POR_SEGMENTO);
-		return EXIT_FAILURE;
+		return SEGMENTO_EXCEDE_TAM_MAX;
 	}
 
 
@@ -312,22 +314,48 @@ int destruirSegmento(int pid, uint32_t base)
 	{
 		log_error(logs, "Error, la dirección proporcionada no es una dirección base.");
 		if (consola == 1) printf("Error, la dirección proporcionada no es una dirección base.\n");
-		return EXIT_FAILURE;
+		return DIRECCION_INVALIDA;
 	}
 
 	bool _pidYSegmentoCorresponde(nodo_segmento *p) {
 		return (p->pid == pid && p->numeroSegmento == numeroSegmento);
 	}
 
+	bool _pidCorresponde(nodo_segmento *p) {
+		return (p->pid == pid);
+	}
+
+	bool _segmentoCorresponde (nodo_segmento *p)
+	{
+		return (p->numeroSegmento == numeroSegmento);
+	}
+
 	nodo_segmento *nodo;
 
 	pthread_rwlock_wrlock(&rwListaSegmentos);
-	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
+/*	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
 	{
 		pthread_rwlock_unlock(&rwListaSegmentos);
 		log_error(logs, "Error, PID y/o segmento inválidos.");
 		if (consola == 1) printf("Error, pid y/o segmento invalidos\n");
-		return EXIT_FAILURE;
+		return PID_INEXISTENTE;
+	}*/
+
+	if (!list_any_satisfy(listaSegmentos, (void*)_pidCorresponde))
+	{
+		pthread_rwlock_unlock(&rwListaSegmentos);
+		log_error(logs, "Error, PID inválido.");
+		if (consola == 1) printf("Error, PID inválido.\n");
+		return PID_INEXISTENTE;
+	}
+
+	if (!list_any_satisfy(listaSegmentos, (void*)_segmentoCorresponde))
+	{
+		//printf ("Segmento numero: %d\n", numeroSegmento);
+		pthread_rwlock_unlock(&rwListaSegmentos);
+		log_error(logs, "Error, segmento inválido.");
+		if (consola == 1) printf("Error, segmento inválido.\n");
+		return DIRECCION_INVALIDA;
 	}
 
 	nodo = list_remove_by_condition(listaSegmentos, (void*)_pidYSegmentoCorresponde);
@@ -395,7 +423,7 @@ int destruirSegmento(int pid, uint32_t base)
 
 	free(nodo);
 
-	return EXIT_SUCCESS;
+	return DIRECCION_VALIDA;
 }
 
 t_list* crearListaPaginas(int cantidadDePaginas)
@@ -427,7 +455,6 @@ void tablaSegmentos()
 
 	pthread_rwlock_rdlock(&rwListaSegmentos);
 
-
 	if (list_is_empty(listaSegmentos))
 	{
 		pthread_rwlock_unlock(&rwListaSegmentos);
@@ -449,7 +476,6 @@ void tablaSegmentos()
 	list_iterate(listaSegmentos, (void*)_imprimirSegmento);
 
 	pthread_rwlock_unlock(&rwListaSegmentos);
-
 }
 
 void tablaPaginas(int pid)
@@ -542,6 +568,106 @@ nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int n
 	return nodo;
 }
 
+t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
+{
+	t_list* paginasQueNecesito;
+
+	paginasQueNecesito = list_create();
+
+	int i, ultimaPagina;
+
+	ultimaPagina = numeroPagina + cantidadPaginas;
+
+	for (i=numeroPagina; i<ultimaPagina; i++)
+	{
+		nodo_paginas* nodoPagina;
+
+
+		nodoPagina = list_get(nodoSegmento->listaPaginas, i);
+
+		list_add(paginasQueNecesito, nodoPagina);
+	}
+
+	return paginasQueNecesito;
+}
+
+int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
+{
+	t_list* listaFiltradaPorPID = filtrarListaSegmentosPorPid(pid);
+
+
+	if (list_is_empty(listaFiltradaPorPID))
+	{
+		return PID_INEXISTENTE;
+	}
+
+
+	int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
+
+	nodo_segmento *nodoSegmento;
+	bool _segmentoCorresponde(nodo_segmento *p){
+		return(p->numeroSegmento == numeroSegmento);
+	}
+	nodoSegmento = list_find(listaFiltradaPorPID, (void*)_segmentoCorresponde);
+
+	if (nodoSegmento == NULL)
+	{
+		return DIRECCION_INVALIDA;
+	}
+
+	if (offset > nodoSegmento->tamanio)
+	{
+		puts("offset mayor que tamanio del segmento");
+		return VIOLACION_DE_SEGMENTO;
+	}
+
+	if (offset > (TAMANIO_PAGINA - 1))
+	{
+		return DIRECCION_INVALIDA;
+	}
+
+	if (nodoSegmento->tamanio == 0 && tamanio > 0)
+	{
+		puts("tamanio del segmento 0 y tamanio mayor que 0");
+		return VIOLACION_DE_SEGMENTO;
+	}
+
+	t_list* listaPaginas = nodoSegmento->listaPaginas;
+
+	nodo_paginas *nodoPagina;
+	bool _paginaCorresponde(nodo_paginas *p){
+		return(p->nro_pagina == numeroPagina);
+	}
+	nodoPagina = list_find(listaPaginas, (void*)_paginaCorresponde);
+
+	if (nodoPagina == NULL)
+	{
+		if (nodoSegmento->tamanio == 0)
+		{
+			return DIRECCION_VALIDA;
+		}
+		return DIRECCION_INVALIDA;
+	}
+
+	if (nodoPagina->nro_pagina == 0)
+	{
+		if ((tamanio + offset) > nodoSegmento->tamanio)
+		{
+			puts("tamanio mas offset");
+			return VIOLACION_DE_SEGMENTO;
+		}
+	}
+
+	int espacioAntesDeLaBase = nodoPagina->nro_pagina *  TAMANIO_PAGINA + offset;
+	if ((espacioAntesDeLaBase + tamanio) > nodoSegmento->tamanio)
+	{
+		puts("espacio antes de la base");
+		return VIOLACION_DE_SEGMENTO;
+	}
+
+	return DIRECCION_VALIDA;
+}
 
 
 t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
@@ -550,7 +676,7 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	t_list* listaFiltradaPorPid = filtrarListaSegmentosPorPid(pid);
 	t_list* paginasQueNecesito;
 
-	if (list_is_empty(listaFiltradaPorPid))
+/*	if (list_is_empty(listaFiltradaPorPid))
 	{
 		free(listaFiltradaPorPid);
 		log_error(logs, "Error, el PID ingresado no existe.");
@@ -603,6 +729,67 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 	}
 	nodoPagina = list_find(listaPaginas, (void*)_paginaCorresponde);
 
+	if (direccionInValida(direccionLogica, listaFiltradaPorPid))
+	{
+		list_destroy(listaFiltradaPorPid);
+		//printf("numeroSegmento: %d   pid: %d   pag: %d   direccion: %d", numeroSegmento, pid, numeroPagina, (int)direccionLogica);
+		log_error(logs, "Error, la dirección ingresada es inválida.");
+		if (consola == 1) printf("Error, la dirección ingresada es inválida.\n");
+		return NULL;
+	}
+
+	if (nodoPagina == NULL && nodoSegmento->tamanio == 0)
+	{
+		list_destroy(listaFiltradaPorPid);
+		paginasQueNecesito = paginasQueVoyAUsar(nodoSegmento, 0, 0);
+		return (paginasQueNecesito);
+	}*/
+
+	int direccionInvalida = direccionInValida(direccionLogica, pid, tamanio);
+
+	switch (direccionInvalida)
+	{
+		case DIRECCION_INVALIDA:
+		{
+			list_destroy(listaFiltradaPorPid);
+			//printf("numeroSegmento: %d   pid: %d   pag: %d   direccion: %d", numeroSegmento, pid, numeroPagina, (int)direccionLogica);
+			log_error(logs, "Error, la dirección ingresada es inválida.");
+			if (consola == 1) printf("Error, la dirección ingresada es inválida.\n");
+			return NULL;
+		}
+		case VIOLACION_DE_SEGMENTO:
+		{
+			list_destroy(listaFiltradaPorPid);
+			log_error(logs, "Error, violación de segmento.");
+			if (consola == 1) printf("Error, violacion de segmento.\n");
+			return NULL;
+		}
+		case PID_INEXISTENTE:
+		{
+			free(listaFiltradaPorPid);
+			log_error(logs, "Error, el PID ingresado no existe.");
+			if (consola == 1) printf("Error, el pid ingresado no existe.\n");
+			return NULL;
+		}
+
+	}
+
+	int numeroSegmento, numeroPagina, offset;
+	obtenerUbicacionLogica(direccionLogica, &numeroSegmento, &numeroPagina, &offset);
+
+	nodo_segmento *nodoSegmento;
+	bool _segmentoCorresponde(nodo_segmento *p){
+		return(p->numeroSegmento == numeroSegmento);
+	}
+	nodoSegmento = list_find(listaFiltradaPorPid, (void*)_segmentoCorresponde);
+	t_list *listaPaginas = nodoSegmento->listaPaginas;
+
+	nodo_paginas *nodoPagina;
+	bool _paginaCorresponde(nodo_paginas *p){
+		return(p->nro_pagina == numeroPagina);
+	}
+	nodoPagina = list_find(listaPaginas, (void*)_paginaCorresponde);
+
 	if (nodoPagina == NULL && nodoSegmento->tamanio == 0)
 	{
 		list_destroy(listaFiltradaPorPid);
@@ -610,23 +797,26 @@ t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 		return (paginasQueNecesito);
 	}
 
-	if (nodoPagina == NULL)
+/*	if (nodoPagina == NULL)
 	{
 		//printf("numeroSegmento: %d   pid: %d   pag: %d   direccion: %d", numeroSegmento, pid, numeroPagina, (int)direccionLogica);
 		log_error(logs, "Error, la dirección ingresada es inválida.");
 		if (consola == 1) printf("Error, la dirección ingresada es inválida.\n");
 		return NULL;
-	}
+	}*/
+
+
+
 
 	//COMPROBACION DE VIOLACION DE SEGMENTO Esta variable me indica los bytes que hay antes de la direccion base
-	int espacioAntesDeLaBase = nodoPagina->nro_pagina *  TAMANIO_PAGINA;
+/*	int espacioAntesDeLaBase = nodoPagina->nro_pagina *  TAMANIO_PAGINA;
 	if ((espacioAntesDeLaBase + tamanio) > nodoSegmento->tamanio)
 	{
 		list_destroy(listaFiltradaPorPid);
 		log_error(logs, "Error, violación de segmento.");
 		if (consola == 1) printf("Error, violacion de segmento.\n");
 		return NULL;
-	}
+	}*/
 
 	//Tengo que transformar el tamanio en paginas, para ver si el segmneto tiene esa cantidad de paginas
 	int cantidadPaginasQueOcupaTamanio;
@@ -696,7 +886,6 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 	}
 	else if(list_is_empty(paginasQueNecesito))
 	{
-		puts("entre");
 		free(paginasQueNecesito);
 		return NULL;
 	}
@@ -960,28 +1149,6 @@ void escribirEnMarco(int numeroMarco, int tamanio, void* bytesAEscribir, int off
 
 }
 
-t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
-{
-	t_list* paginasQueNecesito;
-
-	paginasQueNecesito = list_create();
-
-	int i, ultimaPagina;
-
-	ultimaPagina = numeroPagina + cantidadPaginas;
-
-	for (i=numeroPagina; i<ultimaPagina; i++)
-	{
-		nodo_paginas* nodoPagina;
-
-		nodoPagina = list_get(nodoSegmento->listaPaginas, i);
-
-		list_add(paginasQueNecesito, nodoPagina);
-	}
-
-	return paginasQueNecesito;
-}
-
 void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPagina)
 {
 	int i;
@@ -1146,11 +1313,41 @@ void* atenderAKernel(void* socket_kernel)
 			uint32_t base = atoi(split[1]);
 			int exito = EXIT_FAILURE;
 
-			log_info(logs,"ELIMINAR SEGMENTO :%d",pid);
-
 			exito = destruirSegmento(pid, base);
 
-			enviarMensaje((int)socket_kernel, KERNEL_TO_MSP_ELIMINAR_SEGMENTOS, string_from_format("%d", exito), logs);
+
+			switch (exito)
+			{
+				case DIRECCION_VALIDA:
+				{
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
+					enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_SEGMENTO_DESTRUIDO,mensaje_direccion, logs);
+					break;
+				}
+				case DIRECCION_INVALIDA:
+				{
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
+					enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_DIRECCION_INVALIDA,mensaje_direccion, logs);
+					break;
+
+				}
+				case PID_INEXISTENTE:
+				{
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
+					enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_PID_INVALIDO,mensaje_direccion, logs);
+					break;
+
+				}
+			}
+
+
+			//log_info(logs,"ELIMINAR SEGMENTO :%d",pid);
+
+
+			//enviarMensaje((int)socket_kernel, KERNEL_TO_MSP_ELIMINAR_SEGMENTOS, string_from_format("%d", exito), logs);
 		} else if(headerK == KERNEL_TO_MSP_MEM_REQ){
 
 			char** split = string_get_string_as_array(mensaje);
@@ -1160,9 +1357,51 @@ void* atenderAKernel(void* socket_kernel)
 
 			exito = crearSegmento(pid, tamanio);
 
+			switch (exito)
+			{
+				case MEMORIA_INSUFICIENTE:
+				{
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
+					enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_MEMORIA_INSUFICIENTE, mensaje_direccion, logs);
+					break;
+
+				}
+				case TAMANIO_NEGATIVO:
+				{
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
+					enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_TAMANIO_NEGATIVO,mensaje_direccion, logs);
+					break;
+
+				}
+				case PID_EXCEDE_CANT_MAX_SEGMENTO:
+				{
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
+					enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_PID_EXCEDE_CANT_MAXIMA_DE_SEGMENTOS,mensaje_direccion, logs);
+					break;
+
+				}
+				case SEGMENTO_EXCEDE_TAM_MAX:
+				{
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
+					enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_SEGMENTO_EXCEDE_TAMANIO_MAXIMO,mensaje_direccion, logs);
+					break;
+
+				}
+				default:
+				{
+
+					enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_SEGMENTO_CREADO, string_from_format("%d", exito), logs);
+
+				}
+			}
+
+
 			log_info(logs, "Ya puede seguir, se creó el segmento.");
 
-			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_SEGMENTO_CREADO, string_from_format("%d", exito), logs);
 
 
 		} else if(headerK == KERNEL_TO_MSP_ENVIAR_BYTES){
@@ -1173,7 +1412,7 @@ void* atenderAKernel(void* socket_kernel)
 			uint32_t direccion = atoi(split[2]);
 			int exito = EXIT_FAILURE;
 
-			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_ENVIO_BYTES, string_from_format("Ahora esperamos el buffer de escritura del proceso %d", pid), logs);
+			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_ESPERO_BYTES, string_from_format("Ahora esperamos el buffer de escritura del proceso %d", pid), logs);
 
 			buffer = calloc(tamanio, 1);
 
@@ -1183,10 +1422,20 @@ void* atenderAKernel(void* socket_kernel)
 
 			free(buffer);
 
+			int error = mandarErrorkernel((int)socket_kernel, direccion, pid, tamanio);
+
+			if (error == EXIT_SUCCESS)
+			{
+				escribirMemoria(pid, direccion, buffer, tamanio);
+				log_info(logs, "Ya puede seguir, se escribio memoria.");
+				t_contenido mensaje_instruccion;
+				memset(mensaje_instruccion,0,sizeof(t_contenido));
+				enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_ENVIO_BYTES,mensaje_instruccion,logs);
+			}
+
 			//listarMarcos();
 
-			log_info(logs, "Ya puede seguir, se escribio memoria.");
-			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_ENVIO_BYTES, string_from_format("%d", exito), logs);
+
 
 
 
@@ -1194,14 +1443,91 @@ void* atenderAKernel(void* socket_kernel)
 
 	}
 
+
 	return EXIT_SUCCESS;
 
 }
 
+
+int mandarErrorkernel (int socket_kernel, int dirLogica, int pid, int tamanio)
+{
+	int i = EXIT_SUCCESS;
+	switch (direccionInValida(dirLogica, pid, tamanio))
+	{
+		case VIOLACION_DE_SEGMENTO:
+		{
+			t_contenido mensaje_instruccion;
+			memset(mensaje_instruccion,0,sizeof(t_contenido));
+			enviarMensaje(socket_kernel,MSP_TO_KERNEL_VIOLACION_DE_SEGMENTO,mensaje_instruccion,logs);
+			i = EXIT_FAILURE;
+			break;
+		}
+		case PID_INEXISTENTE:
+		{
+			t_contenido mensaje_instruccion;
+			memset(mensaje_instruccion,0,sizeof(t_contenido));
+			enviarMensaje(socket_kernel,MSP_TO_KERNEL_PID_INVALIDO,mensaje_instruccion,logs);
+			i = EXIT_FAILURE;
+			break;
+
+		}
+		case DIRECCION_INVALIDA:
+		{
+			t_contenido mensaje_instruccion;
+			memset(mensaje_instruccion,0,sizeof(t_contenido));
+			enviarMensaje(socket_kernel,MSP_TO_KERNEL_DIRECCION_INVALIDA,mensaje_instruccion,logs);
+			i = EXIT_FAILURE;
+			break;
+
+		}
+	}
+
+	return i;
+
+}
+
+int mandarErrorCPU (int socket_cpu, int dirLogica, int pid, int tamanio)
+{
+	int i = EXIT_SUCCESS;
+	switch (direccionInValida(dirLogica, pid, tamanio))
+	{
+		case VIOLACION_DE_SEGMENTO:
+		{
+			t_contenido mensaje_instruccion;
+			memset(mensaje_instruccion,0,sizeof(t_contenido));
+			enviarMensaje(socket_cpu,MSP_TO_CPU_VIOLACION_DE_SEGMENTO,mensaje_instruccion,logs);
+			i = EXIT_FAILURE;
+			break;
+		}
+		case PID_INEXISTENTE:
+		{
+			t_contenido mensaje_instruccion;
+			memset(mensaje_instruccion,0,sizeof(t_contenido));
+			enviarMensaje(socket_cpu,MSP_TO_CPU_PID_INVALIDO,mensaje_instruccion,logs);
+			i = EXIT_FAILURE;
+			break;
+
+		}
+		case DIRECCION_INVALIDA:
+		{
+			t_contenido mensaje_instruccion;
+			memset(mensaje_instruccion,0,sizeof(t_contenido));
+			enviarMensaje(socket_cpu,MSP_TO_CPU_DIRECCION_INVALIDA,mensaje_instruccion,logs);
+			i = EXIT_FAILURE;
+			break;
+		}
+
+
+	}
+
+	return i;
+
+}
+
+
 void* atenderACPU(void* socket_cpu)
 {
 	bool socketValidador = true;
-
 
 	while(socketValidador){
 
@@ -1217,25 +1543,27 @@ void* atenderACPU(void* socket_cpu)
 				//Cargo lo que recibi --> el pir,dir_logica y tamanio
 
 
-				log_info(logs,"ENTRO EN EL IF 1");
+				//log_info(logs,"ENTRO EN EL IF 1");
 
 				char** array_1 = string_get_string_as_array(mensaje);
 				pid = atoi(array_1[0]);
 				uint32_t dir_logica = atoi(array_1[1]);
 				int tamanio = atoi(array_1[2]);
 
-				void* buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
+				int error = mandarErrorCPU((int)socket_cpu, dir_logica, pid, tamanio);
 
-				t_contenido mensaje_instruccion;
-				memset(mensaje_instruccion,0,sizeof(t_contenido));
-				memcpy(mensaje_instruccion,buffer_instruccion,tamanio);
-				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
-				free(buffer_instruccion);
+				if (error == EXIT_SUCCESS)
+				{
+					void* buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
 
-				if(string_equals_ignore_case((char*)mensaje_instruccion,"XXXX")){
-
-					socketValidador = false;
+					t_contenido mensaje_instruccion;
+					memset(mensaje_instruccion,0,sizeof(t_contenido));
+					memcpy(mensaje_instruccion,buffer_instruccion,tamanio);
+					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
+					free(buffer_instruccion);
 				}
+
+
 
 			}
 
@@ -1247,12 +1575,18 @@ void* atenderACPU(void* socket_cpu)
 				int32_t program_counter = atoi(array[0]);
 				int32_t auxiliar_cant_bytes = atoi(array[1]);
 
-				void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
-				t_contenido mensaje_parametros;
-				memset(mensaje_parametros,0,sizeof(t_contenido));
-				memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
-				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
-				free(buffer_parametros);
+				int error = mandarErrorCPU((int)socket_cpu, program_counter, pid, auxiliar_cant_bytes);
+
+				if (error == EXIT_SUCCESS)
+				{
+					void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
+					t_contenido mensaje_parametros;
+					memset(mensaje_parametros,0,sizeof(t_contenido));
+					memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
+					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
+					free(buffer_parametros);
+				}
+
 
 			}
 
@@ -1265,11 +1599,48 @@ void* atenderACPU(void* socket_cpu)
 
 				uint32_t direccion = crearSegmento(pid, tamanio);
 
-				char* direccion_string = string_itoa(direccion);
-				t_contenido mensaje_direccion;
-				memset(mensaje_direccion, 0,sizeof(t_contenido));
-				memcpy(mensaje_direccion, direccion_string, sizeof(t_contenido));
-				enviarMensaje((int)socket_cpu,MSP_TO_CPU_SENTENCE,mensaje_direccion, logs);
+				switch (direccion)
+				{
+					case MEMORIA_INSUFICIENTE:
+					{
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_MEMORIA_INSUFICIENTE,mensaje_direccion, logs);
+						break;
+					}
+					case TAMANIO_NEGATIVO:
+					{
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_TAMANIO_NEGATIVO,mensaje_direccion, logs);
+						break;
+					}
+					case SEGMENTO_EXCEDE_TAM_MAX:
+					{
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_SEGMENTO_EXCEDE_TAMANIO_MAXIMO,mensaje_direccion, logs);
+						break;
+					}
+					case PID_EXCEDE_CANT_MAX_SEGMENTO:
+					{
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_PID_EXCEDE_CANT_MAXIMA_DE_SEGMENTOS,mensaje_direccion, logs);
+						break;
+					}
+					default:
+					{
+						char* direccion_string = string_itoa(direccion);
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						memcpy(mensaje_direccion, direccion_string, sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_SEGMENTO_CREADO,mensaje_direccion, logs);
+
+					}
+				}
+
+
 
 			}
 
@@ -1280,9 +1651,36 @@ void* atenderACPU(void* socket_cpu)
 				int pid = atoi(array_1[0]);
 				int32_t registro = atoi(array_1[1]);
 
-				destruirSegmento(pid, registro);
+				int resultado = destruirSegmento(pid, registro);
 
-				log_info(logs,"el segmento fue destruido");
+				switch (resultado)
+				{
+					case DIRECCION_VALIDA:
+					{
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_SEGMENTO_DESTRUIDO,mensaje_direccion, logs);
+						break;
+					}
+					case DIRECCION_INVALIDA:
+					{
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_DIRECCION_INVALIDA,mensaje_direccion, logs);
+						break;
+
+					}
+					case PID_INEXISTENTE:
+					{
+						t_contenido mensaje_direccion;
+						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						enviarMensaje((int)socket_cpu,MSP_TO_CPU_PID_INVALIDO,mensaje_direccion, logs);
+						break;
+
+					}
+				}
+
+				//log_info(logs,"el segmento fue destruido");
 
 
 
@@ -1300,7 +1698,21 @@ void* atenderACPU(void* socket_cpu)
 				memset(buffer,0,sizeof(B));
 				memcpy(buffer,(void*)array[2],B); //Ver si hay que castear realmente porque tengo un numero tmb en el push
 
-				escribirMemoria(pid,A,buffer,B);
+				int error = mandarErrorCPU((int)socket_cpu, A, pid, B);
+
+				if (error == EXIT_SUCCESS)
+				{
+					escribirMemoria(pid,A,buffer,B);
+
+					log_info(logs, "Ya puede seguir, se escribio memoria.");
+					t_contenido mensaje_instruccion;
+					memset(mensaje_instruccion,0,sizeof(t_contenido));
+					enviarMensaje((int)socket_cpu,MSP_TO_CPU_ENVIO_BYTES,mensaje_instruccion,logs);
+				}
+
+
+
+				//escribirMemoria(pid,A,buffer,B);
 
 				//listarMarcos();
 

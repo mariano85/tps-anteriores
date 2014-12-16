@@ -83,15 +83,12 @@ int buscarComando(char* buffer)
 
 				consola = 1;
 				tablaSegmentos();
-				puts("holaa");
 				consola = 0;
 				liberarSubstrings(substrings);
 
 				return EXIT_SUCCESS;
-
 			}
 			liberarSubstrings(substrings);
-
 
 			return EXIT_FAILURE;
 		}
