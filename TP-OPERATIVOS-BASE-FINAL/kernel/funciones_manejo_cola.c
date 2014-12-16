@@ -89,7 +89,7 @@ void manejo_cola_ready() {
 }
 
 
-void enviarAEjecutar(int32_t socketCPU, int32_t  quantum, t_process* aProcess) {
+void enviarAEjecutar(int32_t socketCPU, t_process* aProcess) {
 
 	int32_t v0 = aProcess->tcb->pid;
 	int32_t v1 = aProcess->tcb->tid;
@@ -146,7 +146,7 @@ void agregarProcesoColaExec(){
 			aCpu->procesoExec = aProcess;
 
 			log_info(logKernel, string_from_format("Procede a ejecutarse el proceso (PID: %d) en Procesador PID: %d", aProcess->tcb->pid, aCpu->cpuPID));
-			enviarAEjecutar(aCpu->cpuFD, config_kernel.QUANTUM, aProcess);
+			enviarAEjecutar(aCpu->cpuFD, aProcess);
 
 		} else {
 			log_info(logKernel, "Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/");
@@ -208,7 +208,7 @@ void manejo_cola_exit() {
 		}
 
 		/*Make things happen here!*/
-		log_debug(logKernel, "Exit Queue Manager Thread Says: Hey!I Got you dude!");
+		log_debug(logKernel, "Exit Queue Manager Thread Says: Nuevo proceso en la cola de EXIT! Procedemos a liberar sus recursos");
 		int32_t counter = 0;
 		for(counter = 0; counter < COLA_EXIT->elements->elements_count; counter ++ ){
 			t_process* aProcess = (t_process*)queue_pop(COLA_EXIT);
@@ -268,43 +268,6 @@ void notificarALosHijos(t_process* proceso){
 }
 
 
-void removeProcess(int32_t processPID, bool someoneKilledHim){
-
-	bool _match_process_pid(void* element) {
-		if (((t_process*)element)->tcb->pid== processPID) {
-			return true;
-		}
-		return false;
-	}
-
-	pthread_mutex_lock (&mutex_syscalls_queue);
-	pthread_mutex_lock (&mutex_ready_queue);
-
-	/*Busco en qué cola está!*/
-	t_process* aProcess;
-	bool Hit = false; //Verifica si no se mato el proceso mientras lo buscaba
-
-	if((aProcess = (t_process*)list_find(COLA_READY->elements, (void*)_match_process_pid)) != NULL){
-		Hit = true;
-		list_remove_by_condition(COLA_READY->elements, (void*)_match_process_pid);
-	}
-	else if((aProcess = (t_process*)list_find(COLA_SYSCALLS->elements, (void*)_match_process_pid)) != NULL){
-		Hit = true;
-		list_remove_by_condition(COLA_SYSCALLS->elements, (void*)_match_process_pid);
-	}
-	pthread_mutex_unlock (&mutex_ready_queue);
-	pthread_mutex_unlock (&mutex_syscalls_queue);
-
-	if(Hit){
-		if(!someoneKilledHim){/*Si nadie lo mató, entonces entró en la cola de EXIT y el PLP lo está expulsando del sistema*/
-			//ComunicarMuertePrograma(aProcess->pid);
-		}
-
-		killProcess(aProcess);
-	}
-}
-
-
 bool cpuLibre(void* element){
 	return ((t_client_cpu*)element)->procesoExec == NULL;
 }
@@ -318,7 +281,6 @@ t_process* encontrarYRemoverProcesoPorFD(int32_t fd) {
 	/*Busco en qué cola está!*/
 	t_process* aProcess = NULL;
 	t_client_cpu* cpu = NULL;
-	bool Hit = false; //Verifica si no se mato el proceso mientras lo buscaba
 
 	bool _match_fd(void* element) {
 		return ((t_process*)element)->process_fd == fd;
@@ -326,7 +288,7 @@ t_process* encontrarYRemoverProcesoPorFD(int32_t fd) {
 
 	bool _match_cpu_fd(void* element){
 		cpu = (t_client_cpu*)element;
-		return cpu == NULL ? false : cpu->procesoExec->process_fd == fd;
+		return cpu == NULL || cpu->procesoExec == NULL ? false : cpu->procesoExec->process_fd == fd;
 	}
 
 	if(aProcess == NULL){
@@ -353,44 +315,45 @@ t_process* encontrarYRemoverProcesoPorFD(int32_t fd) {
 }
 
 
-int32_t encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid) {
+t_process* encontrarProcesoPorPIDyTID(int32_t pid, int32_t tid) {
 
 	bool _match_pid_tid(void* element) {
-		if ((((t_process*)element)->tcb->pid == pid) && (((t_process*)element)->tcb->tid == tid)){
-			return true;
-		}
-		return false;
+		return ((t_process*)element)->tcb->pid == pid && ((t_process*)element)->tcb->tid == tid;
+	}
+
+	bool _match_cpu_pid_tid(void* element){
+		t_client_cpu* cpu = (t_client_cpu*)element;
+		return cpu == NULL ? false : cpu->procesoExec->tcb->pid == pid && cpu->procesoExec->tcb->tid;
 	}
 
 	/*Busco en qué cola está!*/
-	t_process* aProcess;
+	t_process* aProcess = NULL;
 
-	pthread_mutex_lock(&mutex_ready_queue);
-	if((aProcess = (t_process*)list_find(COLA_READY->elements, (void*)_match_pid_tid)) != NULL){
-		pthread_mutex_unlock(&mutex_ready_queue);
-		return aProcess->tcb->pid;
-	}
-	else{
-		pthread_mutex_unlock(&mutex_ready_queue);
+	if(aProcess == NULL){
+		pthread_mutex_lock (&mutex_ready_queue);
+		aProcess = list_find(COLA_READY->elements, (void*)_match_pid_tid);
+		pthread_mutex_unlock (&mutex_ready_queue);
 	}
 
-	pthread_mutex_lock(&mutex_syscalls_queue);
-	if((aProcess = (t_process*)list_find(COLA_SYSCALLS->elements, (void*)_match_pid_tid)) != NULL){
-		pthread_mutex_unlock(&mutex_syscalls_queue);
-		return aProcess->tcb->pid;
-	}
-	else{
-		pthread_mutex_unlock(&mutex_syscalls_queue);
+	if(aProcess == NULL){
+		pthread_mutex_lock (&mutex_syscalls_queue);
+		aProcess = list_find(COLA_SYSCALLS->elements, (void*)_match_pid_tid);
+		pthread_mutex_unlock (&mutex_syscalls_queue);
 	}
 
-	pthread_mutex_lock(&mutex_exit_queue);
-	if((aProcess = (t_process*)list_find(COLA_EXIT->elements, (void*)_match_pid_tid)) != NULL){
-		pthread_mutex_unlock(&mutex_exit_queue);
-		return aProcess->tcb->pid;
-	}
-	else{
-		pthread_mutex_unlock(&mutex_exit_queue);
+	if(aProcess == NULL){
+		pthread_mutex_lock (&mutex_join_queue);
+		aProcess = list_find(COLA_JOIN->elements, (void*)_match_pid_tid);
+		pthread_mutex_unlock (&mutex_join_queue);
 	}
 
-	return 0;
+	if(aProcess == NULL){
+		pthread_mutex_lock (&mutex_cpu_list);
+		t_client_cpu* cpu = list_find(cpu_client_list, (void*)_match_cpu_pid_tid);
+		aProcess = cpu->procesoExec;
+		cpu->procesoExec = NULL;
+		pthread_mutex_unlock (&mutex_cpu_list);
+	}
+
+	return aProcess;
 }

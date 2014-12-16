@@ -1,0 +1,39 @@
+^**************************************************************
+^Objetivo: Evaluar el uso de FREE y MALLOC
+^Modo de ejecucion: Simple. Ejecutarlo.
+^Resultado: Ingresar numeros de 1 byte diferentes a -1. A; ingresar -1 se sumaran los ultimos dos numeros y se almacenara ese resultado hasta que no halla numeros que alamcenar
+^**************************************************************
+LOAD C, -1^Sentinela
+LOAD D,0^Valor inicial= 0
+LOAD E,#LOOP
+^
+:LOOP
+INTE INN
+MOVR B,A^Almacena el valor
+COMP A,C^Compara sentinela
+JPNZ #CALCULAR^Si es negativo sumar parcialmente
+^
+:CARGAR
+LOAD A,1^sizeof( char ) -- numeritos
+INTE MALLOC^Alocar memoria
+SETM 1,A,B^Guardar el input en la memoria guardada
+^
+PUSH 4,A^Almacena el valor del puntero a la memoria alocada
+GOTO E^Cicla
+^
+^
+:CALCULAR
+TAKE 4,A^Desapila 1
+GETM B,A^ Obtiene la posicion alocada
+INTE FREE^Libera la memoria 1
+TAKE 4,A^Desapila 2
+GETM D,A^ Obtiene la posicion alocada
+INTE FREE
+ADDR B,D^Suma
+MOVR D,A^Almacena la suma
+INTE OUTN^e imprime
+^Guardar nuevo valor
+MOVR B,A
+COMP S,X^Comparar si termino la lista de numeros
+JMPZ #CARGAR^Si son diferentes, ciclar
+XXXX

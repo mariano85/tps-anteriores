@@ -127,6 +127,7 @@ void* planificador(t_thread *planificadorThread) {
 					case CPU_TO_KERNEL_HANDSHAKE:
 
 						agregarCpu(i, mensaje_de_la_cpu);
+						enviarMensaje(i, CPU_TO_KERNEL_HANDSHAKE, string_from_format("[%s,%d]",config_kernel.QUANTUM,config_kernel.TAMANIO_STACK), logPlanificador);
 						agregarProcesoColaExec();
 
 						break;
@@ -139,7 +140,7 @@ void* planificador(t_thread *planificadorThread) {
 						log_info(logPlanificador,"Los registros son : A es %d B es %d C es %d D es %d E es %d",atoi(array[3]),atoi(array[4]),atoi(array[5]),atoi(array[6]),atoi(array[7]));
 
 						manejarFinDeQuantum(i, mensaje_de_la_cpu);
-						agregarProcesoColaExec();
+//						agregarProcesoColaExec();
 
 						break;
 
@@ -148,18 +149,22 @@ void* planificador(t_thread *planificadorThread) {
 						log_info(logPlanificador,"recibi el tcb porque finalizo proceso por XXXX");
 
 						manejarFinDeProceso(i, mensaje_de_la_cpu);
-						agregarProcesoColaExec();
+//						agregarProcesoColaExec();
+						log_info(logPlanificador,"termine de agregarlo a la cola de exec");
+
 
 						break;
 
 					case CPU_TO_KERNEL_INTERRUPCION:
 
 						interrupcion(i, mensaje_de_la_cpu);
-						agregarProcesoColaExec();
+//						agregarProcesoColaExec();
 
 						break;
 
 					case CPU_TO_KERNEL_ENTRADA_ESTANDAR:
+
+						log_info(logPlanificador,"Entre al if de la entrada estandar");
 
 						entrada_estandar(i, mensaje_de_la_cpu);
 
@@ -176,10 +181,12 @@ void* planificador(t_thread *planificadorThread) {
 					case CPU_TO_KERNEL_CREAR_HILO:
 
 						crear_hilo(mensaje_de_la_cpu);
-						agregarProcesoColaExec();
+//						agregarProcesoColaExec();
 
 						break;
 					case CPU_TO_KERNEL_JOIN:
+
+						join(i, mensaje_de_la_cpu);
 						// TODO: recordar que aca cuando finalice el hilo a esperar mando a ready al hilo que espera
 						break;
 					case CPU_TO_KERNEL_BLOCK:
@@ -218,6 +225,13 @@ void eliminarCpu(int32_t socketCpu) {
 
 		// si estaba ejecutando un proceso, lo mando a la cola de EXIT
 		if(cpu->procesoExec != NULL){
+
+			if(cpu->procesoExec->tcb->kernel_mode){
+				log_info(logPlanificador, "Si se muere el TCB del Kernel se muere todo. Au revoir!");
+				finishKernel();
+				exit(EXIT_FAILURE);
+			}
+
 			agregarProcesoColaExit(cpu->procesoExec, EXIT_ABORT_CPU);
 		}
 
@@ -282,7 +296,9 @@ void manejarFinDeProceso(int32_t socketCpu, char* mensajeRecibido) {
 		// terminó de ejecutar el tcb km
 		aProcess = context_switch_vuelta();
 
-		agregarProcesoColaReady(aProcess);
+		if(aProcess != NULL){
+			agregarProcesoColaReady(aProcess);
+		}
 
 	} else {
 
@@ -292,7 +308,7 @@ void manejarFinDeProceso(int32_t socketCpu, char* mensajeRecibido) {
 			memset(mensaje, 0, sizeof(t_contenido));
 			// TODO: vemos aca que le mandamos a la consola y que es lo que tiene que imprimir.-
 			strcpy(mensaje, split[1]);
-			enviarMensaje(aProcess->process_fd, KERNEL_TO_PRG_IMPR_VARIABLES, mensaje, logPlanificador);
+			enviarMensaje(aProcess->tcb->pid, KERNEL_TO_PRG_END_PRG, mensaje, logPlanificador);
 		}
 	}
 
@@ -355,8 +371,16 @@ t_process* context_switch_vuelta(){
 	t_process* aProcess = NULL;
 
 	pthread_mutex_lock(&mutex_syscalls_queue);
-		aProcess = queue_pop(COLA_SYSCALLS);
+		aProcess = queue_peek(COLA_SYSCALLS);
+
+		if(aProcess->tcb->pid == procesoKernel->tcb->pid && aProcess->tcb->tid == procesoKernel->tcb->tid){
+			aProcess = queue_pop(COLA_SYSCALLS);
+		}
 	pthread_mutex_unlock(&mutex_syscalls_queue);
+
+	if(aProcess == NULL){
+		return NULL;
+	}
 
 	aProcess->tcb->registros[0] = procesoKernel->tcb->registros[0];
 	aProcess->tcb->registros[1] = procesoKernel->tcb->registros[1];
@@ -400,11 +424,11 @@ void entrada_estandar(int32_t socketCpu, char* mensajeRecibido){
 
 	log_info(logPlanificador, "Esto tiene que ser true %s", aProcess->tcb->pid == atoi(array[0]) ? "true" : "false");
 
-	enviarMensaje(aProcess->process_fd, KERNEL_TO_CONSOLA_ENTRADA_ESTANDAR, array[1], logPlanificador);
+	enviarMensaje(aProcess->tcb->pid, KERNEL_TO_CONSOLA_ENTRADA_ESTANDAR, array[1], logPlanificador);
 
 	t_contenido mensaje;
 	memset(mensaje,0,sizeof(mensaje));
-	recibirMensaje(aProcess->process_fd,mensaje, logPlanificador);
+	recibirMensaje(aProcess->tcb->pid,mensaje, logPlanificador);
 
 	enviarMensaje(socketCpu, KERNEL_TO_CPU_OK, mensaje, logPlanificador);
 }
@@ -415,7 +439,7 @@ void salida_estandar(int32_t socketCpu, char* mensajeRecibido){
 	char** array = string_get_string_as_array(mensajeRecibido);
 	t_process* aProcess = desocuparCPU(socketCpu);
 
-	enviarMensaje(aProcess->process_fd, KERNEL_TO_CONSOLA_SALIDA_ESTANDAR, array[1], logPlanificador);
+	enviarMensaje(aProcess->tcb->pid, KERNEL_TO_CONSOLA_SALIDA_ESTANDAR, array[1], logPlanificador);
 
 }
 
@@ -429,5 +453,31 @@ void crear_hilo(char* mensaje){
 	} else {
 		// comunico al padre que no se pudo crear su hilo
 	}
+
+}
+
+
+void join(int32_t socketCpu, char* mensajeRecibido){
+
+	// asumo que el pid al que pertenecen ambos hilos son del proceso que se está ejecutando en la cpu
+	// nah, la cpu me manda 3 parametros y listo ;)
+	t_process *proceso_llamador = NULL, *proceso_a_esperar = NULL;
+	char** array = string_get_string_as_array(mensajeRecibido);
+	int32_t pid = atoi(array[0]);
+	int32_t tid_llamador = atoi(array[1]);
+	int32_t tid_a_esperar = atoi(array[2]);
+
+	pthread_mutex_lock(&mutex_syscalls_queue);
+	// pongo las manos en el fuego que el peek() de la cola de syscalls es el proceso que invocó dicho servicio
+	// validarlo por las dudas
+		proceso_llamador = queue_pop(COLA_SYSCALLS);
+	pthread_mutex_unlock(&mutex_syscalls_queue);
+
+	pthread_mutex_lock(&mutex_join_queue);
+		queue_push(COLA_JOIN, proceso_llamador);
+	pthread_mutex_unlock(&mutex_join_queue);
+
+	proceso_a_esperar = encontrarProcesoPorPIDyTID(pid, tid_a_esperar);
+	proceso_a_esperar->tid_llamador_join = tid_llamador;
 
 }
