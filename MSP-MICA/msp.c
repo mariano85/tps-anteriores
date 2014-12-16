@@ -409,7 +409,7 @@ int destruirSegmento(int pid, uint32_t base)
 
 	pthread_mutex_lock(&mutexMemoriaTotalRestante);
 	tamanioRestanteTotal = tamanioRestanteTotal + cantidadPaginas * TAMANIO_PAGINA;
-	printf("Cantiddad de paginas: %d\n", cantidadPaginas);
+	//printf("Cantiddad de paginas: %d\n", cantidadPaginas);
 	int tamanioSegmento = nodo->tamanio;
 
 	log_trace(logs, "Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.", nodo->numeroSegmento, pid, tamanioSegmento);
@@ -1307,6 +1307,7 @@ void* atenderAKernel(void* socket_kernel)
 			log_error(logs, "el Hilo que atiende el KERNEL se desconecto, "
 					"por lo que no se puede continuar");
 			running = false;
+			terminarMSP();
 		} else if(headerK == KERNEL_TO_MSP_ELIMINAR_SEGMENTOS){
 
 			char** split = string_get_string_as_array(mensaje);
@@ -1658,6 +1659,11 @@ void* atenderACPU(void* socket_cpu)
 			t_contenido mensaje;
 			memset(mensaje,0,sizeof(t_contenido));
 			t_header header_recibido = recibirMensaje((int)socket_cpu, mensaje, logs);
+
+			if(header_recibido == ERR_CONEXION_CERRADA){
+						log_error(logs, "Termino conexión con CPU porque se cerró la conexión.");
+						socketValidador = false;
+			}
 
 			if(header_recibido == CPU_TO_MSP_SOLICITAR_BYTES){
 
@@ -2217,10 +2223,13 @@ void terminarMSP()
 
 	//faltan destruir los segmentos
 
-	puts("chauchis");
 
+	if (consola == 1) printf("La MSP terminó su ejecución.\n");
+	log_info(logs, "La MSP terminó su ejecución.");
 	//free(tablaMarcos);
 	//log_destroy(logs);
+
+	exit(0);
 
 
 }

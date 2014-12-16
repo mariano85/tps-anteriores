@@ -245,14 +245,16 @@ int buscarComando(char* buffer)
 			return EXIT_FAILURE;
 		}
 
-		log_info(logs, "La MSP terminó su ejecución.");
-
-
-		terminarMSP();
-
 		free(buffer);
 		liberarSubstrings(substrings);
-		exit(0);
+
+
+		consola = 1;
+		terminarMSP();
+		consola = 0;
+
+
+		//exit(0);
 	}
 
 	liberarSubstrings(substrings);
