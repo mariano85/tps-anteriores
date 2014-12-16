@@ -106,6 +106,7 @@ pthread_rwlock_t rwListaSegmentos;
 
 pthread_t hilo_consola_1;
 
+/*
 typedef enum
 {
 	ENUM_FANTASMA,
@@ -118,6 +119,7 @@ typedef enum
 	TAMANIO_NEGATIVO,
 	SEGMENTO_EXCEDE_TAM_MAX
 } t_error;
+*/
 
 
 //FUNCIONES

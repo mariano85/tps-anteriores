@@ -409,6 +409,7 @@ int destruirSegmento(int pid, uint32_t base)
 
 	pthread_mutex_lock(&mutexMemoriaTotalRestante);
 	tamanioRestanteTotal = tamanioRestanteTotal + cantidadPaginas * TAMANIO_PAGINA;
+	printf("Cantiddad de paginas: %d\n", cantidadPaginas);
 	int tamanioSegmento = nodo->tamanio;
 
 	log_trace(logs, "Se destruyó el segmento %d del PID %d, cuyo tamanio era de %d.", nodo->numeroSegmento, pid, tamanioSegmento);
@@ -1420,9 +1421,10 @@ void* atenderAKernel(void* socket_kernel)
 
 			exito = escribirMemoria(pid, direccion, buffer, tamanio);
 
-			free(buffer);
 
 			int error = mandarErrorkernel((int)socket_kernel, direccion, pid, tamanio);
+
+			//free(buffer);
 
 			if (error == EXIT_SUCCESS)
 			{
@@ -1430,8 +1432,11 @@ void* atenderAKernel(void* socket_kernel)
 				log_info(logs, "Ya puede seguir, se escribio memoria.");
 				t_contenido mensaje_instruccion;
 				memset(mensaje_instruccion,0,sizeof(t_contenido));
-				enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_ENVIO_BYTES,mensaje_instruccion,logs);
+				enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_MEMORIA_ESCRITA,mensaje_instruccion,logs);
 			}
+
+			free(buffer);
+
 
 			//listarMarcos();
 
@@ -1485,6 +1490,123 @@ int mandarErrorkernel (int socket_kernel, int dirLogica, int pid, int tamanio)
 	return i;
 
 }
+
+/*void* atenderACPU(void* socket_cpu)
+{
+	bool socketValidador = true;
+
+
+	while(socketValidador){
+
+			int pid;
+
+			t_contenido mensaje;
+			memset(mensaje,0,sizeof(t_contenido));
+			t_header header_recibido = recibirMensaje((int)socket_cpu, mensaje, logs);
+
+			if(header_recibido == CPU_TO_MSP_SOLICITAR_BYTES){
+
+
+				//Cargo lo que recibi --> el pir,dir_logica y tamanio
+
+
+				log_info(logs,"ENTRO EN EL IF 1");
+
+				char** array_1 = string_get_string_as_array(mensaje);
+				pid = atoi(array_1[0]);
+				uint32_t dir_logica = atoi(array_1[1]);
+				int tamanio = atoi(array_1[2]);
+
+				void* buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
+
+				t_contenido mensaje_instruccion;
+				memset(mensaje_instruccion,0,sizeof(t_contenido));
+				memcpy(mensaje_instruccion,buffer_instruccion,tamanio);
+				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
+				free(buffer_instruccion);
+
+				if(string_equals_ignore_case((char*)mensaje_instruccion,"XXXX")){
+
+					socketValidador = false;
+				}
+
+			}
+
+			if(header_recibido == CPU_TO_MSP_PARAMETROS){
+
+				char** array = string_get_string_as_array(mensaje);
+
+
+				int32_t program_counter = atoi(array[0]);
+				int32_t auxiliar_cant_bytes = atoi(array[1]);
+
+				void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
+				t_contenido mensaje_parametros;
+				memset(mensaje_parametros,0,sizeof(t_contenido));
+				memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
+				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
+				free(buffer_parametros);
+
+			}
+
+
+			if(header_recibido == CPU_TO_MSP_CREAR_SEGMENTO ){
+
+				char** array_1 = string_get_string_as_array(mensaje);
+				int pid = atoi(array_1[0]);
+				int32_t tamanio = atoi(array_1[1]);
+
+				uint32_t direccion = crearSegmento(pid, tamanio);
+
+				char* direccion_string = string_itoa(direccion);
+				t_contenido mensaje_direccion;
+				memset(mensaje_direccion, 0,sizeof(t_contenido));
+				memcpy(mensaje_direccion, direccion_string, sizeof(t_contenido));
+				enviarMensaje((int)socket_cpu,MSP_TO_CPU_SENTENCE,mensaje_direccion, logs);
+
+			}
+
+			// Es para destruir segmento
+			if(header_recibido == CPU_TO_MSP_DESTRUIR_SEGMENTO){
+
+				char** array_1 = string_get_string_as_array(mensaje);
+				int pid = atoi(array_1[0]);
+				int32_t registro = atoi(array_1[1]);
+
+				destruirSegmento(pid, registro);
+
+				log_info(logs,"el segmento fue destruido");
+			}
+
+			if(header_recibido == CPU_TO_MSP_ESCRIBIR_MEMORIA){
+
+				char** array = string_get_string_as_array(mensaje);
+
+				int32_t A = atoi(array[0]);
+				int32_t B = atoi(array[1]);
+				int32_t pid = atoi(array[3]);
+
+				char* buffer = malloc(B);
+				memset(buffer,0,sizeof(B));
+				memcpy(buffer,(void*)array[2],B); //Ver si hay que castear realmente porque tengo un numero tmb en el push
+
+				escribirMemoria(pid,A,buffer,B);
+
+				//listarMarcos();
+
+				free(buffer);
+
+			}
+
+
+
+
+	}//Fin while
+
+				log_info(logs,"Termino conexion con cpu ------------ Esperando nuevas conexiones");
+				return EXIT_SUCCESS;
+ }*/
+
 
 int mandarErrorCPU (int socket_cpu, int dirLogica, int pid, int tamanio)
 {
@@ -1552,6 +1674,8 @@ void* atenderACPU(void* socket_cpu)
 
 				int error = mandarErrorCPU((int)socket_cpu, dir_logica, pid, tamanio);
 
+				//int error = EXIT_SUCCESS;
+
 				if (error == EXIT_SUCCESS)
 				{
 					void* buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
@@ -1586,7 +1710,6 @@ void* atenderACPU(void* socket_cpu)
 					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
 					free(buffer_parametros);
 				}
-
 
 			}
 
