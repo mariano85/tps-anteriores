@@ -43,6 +43,8 @@ void pushColaReady(t_process* aProcess) {
 	//				log_info(kernelLog, "READY PUSH");
 			pthread_cond_wait(&cond_ready_producer, &mutex_ready_queue);
 		}
+
+		log_debug(logKernel, "Me tiró un signal el cond_ready_producer");
 	/*Magic here, please!*/
 
 		if(aProcess->tcb->kernel_mode){
@@ -52,6 +54,7 @@ void pushColaReady(t_process* aProcess) {
 			queue_push(COLA_READY, aProcess);
 		}
 
+		log_debug(logKernel, "Pusheo en la cola de Ready y le mando un signal al cond_ready_consumer");
 		pthread_cond_signal(&cond_ready_consumer);			/* wake up consumer */
 	pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
 
@@ -275,6 +278,7 @@ bool cpuLibre(void* element){
 
 /*
  * TODO: faltan las colas de bloqueados por recursos...
+ *
  */
 t_process* encontrarYRemoverProcesoPorFD(int32_t fd) {
 
@@ -283,12 +287,12 @@ t_process* encontrarYRemoverProcesoPorFD(int32_t fd) {
 	t_client_cpu* cpu = NULL;
 
 	bool _match_fd(void* element) {
-		return ((t_process*)element)->process_fd == fd;
+		return ((t_process*)element)->tcb->pid == fd;
 	}
 
 	bool _match_cpu_fd(void* element){
 		cpu = (t_client_cpu*)element;
-		return cpu == NULL || cpu->procesoExec == NULL ? false : cpu->procesoExec->process_fd == fd;
+		return cpu == NULL || cpu->procesoExec == NULL ? false : cpu->procesoExec->tcb->pid == fd;
 	}
 
 	if(aProcess == NULL){
@@ -306,8 +310,12 @@ t_process* encontrarYRemoverProcesoPorFD(int32_t fd) {
 	if(aProcess == NULL){
 		pthread_mutex_lock (&mutex_cpu_list);
 		t_client_cpu* cpu = list_find(cpu_client_list, (void*)_match_cpu_fd);
-		aProcess = cpu->procesoExec;
-		cpu->procesoExec = NULL;
+
+		if(cpu != NULL){
+			aProcess = cpu->procesoExec;
+			cpu->procesoExec = NULL;
+		}
+
 		pthread_mutex_unlock (&mutex_cpu_list);
 	}
 

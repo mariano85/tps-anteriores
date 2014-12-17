@@ -52,8 +52,9 @@ t_log* logPlanificador;
 t_log* queueLog;
 
 typedef struct {
-	char nombre[INET6_ADDRSTRLEN]; //45+1
 	t_hilo* tcb;
+	char nombre[INET6_ADDRSTRLEN]; //45+1
+	int32_t process_fd;
 	uint32_t direccion_syscall;
 	uint32_t tid_llamador_join;
 	// campos agregados por Nico

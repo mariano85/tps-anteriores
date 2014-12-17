@@ -11,13 +11,10 @@ extern t_log* logKernel;
 int main(){
 
 	// TODO: agregar logs para el planificador y para el loader
+	system("clear");
 	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", 1, LOG_LEVEL_DEBUG);
-	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", 1, LOG_LEVEL_INFO);
-	logLoader = log_create(LOADER_LOG_PATH, "Kernel - Loader", 1, LOG_LEVEL_INFO);
-	logPlanificador = log_create(PCP_LOG_PATH, "Kernel - Planificador", 1, LOG_LEVEL_INFO);
 
 	// Hello Kernel!
-	system("clear");
 	int kernel_pid = getpid();
 	log_info(logKernel, "************** WELCOME TO KERNEL V1.0! (PID: %d) ***************\n", kernel_pid);
 	initKernel();
@@ -180,7 +177,9 @@ t_process* getProcesoDesdeCodigoBESO(char* nombreBESO, bool indicadorModo, char*
 		return NULL;
 	}
 
-	if(escribirMemoria(process_tcb->pid, process_tcb->segmento_codigo, codigoBESO, tamanioCodigo) == EXIT_FAILURE){
+	// TODO: proximamente el header sera MSP_TO_KERNEL_MEMORIA_ESCRITA
+	t_header header = escribirMemoria(process_tcb->pid, process_tcb->segmento_codigo, codigoBESO, tamanioCodigo);
+	if(header == EXIT_FAILURE){
 		log_error(logKernel, "No pudo escribirse en el segmento de codigo del proceso %d", fd);
 		free(proceso);
 

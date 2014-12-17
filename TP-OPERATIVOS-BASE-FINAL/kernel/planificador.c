@@ -10,7 +10,7 @@
 void* planificador(t_thread *planificadorThread) {
 
 	int myPID = process_get_thread_id();
-	log_info(logPlanificador, "************** Comienza el planificador!(PID: %d) ***************",myPID);
+	log_info(logKernel, "************** Comienza el planificador!(PID: %d) ***************",myPID);
 
 	//Logica principal para administrar conexiones
 	fd_set master; //file descriptor list
@@ -81,7 +81,7 @@ void* planificador(t_thread *planificadorThread) {
 							&addrlen);
 
 					if (newfd == -1) {
-						log_error(logPlanificador, string_from_format( "Hubo un error en el accept para el fd: %i", i));
+						log_error(logKernel, string_from_format( "Hubo un error en el accept para el fd: %i", i));
 					} else {
 						FD_SET(newfd, &master); // add to master set
 						if (newfd > fdmax) {    // keep track of the max
@@ -89,7 +89,7 @@ void* planificador(t_thread *planificadorThread) {
 						}
 
 						//Shows the new connection administrated
-						log_info(logPlanificador,
+						log_info(logKernel,
 								string_from_format(
 										"selectserver: new connection from %s on socket %d\n",
 										inet_ntop(remoteaddr.ss_family,
@@ -103,7 +103,7 @@ void* planificador(t_thread *planificadorThread) {
 
 					t_contenido mensaje_de_la_cpu; //buffer para el dato del cliente
 					memset(mensaje_de_la_cpu, 0, sizeof(t_contenido));
-					t_header header = recibirMensaje(i, mensaje_de_la_cpu, logPlanificador);
+					t_header header = recibirMensaje(i, mensaje_de_la_cpu, logKernel);
 					if(strlen(mensaje_de_la_cpu) == 0){
 						strcpy(mensaje_de_la_cpu, "[0]");
 					}
@@ -127,7 +127,7 @@ void* planificador(t_thread *planificadorThread) {
 					case CPU_TO_KERNEL_HANDSHAKE:
 
 						agregarCpu(i, mensaje_de_la_cpu);
-						enviarMensaje(i, CPU_TO_KERNEL_HANDSHAKE, string_from_format("[%s,%d]",config_kernel.QUANTUM,config_kernel.TAMANIO_STACK), logPlanificador);
+						enviarMensaje(i, CPU_TO_KERNEL_HANDSHAKE, string_from_format("[%s,%d]",config_kernel.QUANTUM,config_kernel.TAMANIO_STACK), logKernel);
 						agregarProcesoColaExec();
 
 						break;
@@ -136,35 +136,33 @@ void* planificador(t_thread *planificadorThread) {
 						//Aca hay que guardarlo en un estructura TCB y mandarlo a la cola de ready pero no se cual estructura usan te lo dejo a vos lean
 						//MUESTRO LO QUE DEBERIA LLEGARTE IGUAL
 
-						log_info(logPlanificador,"PID ES %d, Program_counter es %d ,modo es %d",atoi(array[0]),atoi(array[1]),atoi(array[2]));
-						log_info(logPlanificador,"Los registros son : A es %d B es %d C es %d D es %d E es %d",atoi(array[3]),atoi(array[4]),atoi(array[5]),atoi(array[6]),atoi(array[7]));
+						log_info(logKernel,"PID ES %d, Program_counter es %d ,modo es %d",atoi(array[0]),atoi(array[1]),atoi(array[2]));
+						log_info(logKernel,"Los registros son : A es %d B es %d C es %d D es %d E es %d",atoi(array[3]),atoi(array[4]),atoi(array[5]),atoi(array[6]),atoi(array[7]));
 
 						manejarFinDeQuantum(i, mensaje_de_la_cpu);
-//						agregarProcesoColaExec();
+						agregarProcesoColaExec();
 
 						break;
 
 					case CPU_TO_KERNEL_END_PROC:
 
-						log_info(logPlanificador,"recibi el tcb porque finalizo proceso por XXXX");
+						log_info(logKernel,"recibi el tcb porque finalizo proceso por XXXX");
 
 						manejarFinDeProceso(i, mensaje_de_la_cpu);
-//						agregarProcesoColaExec();
-						log_info(logPlanificador,"termine de agregarlo a la cola de exec");
-
+						agregarProcesoColaExec();
 
 						break;
 
 					case CPU_TO_KERNEL_INTERRUPCION:
 
 						interrupcion(i, mensaje_de_la_cpu);
-//						agregarProcesoColaExec();
+						agregarProcesoColaExec();
 
 						break;
 
 					case CPU_TO_KERNEL_ENTRADA_ESTANDAR:
 
-						log_info(logPlanificador,"Entre al if de la entrada estandar");
+						log_info(logKernel,"Entre al if de la entrada estandar");
 
 						entrada_estandar(i, mensaje_de_la_cpu);
 
@@ -172,7 +170,7 @@ void* planificador(t_thread *planificadorThread) {
 
 					case CPU_TO_KERNEL_SALIDA_ESTANDAR:
 
-						log_info(logPlanificador,"Entre al if de la salida estandar");
+						log_info(logKernel,"Entre al if de la salida estandar");
 
 						salida_estandar(i, mensaje_de_la_cpu);
 
@@ -221,13 +219,13 @@ void eliminarCpu(int32_t socketCpu) {
 		t_client_cpu* cpu = list_find(cpu_client_list, (void*)_match_cpu_fd);
 
 		// ahora debería eliminar el proceso que estaba ejecutando, DEBERÍA estar en la cola de ejecutados
-		log_info(logPlanificador, string_from_format("El hilo de planificador dice (?) : Alguien mató al CPU (PID:%d)", cpu->cpuPID));
+		log_info(logKernel, string_from_format("El hilo de planificador dice (?) : Alguien mató al CPU (PID:%d)", cpu->cpuPID));
 
 		// si estaba ejecutando un proceso, lo mando a la cola de EXIT
 		if(cpu->procesoExec != NULL){
 
 			if(cpu->procesoExec->tcb->kernel_mode){
-				log_info(logPlanificador, "Si se muere el TCB del Kernel se muere todo. Au revoir!");
+				log_info(logKernel, "Si se muere el TCB del Kernel se muere todo. Au revoir!");
 				finishKernel();
 				exit(EXIT_FAILURE);
 			}
@@ -249,7 +247,7 @@ void agregarCpu(int32_t socketCpu, char* mensaje){
 	aCPU->cpuPID = socketCpu;
 	aCPU->procesoExec = NULL;
 
-	log_info(logPlanificador, string_from_format("Planificador Thread dice: Nuevo CPU conectado (PID: %d) aguarda instrucciones", aCPU->cpuPID));
+	log_info(logKernel, string_from_format("Planificador Thread dice: Nuevo CPU conectado (PID: %d) aguarda instrucciones", aCPU->cpuPID));
 	//Agrego el nuevo CPU a la lista.
 	pthread_mutex_lock(&mutex_cpu_list);
 		list_add(cpu_client_list, aCPU);
@@ -274,6 +272,7 @@ void actualizarTCB(t_process* aProcess, char* mensaje) {
 
 void manejarFinDeQuantum(int32_t socketCpu, char* mensaje){
 
+	log_debug(logKernel, "manejo el fin de quantum...");
 	t_process* aProcess = desocuparCPU(socketCpu);
 
 	actualizarTCB(aProcess, mensaje);
@@ -285,6 +284,7 @@ void manejarFinDeQuantum(int32_t socketCpu, char* mensaje){
 
 void manejarFinDeProceso(int32_t socketCpu, char* mensajeRecibido) {
 
+	log_debug(logKernel, "manejo el fin del proceso...");
 	t_contenido mensaje;
 	char** split = string_get_string_as_array(mensajeRecibido);
 
@@ -302,14 +302,14 @@ void manejarFinDeProceso(int32_t socketCpu, char* mensajeRecibido) {
 
 	} else {
 
-		agregarProcesoColaExit(aProcess, EXIT);
-
 		if((split[1] != NULL) && !(strlen(split[1]))==0){
 			memset(mensaje, 0, sizeof(t_contenido));
 			// TODO: vemos aca que le mandamos a la consola y que es lo que tiene que imprimir.-
 			strcpy(mensaje, split[1]);
-			enviarMensaje(aProcess->tcb->pid, KERNEL_TO_PRG_END_PRG, mensaje, logPlanificador);
+			enviarMensaje(aProcess->tcb->pid, KERNEL_TO_PRG_END_PRG, mensaje, logKernel);
 		}
+
+		agregarProcesoColaExit(aProcess, EXIT);
 	}
 
 }
@@ -342,7 +342,7 @@ t_process* desocuparCPU(int32_t socketCpu) {
 	t_client_cpu *unaCpu = buscarCPUPorFD(socketCpu);
 	t_process* unProceso = unaCpu->procesoExec;
 	unaCpu->procesoExec = NULL;
-	log_info(logPlanificador, string_from_format("El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
+	log_info(logKernel, string_from_format("El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
 	return unProceso;
 
 }
@@ -422,15 +422,15 @@ void entrada_estandar(int32_t socketCpu, char* mensajeRecibido){
 	char** array = string_get_string_as_array(mensajeRecibido);
 	t_process* aProcess = desocuparCPU(socketCpu);
 
-	log_info(logPlanificador, "Esto tiene que ser true %s", aProcess->tcb->pid == atoi(array[0]) ? "true" : "false");
+	log_info(logKernel, "Esto tiene que ser true %s", aProcess->tcb->pid == atoi(array[0]) ? "true" : "false");
 
-	enviarMensaje(aProcess->tcb->pid, KERNEL_TO_CONSOLA_ENTRADA_ESTANDAR, array[1], logPlanificador);
+	enviarMensaje(aProcess->tcb->pid, KERNEL_TO_CONSOLA_ENTRADA_ESTANDAR, mensajeRecibido, logKernel);
 
 	t_contenido mensaje;
 	memset(mensaje,0,sizeof(mensaje));
-	recibirMensaje(aProcess->tcb->pid,mensaje, logPlanificador);
+	recibirMensaje(aProcess->tcb->pid,mensaje, logKernel);
 
-	enviarMensaje(socketCpu, KERNEL_TO_CPU_OK, mensaje, logPlanificador);
+	enviarMensaje(socketCpu, KERNEL_TO_CPU_OK, mensaje, logKernel);
 }
 
 
@@ -439,7 +439,7 @@ void salida_estandar(int32_t socketCpu, char* mensajeRecibido){
 	char** array = string_get_string_as_array(mensajeRecibido);
 	t_process* aProcess = desocuparCPU(socketCpu);
 
-	enviarMensaje(aProcess->tcb->pid, KERNEL_TO_CONSOLA_SALIDA_ESTANDAR, array[1], logPlanificador);
+	enviarMensaje(aProcess->tcb->pid, KERNEL_TO_CONSOLA_SALIDA_ESTANDAR, array[1], logKernel);
 
 }
 
