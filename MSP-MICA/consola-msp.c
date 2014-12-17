@@ -204,6 +204,8 @@ int buscarComando(char* buffer)
 		if (recibido != NULL || tamanio == 0)
 		{
 			printf("Lo que se obtuvo de la memoria es: %s", (char*)recibido);
+			//puts("Lo que se obtuvo de la memoria es:");
+			//puts((char*)recibido);
 		}
 
 		free(recibido);

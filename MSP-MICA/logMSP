@@ -1,3 +1,3 @@
-[INFO] 21:08:19:241 MSP/(7943:7943): La ruta del archivo de configuración es: configuracion.
-[TRACE] 21:08:19:270 MSP/(7943:7943): MSP inicio su ejecución. Tamaño memoria: 1048576. Tamaño swap: 1048576. Tamañio total: 2097152. Algoritmo sust páginas: FIFO.
-[TRACE] 21:08:19:280 MSP/(7943:7943): A la espera de nuevas conexiones
+[INFO] 19:12:51:949 MSP/(27596:27596): La ruta del archivo de configuración es: configuracion.
+[TRACE] 19:12:51:972 MSP/(27596:27596): MSP inicio su ejecución. Tamaño memoria: 1048576. Tamaño swap: 1048576. Tamaño total: 2097152. Algoritmo sust páginas: FIFO.
+[TRACE] 19:12:52:29 MSP/(27596:27596): A la espera de nuevas conexiones

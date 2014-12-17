@@ -62,6 +62,7 @@ typedef struct
 	int orden;
 	int referencia; //si vale 1 se ha usado recientemente
 	int modificacion; //si vale 1 se ha modificado recientemente
+	pthread_rwlock_t rwMarco;
 } t_marco;
 
 typedef struct
