@@ -8,7 +8,6 @@
 #include "kernel.h"
 t_log* logKernel;
 
-char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo);
 void grabarCodigoRecibido(char* codigoBeso, char* nombreArchivo, int32_t tamanio);
 
 // get sockaddr, IPv4 or IPv6:
@@ -123,61 +122,62 @@ void* loader(t_thread *loaderThread){
 
 						FD_CLR(i, &master); // remove from master set
 
-						if(i == socketMSP){
-							log_info(logKernel, "Wow! La UMV se desconectó! Imposible seguir funcionando! :/");
-						}
-						else if(stillInside(i)){
-							int32_t processPID = encontrarProcesoPorFD(i);
-							removeProcess(processPID, true);
+						t_process* aProcess = encontrarYRemoverProcesoPorFD(i);
+						// agrego proceso a la cola de EXIT
+						if(aProcess != NULL){
+							log_info(logKernel, string_from_format( "Si llega hasta aca significa que la consola (PID = %d) tuvo una terminación anormal", i));
+							agregarProcesoColaExit(aProcess, EXIT_ABORT_CON);
 						}
 
 						break;
 					case ERR_ERROR_AL_RECIBIR_MSG:
 						//TODO retry?l
 						break;
-					case CON_TO_KRN_HANDSHAKE:
-						enviarMensaje(i, CON_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
+					case PRG_TO_KRN_HANDSHAKE:
+						enviarMensaje(i, PRG_TO_KRN_HANDSHAKE, "KERNEL - Handshake Response", logKernel);
 						break;
-					case CON_TO_KRN_CODE: {
+					case PRG_TO_KRN_CODE: {
 						char *codigoBESO = NULL;
 						t_process *procesoNuevo = NULL;
 
 						char** split = string_get_string_as_array(mensaje);
-						int32_t programPID = atoi(split[0]);
-						int32_t programTID = atoi(split[1]);
-						size_t tamanioCodigo = atoi(split[2]);
+						char* nombreBESO = split[0];
+						size_t tamanioCodigo = atoi(split[1]);
 
 						codigoBESO = calloc(tamanioCodigo, 1);
 
-						enviarMensaje(i, CON_TO_KRN_CODE, "Se espera el codigo BESO...", logKernel);
+						enviarMensaje(i, PRG_TO_KRN_CODE, "Se espera el codigo BESO...", logKernel);
 
 						recibir(i, codigoBESO, tamanioCodigo);
 
 						grabarCodigoRecibido(codigoBESO, "beso.bc", tamanioCodigo);
 
-						log_debug(logKernel, string_from_format( "Se recibio codigo completo del programa con FD: %i", i));
+						procesoNuevo = getProcesoDesdeCodigoBESO(nombreBESO, MODO_USUARIO, codigoBESO, tamanioCodigo, i);
 
-						procesoNuevo = getProcesoDesdeCodigoBESO(MODO_USUARIO, codigoBESO, tamanioCodigo, programPID, programTID, i);
-
-						log_info(logKernel, "Se generó la estructura del proceso con éxito!");
-						agregarProcesoColaNew(procesoNuevo);
 						free(codigoBESO);
+
+						if(procesoNuevo != NULL){
+							log_debug(logKernel, string_from_format( "Inserto en la cola de NEW el programa con FD: %i", i));
+							agregarProcesoColaNew(procesoNuevo);
+						} else {
+							enviarMensaje(i, KERNEL_TO_PRG_NO_MEMORY, "", logKernel);
+						}
 
 						break;
 					}
 					default:
 						;
 					}
-				} // END handle data from client
-			} // END got new incoming connection
-		} // END looping through file descriptors
-	} // END for(;;)--and you thought it would never end!
-	return NULL ;
+				}
+			}
+		}
+	}
+	return NULL;
 }
 
 char *recibirCodigoBeso(int32_t socketConsola, size_t tamanioCodigo){
 
-	enviarMensaje(socketConsola, CON_TO_KRN_CODE, "Se espera el codigo beso", logKernel);
+	enviarMensaje(socketConsola, PRG_TO_KRN_CODE, "Se espera el codigo beso", logKernel);
 	char *codigoBeso = calloc(1, tamanioCodigo);
 
 	if( (recibir(socketConsola, codigoBeso, tamanioCodigo)) != EXITO_SOCK){

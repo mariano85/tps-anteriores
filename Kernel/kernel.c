@@ -10,142 +10,51 @@ extern t_log* logKernel;
 
 int main(){
 
-	//Crea un archivo de log para el kernel
-	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", true, LOG_LEVEL_DEBUG);
-	//Crea un archivo para log de colas
-	queueLog = log_create(QUEUE_LOG_PATH, "Kernel - Queues", false, LOG_LEVEL_INFO);
+	// TODO: agregar logs para el planificador y para el loader
+	system("clear");
+	logKernel = log_create(KERNEL_LOG_PATH, "Kernel", 1, LOG_LEVEL_DEBUG);
 
 	// Hello Kernel!
-	//system("clear");
 	int kernel_pid = getpid();
 	log_info(logKernel, "************** WELCOME TO KERNEL V1.0! (PID: %d) ***************\n", kernel_pid);
-
 	initKernel();
 
 	pthread_create(&loaderThread.tid, NULL, (void*) loader, (void*) &loaderThread);
-	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &loaderThread);	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &loaderThread);
-	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &loaderThread);
+	pthread_create(&planificadorThread.tid, NULL, (void*) planificador, (void*) &planificadorThread);
+	pthread_create(&manejoColaReadyThread.tid, NULL, (void*) manejo_cola_ready, (void*) &manejoColaReadyThread);
+	pthread_create(&manejoColaExitThread.tid, NULL, (void*) manejo_cola_exit, (void*) &manejoColaExitThread);
 
 	pthread_join(loaderThread.tid, NULL);
 	pthread_join(planificadorThread.tid, NULL);
 	pthread_join(manejoColaReadyThread.tid, NULL);
 	pthread_join(manejoColaExitThread.tid, NULL);
-	finishKernel();
 
+	finishKernel();
 	return EXIT_SUCCESS;
 }
 
 
 void finishKernel(){
+
+	// destruyo semaforos
+	pthread_mutex_destroy(&mutex_cpu_list);
+	pthread_mutex_destroy(&mutex_ready_queue);
+	pthread_mutex_destroy(&mutex_ready_sem);
+	pthread_mutex_destroy(&mutex_syscalls_queue);
+	pthread_mutex_destroy(&mutex_join_queue);
+	pthread_mutex_destroy(&mutex_exit_queue);
+
+	queue_destroy(COLA_READY);
+	queue_destroy(COLA_SYSCALLS);
+	queue_destroy(COLA_JOIN);
+	queue_destroy(COLA_EXIT);
+
+	list_destroy(cpu_client_list);
+
 	log_destroy(logKernel);
 	log_destroy(queueLog);
-}
-
-void initKernel(){
-
-	loadConfig();
-
-	//Inicializa lista de Cpu's
-	cpu_disponibles_list = list_create();
-
-	pthread_mutex_init(&mutex_cpu_list, NULL);
-
-	//Inicializa colas
-	NEW = queue_create();
-	READY = queue_create();
-	BLOCK = queue_create();
-	EXEC = queue_create();
-	EXIT = queue_create();
-
-	//Inicializa semaforo de colas
-	pthread_mutex_init(&mutex_new_queue, NULL );
-	pthread_mutex_init(&mutex_ready_queue, NULL );
-	pthread_mutex_init(&mutex_block_queue, NULL );
-	pthread_mutex_init(&mutex_exec_queue, NULL );
-	pthread_mutex_init(&mutex_exit_queue, NULL );
-
-	socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
-
-	while (socketMSP == EXIT_FAILURE) {
-		 log_info(logKernel, "Despierten a la MSP! Se reintenta conexion en unos segundos ;) \n");
-		 sleep(5);
-		 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
-	}
-
-	log_info(logKernel, "Logro conectarse a la MSP! =)");
-
-	handshakeMSP();
-
-	log_info(logKernel, "Se ha establecido conexion con el proceso MSP");
-
-	crearProcesoKM();
-
-}
-
-
-/*
- * Si es un proceso Kernel, pido los segmentos en seguida, sino. Los pido cuando el proceso pase a ready
- */
-t_process* getProcesoDesdeCodigoBESO(int32_t indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t PID, int32_t TID, int32_t fd)
-{
-	t_process* proceso = calloc(sizeof(t_process), 1);
-	t_tcb* process_tcb = calloc(sizeof(t_tcb), 1);
-
-	process_tcb->pid = PID;
-	process_tcb->tid = TID;
-	process_tcb->indicador_modo_kernel = indicadorModo;
-
-	process_tcb->base_segmento_codigo = solicitarSegmento(process_tcb->pid, tamanioCodigo);
-
-	if(!process_tcb->pid == SYS_CALLS_PID){
-		process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
-	}
-
-	proceso->process_fd = fd;
-	proceso->tcb = process_tcb;
-
-	if(process_tcb->base_segmento_codigo == EXIT_FAILURE || process_tcb->base_stack == EXIT_FAILURE){
-		log_error(logKernel, "No pudieron reservarse los segmentos para el proceso %d", PID);
-		free(proceso);
-
-		return NULL;
-	}
-
-	if(escribirMemoria(process_tcb->pid, process_tcb->base_segmento_codigo, codigoBESO, tamanioCodigo) == EXIT_FAILURE){
-		log_error(logKernel, "No pudo escribirse en el segmento de codigo del proceso %d", PID);
-		free(proceso);
-
-		return NULL;
-	}
-
-	return proceso;
-}
-
-
-void crearProcesoKM(){
-	t_process* proceso = NULL;
-	FILE *entrada;
-	size_t cantBytes = 0;
-	char *bufferArchivoSysCalls = NULL;
-
-	if ((entrada = fopen(config_kernel.SYSCALLS, "r")) == NULL ) {
-		perror(config_kernel.SYSCALLS);
-		exit(EXIT_FAILURE);
-	}
-
-	bufferArchivoSysCalls = getBytesFromFile(entrada, &cantBytes);
-
-	// por ahora le mando el socket de la conexcion de la msp, deberia mandarle un 0 (creo)
-	proceso = getProcesoDesdeCodigoBESO(MODO_KERNEL, bufferArchivoSysCalls, cantBytes, SYS_CALLS_PID, SYS_CALLS_TID, socketMSP);
-
-	if(proceso == NULL){
-		log_error(logKernel, "Ocurrio un error al intentar crear el proceso de syscalls. El Kernel aborta...");
-
-		exit(EXIT_FAILURE);
-	}
-
-	agregarProcesoKernel(proceso);
+	log_destroy(logLoader);
+	log_destroy(logPlanificador);
 }
 
 char* getBytesFromFile(FILE* entrada, size_t *tam_archivo) {
@@ -154,59 +63,159 @@ char* getBytesFromFile(FILE* entrada, size_t *tam_archivo) {
 	char * literal = (char*) calloc(1, *tam_archivo);
 	fseek(entrada, 0L, 0L);
 
-	fgets(literal, *tam_archivo, entrada);
+	fread(literal, *tam_archivo, 1, entrada);
 	return literal;
 }
 
-int32_t escribirMemoria(int32_t pid, uint32_t direccionSegmento, char* buffer, int32_t tamanio){
-	t_contenido msjRespuesta;
-	memset(msjRespuesta,0,sizeof(t_contenido));
+void initKernel(){
 
-	enviarMensaje(socketMSP, KERNEL_TO_MSP_ENVIAR_BYTES, string_from_format("[%d,%d,%d]", pid, tamanio, direccionSegmento), logKernel);
+	loadConfig();
 
-	recibirMensaje(socketMSP, msjRespuesta, logKernel);
-	log_info(logKernel, "respuesta de la msp: %s", msjRespuesta);
+	//Inicializa lista de Cpu's
+	// esta es mi cola EXEC. WAJA!
+	cpu_client_list = list_create();
 
-	enviar(socketMSP, buffer, tamanio);
-	recibirMensaje(socketMSP, msjRespuesta, logKernel);
+	//Inicializa colas
+	COLA_READY = queue_create();
+	COLA_EXIT = queue_create();
+	COLA_SYSCALLS = queue_create();
+	COLA_JOIN = queue_create();
 
-	memset(msjRespuesta,0,sizeof(t_contenido));
+	//Inicializa semaforos
+	pthread_mutex_init(&mutex_cpu_list, NULL);
+	pthread_mutex_init(&mutex_ready_queue, NULL );
+	pthread_mutex_init(&mutex_ready_sem, NULL );
+	pthread_mutex_init(&mutex_syscalls_queue, NULL );
+	pthread_mutex_init(&mutex_join_queue, NULL );
+	pthread_mutex_init(&mutex_exit_queue, NULL );
 
-	return atoi(msjRespuesta);
+	/*Se valida que en el sistema exista una instancia de la MSP levantada. Esto es indispensable
+	 * para lograr reservar segmentos para posibles clientes programas*/
+	 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+
+	 while (socketMSP == EXIT_FAILURE) {
+		 log_info(logKernel, "Despierten a la MSP! Se reintenta conexion en unos segundos ;) \n");
+		 sleep(5);
+		 socketMSP = conectarAServidor(config_kernel.IP_MSP, config_kernel.PUERTO_MSP);
+	 }
+
+	 handshakeMSP();
+
+	 log_info(logKernel, "Se ha establecido conexion con el proceso MSP");
+
+	 crearProcesoKM();
+}
+
+
+void handshakeMSP() {
+
+	t_contenido mensaje;
+	memset(mensaje,0,sizeof(t_contenido));
+	enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
+
+}
+
+t_process* getProcesoDesdeMensaje(char* mensaje){
+
+	t_process* proceso = calloc(sizeof(t_process), 1);
+	t_hilo* process_tcb = calloc(sizeof(t_hilo), 1);
+	proceso->tcb = process_tcb;
+	char** split = string_get_string_as_array(mensaje);
+
+	proceso->tcb->pid = atoi(split[0]);
+	proceso->process_fd = atoi(split[0]);
+	proceso->tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
+
+	if(proceso->tcb->base_stack == EXIT_FAILURE){
+		log_error(logKernel, "No pudieron reservarse los segmentos para el proceso %d", proceso->tcb->pid);
+		free(proceso);
+		return NULL;
+	}
+
+	proceso->tcb->tid = atoi(split[1]);
+	proceso->tcb->kernel_mode = atoi(split[2]);
+	proceso->tcb->segmento_codigo = atoi(split[3]);
+	proceso->tcb->segmento_codigo_size = atoi(split[4]);
+	proceso->tcb->puntero_instruccion = atoi(split[5]);
+	proceso->tcb->base_stack = atoi(split[6]);
+	proceso->tcb->cursor_stack = atoi(split[7]);
+
+	proceso->tcb->registros[0] = atoi(split[8]);
+	proceso->tcb->registros[1] = atoi(split[9]);
+	proceso->tcb->registros[2] = atoi(split[10]);
+	proceso->tcb->registros[3] = atoi(split[11]);
+	proceso->tcb->registros[4] = atoi(split[12]);
+
+	return proceso;
+}
+
+
+t_process* getProcesoDesdeCodigoBESO(char* nombreBESO, bool indicadorModo, char* codigoBESO, int32_t tamanioCodigo, int32_t fd)
+{
+	t_process* proceso = calloc(sizeof(t_process), 1);
+	t_hilo* process_tcb = calloc(sizeof(t_hilo), 1);
+
+	process_tcb->pid = fd;
+	process_tcb->tid = 0;
+	process_tcb->kernel_mode = indicadorModo;
+	strcpy(proceso->nombre, nombreBESO);
+
+	log_info(logKernel, "Solicitamos segmento de codigo para pid %d", fd);
+	process_tcb->segmento_codigo = solicitarSegmento(process_tcb->pid, tamanioCodigo);
+	process_tcb->segmento_codigo_size = tamanioCodigo;
+
+	if(!process_tcb->kernel_mode){
+		log_info(logKernel, "Solicitamos segmento de stack para pid %d", fd);
+		process_tcb->base_stack = solicitarSegmento(process_tcb->pid, config_kernel.TAMANIO_STACK);
+		process_tcb->cursor_stack = process_tcb->base_stack;
+	}
+
+	proceso->process_fd = fd;
+	proceso->tcb = process_tcb;
+
+	if(process_tcb->segmento_codigo == EXIT_FAILURE || process_tcb->base_stack == EXIT_FAILURE){
+		log_error(logKernel, "No pudieron reservarse los segmentos para el proceso %d", fd);
+		free(proceso);
+
+		return NULL;
+	}
+
+	// TODO: proximamente el header sera MSP_TO_KERNEL_MEMORIA_ESCRITA
+	t_header header = escribirMemoria(process_tcb->pid, process_tcb->segmento_codigo, codigoBESO, tamanioCodigo);
+	if(header == EXIT_FAILURE){
+		log_error(logKernel, "No pudo escribirse en el segmento de codigo del proceso %d", fd);
+		free(proceso);
+
+		return NULL;
+	}
+
+	log_info(logKernel, "Se generó la estructura del proceso con éxito! NOMBRE: %s; PID: %d", proceso->nombre, fd);
+	return proceso;
 }
 
 uint32_t solicitarSegmento(int32_t id_proceso, uint32_t tamanio){
 
 	t_contenido msjRespuesta;
-	int32_t direccionMSP = EXIT_FAILURE;
 	memset(msjRespuesta,0,sizeof(t_contenido));
-
 
 	enviarMensaje(socketMSP, KERNEL_TO_MSP_MEM_REQ, string_from_format("[%d,%d]", id_proceso, tamanio), logKernel);
 
-	t_header header = recibirMensaje(socketMSP, msjRespuesta, logKernel);
+	recibirMensaje(socketMSP, msjRespuesta, logKernel);
 
-	if(header == MSP_TO_KERNEL_SEGMENTO_CREADO){
-		direccionMSP = atoi(msjRespuesta);
-	} else {
-		log_error(logKernel, "no deberia recibir el header MSP_TO_KERNEL_MEM_REQ ???");
-	}
-
-	return direccionMSP;
+	return atoi(msjRespuesta);
 }
 
-void handshakeMSP() {
+void eliminarSegmento(int32_t id_proceso, uint32_t tamanio){
+	t_contenido msjRespuesta;
+	memset(msjRespuesta,0,sizeof(t_contenido));
 
-	t_contenido mensaje;
-	// deberiamos formatear el mensaje todo en 0's
-	enviarMensaje(socketMSP, KERNEL_TO_MSP_HANDSHAKE, mensaje, logKernel);
-
+	enviarMensaje(socketMSP, KERNEL_TO_MSP_ELIMINAR_SEGMENTOS, string_from_format("[%d,%d]", id_proceso, tamanio), logKernel);
 }
 
 void loadConfig(){
 
 	log_info(logKernel, "Se inicializa el kernel con parametros desde: %s", KERNEL_CONFIG_PATH);
-	kernelConfig = config_create(KERNEL_CONFIG_PATH);
+	 kernelConfig = config_create(KERNEL_CONFIG_PATH);
 
 	if (config_has_property(kernelConfig, "PUERTO")) {
 		//strcpy(PUERTO_PROG, (char*) config_get_string_value(configPath, "PUERTO_PROG"));
@@ -240,8 +249,8 @@ void loadConfig(){
 	}
 
 	if (config_has_property(kernelConfig, "QUANTUM")) {
-		config_kernel.PUERTO_CPU = config_get_int_value(kernelConfig,
-				"QUANTUM");
+		config_kernel.QUANTUM = string_duplicate(
+				config_get_string_value(kernelConfig, "QUANTUM"));
 	} else {
 		log_error(logKernel,
 				"No se encontro la key 'QUANTUM' en el archivo de configuracion");
@@ -260,42 +269,68 @@ void loadConfig(){
 	}
 
 	if (config_has_property(kernelConfig, "TAMANIO_STACK")) {
-		config_kernel.TAMANIO_STACK = config_get_int_value(kernelConfig,
-				"TAMANIO_STACK");
-	} else {
-		log_error(logKernel,
-				"No se encontro la key 'TAMANIO_STACK' en el archivo de configuracion");
-		config_destroy(kernelConfig);
-		exit(EXIT_FAILURE);
-	}
+			config_kernel.TAMANIO_STACK = config_get_int_value(kernelConfig,
+					"TAMANIO_STACK");
+		} else {
+			log_error(logKernel,
+					"No se encontro la key 'TAMANIO_STACK' en el archivo de configuracion");
+			config_destroy(kernelConfig);
+			exit(EXIT_FAILURE);
+		}
+
 }
 
 void comunicarMuertePrograma(int32_t pid, bool wasInMsp){
 	log_info(logKernel, "implementar comunicarMuertePrograma( pid: %d, estabaEnLaMSP: %d", pid, wasInMsp);
 }
 
-void killProcess(t_process* aProcess){
-
-	if(stillInside(aProcess->process_fd)){
-			log_info(logKernel, string_from_format("Se elimina del sistema las estructuras asociadas al proceso con PID: %d", aProcess->tcb->pid));
-			free(aProcess->tcb);
-			free(aProcess);
-		}
-		else{
-			aProcess->process_fd = 0;
-		}
-	log_info(logKernel, "implementar killProcess pid: %d", aProcess->tcb->pid);
+void eliminarSegmentos(int32_t pid){
+	log_info(logKernel, "implementar eliminarSegmentos pid: %d", pid);
 }
 
 
-t_client_cpu* encontrarCPUporFd(int32_t cpuFd){
+int32_t escribirMemoria(int32_t pid, uint32_t direccionSegmento, char* buffer, int32_t tamanio){
+	t_contenido msjRespuesta;
+	memset(msjRespuesta,0,sizeof(t_contenido));
 
-	bool _match_cpu_fd(void* element){
-		if(((t_client_cpu*)element)->cpuFD == cpuFd){
-			return true;
-		}
-		return false;
+	enviarMensaje(socketMSP, KERNEL_TO_MSP_ENVIAR_BYTES, string_from_format("[%d,%d,%d]", pid, tamanio, direccionSegmento), logKernel);
+
+	recibirMensaje(socketMSP, msjRespuesta, logKernel);
+	log_info(logKernel, "respuesta de la msp: %s", msjRespuesta);
+
+	enviar(socketMSP, buffer, tamanio);
+	recibirMensaje(socketMSP, msjRespuesta, logKernel);
+
+	memset(msjRespuesta,0,sizeof(t_contenido));
+
+	return atoi(msjRespuesta);
+}
+
+
+void crearProcesoKM(){
+	FILE *entrada;
+	size_t cantBytes = 0;
+	char *bufferArchivoSysCalls = NULL;
+
+	if ((entrada = fopen(config_kernel.SYSCALLS, "r")) == NULL ) {
+		perror(config_kernel.SYSCALLS);
+		exit(EXIT_FAILURE);
 	}
 
-	return list_find(cpu_client_list, (void*)_match_cpu_fd);
+	bufferArchivoSysCalls = getBytesFromFile(entrada, &cantBytes);
+
+	// por ahora le mando el socket de la conexion de la msp, deberia mandarle un 0 (creo)
+	// si: el tcb de kernel es una variable global
+	procesoKernel = getProcesoDesdeCodigoBESO(config_kernel.SYSCALLS, MODO_KERNEL, bufferArchivoSysCalls, cantBytes, KERNEL_PID);
+
+	if(procesoKernel == NULL){
+		log_error(logKernel, "Ocurrio un error al intentar crear el proceso de syscalls. El Kernel aborta...");
+		finishKernel();
+		exit(EXIT_FAILURE);
+	}
+
+	log_info(logKernel, "Bloqueamos el proceso Kernel");
+
+	// voilá! "meto" en la "cola de block" al tcb del Kernel
+	setearProcesoCola(procesoKernel, BLOCK);
 }
