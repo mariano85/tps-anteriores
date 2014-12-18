@@ -281,7 +281,7 @@ uint32_t crearSegmento(int pid, int tamanio)
 
 
 	tamanioRestanteTotal = tamanioRestanteTotal - (TAMANIO_PAGINA * cantidadTotalDePaginas);
-	pthread_mutex_unlock(&mutexMemoriaTotalRestante);
+	//pthread_mutex_unlock(&mutexMemoriaTotalRestante);
 
 
 
@@ -347,7 +347,11 @@ int destruirSegmento(int pid, uint32_t base)
 
 	nodo_segmento *nodo;
 
+	puts("hola");
+
 	pthread_rwlock_wrlock(&rwListaSegmentos);
+
+	puts("chau");
 /*	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
 	{
 		pthread_rwlock_unlock(&rwListaSegmentos);
@@ -586,57 +590,10 @@ t_list* filtrarListaSegmentosPorPid(int pid)
 	return listaFiltrada;
 }
 
-nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento)
-{
-	bool _numeroCorresponde(nodo_segmento *p) {
-		return (p->numeroSegmento == numeroSegmento);
-	}
-
-	nodo_segmento *nodo;
-
-	nodo = list_find(listaSegmentosFiltradosPorPID, (void*)_numeroCorresponde);
-
-	return nodo;
-}
-
-t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
-{
-
-	///////**********************FIJATE LOS BLOQUEAOOOOOOOOOOOOOOOOOOSSSSSSSSSSSSSSSSSSSSSSS ************
-	//////////ÑDSJFSKDJFKDSJFÑKSJFKSLJFLKSJDLKFSJDLKFJFLDKJFDJDSFKJDSKDSKFDKDSFKJKFDSKFDSFDSFDLKDSJFLKDSJFLDS
-
-
-
-	t_list* paginasQueNecesito;
-
-	paginasQueNecesito = list_create();
-
-	int i, ultimaPagina;
-
-	ultimaPagina = numeroPagina + cantidadPaginas;
-
-	for (i=numeroPagina; i<ultimaPagina; i++)
-	{
-		nodo_paginas* nodoPagina;
-
-
-		nodoPagina = list_get(nodoSegmento->listaPaginas, i);
-
-		list_add(paginasQueNecesito, nodoPagina);
-
-	}
-
-
-	return paginasQueNecesito;
-}
-
 int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
 {
 
 	t_list* listaFiltradaPorPID = filtrarListaSegmentosPorPid(pid);
-
-
-
 
 	if (list_is_empty(listaFiltradaPorPID))
 	{
@@ -711,6 +668,50 @@ int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
 	return DIRECCION_VALIDA;
 }
 
+
+nodo_segmento* buscarNumeroSegmento(t_list* listaSegmentosFiltradosPorPID, int numeroSegmento)
+{
+	bool _numeroCorresponde(nodo_segmento *p) {
+		return (p->numeroSegmento == numeroSegmento);
+	}
+
+	nodo_segmento *nodo;
+
+	nodo = list_find(listaSegmentosFiltradosPorPID, (void*)_numeroCorresponde);
+
+	return nodo;
+}
+
+t_list* paginasQueVoyAUsar(nodo_segmento *nodoSegmento, int numeroPagina, int cantidadPaginas)
+{
+
+	///////**********************FIJATE LOS BLOQUEAOOOOOOOOOOOOOOOOOOSSSSSSSSSSSSSSSSSSSSSSS ************
+	//////////ÑDSJFSKDJFKDSJFÑKSJFKSLJFLKSJDLKFSJDLKFJFLDKJFDJDSFKJDSKDSKFDKDSFKJKFDSKFDSFDSFDLKDSJFLKDSJFLDS
+
+
+
+	t_list* paginasQueNecesito;
+
+	paginasQueNecesito = list_create();
+
+	int i, ultimaPagina;
+
+	ultimaPagina = numeroPagina + cantidadPaginas;
+
+	for (i=numeroPagina; i<ultimaPagina; i++)
+	{
+		nodo_paginas* nodoPagina;
+
+
+		nodoPagina = list_get(nodoSegmento->listaPaginas, i);
+
+		list_add(paginasQueNecesito, nodoPagina);
+
+	}
+
+
+	return paginasQueNecesito;
+}
 
 t_list* validarEscrituraOLectura(int pid, uint32_t direccionLogica, int tamanio)
 {
@@ -909,7 +910,9 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 						//está en cada cachito de memoria. Despues lo muevo al buffer definitivo, es una cuestion de orden de los cachos.
 	int numeroSegmento, numeroPagina, offset;
 
-	pthread_rwlock_tryrdlock(&(rwListaSegmentos));
+	puts("hola");
+	pthread_rwlock_trywrlock(&rwListaSegmentos);
+	puts("chau");
 
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
@@ -948,14 +951,49 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 	list_iterate(paginasQueNecesito, (void*)_traerAMemoriaPaginasSwappeadasParaLeer);
 
+	void _traerAMemoriaPaginasSinMarco(nodo_paginas *nodo)
+	{
+		pthread_rwlock_wrlock(&(nodo->rwPagina));
+
+		if (nodo->presencia == -1)
+		{
+			pthread_mutex_lock(&mutexMPRestante);
+			if(memoriaRestante < TAMANIO_PAGINA)
+			{
+				if (consola == 1) printf("No hay espacio en la memoria principal, hay que swappear.");
+				log_trace(logs, "No hay espacio en la memoria principal, hay que swappear.");
+
+				if (strcmp(configuracion.sust_pags, "FIFO") == 0)
+				{
+					elegirVictimaSegunFIFO();
+				}
+				else
+				{
+					elegirVictimaSegunClockM();
+				}
+			}
+
+			pthread_mutex_unlock(&mutexMPRestante);
+
+			buscarYAsignarMarcoLibre(pid, numeroSegmento, nodo);
+		}
+
+		pthread_rwlock_unlock(&(nodo->rwPagina));
+
+
+	}
+
+	list_iterate(paginasQueNecesito, (void*)_traerAMemoriaPaginasSinMarco);
+
 
 	void* buffer = malloc(tamanio+1);
-	memset(buffer, 0, tamanio + 1);
+	//memset(buffer, 0, tamanio + 1);
 
 	//Tomo el primer nodo de la lista de paginas que necesito
+
+
 	nodo_paginas *nodoPagina = list_get(paginasQueNecesito, 0);
 
-	pthread_rwlock_rdlock(&(nodoPagina->rwPagina));
 
 
 	int yaCopie = TAMANIO_PAGINA - offset;
@@ -969,8 +1007,12 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		memcpy (buffer, buffermini, yaCopie);
 		free(buffermini);
 	}*/
+	pthread_rwlock_rdlock(&(nodoPagina->rwPagina));
+
 	if (yaCopie > tamanio)
 	{
+
+
 		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 		memcpy (buffer, direccionOrigen, tamanio);
 		pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
@@ -980,12 +1022,19 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 		//printf("buffffffffffffffer: %s\n", (char*)buffer);
 		list_destroy(paginasQueNecesito);
+
 		pthread_rwlock_unlock(&(nodoPagina->rwPagina));
+
+
+		pthread_rwlock_unlock(&rwListaSegmentos);
+
+
 		return buffer;
 
 	}
 	else
 	{
+
 		direccionOrigen = offset + tablaMarcos[nodoPagina->presencia].dirFisica;
 		memcpy(buffer, direccionOrigen, yaCopie);
 		//puts("buffffer:1");
@@ -996,11 +1045,18 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 		tablaMarcos[nodoPagina->presencia].referencia = 1;
 		pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
+		pthread_rwlock_unlock(&(nodoPagina->rwPagina));
+
+
+
+
 	}
+
+
 
 	//printf("cant pag que necd: %d\n", list_size(paginasQueNecesito));
 
-	pthread_rwlock_unlock(&(nodoPagina->rwPagina));
+	//pthread_rwlock_unlock(&(nodoPagina->rwPagina));
 
 	//copio las paginas del medio
 	int i;
@@ -1049,7 +1105,9 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 	}
 
-	pthread_rwlock_unlock(&(rwListaSegmentos));
+	pthread_rwlock_unlock(&rwListaSegmentos);
+
+	puts("hola desbloquie la lista de seg");
 
 
 
@@ -1114,7 +1172,7 @@ void moverPaginaDeSwapAMemoria(int pid, int segmento, nodo_paginas* nodoPagina)
 
 int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int tamanio)
 {
-	pthread_rwlock_tryrdlock(&rwListaSegmentos);
+	pthread_rwlock_trywrlock(&rwListaSegmentos);
 
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
@@ -1183,28 +1241,32 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 										//tambien, por lo que el orden se aumenta dos veces.
 		}
 
+		pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+
+
 		if (i == 0)
 		{
 
 			if(tamanio <= quedaParaCompletarPagina)
 			{
-				pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+				//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+
 				escribirEnMarco (nodoPagina->presencia, tamanio, bytesAEscribir, offset, 0);
 				tablaMarcos[nodoPagina->presencia].modificacion = 1;
 				tablaMarcos[nodoPagina->presencia].referencia = 1;
-				pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+				//pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
 			}
 			else
 			{
 				yaEscribi = yaEscribi + quedaParaCompletarPagina;
 				tamanioRestante = tamanio - quedaParaCompletarPagina;
-				pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+				//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
 				escribirEnMarco (nodoPagina->presencia, quedaParaCompletarPagina, bytesAEscribir, offset, 0);
 				tablaMarcos[nodoPagina->presencia].modificacion = 1;
 				tablaMarcos[nodoPagina->presencia].referencia = 1;
-				pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+				//pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
 
 			}
@@ -1213,12 +1275,12 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 
 		if ((tamanioRestante / TAMANIO_PAGINA == 0) && (i!=0))
 		{
-			pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+			//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
 			escribirEnMarco (nodoPagina->presencia, tamanioRestante, bytesAEscribir, 0, yaEscribi);
 			tablaMarcos[nodoPagina->presencia].modificacion = 1;
 			tablaMarcos[nodoPagina->presencia].referencia = 1;
-			pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+			//pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
 			tamanioRestante = tamanioRestante - (tamanioRestante % TAMANIO_PAGINA);
 			yaEscribi = yaEscribi + (tamanioRestante % TAMANIO_PAGINA);
@@ -1226,17 +1288,18 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		}
 		else if ((tamanioRestante / TAMANIO_PAGINA > 0) && (i!=0))
 		{
-			pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+			//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
 			escribirEnMarco (nodoPagina->presencia, TAMANIO_PAGINA, bytesAEscribir, 0, yaEscribi);
 			tablaMarcos[nodoPagina->presencia].modificacion = 1;
 			tablaMarcos[nodoPagina->presencia].referencia = 1;
-			pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
 
 			tamanioRestante = tamanioRestante - TAMANIO_PAGINA;
 			yaEscribi = yaEscribi + TAMANIO_PAGINA;
 
 		}
+		pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+
 		pthread_rwlock_unlock(&(nodoPagina->rwPagina));
 
 	}
@@ -1274,16 +1337,6 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 		//Uso el primer marco libre que encuentro
 		if (tablaMarcos[i].libre == 1)
 		{
-/*			tablaMarcos[i].puntero = 0;
-			if ((i+1) == cantidadMarcos)
-			{
-				tablaMarcos[0].puntero = 1;
-			}
-			else
-			{
-				tablaMarcos[i + 1].puntero = 1;
-			}
-			*/
 			if ((i+1) == cantidadMarcos)
 			{
 				puntero = 0;
@@ -1306,38 +1359,32 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 
 			log_trace(logs, "Se asignó el marco %d a la página %d del segmento %d del PID %d.", i, nodoPagina->nro_pagina, numeroSegmento, pid);
 
+			pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
+
+
 			return (tablaMarcos[i].dirFisica);
 		}
 
-/*		tablaMarcos[i].puntero = 0;
-		if ((i+1) == cantidadMarcos)
-		{
-			tablaMarcos[0].puntero = 1;
-		}
-		else
-		{
-			tablaMarcos[i + 1].puntero = 1;
-		}*/
-
-		if ((i+1) == cantidadMarcos)
+		/*if ((i+1) == cantidadMarcos)
 		{
 			puntero = 0;
 		}
 		else
 		{
 			puntero = i+1;
-		}
+		}*/
 
 		pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
 
+
 	}
+
 
 	return NULL;
 }
 
 void conexionConKernelYCPU()
 {
-	//log_info(logs,"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 
 	struct sockaddr_in my_addr, their_addr;
 
@@ -1513,9 +1560,9 @@ void* atenderAKernel(void* socket_kernel)
 				}
 				default:
 				{
-
+					t_contenido mensaje_direccion;
+					memset(mensaje_direccion, 0,sizeof(t_contenido));
 					enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_SEGMENTO_CREADO, string_from_format("%d", exito), logs);
-
 				}
 			}
 
@@ -1530,7 +1577,8 @@ void* atenderAKernel(void* socket_kernel)
 			int pid = atoi(split[0]);
 			int tamanio = atoi(split[1]);
 			uint32_t direccion = atoi(split[2]);
-			int exito = EXIT_FAILURE;
+			//int exito;
+
 
 			enviarMensaje((int)socket_kernel, MSP_TO_KERNEL_ESPERO_BYTES, string_from_format("Ahora esperamos el buffer de escritura del proceso %d", pid), logs);
 
@@ -1538,14 +1586,10 @@ void* atenderAKernel(void* socket_kernel)
 
 			recibir((int)socket_kernel, buffer, tamanio);
 
-			exito = escribirMemoria(pid, direccion, buffer, tamanio);
-
 			pthread_rwlock_wrlock(&rwListaSegmentos);
 
 
 			int error = mandarErrorkernel((int)socket_kernel, direccion, pid, tamanio);
-
-			//free(buffer);
 
 			if (error == EXIT_SUCCESS)
 			{
@@ -1555,15 +1599,14 @@ void* atenderAKernel(void* socket_kernel)
 				memset(mensaje_instruccion,0,sizeof(t_contenido));
 				enviarMensaje((int)socket_kernel,MSP_TO_KERNEL_MEMORIA_ESCRITA,mensaje_instruccion,logs);
 			}
+			else
+			{
+				pthread_rwlock_unlock(&rwListaSegmentos);
+			}
+
+
 
 			free(buffer);
-
-
-			//listarMarcos();
-
-
-
-
 
 		}
 
@@ -1582,7 +1625,7 @@ int mandarErrorkernel (int socket_kernel, int dirLogica, int pid, int tamanio)
 	{
 		case VIOLACION_DE_SEGMENTO:
 		{
-			pthread_rwlock_unlock(&rwListaSegmentos);
+			//pthread_rwlock_unlock(&rwListaSegmentos);
 			t_contenido mensaje_instruccion;
 			memset(mensaje_instruccion,0,sizeof(t_contenido));
 			enviarMensaje(socket_kernel,MSP_TO_KERNEL_VIOLACION_DE_SEGMENTO,mensaje_instruccion,logs);
@@ -1591,7 +1634,7 @@ int mandarErrorkernel (int socket_kernel, int dirLogica, int pid, int tamanio)
 		}
 		case PID_INEXISTENTE:
 		{
-			pthread_rwlock_unlock(&rwListaSegmentos);
+			//pthread_rwlock_unlock(&rwListaSegmentos);
 
 			t_contenido mensaje_instruccion;
 			memset(mensaje_instruccion,0,sizeof(t_contenido));
@@ -1602,7 +1645,7 @@ int mandarErrorkernel (int socket_kernel, int dirLogica, int pid, int tamanio)
 		}
 		case DIRECCION_INVALIDA:
 		{
-			pthread_rwlock_unlock(&rwListaSegmentos);
+			//pthread_rwlock_unlock(&rwListaSegmentos);
 
 			t_contenido mensaje_instruccion;
 			memset(mensaje_instruccion,0,sizeof(t_contenido));
@@ -1617,122 +1660,6 @@ int mandarErrorkernel (int socket_kernel, int dirLogica, int pid, int tamanio)
 
 }
 
-/*void* atenderACPU(void* socket_cpu)
-{
-	bool socketValidador = true;
-
-
-	while(socketValidador){
-
-			int pid;
-
-			t_contenido mensaje;
-			memset(mensaje,0,sizeof(t_contenido));
-			t_header header_recibido = recibirMensaje((int)socket_cpu, mensaje, logs);
-
-			if(header_recibido == CPU_TO_MSP_SOLICITAR_BYTES){
-
-
-				//Cargo lo que recibi --> el pir,dir_logica y tamanio
-
-
-				log_info(logs,"ENTRO EN EL IF 1");
-
-				char** array_1 = string_get_string_as_array(mensaje);
-				pid = atoi(array_1[0]);
-				uint32_t dir_logica = atoi(array_1[1]);
-				int tamanio = atoi(array_1[2]);
-
-				void* buffer_instruccion = solicitarMemoria(pid,dir_logica,tamanio);
-
-				t_contenido mensaje_instruccion;
-				memset(mensaje_instruccion,0,sizeof(t_contenido));
-				memcpy(mensaje_instruccion,buffer_instruccion,tamanio);
-				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
-				free(buffer_instruccion);
-
-				if(string_equals_ignore_case((char*)mensaje_instruccion,"XXXX")){
-
-					socketValidador = false;
-				}
-
-			}
-
-			if(header_recibido == CPU_TO_MSP_PARAMETROS){
-
-				char** array = string_get_string_as_array(mensaje);
-
-
-				int32_t program_counter = atoi(array[0]);
-				int32_t auxiliar_cant_bytes = atoi(array[1]);
-
-				void* buffer_parametros = solicitarMemoria(pid,program_counter,auxiliar_cant_bytes);
-				t_contenido mensaje_parametros;
-				memset(mensaje_parametros,0,sizeof(t_contenido));
-				memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
-				enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
-				free(buffer_parametros);
-
-			}
-
-
-			if(header_recibido == CPU_TO_MSP_CREAR_SEGMENTO ){
-
-				char** array_1 = string_get_string_as_array(mensaje);
-				int pid = atoi(array_1[0]);
-				int32_t tamanio = atoi(array_1[1]);
-
-				uint32_t direccion = crearSegmento(pid, tamanio);
-
-				char* direccion_string = string_itoa(direccion);
-				t_contenido mensaje_direccion;
-				memset(mensaje_direccion, 0,sizeof(t_contenido));
-				memcpy(mensaje_direccion, direccion_string, sizeof(t_contenido));
-				enviarMensaje((int)socket_cpu,MSP_TO_CPU_SENTENCE,mensaje_direccion, logs);
-
-			}
-
-			// Es para destruir segmento
-			if(header_recibido == CPU_TO_MSP_DESTRUIR_SEGMENTO){
-
-				char** array_1 = string_get_string_as_array(mensaje);
-				int pid = atoi(array_1[0]);
-				int32_t registro = atoi(array_1[1]);
-
-				destruirSegmento(pid, registro);
-
-				log_info(logs,"el segmento fue destruido");
-			}
-
-			if(header_recibido == CPU_TO_MSP_ESCRIBIR_MEMORIA){
-
-				char** array = string_get_string_as_array(mensaje);
-
-				int32_t A = atoi(array[0]);
-				int32_t B = atoi(array[1]);
-				int32_t pid = atoi(array[3]);
-
-				char* buffer = malloc(B);
-				memset(buffer,0,sizeof(B));
-				memcpy(buffer,(void*)array[2],B); //Ver si hay que castear realmente porque tengo un numero tmb en el push
-
-				escribirMemoria(pid,A,buffer,B);
-
-				//listarMarcos();
-
-				free(buffer);
-
-			}
-
-
-
-
-	}//Fin while
-
-				log_info(logs,"Termino conexion con cpu ------------ Esperando nuevas conexiones");
-				return EXIT_SUCCESS;
- }*/
-
 
 int mandarErrorCPU (int socket_cpu, int dirLogica, int pid, int tamanio)
 {
@@ -1741,7 +1668,7 @@ int mandarErrorCPU (int socket_cpu, int dirLogica, int pid, int tamanio)
 	{
 		case VIOLACION_DE_SEGMENTO:
 		{
-			pthread_rwlock_unlock(&rwListaSegmentos);
+			//pthread_rwlock_unlock(&rwListaSegmentos);
 
 			t_contenido mensaje_instruccion;
 			memset(mensaje_instruccion,0,sizeof(t_contenido));
@@ -1751,7 +1678,7 @@ int mandarErrorCPU (int socket_cpu, int dirLogica, int pid, int tamanio)
 		}
 		case PID_INEXISTENTE:
 		{
-			pthread_rwlock_unlock(&rwListaSegmentos);
+			//pthread_rwlock_unlock(&rwListaSegmentos);
 
 			t_contenido mensaje_instruccion;
 			memset(mensaje_instruccion,0,sizeof(t_contenido));
@@ -1762,7 +1689,7 @@ int mandarErrorCPU (int socket_cpu, int dirLogica, int pid, int tamanio)
 		}
 		case DIRECCION_INVALIDA:
 		{
-			pthread_rwlock_unlock(&rwListaSegmentos);
+			//pthread_rwlock_unlock(&rwListaSegmentos);
 
 			t_contenido mensaje_instruccion;
 			memset(mensaje_instruccion,0,sizeof(t_contenido));
@@ -1825,8 +1752,10 @@ void* atenderACPU(void* socket_cpu)
 					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
 					free(buffer_instruccion);
 				}
-
-
+				else
+				{
+					pthread_rwlock_unlock(&rwListaSegmentos);
+				}
 
 			}
 
@@ -1838,6 +1767,9 @@ void* atenderACPU(void* socket_cpu)
 				int32_t program_counter = atoi(array[0]);
 				int32_t auxiliar_cant_bytes = atoi(array[1]);
 
+				pthread_rwlock_wrlock(&rwListaSegmentos);
+
+
 				int error = mandarErrorCPU((int)socket_cpu, program_counter, pid, auxiliar_cant_bytes);
 
 				if (error == EXIT_SUCCESS)
@@ -1848,6 +1780,11 @@ void* atenderACPU(void* socket_cpu)
 					memcpy(mensaje_parametros, buffer_parametros,auxiliar_cant_bytes);
 					enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_parametros,logs);
 					free(buffer_parametros);
+				}
+
+				else
+				{
+					pthread_rwlock_unlock(&rwListaSegmentos);
 				}
 
 			}
@@ -1973,12 +1910,10 @@ void* atenderACPU(void* socket_cpu)
 					memset(mensaje_instruccion,0,sizeof(t_contenido));
 					enviarMensaje((int)socket_cpu,MSP_TO_CPU_ENVIO_BYTES,mensaje_instruccion,logs);
 				}
-
-
-
-				//escribirMemoria(pid,A,buffer,B);
-
-				//listarMarcos();
+				else
+				{
+					pthread_rwlock_unlock(&rwListaSegmentos);
+				}
 
 				free(buffer);
 
@@ -2386,8 +2321,10 @@ uint32_t aumentarProgramCounter(uint32_t programCounterAnterior, int bytesASumar
 void terminarMSP()
 {
 	pthread_mutex_destroy(&mutexMemoriaTotalRestante);
-	//pthread_mutex_destroy(&mutexMPRestante);
+	pthread_mutex_destroy(&mutexMPRestante);
 	pthread_mutex_destroy(&mutexSwapRestante);
+
+	pthread_rwlock_destroy(&rwListaSegmentos);
 
 	free(memoriaPrincipal);
 
