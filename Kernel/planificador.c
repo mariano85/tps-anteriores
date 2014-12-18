@@ -110,7 +110,7 @@ void* planificador(t_thread *planificadorThread) {
 					char** array = string_get_string_as_array(mensaje_de_la_cpu);
 
 					switch (header) {
-					case ERR_CONEXION_CERRADA:
+					case (ERR_CONEXION_CERRADA):{
 
 						// cerramos socket y lo borramos del master set
 						close(i);
@@ -118,20 +118,24 @@ void* planificador(t_thread *planificadorThread) {
 
 						// eliminamos la cpu de la lista de cpu's y el proceso que estaba ejecutando, si hubiere
 						eliminarCpu(i);
+					}
 
 						break;
 					case ERR_ERROR_AL_RECIBIR_MSG:
 						// TODO y aca que hacemos?
 						break;
 
-					case CPU_TO_KERNEL_HANDSHAKE:
+					case (CPU_TO_KERNEL_HANDSHAKE):{
 
 						agregarCpu(i, mensaje_de_la_cpu);
 						enviarMensaje(i, CPU_TO_KERNEL_HANDSHAKE, string_from_format("[%s,%d]",config_kernel.QUANTUM,config_kernel.TAMANIO_STACK), logKernel);
 						agregarProcesoColaExec();
 
+					}
+
 						break;
-					case CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE:
+
+					case (CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE):{
 
 						//Aca hay que guardarlo en un estructura TCB y mandarlo a la cola de ready pero no se cual estructura usan te lo dejo a vos lean
 						//MUESTRO LO QUE DEBERIA LLEGARTE IGUAL
@@ -139,21 +143,38 @@ void* planificador(t_thread *planificadorThread) {
 						log_info(logKernel,"PID ES %d, Program_counter es %d ,modo es %d",atoi(array[0]),atoi(array[1]),atoi(array[2]));
 						log_info(logKernel,"Los registros son : A es %d B es %d C es %d D es %d E es %d",atoi(array[3]),atoi(array[4]),atoi(array[5]),atoi(array[6]),atoi(array[7]));
 
-						manejarFinDeQuantum(i, mensaje_de_la_cpu);
-						agregarProcesoColaExec();
+//						t_process* aProcess = desocuparCPU(i);
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
+						unaCpu->libre = true;
+						log_info(logKernel, string_from_format("El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
 
-						break;
-
-					case (CPU_TO_KERNEL_END_PROC):{
-						log_info(logKernel,"recibi el tcb porque finalizo proceso por XXXX");
-						log_debug(logKernel, "manejo el fin de quantum...");
-						t_process* aProcess = desocuparCPU(i);
 						if(aProcess == NULL){
 							log_debug(logKernel, "\n\nel proceso liberado es %s\n", aProcess->nombre);
 						} else {
 							t_client_cpu *cpu = buscarCPUPorFD(i);
 							log_debug(logKernel, "\n\nSOSPECHOSO: el proceso que ejecutaba la cpu es NULL. CPU ocupada? %s\n", cpu->libre ? "no" : "si");
 						}
+
+						actualizarTCB(aProcess, mensaje_de_la_cpu);
+
+						agregarProcesoColaReady(aProcess);
+						agregarProcesoColaExec();
+
+					}
+
+						break;
+
+					case (CPU_TO_KERNEL_END_PROC):{
+						log_info(logKernel,"recibi el tcb porque por una instruccion XXXX");
+
+//						t_process* aProcess = desocuparCPU(i);
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
+						unaCpu->libre = true;
+						log_info(logKernel, string_from_format("El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
 
 						if(atoi(array[2])){ // es tcb de kernel
 							aProcess = context_switch_vuelta();
@@ -168,6 +189,7 @@ void* planificador(t_thread *planificadorThread) {
 							agregarProcesoColaExit(aProcess, EXIT);
 						}
 
+						log_debug(logKernel, "\n\nel proceso liberado es %s\n", aProcess->nombre);
 						agregarProcesoColaExec();
 
 					}
@@ -193,36 +215,45 @@ void* planificador(t_thread *planificadorThread) {
 
 						break;
 
-					case CPU_TO_KERNEL_ENTRADA_ESTANDAR:
+					case (CPU_TO_KERNEL_ENTRADA_ESTANDAR):{
 
 						log_info(logKernel,"Entre al if de la entrada estandar");
-
 						entrada_estandar(i, mensaje_de_la_cpu);
 
+					}
+
 						break;
 
-					case CPU_TO_KERNEL_SALIDA_ESTANDAR:
+					case (CPU_TO_KERNEL_SALIDA_ESTANDAR):{
 
 						log_info(logKernel,"Entre al if de la salida estandar");
-
 						salida_estandar(i, mensaje_de_la_cpu);
 
+					}
+
 						break;
 
-					case CPU_TO_KERNEL_CREAR_HILO:
+					case (CPU_TO_KERNEL_CREAR_HILO):{
 
 						crear_hilo(mensaje_de_la_cpu);
-//						agregarProcesoColaExec();
+						agregarProcesoColaExec();
+
+					}
 
 						break;
-					case CPU_TO_KERNEL_JOIN:
-
-						join(i, mensaje_de_la_cpu);
+					case (CPU_TO_KERNEL_JOIN):{
 						// TODO: recordar que aca cuando finalice el hilo a esperar mando a ready al hilo que espera
+						join(i, mensaje_de_la_cpu);
+					}
+
 						break;
-					case CPU_TO_KERNEL_BLOCK:
+					case (CPU_TO_KERNEL_BLOCK):{
+
+					}
 						break;
-					case CPU_TO_KERNEL_WAKE:
+					case (CPU_TO_KERNEL_WAKE):{
+
+					}
 						break;
 					default:
 						;
@@ -307,6 +338,7 @@ void actualizarTCB(t_process* aProcess, char* mensaje) {
 }
 
 
+// TODO: esta funcion tampoco se usa acá
 void manejarFinDeQuantum(int32_t socketCpu, char* mensaje){
 
 	log_debug(logKernel, "manejo el fin de quantum...");
@@ -376,8 +408,7 @@ t_client_cpu* buscarCPUPorFD(int32_t socketCpu) {
 
 
 /*
- * si obtengo el proceso ejecutandose en la cpu
- * marco a la cpu como desocupada
+ * TODO: WARNING! TRATAR DE NO INVOCAR ESTA FUNCION EN EL SWITCH GRANDE
  */
 t_process* desocuparCPU(int32_t socketCpu) {
 
@@ -417,7 +448,7 @@ t_process* context_switch_vuelta(){
 	pthread_mutex_lock(&mutex_syscalls_queue);
 		aProcess = queue_peek(COLA_SYSCALLS);
 
-		if(aProcess->tcb->pid == procesoKernel->tcb->pid && aProcess->tcb->tid == procesoKernel->tcb->tid){
+		if(aProcess == NULL && aProcess->tcb->pid == procesoKernel->tcb->pid && aProcess->tcb->tid == procesoKernel->tcb->tid){
 			aProcess = queue_pop(COLA_SYSCALLS);
 		}
 	pthread_mutex_unlock(&mutex_syscalls_queue);
