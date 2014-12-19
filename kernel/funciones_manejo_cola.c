@@ -52,13 +52,20 @@ void pushColaReady(t_process* aProcess) {
 			/*Magic here, please!*/
 
 					queue_push(COLA_READY, aProcess);
-				pthread_cond_signal(&cond_ready_consumer);			/* wake up consumer */
+
 			pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
+			pthread_cond_signal(&cond_ready_consumer);			/* wake up consumer */
 	}
 	else{/*Ya era READY y pudo haber terminado de ejecutar recientemente*/
 
 		pthread_mutex_lock(&mutex_ready_queue);	/* Blocks the buffer */
+
+			if(aProcess->tcb->kernel_mode){
+				list_add_in_index(COLA_READY->elements, 0, aProcess);
+			} else {
 				queue_push(COLA_READY, aProcess);
+			}
+
 		pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
 
 	}

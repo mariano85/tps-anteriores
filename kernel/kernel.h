@@ -107,7 +107,7 @@ t_queue *COLA_EXIT;
 t_queue *COLA_JOIN;
 
 pthread_mutex_t mutex_ready_queue;
-pthread_mutex_t mutex_ready_sem;
+pthread_mutex_t mutex_syscall_semaforo;
 pthread_mutex_t mutex_syscalls_queue;
 pthread_mutex_t mutex_join_queue;
 pthread_mutex_t mutex_exit_queue;
@@ -154,6 +154,9 @@ void manejarFinDeQuantum(int32_t socketCpu, char* mensaje);
 void manejarFinDeProceso(int32_t socketCpu, char* mensaje);
 t_client_cpu* buscarCPUPorFD(int32_t socketCpu);
 t_process* desocuparCPU(int32_t socketCpu);
+
+t_process* traer_CPU_INTERRUPCION(int32_t socketCPU);
+t_process* desocuparCPU_INTERRUPCION(int32_t socketCPU);
 
 /* SERVICIOS KERNEL
  *

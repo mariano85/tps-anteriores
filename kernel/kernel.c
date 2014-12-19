@@ -39,7 +39,7 @@ void finishKernel(){
 	// destruyo semaforos
 	pthread_mutex_destroy(&mutex_cpu_list);
 	pthread_mutex_destroy(&mutex_ready_queue);
-	pthread_mutex_destroy(&mutex_ready_sem);
+	pthread_mutex_destroy(&mutex_syscall_semaforo);
 	pthread_mutex_destroy(&mutex_syscalls_queue);
 	pthread_mutex_destroy(&mutex_join_queue);
 	pthread_mutex_destroy(&mutex_exit_queue);
@@ -84,7 +84,7 @@ void initKernel(){
 	//Inicializa semaforos
 	pthread_mutex_init(&mutex_cpu_list, NULL);
 	pthread_mutex_init(&mutex_ready_queue, NULL );
-	pthread_mutex_init(&mutex_ready_sem, NULL );
+	pthread_mutex_init(&mutex_syscall_semaforo, NULL );
 	pthread_mutex_init(&mutex_syscalls_queue, NULL );
 	pthread_mutex_init(&mutex_join_queue, NULL );
 	pthread_mutex_init(&mutex_exit_queue, NULL );

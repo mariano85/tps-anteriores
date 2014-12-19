@@ -204,10 +204,10 @@ void* planificador(t_thread *planificadorThread) {
 
 					case (CPU_TO_KERNEL_INTERRUPCION):{ // sacar la funcion afuera
 						uint32_t direccion = atoi(array[13]);
-						t_process* procesoExec = desocuparCPU(i);
+
+						t_process* procesoExec = traer_CPU_INTERRUPCION(i);
 
 						actualizarTCB(procesoExec, mensaje_de_la_cpu);
-
 						agregarProcesoColaSyscall(procesoExec, direccion);
 
 						// el procesador está disponible y hay necesidad de ejecutar un syscall
@@ -217,6 +217,9 @@ void* planificador(t_thread *planificadorThread) {
 							log_debug(logKernel, "\n\nvemos si estamos mandando el tcb km a ready %d\n", procesoKernel->tcb->pid);
 							agregarProcesoColaReady(procesoKernel);
 						}
+
+						desocuparCPU_INTERRUPCION(i);
+
 						agregarProcesoColaExec();
 
 					}
@@ -483,6 +486,27 @@ t_process* desocuparCPU(int32_t socketCpu) {
 }
 
 
+t_process* traer_CPU_INTERRUPCION(int32_t socketCpu){
+
+	t_client_cpu *unaCpu = buscarCPUPorFD(socketCpu);
+	t_process* unProceso = unaCpu->procesoExec;
+	log_info(logKernel, string_from_format("El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
+	return unProceso;
+}
+
+t_process* desocuparCPU_INTERRUPCION(int32_t socketCPU){
+
+	t_client_cpu *unaCpu = buscarCPUPorFD(socketCPU);
+	t_process* unProceso = unaCpu->procesoExec;
+	unaCpu->procesoExec = NULL;
+	unaCpu->libre = true;
+	log_info(logKernel, string_from_format("Saco el Proceso :  (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
+	return unProceso;
+
+
+}
+
+
 void context_switch_ida(){
 
 	t_process* aProcess = queue_peek(COLA_SYSCALLS);
@@ -637,3 +661,6 @@ void join(int32_t socketCpu, char* mensajeRecibido){
 	proceso_a_esperar->tid_llamador_join = tid_llamador;
 
 }
+
+
+

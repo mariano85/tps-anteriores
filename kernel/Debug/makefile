@@ -25,7 +25,7 @@ endif
 all: kernel
 
 dependents:
-	-cd /home/utnso/workspace/ansisop-panel/Debug && $(MAKE) clean all
+	-cd /home/utnso/workspace/ansisop-panel/Debug && $(MAKE) all
 
 # Tool invocations
 kernel: $(OBJS) $(USER_OBJS) /home/utnso/workspace/ansisop-panel/Debug/libansisop-panel.so
