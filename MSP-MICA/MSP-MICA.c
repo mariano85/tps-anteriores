@@ -89,8 +89,6 @@ int main() {
 
 	inicializarMSP();
 
-	puts("HOLA MSP");
-
 	conexionConKernelYCPU();
 
 	pthread_join(hilo_consola_1, NULL);

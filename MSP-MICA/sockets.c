@@ -74,6 +74,8 @@ int32_t enviarMensaje(int32_t numSocket, t_header header, t_contenido mensaje, t
 	}
 
 	t_mensajes *s = malloc(sizeof(t_mensajes));
+	memset(s, 0, sizeof(t_mensajes));
+
 	s->id = header;
 	strcpy(s->contenido, mensaje);
 	log_info(logger, "Se ENVIA por SOCKET:%d - HEADER:%s MENSAJE:\"%s\" ",
@@ -164,7 +166,7 @@ char* getDescription(int item){
 	case    CPU_TO_MSP_ENVIAR_BYTES: return "CPU_TO_MSP_ENVIAR_BYTES";
 	case	CPU_TO_KERNEL_HANDSHAKE:	return 	"CPU_TO_KERNEL_HANDSHAKE "	;
 	case	CPU_TO_KERNEL_NEW_CPU_CONNECTED:	return 	"CPU_TO_KERNEL_NEW_CPU_CONNECTED "	;
-	case	CPU_TO_KERNEL_END_PROC:	return 	"CPU_TO_KRN_END_PROC "	;
+	case	CPU_TO_KERNEL_END_PROC:	return 	"CPU_TO_KERNEL_END_PROC "	;
 	case	CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE:	return 	"CPU_TO_KERNEL_END_PROC_QUANTUM "	;
 	case	CPU_TO_KERNEL_END_PROC_QUANTUM_SIGNAL: return "CPU_TO_KERNEL_END_PROC_QUANTUM_SIGNAL";
 	case 	CPU_TO_KERNEL_END_PROC_ERROR:		return "CPU_TO_KERNEL_END_PROC_ERROR";
@@ -214,6 +216,8 @@ char* getDescription(int item){
 	case MSP_TO_KERNEL_MEMORIA_ESCRITA : return "MSP_TO_KERNEL_MEMORIA_ESCRITA";
 	case MSP_TO_KERNEL_ESPERO_BYTES : return "MSP_TO_KERNEL_ESPERO_BYTES";
 	case MSP_TO_CPU_ENVIO_BYTES : return "MSP_TO_CPU_ENVIO_BYTES";
+	case CPU_TO_MSP_ESCRIBIR_MEMORIA_NUMERO : return " CPU_TO_MSP_ESCRIBIR_MEMORIA_NUMERO";
+	case CPU_TO_MSP_SOLICITAR_NUMERO : return "CPU_TO_MSP_SOLICITAR_NUMERO";
 
 		default:  return "---DEFAULT--- (mensaje sin definir)";
 	}

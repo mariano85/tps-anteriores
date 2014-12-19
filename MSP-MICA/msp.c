@@ -73,7 +73,7 @@ void crearTablaDeMarcos()
 		cantidadMarcos = configuracion.cantidad_memoria / TAMANIO_PAGINA + 1;
 	}
 
-	printf("cantidadmarcos: %d\n", cantidadMarcos);
+	//printf("cantidadmarcos: %d\n", cantidadMarcos);
 
 	//Aloco espacio de memoria para una tabla que va tener toda la información de los marcos de memoria.
 	//calloc recibe dos parámetros por separado, la cantidad de espacios que necesito, y el tamaño de cada
@@ -224,6 +224,8 @@ uint32_t agregarSegmentoALista(int cantidadDePaginas, int pid, int cantidadSegme
 
 	uint32_t direccionBase = generarDireccionLogica(nodoSegmento->numeroSegmento, 0, 0);
 
+	list_destroy(listaSegmentosDelPID);
+
 
 
 	return direccionBase;
@@ -347,11 +349,11 @@ int destruirSegmento(int pid, uint32_t base)
 
 	nodo_segmento *nodo;
 
-	puts("hola");
+	//puts("hola");
 
 	pthread_rwlock_wrlock(&rwListaSegmentos);
 
-	puts("chau");
+	//puts("chau");
 /*	if (!list_any_satisfy(listaSegmentos, (void*)_pidYSegmentoCorresponde))
 	{
 		pthread_rwlock_unlock(&rwListaSegmentos);
@@ -597,6 +599,7 @@ int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
 
 	if (list_is_empty(listaFiltradaPorPID))
 	{
+		list_destroy(listaFiltradaPorPID);
 		return PID_INEXISTENTE;
 	}
 
@@ -612,23 +615,29 @@ int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
 
 	if (nodoSegmento == NULL)
 	{
+		list_destroy(listaFiltradaPorPID);
+
 		return DIRECCION_INVALIDA;
 	}
 
 	if (offset > nodoSegmento->tamanio)
 	{
-		puts("offset mayor que tamanio del segmento");
+		list_destroy(listaFiltradaPorPID);
+
 		return VIOLACION_DE_SEGMENTO;
 	}
 
 	if (offset > (TAMANIO_PAGINA - 1))
 	{
+		list_destroy(listaFiltradaPorPID);
+
 		return DIRECCION_INVALIDA;
 	}
 
 	if (nodoSegmento->tamanio == 0 && tamanio > 0)
 	{
-		puts("tamanio del segmento 0 y tamanio mayor que 0");
+		list_destroy(listaFiltradaPorPID);
+
 		return VIOLACION_DE_SEGMENTO;
 	}
 
@@ -645,8 +654,12 @@ int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
 	{
 		if (nodoSegmento->tamanio == 0)
 		{
+			list_destroy(listaFiltradaPorPID);
+
 			return DIRECCION_VALIDA;
 		}
+		list_destroy(listaFiltradaPorPID);
+
 
 		return DIRECCION_INVALIDA;
 	}
@@ -655,6 +668,8 @@ int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
 	{
 		if ((tamanio + offset) > nodoSegmento->tamanio)
 		{
+			list_destroy(listaFiltradaPorPID);
+
 			return VIOLACION_DE_SEGMENTO;
 		}
 	}
@@ -662,8 +677,13 @@ int direccionInValida(uint32_t direccionLogica, int pid, int tamanio)
 	int espacioAntesDeLaBase = nodoPagina->nro_pagina *  TAMANIO_PAGINA + offset;
 	if ((espacioAntesDeLaBase + tamanio) > nodoSegmento->tamanio)
 	{
+		list_destroy(listaFiltradaPorPID);
+
 		return VIOLACION_DE_SEGMENTO;
 	}
+
+	list_destroy(listaFiltradaPorPID);
+
 
 	return DIRECCION_VALIDA;
 }
@@ -910,9 +930,9 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 						//está en cada cachito de memoria. Despues lo muevo al buffer definitivo, es una cuestion de orden de los cachos.
 	int numeroSegmento, numeroPagina, offset;
 
-	puts("hola");
+	//puts("hola");
 	pthread_rwlock_trywrlock(&rwListaSegmentos);
-	puts("chau");
+	//puts("chau");
 
 	t_list* paginasQueNecesito = validarEscrituraOLectura(pid, direccionLogica, tamanio);
 
@@ -1107,7 +1127,7 @@ void* solicitarMemoria(int pid, uint32_t direccionLogica, int tamanio)
 
 	pthread_rwlock_unlock(&rwListaSegmentos);
 
-	puts("hola desbloquie la lista de seg");
+	//puts("hola desbloquie la lista de seg");
 
 
 
@@ -1473,6 +1493,9 @@ void* atenderAKernel(void* socket_kernel)
 					"por lo que no se puede continuar");
 			running = false;
 			terminarMSP();
+			exit(0);
+			//break;
+
 		} else if(headerK == KERNEL_TO_MSP_ELIMINAR_SEGMENTOS){
 
 			char** split = string_get_string_as_array(mensaje);
@@ -1721,6 +1744,7 @@ void* atenderACPU(void* socket_cpu)
 			if(header_recibido == ERR_CONEXION_CERRADA){
 						log_error(logs, "Termino conexión con CPU porque se cerró la conexión.");
 						socketValidador = false;
+						break;
 			}
 
 			char** array_aux = string_get_string_as_array(mensaje);
@@ -1834,7 +1858,7 @@ void* atenderACPU(void* socket_cpu)
 					{
 						char* direccion_string = string_itoa(direccion);
 						t_contenido mensaje_direccion;
-						memset(mensaje_direccion, 0,sizeof(t_contenido));
+						memset(mensaje_direccion, 0,sizeof(t_contenido)+4);
 						memcpy(mensaje_direccion, direccion_string, sizeof(t_contenido));
 						enviarMensaje((int)socket_cpu,MSP_TO_CPU_SEGMENTO_CREADO,mensaje_direccion, logs);
 
@@ -1922,7 +1946,7 @@ void* atenderACPU(void* socket_cpu)
 			}
 
 
-			if(header_recibido == CPU_TO_MSP_SOLICITAR_NUMERO_STACK){
+			if(header_recibido == CPU_TO_MSP_SOLICITAR_NUMERO){
 
 
 							int32_t	pid1 = atoi(array_aux[0]);
@@ -1956,7 +1980,7 @@ void* atenderACPU(void* socket_cpu)
 						}
 
 
-			if(header_recibido == CPU_TO_MSP_ESCRIBIR_MEMORIA_STACK){
+			if(header_recibido == CPU_TO_MSP_ESCRIBIR_MEMORIA_NUMERO){
 
 
 
@@ -2322,8 +2346,8 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
 	nodoPagina->presencia = -2;
 
 	void* direccionDestino = tablaMarcos[numeroMarco].dirFisica;
-	void* buffer = malloc(TAMANIO_PAGINA);
-	buffer = string_repeat('\0', TAMANIO_PAGINA);
+	void* buffer = malloc(TAMANIO_PAGINA+1);
+	buffer = string_repeat('\0', TAMANIO_PAGINA+1);
 
 	memcpy(direccionDestino, buffer, TAMANIO_PAGINA);
 
@@ -2402,7 +2426,7 @@ void terminarMSP()
 
 	pthread_rwlock_destroy(&rwListaSegmentos);
 
-	free(memoriaPrincipal);
+	//free(memoriaPrincipal);
 
 	//faltan destruir los segmentos
 
@@ -2412,7 +2436,6 @@ void terminarMSP()
 	//free(tablaMarcos);
 	//log_destroy(logs);
 
-	exit(0);
 
 
 }

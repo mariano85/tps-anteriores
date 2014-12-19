@@ -256,7 +256,7 @@ int buscarComando(char* buffer)
 		consola = 0;
 
 
-		//exit(0);
+		exit(0);
 	}
 
 	liberarSubstrings(substrings);
