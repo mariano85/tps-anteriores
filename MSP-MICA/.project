@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>kernel</name>
+	<name>MSP-MICA</name>
 	<comment></comment>
 	<projects>
-		<project>ansisop-panel</project>
+		<project>commons</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1723,6 +1723,8 @@ void* atenderACPU(void* socket_cpu)
 						socketValidador = false;
 			}
 
+			char** array_aux = string_get_string_as_array(mensaje);
+
 			if(header_recibido == CPU_TO_MSP_SOLICITAR_BYTES){
 
 
@@ -1918,6 +1920,80 @@ void* atenderACPU(void* socket_cpu)
 				free(buffer);
 
 			}
+
+
+			if(header_recibido == CPU_TO_MSP_SOLICITAR_NUMERO_STACK){
+
+
+							int32_t	pid1 = atoi(array_aux[0]);
+							uint32_t dir_logica1 = atoi(array_aux[1]);
+							int tamanio1 = atoi(array_aux[2]);
+
+							pthread_rwlock_wrlock(&rwListaSegmentos);
+
+							int error = mandarErrorCPU((int)socket_cpu, dir_logica1, pid1, tamanio1);
+
+							//int error = EXIT_SUCCESS;
+
+							if (error == EXIT_SUCCESS)
+							{
+								void* buffer_instruccion = solicitarMemoria(pid1,dir_logica1,tamanio1);
+
+								int32_t auxiliar_numero = 0;
+								memcpy(&auxiliar_numero,buffer_instruccion,tamanio1);
+
+								t_contenido mensaje_instruccion;
+								memset(mensaje_instruccion,0,sizeof(t_contenido));
+								strcpy(mensaje_instruccion, string_from_format("[%d]",auxiliar_numero));
+								enviarMensaje((int)socket_cpu,MSP_TO_CPU_BYTES_ENVIADOS,mensaje_instruccion,logs);
+								free(buffer_instruccion);
+							}
+							else
+							{
+								pthread_rwlock_unlock(&rwListaSegmentos);
+							}
+
+						}
+
+
+			if(header_recibido == CPU_TO_MSP_ESCRIBIR_MEMORIA_STACK){
+
+
+
+							int32_t A = atoi(array_aux[0]);
+							int32_t B = atoi(array_aux[1]);
+							int32_t pid = atoi(array_aux[3]);
+
+							char* buffer = malloc(B);
+							memset(buffer,0,sizeof(B));
+
+							int32_t numero_auxiliar = atoi(array_aux[2]);
+
+						//	memcpy(buffer,(void*)array[2],B); //Ver si hay que castear realmente porque tengo un numero tmb en el push
+
+							memcpy(buffer,&numero_auxiliar,B);
+
+							pthread_rwlock_wrlock(&rwListaSegmentos);
+
+							int error = mandarErrorCPU((int)socket_cpu, A, pid, B);
+
+							if (error == EXIT_SUCCESS)
+							{
+								escribirMemoria(pid,A,buffer,B);
+
+								log_info(logs, "Ya puede seguir, se escribio memoria.");
+								t_contenido mensaje_instruccion;
+								memset(mensaje_instruccion,0,sizeof(t_contenido));
+								enviarMensaje((int)socket_cpu,MSP_TO_CPU_ENVIO_BYTES,mensaje_instruccion,logs);
+							}
+							else
+							{
+								pthread_rwlock_unlock(&rwListaSegmentos);
+							}
+
+							free(buffer);
+
+						}
 
 
 
