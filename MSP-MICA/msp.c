@@ -142,11 +142,11 @@ void inicializarMSP()
 
 	levantarArchivoDeConfiguracion();
 
-	/*//PASAJE DE MB Y KB A BYTES
+	//PASAJE DE MB Y KB A BYTES
 	int memoriaEnBytes = configuracion.cantidad_memoria * (pow(2, 10));
 	int swapEnBytes = configuracion.cantidad_swap * (pow(2, 20));
 	configuracion.cantidad_memoria = memoriaEnBytes;
-	configuracion.cantidad_swap = swapEnBytes;*/
+	configuracion.cantidad_swap = swapEnBytes;
 
 	//Estas variables las uso para, cada vez que asigno un marco o swappeo una pagina, voy restando del
 	//espacio total. Cuando alguna de estas dos variables llegue a 0, significa que no hay mas espacio.
