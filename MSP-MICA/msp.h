@@ -101,6 +101,8 @@ int puntero;
 pthread_mutex_t mutexMemoriaTotalRestante;
 pthread_mutex_t mutexSwapRestante;
 pthread_mutex_t mutexMPRestante;
+pthread_mutex_t mutexPuntero;
+pthread_mutex_t mutexOrdenMarco;
 
 pthread_rwlock_t rwListaSegmentos;
 

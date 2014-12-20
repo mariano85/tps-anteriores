@@ -129,6 +129,8 @@ void inicializarMSP()
 	pthread_mutex_init(&mutexMemoriaTotalRestante, NULL);
 	pthread_mutex_init(&mutexMPRestante, NULL);
 	pthread_mutex_init(&mutexSwapRestante, NULL);
+	pthread_mutex_init(&mutexOrdenMarco, NULL);
+	pthread_mutex_init(&mutexPuntero, NULL);
 
 	pthread_rwlock_init(&rwListaSegmentos, NULL);
 
@@ -1248,16 +1250,24 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 				}
 			}
 
-			pthread_mutex_unlock(&mutexMPRestante);
+
+			pthread_mutex_lock(&mutexPuntero);
 
 			buscarYAsignarMarcoLibre(pid, numeroSegmento, nodoPagina);
+			pthread_mutex_unlock(&mutexPuntero);
+
+
+			pthread_mutex_unlock(&mutexMPRestante);
+
 		}
 
 		if (nodoPagina->presencia == -2)
 		{
+			pthread_mutex_lock(&mutexOrdenMarco);
 			moverPaginaDeSwapAMemoria(pid, numeroSegmento, nodoPagina);
 			ordenMarco = ordenMarco - 1; //Esto lo hago para que no se saltee ningun orden. Cuando traigo la pagina a memoria,
-										//hago un escribirEnMarco que aumenta el orden de escritura, y cuando escribo en nuevo buffer
+			pthread_mutex_unlock(&mutexOrdenMarco);
+							//hago un escribirEnMarco que aumenta el orden de escritura, y cuando escribo en nuevo buffer
 										//tambien, por lo que el orden se aumenta dos veces.
 		}
 
@@ -1270,8 +1280,15 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 			if(tamanio <= quedaParaCompletarPagina)
 			{
 				//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+				pthread_mutex_lock(&mutexOrdenMarco);
+				pthread_mutex_lock(&mutexPuntero);
+
 
 				escribirEnMarco (nodoPagina->presencia, tamanio, bytesAEscribir, offset, 0);
+				pthread_mutex_unlock(&mutexPuntero);
+
+				pthread_mutex_unlock(&mutexOrdenMarco);
+
 				tablaMarcos[nodoPagina->presencia].modificacion = 1;
 				tablaMarcos[nodoPagina->presencia].referencia = 1;
 				//pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
@@ -1282,8 +1299,15 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 				yaEscribi = yaEscribi + quedaParaCompletarPagina;
 				tamanioRestante = tamanio - quedaParaCompletarPagina;
 				//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+				pthread_mutex_lock(&mutexOrdenMarco);
+				pthread_mutex_lock(&mutexPuntero);
+
 
 				escribirEnMarco (nodoPagina->presencia, quedaParaCompletarPagina, bytesAEscribir, offset, 0);
+				pthread_mutex_unlock(&mutexPuntero);
+
+				pthread_mutex_unlock(&mutexOrdenMarco);
+
 				tablaMarcos[nodoPagina->presencia].modificacion = 1;
 				tablaMarcos[nodoPagina->presencia].referencia = 1;
 				//pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
@@ -1296,8 +1320,15 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		if ((tamanioRestante / TAMANIO_PAGINA == 0) && (i!=0))
 		{
 			//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+			pthread_mutex_lock(&mutexOrdenMarco);
+			pthread_mutex_lock(&mutexPuntero);
+
 
 			escribirEnMarco (nodoPagina->presencia, tamanioRestante, bytesAEscribir, 0, yaEscribi);
+			pthread_mutex_unlock(&mutexPuntero);
+
+			pthread_mutex_unlock(&mutexOrdenMarco);
+
 			tablaMarcos[nodoPagina->presencia].modificacion = 1;
 			tablaMarcos[nodoPagina->presencia].referencia = 1;
 			//pthread_rwlock_unlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
@@ -1309,8 +1340,15 @@ int escribirMemoria(int pid, uint32_t direccionLogica, void* bytesAEscribir, int
 		else if ((tamanioRestante / TAMANIO_PAGINA > 0) && (i!=0))
 		{
 			//pthread_rwlock_wrlock(&(tablaMarcos[nodoPagina->presencia].rwMarco));
+			pthread_mutex_lock(&mutexOrdenMarco);
+			pthread_mutex_lock(&mutexPuntero);
+
 
 			escribirEnMarco (nodoPagina->presencia, TAMANIO_PAGINA, bytesAEscribir, 0, yaEscribi);
+			pthread_mutex_unlock(&mutexPuntero);
+
+			pthread_mutex_unlock(&mutexOrdenMarco);
+
 			tablaMarcos[nodoPagina->presencia].modificacion = 1;
 			tablaMarcos[nodoPagina->presencia].referencia = 1;
 
@@ -1366,9 +1404,7 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 				puntero = i+1;
 			}
 
-			pthread_mutex_lock(&mutexMPRestante);
 			memoriaRestante = memoriaRestante - TAMANIO_PAGINA;
-			pthread_mutex_unlock(&mutexMPRestante);
 
 
 			tablaMarcos[i].libre = 0;
@@ -1384,15 +1420,6 @@ void* buscarYAsignarMarcoLibre(int pid, int numeroSegmento, nodo_paginas *nodoPa
 
 			return (tablaMarcos[i].dirFisica);
 		}
-
-		/*if ((i+1) == cantidadMarcos)
-		{
-			puntero = 0;
-		}
-		else
-		{
-			puntero = i+1;
-		}*/
 
 		pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
 
@@ -2066,15 +2093,6 @@ int primeraVueltaClock(int puntero)
 
 		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 0))
 		{
-/*			tablaMarcos[i].puntero = 0;
-			if ((i+1) == cantidadMarcos)
-			{
-				tablaMarcos[0].puntero = 1;
-			}
-			else
-			{
-				tablaMarcos[i + 1].puntero = 1;
-			}*/
 
 			if ((i+1) == cantidadMarcos)
 			{
@@ -2086,8 +2104,14 @@ int primeraVueltaClock(int puntero)
 			}
 
 			numeroMarco = i;
+			//pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
+
 			return numeroMarco;
 		}
+
+
+		pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
+
 
 		i++;
 		//esto es para fingir la cola circular
@@ -2101,16 +2125,6 @@ int primeraVueltaClock(int puntero)
 			primeraVez = 0;
 		}
 
-/*		tablaMarcos[i].puntero = 0;
-		if ((i+1) == cantidadMarcos)
-		{
-			tablaMarcos[0].puntero = 1;
-		}
-		else
-		{
-			tablaMarcos[i + 1].puntero = 1;
-		}*/
-
 		if ((i+1) == cantidadMarcos)
 		{
 			puntero = 0;
@@ -2120,7 +2134,6 @@ int primeraVueltaClock(int puntero)
 			puntero = i+1;
 		}
 
-		pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
 
 	}
 
@@ -2146,15 +2159,6 @@ int segundaVueltaClock(int puntero)
 
 		if ((tablaMarcos[i].referencia == 0) && (tablaMarcos[i].modificacion == 1))
 		{
-/*			tablaMarcos[i].puntero = 0;
-			if ((i+1) == cantidadMarcos)
-			{
-				tablaMarcos[0].puntero = 1;
-			}
-			else
-			{
-				tablaMarcos[i + 1].puntero = 1;
-			}*/
 
 			if ((i+1) == cantidadMarcos)
 			{
@@ -2166,10 +2170,14 @@ int segundaVueltaClock(int puntero)
 			}
 			numeroMarco = i;
 			tablaMarcos[i].modificacion = 0;
+			//pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
+
 			return numeroMarco;
 		}
 
 		tablaMarcos[i].referencia = 0;
+
+		pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
 
 		i++;
 		//esto es para fingir la cola circular
@@ -2183,16 +2191,6 @@ int segundaVueltaClock(int puntero)
 			primeraVez = 0;
 		}
 
-/*		tablaMarcos[i].puntero = 0;
-		if ((i+1) == cantidadMarcos)
-		{
-			tablaMarcos[0].puntero = 1;
-		}
-		else
-		{
-			tablaMarcos[i + 1].puntero = 1;
-		}*/
-
 		if ((i+1) == cantidadMarcos)
 		{
 			puntero = 0;
@@ -2202,7 +2200,7 @@ int segundaVueltaClock(int puntero)
 			puntero = i+1;
 		}
 
-		pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
+
 
 	}
 
@@ -2217,12 +2215,7 @@ void elegirVictimaSegunClockM()
 	//int i = 0;
 	int numeroMarcoVictima = -1;
 
-/*	while(tablaMarcos[i].puntero != 1)
-	{
-		i++;
-	}*/
-
-	// seria mas barato una variable global
+	pthread_mutex_lock(&mutexPuntero);
 
 
 	while (numeroMarcoVictima == -1)
@@ -2235,9 +2228,12 @@ void elegirVictimaSegunClockM()
 		}
 	}
 
+	pthread_mutex_unlock(&mutexPuntero);
+
+
 	t_marco nodoMarco = tablaMarcos[numeroMarcoVictima];
 
-	pthread_rwlock_wrlock(&(tablaMarcos[numeroMarcoVictima].rwMarco));
+	//pthread_rwlock_wrlock(&(tablaMarcos[numeroMarcoVictima].rwMarco));
 
 
 	//printf("numero marco: %d\n", numeroMarcoVictima);
@@ -2307,6 +2303,8 @@ void elegirVictimaSegunFIFO()
 		pthread_rwlock_unlock(&(tablaMarcos[i].rwMarco));
 
 	}
+	pthread_rwlock_wrlock(&(nodoMarco.rwMarco));
+
 
 	int numeroSegmento = nodoMarco.nro_segmento;
 	int numeroPagina = nodoMarco.nro_pagina;
@@ -2321,7 +2319,6 @@ void elegirVictimaSegunFIFO()
 
 	crearArchivoDePaginacion(nodoSegmento->pid, nodoSegmento->numeroSegmento, nodoPagina);
 
-	pthread_rwlock_wrlock(&(nodoMarco.rwMarco));
 
 
 	liberarMarco(nodoMarco.nro_marco, nodoPagina);
@@ -2353,9 +2350,9 @@ void liberarMarco(int numeroMarco, nodo_paginas *nodoPagina)
 
 	free(buffer);
 
-	pthread_mutex_lock(&mutexMPRestante);
+	//pthread_mutex_lock(&mutexMPRestante);
 	memoriaRestante = memoriaRestante + TAMANIO_PAGINA;
-	pthread_mutex_unlock(&mutexMPRestante);
+	//pthread_mutex_unlock(&mutexMPRestante);
 
 }
 
@@ -2423,6 +2420,8 @@ void terminarMSP()
 	pthread_mutex_destroy(&mutexMemoriaTotalRestante);
 	pthread_mutex_destroy(&mutexMPRestante);
 	pthread_mutex_destroy(&mutexSwapRestante);
+	pthread_mutex_destroy(&mutexOrdenMarco);
+	pthread_mutex_destroy(&mutexPuntero);
 
 	pthread_rwlock_destroy(&rwListaSegmentos);
 
