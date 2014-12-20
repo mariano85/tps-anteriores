@@ -33,11 +33,14 @@ int32_t socketKernel;
 t_config * CONFIG;
 t_log * LOGGER;
 
+void mostrar_registros(char* mensaje);
+void salida_estandar(char* mensaje);
+void entrada_estandar(char* mensaje);
 void loadConfig();
 char *getCodigoBESO(size_t *tamanioArchivo, FILE* entrada);
 char *getIpKernel();
 int32_t getPuertoKernel();
 void hacerHandshakeConKernel(int32_t socket);
-bool enviarCodigoBESO(int32_t pid, int32_t tid, size_t tamanio, char* codigoBESO);
+bool enviarCodigoBESO(char* nombreBESO, char* codigoBESO, size_t tamanio);
 
 #endif /* CONSOLA_H_ */

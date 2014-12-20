@@ -39,22 +39,19 @@ void finishKernel(){
 	// destruyo semaforos
 	pthread_mutex_destroy(&mutex_cpu_list);
 	pthread_mutex_destroy(&mutex_ready_queue);
-	pthread_mutex_destroy(&mutex_ready_sem);
+	pthread_mutex_destroy(&mutex_syscall_semaforo);
 	pthread_mutex_destroy(&mutex_syscalls_queue);
 	pthread_mutex_destroy(&mutex_join_queue);
 	pthread_mutex_destroy(&mutex_exit_queue);
 
-	queue_destroy(COLA_READY);
-	queue_destroy(COLA_SYSCALLS);
-	queue_destroy(COLA_JOIN);
-	queue_destroy(COLA_EXIT);
+	queue_clean_and_destroy_elements(COLA_READY, (void*)free);
+	queue_clean_and_destroy_elements(COLA_SYSCALLS, (void*)free);
+	queue_clean_and_destroy_elements(COLA_JOIN, (void*)free);
+	queue_clean_and_destroy_elements(COLA_EXIT, (void*)free);
 
 	list_destroy(cpu_client_list);
 
 	log_destroy(logKernel);
-	log_destroy(queueLog);
-	log_destroy(logLoader);
-	log_destroy(logPlanificador);
 }
 
 char* getBytesFromFile(FILE* entrada, size_t *tam_archivo) {
@@ -74,6 +71,7 @@ void initKernel(){
 	//Inicializa lista de Cpu's
 	// esta es mi cola EXEC. WAJA!
 	cpu_client_list = list_create();
+	mapa_recursos = dictionary_create();
 
 	//Inicializa colas
 	COLA_READY = queue_create();
@@ -84,7 +82,7 @@ void initKernel(){
 	//Inicializa semaforos
 	pthread_mutex_init(&mutex_cpu_list, NULL);
 	pthread_mutex_init(&mutex_ready_queue, NULL );
-	pthread_mutex_init(&mutex_ready_sem, NULL );
+	pthread_mutex_init(&mutex_syscall_semaforo, NULL );
 	pthread_mutex_init(&mutex_syscalls_queue, NULL );
 	pthread_mutex_init(&mutex_join_queue, NULL );
 	pthread_mutex_init(&mutex_exit_queue, NULL );

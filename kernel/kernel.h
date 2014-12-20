@@ -48,9 +48,6 @@
 
 t_config* kernelConfig;
 t_log* logKernel;
-t_log* logLoader;
-t_log* logPlanificador;
-t_log* queueLog;
 
 typedef struct {
 	t_hilo* tcb;
@@ -100,6 +97,7 @@ t_config_kernel config_kernel;
 t_process* procesoKernel;
 int32_t socketMSP;
 t_list *cpu_client_list;
+t_dictionary *mapa_recursos;
 
 t_queue *COLA_READY;
 t_queue *COLA_SYSCALLS;
@@ -107,17 +105,12 @@ t_queue *COLA_EXIT;
 t_queue *COLA_JOIN;
 
 pthread_mutex_t mutex_ready_queue;
-pthread_mutex_t mutex_ready_sem;
+pthread_mutex_t mutex_syscall_semaforo;
 pthread_mutex_t mutex_syscalls_queue;
 pthread_mutex_t mutex_join_queue;
 pthread_mutex_t mutex_exit_queue;
 pthread_mutex_t mutex_cpu_list;
 pthread_mutex_t mutex_tcb_km;
-
-// podría haber sido un diccionario!
-t_list* semaforos_list;
-// en este diccionario guardo una cola por cada hilo que espera a sus hijos (o una lista?)
-t_dictionary *MAPA_RECURSOS;
 
 t_thread loaderThread;
 t_thread planificadorThread;
@@ -155,6 +148,9 @@ void manejarFinDeProceso(int32_t socketCpu, char* mensaje);
 t_client_cpu* buscarCPUPorFD(int32_t socketCpu);
 t_process* desocuparCPU(int32_t socketCpu);
 
+t_process* traer_CPU_INTERRUPCION(int32_t socketCPU);
+t_process* desocuparCPU_INTERRUPCION(int32_t socketCPU);
+
 /* SERVICIOS KERNEL
  *
  */
@@ -163,8 +159,8 @@ void entrada_estandar(int32_t socketCpu, char* mensaje);
 void salida_estandar(int32_t socketCpu, char* mensaje);
 void crear_hilo(char* mensaje);
 void join (int32_t socketCpu, char* mensaje);
-void bloquear(t_process* aProceess, int32_t id);
-void despertar(int32_t id);
+void bloquear(char* mensaje);
+void despertar(char* mensaje);
 
 /**
  * FUNCIONES MANEJO COLA
@@ -183,7 +179,7 @@ t_process* context_switch_vuelta();
 bool cpuLibre(void* element);
 bool cpuOcupada(void* element);
 void liberarProceso(t_process* proceso);
-void notificarAlPadre(t_process* proceso);
+void notificarAlHiloJoin(int32_t pid, int32_t tid);
 void notificarALosHijos(t_process* proceso);
 void manejo_cola_exit();
 t_client_cpu* buscarCpuPorSocket(int32_t cpuFd);

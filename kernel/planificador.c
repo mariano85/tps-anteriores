@@ -196,7 +196,6 @@ void* planificador(t_thread *planificadorThread) {
 							agregarProcesoColaExit(aProcess, EXIT);
 						}
 
-						log_debug(logKernel, "\n\nel proceso liberado es %s\n", aProcess->nombre);
 						agregarProcesoColaExec();
 
 					}
@@ -204,10 +203,10 @@ void* planificador(t_thread *planificadorThread) {
 
 					case (CPU_TO_KERNEL_INTERRUPCION):{ // sacar la funcion afuera
 						uint32_t direccion = atoi(array[13]);
-						t_process* procesoExec = desocuparCPU(i);
+
+						t_process* procesoExec = traer_CPU_INTERRUPCION(i);
 
 						actualizarTCB(procesoExec, mensaje_de_la_cpu);
-
 						agregarProcesoColaSyscall(procesoExec, direccion);
 
 						// el procesador está disponible y hay necesidad de ejecutar un syscall
@@ -217,6 +216,9 @@ void* planificador(t_thread *planificadorThread) {
 							log_debug(logKernel, "\n\nvemos si estamos mandando el tcb km a ready %d\n", procesoKernel->tcb->pid);
 							agregarProcesoColaReady(procesoKernel);
 						}
+
+						desocuparCPU_INTERRUPCION(i);
+
 						agregarProcesoColaExec();
 
 					}
@@ -256,62 +258,90 @@ void* planificador(t_thread *planificadorThread) {
 
 						break;
 					case (CPU_TO_KERNEL_BLOCK):{
-
+						bloquear(mensaje_de_la_cpu);
 					}
 						break;
 					case (CPU_TO_KERNEL_WAKE):{
-
+						despertar(mensaje_de_la_cpu);
 					}
 						break;
 
 					case(MSP_TO_CPU_DIRECCION_INVALIDA):{
 
 
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
 						memset(mensaje_de_la_cpu,0,sizeof(t_contenido));
-						enviarMensaje(atoi(array[0]),MSP_TO_CPU_DIRECCION_INVALIDA,mensaje_de_la_cpu,logPlanificador);
+						enviarMensaje(aProcess->tcb->pid,MSP_TO_CPU_DIRECCION_INVALIDA,mensaje_de_la_cpu,logKernel);
+						agregarProcesoColaExit(aProcess, EXIT);
 
 					}break;
 
 					case(MSP_TO_CPU_VIOLACION_DE_SEGMENTO) : {
 
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
 						memset(mensaje_de_la_cpu,0,sizeof(t_contenido));
-						enviarMensaje(atoi(array[0]),MSP_TO_CPU_VIOLACION_DE_SEGMENTO,mensaje_de_la_cpu,logPlanificador);
+						enviarMensaje(aProcess->tcb->pid,MSP_TO_CPU_VIOLACION_DE_SEGMENTO,mensaje_de_la_cpu,logKernel);
+						agregarProcesoColaExit(aProcess, EXIT_ERROR);
 
 					}break;
 
 					case(MSP_TO_CPU_PID_INVALIDO) : {
 
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
 						memset(mensaje_de_la_cpu,0,sizeof(t_contenido));
-						enviarMensaje(atoi(array[0]),MSP_TO_CPU_PID_INVALIDO,mensaje_de_la_cpu,logPlanificador);
+						enviarMensaje(aProcess->tcb->pid,MSP_TO_CPU_PID_INVALIDO,mensaje_de_la_cpu,logKernel);
+						agregarProcesoColaExit(aProcess, EXIT_ERROR);
 
 					}break;
 
 					case(MSP_TO_CPU_MEMORIA_INSUFICIENTE) : {
 
 
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
 						memset(mensaje_de_la_cpu,0,sizeof(t_contenido));
-						enviarMensaje(atoi(array[0]),MSP_TO_CPU_PID_INVALIDO,mensaje_de_la_cpu,logPlanificador);
+						enviarMensaje(aProcess->tcb->pid,MSP_TO_CPU_PID_INVALIDO,mensaje_de_la_cpu,logKernel);
+						agregarProcesoColaExit(aProcess, EXIT_ERROR);
 
 					}break;
 
 					case(MSP_TO_CPU_TAMANIO_NEGATIVO) : {
 
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
 						memset(mensaje_de_la_cpu,0,sizeof(t_contenido));
-						enviarMensaje(atoi(array[0]),MSP_TO_CPU_TAMANIO_NEGATIVO,mensaje_de_la_cpu,logPlanificador);
+						enviarMensaje(aProcess->tcb->pid,MSP_TO_CPU_TAMANIO_NEGATIVO,mensaje_de_la_cpu,logKernel);
+						agregarProcesoColaExit(aProcess, EXIT_ERROR);
 
 					}break;
 
 					case(MSP_TO_CPU_SEGMENTO_EXCEDE_TAMANIO_MAXIMO) : {
 
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
 						memset(mensaje_de_la_cpu,0,sizeof(t_contenido));
-						enviarMensaje(atoi(array[0]),MSP_TO_CPU_SEGMENTO_EXCEDE_TAMANIO_MAXIMO,mensaje_de_la_cpu,logPlanificador);
+						enviarMensaje(aProcess->tcb->pid,MSP_TO_CPU_SEGMENTO_EXCEDE_TAMANIO_MAXIMO,mensaje_de_la_cpu,logKernel);
+						agregarProcesoColaExit(aProcess, EXIT_ERROR);
 
 					}break;
 
 					case(MSP_TO_CPU_PID_EXCEDE_CANT_MAXIMA_DE_SEGMENTOS) : {
 
+						t_client_cpu *unaCpu = buscarCPUPorFD(i);
+						t_process* aProcess = unaCpu->procesoExec;
+						unaCpu->procesoExec = NULL;
 						memset(mensaje_de_la_cpu,0,sizeof(t_contenido));
-						enviarMensaje(atoi(array[0]),MSP_TO_CPU_PID_EXCEDE_CANT_MAXIMA_DE_SEGMENTOS,mensaje_de_la_cpu,logPlanificador);
+						enviarMensaje(aProcess->tcb->pid,MSP_TO_CPU_PID_EXCEDE_CANT_MAXIMA_DE_SEGMENTOS,mensaje_de_la_cpu,logKernel);
+						agregarProcesoColaExit(aProcess, EXIT_ERROR);
 
 					}break;
 
@@ -419,7 +449,7 @@ void manejarFinDeProceso(int32_t socketCpu, char* mensajeRecibido) {
 	log_debug(logKernel, "manejo el fin del proceso...");
 	t_process*aProcess = desocuparCPU(socketCpu);
 
-	log_info(logPlanificador,"pase acaaaa");
+	log_info(logKernel,"pase acaaaa");
 
 	actualizarTCB(aProcess, mensajeRecibido);
 
@@ -479,6 +509,27 @@ t_process* desocuparCPU(int32_t socketCpu) {
 	unaCpu->libre = true;
 	log_info(logKernel, string_from_format("El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
 	return unProceso;
+
+}
+
+
+t_process* traer_CPU_INTERRUPCION(int32_t socketCpu){
+
+	t_client_cpu *unaCpu = buscarCPUPorFD(socketCpu);
+	t_process* unProceso = unaCpu->procesoExec;
+	log_info(logKernel, string_from_format("El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
+	return unProceso;
+}
+
+t_process* desocuparCPU_INTERRUPCION(int32_t socketCPU){
+
+	t_client_cpu *unaCpu = buscarCPUPorFD(socketCPU);
+	t_process* unProceso = unaCpu->procesoExec;
+	unaCpu->procesoExec = NULL;
+	unaCpu->libre = true;
+	log_info(logKernel, string_from_format("Saco el Proceso :  (PID: %d) aguarda instrucciones", unaCpu->cpuPID));
+	return unProceso;
+
 
 }
 
@@ -635,5 +686,52 @@ void join(int32_t socketCpu, char* mensajeRecibido){
 
 	proceso_a_esperar = encontrarProcesoPorPIDyTID(pid, tid_a_esperar);
 	proceso_a_esperar->tid_llamador_join = tid_llamador;
+
+}
+
+
+void bloquear(char* mensajeRecibido){
+
+	char** split = string_get_string_as_array(mensajeRecibido);
+	char* id_recurso = split[13];
+	t_process* proceso_a_bloquear = NULL;
+
+	pthread_mutex_lock(&mutex_syscalls_queue);
+		proceso_a_bloquear = queue_pop(COLA_SYSCALLS);
+	pthread_mutex_unlock(&mutex_syscalls_queue);
+
+	t_queue* cola_bloqueados = dictionary_get(mapa_recursos, id_recurso);
+
+	if(cola_bloqueados == NULL){
+		// notificar que el recurso no existe, pero se crea =)
+		cola_bloqueados = queue_create();
+		dictionary_put(mapa_recursos, id_recurso, cola_bloqueados);
+	}
+
+	// aca podriamos poner un mutexcito
+	if(proceso_a_bloquear != NULL){
+		queue_push(cola_bloqueados, proceso_a_bloquear);
+	}
+
+}
+
+
+void despertar(char* mensajeRecibido){
+
+	char** split = string_get_string_as_array(mensajeRecibido);
+	char* id_recurso = split[13];
+	t_process* proceso_a_despertar = NULL;
+
+	t_queue* cola_bloqueados = dictionary_get(mapa_recursos, id_recurso);
+
+	if(cola_bloqueados != NULL){
+
+		// aca tambien podriamos poner un mutexcito
+		proceso_a_despertar = queue_pop(cola_bloqueados);
+
+		agregarProcesoColaReady(proceso_a_despertar);
+	} else {
+		// notificar que ese recurso no existe
+	}
 
 }

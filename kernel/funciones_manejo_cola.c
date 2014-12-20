@@ -52,13 +52,20 @@ void pushColaReady(t_process* aProcess) {
 			/*Magic here, please!*/
 
 					queue_push(COLA_READY, aProcess);
-				pthread_cond_signal(&cond_ready_consumer);			/* wake up consumer */
+
 			pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
+			pthread_cond_signal(&cond_ready_consumer);			/* wake up consumer */
 	}
 	else{/*Ya era READY y pudo haber terminado de ejecutar recientemente*/
 
 		pthread_mutex_lock(&mutex_ready_queue);	/* Blocks the buffer */
+
+			if(aProcess->tcb->kernel_mode){
+				list_add_in_index(COLA_READY->elements, 0, aProcess);
+			} else {
 				queue_push(COLA_READY, aProcess);
+			}
+
 		pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
 
 	}
@@ -71,10 +78,7 @@ void manejo_cola_ready() {
 
 	int myPid = process_get_thread_id();
 	log_info(logKernel, "**************Ready Queue Manager Thread Started (PID: %d) ***************",myPid);
-	bool anyCpuFree = false;
-	t_client_cpu* cpu;
 	for(;;){
-		anyCpuFree = false;
 		//printf("pase por el queue manageeeeer");
 		pthread_mutex_lock(&mutex_ready_queue);	/* protect buffer */
 		while (COLA_READY->elements->elements_count == 0 ||
@@ -88,29 +92,14 @@ void manejo_cola_ready() {
 
 			pthread_cond_wait(&cond_ready_consumer, &mutex_ready_queue);
 		}
-		/*Make things happen here!*/
-//		pthread_mutex_lock(&mutex_cpu_list);
-//			anyCpuFree = list_any_satisfy(cpu_client_list, (void*)_cpuIsFree);
-//		pthread_mutex_unlock(&mutex_cpu_list);
 
-//		if(anyCpuFree == true){
 		pthread_mutex_unlock(&mutex_ready_queue);
 			log_info(logKernel, "Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!");
 			agregarProcesoColaExec();
-//			pthread_mutex_unlock(&mutex_ready_queue);	/* release the buffer */
-//			pthread_mutex_lock(&mutex_cpu_list);
-//				cpu = list_find(cpu_client_list, (void*)_cpuIsFree);
-//				cpu->isBusy = true;
-//			pthread_mutex_unlock(&mutex_cpu_list);
-//		}
 
 		pthread_cond_signal(&cond_ready_producer);	/* wake up producer */
 			/* release the buffer */
 
-//		if(cpu != NULL && anyCpuFree){
-//			addExecProcess(cpu);
-//		}
-		//-------------------------------------------------------------------------
 	}
 }
 
@@ -254,7 +243,7 @@ void manejo_cola_exit() {
 void liberarProceso(t_process* proceso){
 
 	// notificar al padre que terminó
-	notificarAlPadre(proceso);
+	notificarAlHiloJoin(proceso->tcb->pid, proceso->tid_llamador_join);
 
 	// elimino segmentos
 	eliminarSegmento(proceso->tcb->pid, proceso->tcb->base_stack);
@@ -286,13 +275,31 @@ void liberarProceso(t_process* proceso){
 }
 
 
-void notificarAlPadre(t_process* proceso){
+void notificarAlHiloJoin(int32_t pid, int32_t tid){
+
+	if(tid < 0){
+		return;
+	}
+
+	bool _match_pid_tid(void* element) {
+		return ((t_process*)element)->tcb->pid == pid && ((t_process*)element)->tcb->tid == tid;
+	}
+
+	// tiramos mutex
+	pthread_mutex_lock(&mutex_join_queue);
+		t_process* proceso = list_remove_by_condition(COLA_JOIN->elements, (void*)_match_pid_tid);
+	pthread_mutex_unlock(&mutex_join_queue);
+
+	if(proceso != NULL){
+		// notifico que
+		agregarProcesoColaReady(proceso);
+	}
 
 }
 
 
 void notificarALosHijos(t_process* proceso){
-
+	// TODO: analizar que hacer aca
 }
 
 
