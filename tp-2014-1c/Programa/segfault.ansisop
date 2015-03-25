@@ -1,0 +1,8 @@
+#!/home/utnso/workspace/tp-2014-1c-the-code-remains-the-same/Programa/Programa
+begin
+variables a
+	#Imprimi 300 lugares despues de donde se definio a
+	print *&a+300
+end
+
+

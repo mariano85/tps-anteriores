@@ -1,0 +1,12 @@
+#!/home/utnso/workspace/tp-2014-1c-the-code-remains-the-same/Programa/Programa
+begin
+	variables f, i, t
+	f=20
+	i=i+1
+	print i
+	t=f-i
+	print t
+	io HDD1 30
+	print t
+	textPrint theCodeRemainsTheSameRules 
+end

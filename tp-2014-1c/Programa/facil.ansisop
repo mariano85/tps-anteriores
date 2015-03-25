@@ -1,0 +1,8 @@
+#!/home/utnso/workspace/tp-2014-1c-the-code-remains-the-same/Programa/Programa
+begin
+	variables a, b
+	a = 3
+	b = 5
+	a = b + 12
+end
+
