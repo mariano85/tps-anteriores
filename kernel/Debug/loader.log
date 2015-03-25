@@ -1,0 +1,155 @@
+04:24:34:825 (2793): ************** El Thread del Loder comenzó!(PID: 2797) ***************
+04:26:07:595 (2793): selectserver: new connection from 127.0.0.1 on socket 12
+
+04:26:07:601 (2793): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+04:26:07:618 (2793): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+09:59:55:222 (4045): ************** El Thread del Loder comenzó!(PID: 4049) ***************
+10:00:03:786 (4045): selectserver: new connection from 127.0.0.1 on socket 12
+
+10:00:03:795 (4045): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+10:00:03:824 (4045): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+10:04:14:240 (4142): ************** El Thread del Loder comenzó!(PID: 4146) ***************
+10:04:24:627 (4142): selectserver: new connection from 127.0.0.1 on socket 12
+
+10:04:24:640 (4142): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+10:04:24:666 (4142): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+10:10:14:167 (4240): ************** El Thread del Loder comenzó!(PID: 4244) ***************
+10:10:19:741 (4240): selectserver: new connection from 127.0.0.1 on socket 12
+
+10:10:19:750 (4240): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+10:10:19:765 (4240): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+10:12:41:570 (4315): ************** El Thread del Loder comenzó!(PID: 4319) ***************
+10:12:48:325 (4315): selectserver: new connection from 127.0.0.1 on socket 12
+
+10:12:48:342 (4315): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+10:12:48:373 (4315): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+10:21:21:926 (4566): ************** El Thread del Loder comenzó!(PID: 4570) ***************
+10:21:27:521 (4566): selectserver: new connection from 127.0.0.1 on socket 12
+
+10:21:27:527 (4566): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+10:21:27:544 (4566): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+10:29:14:314 (4819): ************** El Thread del Loder comenzó!(PID: 4823) ***************
+10:29:20:484 (4819): selectserver: new connection from 127.0.0.1 on socket 12
+
+10:29:20:493 (4819): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+10:29:20:504 (4819): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+14:18:08:535 (2114): ************** El Thread del Loder comenzó!(PID: 2118) ***************
+14:21:58:215 (2114): selectserver: new connection from 127.0.0.1 on socket 12
+
+14:21:58:224 (2114): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+14:21:58:244 (2114): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+14:37:01:311 (2626): ************** El Thread del Loder comenzó!(PID: 2642) ***************
+14:37:17:917 (2626): selectserver: new connection from 127.0.0.1 on socket 11
+
+14:37:17:920 (2626): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+14:37:17:939 (2626): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+16:52:53:305 (3646): ************** El Thread del Loder comenzó!(PID: 3650) ***************
+16:53:10:69 (3646): selectserver: new connection from 127.0.0.1 on socket 12
+
+16:53:10:79 (3646): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+16:53:10:83 (3646): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+16:59:19:0 (3785): ************** El Thread del Loder comenzó!(PID: 3789) ***************
+16:59:43:690 (3785): selectserver: new connection from 127.0.0.1 on socket 12
+
+16:59:43:726 (3785): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+16:59:43:732 (3785): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+16:59:51:487 (3785): El socket 12 cerró la conexion.
+17:05:25:534 (3869): ************** El Thread del Loder comenzó!(PID: 3873) ***************
+17:05:52:674 (3869): selectserver: new connection from 127.0.0.1 on socket 12
+
+17:05:52:687 (3869): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+17:05:52:696 (3869): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+17:06:05:315 (3869): El socket 12 cerró la conexion.
+17:17:00:809 (3981): ************** El Thread del Loder comenzó!(PID: 3985) ***************
+17:17:09:317 (3981): selectserver: new connection from 127.0.0.1 on socket 12
+
+17:17:09:345 (3981): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+17:17:09:361 (3981): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+17:17:26:595 (3981): El socket 12 cerró la conexion.
+17:18:12:860 (4040): ************** El Thread del Loder comenzó!(PID: 4044) ***************
+17:18:17:397 (4040): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:18:17:404 (4040): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+17:18:17:408 (4040): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+17:18:34:731 (4040): El socket 11 cerró la conexion.
+17:19:37:194 (4092): ************** El Thread del Loder comenzó!(PID: 4096) ***************
+17:19:43:959 (4092): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:19:43:983 (4092): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+17:19:43:1 (4092): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+17:24:18:518 (4092): El socket 11 cerró la conexion.
+17:24:34:214 (4249): ************** El Thread del Loder comenzó!(PID: 4253) ***************
+17:24:37:378 (4249): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:24:37:383 (4249): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+17:24:37:404 (4249): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+17:25:08:145 (4249): El socket 11 cerró la conexion.
+17:26:05:819 (4271): ************** El Thread del Loder comenzó!(PID: 4275) ***************
+17:26:58:459 (4271): selectserver: new connection from 127.0.0.1 on socket 12
+
+17:26:58:464 (4271): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+17:26:58:481 (4271): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+17:28:03:190 (4353): ************** El Thread del Loder comenzó!(PID: 4357) ***************
+17:45:02:440 (4697): ************** El Thread del Loder comenzó!(PID: 4701) ***************
+17:49:41:967 (4789): ************** El Thread del Loder comenzó!(PID: 4793) ***************
+17:54:01:4 (4913): ************** El Thread del Loder comenzó!(PID: 4917) ***************
+17:56:01:946 (5017): ************** El Thread del Loder comenzó!(PID: 5021) ***************
+18:03:42:913 (5107): ************** El Thread del Loder comenzó!(PID: 5111) ***************
+18:04:44:285 (5119): ************** El Thread del Loder comenzó!(PID: 5123) ***************
+18:10:47:282 (5138): ************** El Thread del Loder comenzó!(PID: 5142) ***************
+18:10:51:133 (5138): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:10:51:143 (5138): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+18:10:51:148 (5138): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+18:27:26:297 (5138): El socket 11 cerró la conexion.
+18:27:59:603 (5720): ************** El Thread del Loder comenzó!(PID: 5724) ***************
+18:28:09:296 (5720): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:28:09:314 (5720): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+18:28:09:324 (5720): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+18:28:15:95 (5720): El socket 11 cerró la conexion.
+18:40:16:249 (5796): ************** El Thread del Loder comenzó!(PID: 5800) ***************
+18:40:47:8 (5796): selectserver: new connection from 127.0.0.1 on socket 12
+
+18:40:47:13 (5796): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+18:40:47:28 (5796): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+18:40:50:593 (5796): El socket 12 cerró la conexion.
+18:48:08:890 (5970): ************** El Thread del Loder comenzó!(PID: 5974) ***************
+18:48:20:173 (5970): selectserver: new connection from 127.0.0.1 on socket 12
+
+18:48:20:177 (5970): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+18:48:20:199 (5970): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+18:50:26:194 (6035): ************** El Thread del Loder comenzó!(PID: 6039) ***************
+18:50:31:236 (6035): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:50:31:257 (6035): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+18:50:31:274 (6035): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+18:52:46:56 (6145): ************** El Thread del Loder comenzó!(PID: 6149) ***************
+18:53:08:53 (6145): selectserver: new connection from 127.0.0.1 on socket 12
+
+18:53:08:69 (6145): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+18:53:08:82 (6145): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+18:53:15:892 (6145): El socket 12 cerró la conexion.
+18:56:42:190 (6188): ************** El Thread del Loder comenzó!(PID: 6192) ***************
+18:57:09:919 (6188): selectserver: new connection from 127.0.0.1 on socket 12
+
+18:57:09:925 (6188): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+18:57:09:946 (6188): Se ENVIA por SOCKET:12 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+18:57:13:412 (6188): El socket 12 cerró la conexion.
+19:06:39:602 (6244): ************** El Thread del Loder comenzó!(PID: 6248) ***************
+19:08:41:815 (6244): selectserver: new connection from 127.0.0.1 on socket 11
+
+19:08:41:828 (6244): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+19:08:41:849 (6244): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+19:08:50:881 (6244): El socket 11 cerró la conexion.
+19:15:25:670 (6302): ************** El Thread del Loder comenzó!(PID: 6306) ***************
+19:15:43:928 (6302): selectserver: new connection from 127.0.0.1 on socket 11
+
+19:15:43:946 (6302): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+19:15:43:962 (6302): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+19:19:12:262 (6331): ************** El Thread del Loder comenzó!(PID: 6335) ***************
+19:19:16:397 (6331): selectserver: new connection from 127.0.0.1 on socket 11
+
+19:19:16:415 (6331): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+19:19:16:434 (6331): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+19:36:43:842 (6331): El socket 11 cerró la conexion.

@@ -1,0 +1,347 @@
+22:02:52:774 (6522): ************** Comienza el planificador!(PID: 6536) ***************
+22:03:01:338 (6522): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:07:34:71 (6522): Planificador Thread dice: Nuevo CPU conectado (PID: 0) aguarda instrucciones
+22:17:56:957 (6792): ************** Comienza el planificador!(PID: 6806) ***************
+22:18:01:582 (6792): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:18:08:136 (6792): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+22:18:23:420 (6792): selectserver: new connection from 127.0.0.1 on socket 14
+
+22:18:30:160 (6792): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+22:20:06:725 (6792): El socket 13 cerró la conexion.
+22:21:14:294 (6895): ************** Comienza el planificador!(PID: 6907) ***************
+22:21:17:435 (6895): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:21:19:535 (6895): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+22:21:22:247 (6895): selectserver: new connection from 127.0.0.1 on socket 14
+
+22:21:23:851 (6895): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+22:21:26:773 (6895): El socket 13 cerró la conexion.
+22:22:03:241 (6961): ************** Comienza el planificador!(PID: 6973) ***************
+22:22:05:408 (6961): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:22:11:111 (6961): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+22:22:13:787 (6961): selectserver: new connection from 127.0.0.1 on socket 14
+
+22:22:13:787 (6961): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+22:22:17:778 (6961): El socket 13 cerró la conexion.
+22:23:20:57 (7029): ************** Comienza el planificador!(PID: 7041) ***************
+22:23:25:309 (7029): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:23:26:664 (7029): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+22:23:28:852 (7029): selectserver: new connection from 127.0.0.1 on socket 14
+
+22:23:31:396 (7029): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+22:23:37:889 (7029): El socket 13 cerró la conexion.
+22:27:10:635 (7219): ************** Comienza el planificador!(PID: 7230) ***************
+22:27:14:21 (7219): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:27:16:45 (7219): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+22:27:19:106 (7219): selectserver: new connection from 127.0.0.1 on socket 14
+
+22:27:20:846 (7219): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+22:27:30:990 (7219): El socket 13 cerró la conexion.
+22:27:48:75 (7219): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+22:50:45:58 (8005): ************** Comienza el planificador!(PID: 8020) ***************
+22:52:34:968 (8065): ************** Comienza el planificador!(PID: 8076) ***************
+22:52:39:311 (8065): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:52:41:292 (8065): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+22:52:44:454 (8065): selectserver: new connection from 127.0.0.1 on socket 14
+
+22:53:17:132 (8065): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+22:53:27:932 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:53:27:933 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:53:27:933 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:53:39:605 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:53:39:605 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:53:39:605 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:04:223 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:04:223 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:04:223 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:07:731 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:07:731 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:07:731 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:10:357 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:10:357 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:10:358 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:13:408 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:13:408 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:13:408 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:16:108 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:16:108 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:16:108 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:20:284 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:20:284 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:20:284 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:22:799 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:22:799 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:22:799 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:26:125 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:26:126 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:26:126 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:45:662 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:46:150 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:54:46:561 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:54:57:136 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:54:58:930 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:55:04:969 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:55:07:903 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:55:08:345 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:55:08:553 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:55:12:474 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:55:12:783 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:55:13:55 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:55:17:216 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:55:17:476 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:55:17:744 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:55:20:494 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:55:20:978 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:55:21:541 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:55:24:124 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:55:24:399 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:55:24:674 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:55:27:397 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:55:27:397 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:55:27:397 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:17:22 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:17:22 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:17:22 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:19:600 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:19:600 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:19:600 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:33:916 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:33:916 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:33:916 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:36:47 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:36:47 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:36:47 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:39:532 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:39:532 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:39:532 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:41:960 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:41:960 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:41:960 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:44:118 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:44:118 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:44:118 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:46:172 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:46:172 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:46:172 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:48:845 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:48:845 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:48:845 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:56:53:147 (8065): PID ES 15, Program_counter es 114 ,modo es 0
+22:56:53:147 (8065): Los registros son : A es -262 B es 300 C es 0 D es 0 E es 0
+22:56:53:147 (8065): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:59:23:512 (8363): ************** Comienza el planificador!(PID: 8377) ***************
+22:59:27:681 (8363): selectserver: new connection from 127.0.0.1 on socket 13
+
+22:59:29:175 (8363): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+22:59:31:517 (8363): selectserver: new connection from 127.0.0.1 on socket 14
+
+22:59:33:202 (8363): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+22:59:48:720 (8363): recibi el tcb porque finalizo proceso por XXXX
+22:59:48:720 (8363): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+22:59:48:720 (8363): Se ENVIA por SOCKET:15 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1216830352" 
+23:07:07:13 (8554): ************** Comienza el planificador!(PID: 8566) ***************
+23:08:09:850 (8616): ************** Comienza el planificador!(PID: 8627) ***************
+23:08:15:11 (8616): selectserver: new connection from 127.0.0.1 on socket 13
+
+23:08:15:13 (8616): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+23:08:17:445 (8616): selectserver: new connection from 127.0.0.1 on socket 14
+
+23:08:17:447 (8616): Planificador Thread dice: Nuevo CPU conectado (PID: 14) aguarda instrucciones
+23:09:24:799 (8616): recibi el tcb porque finalizo proceso por XXXX
+23:09:24:799 (8616): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+23:09:24:799 (8616): Se ENVIA por SOCKET:15 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1217555344" 
+23:10:50:592 (8616): El socket 13 cerró la conexion.
+23:10:52:591 (8616): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+23:13:04:201 (8771): ************** Comienza el planificador!(PID: 8782) ***************
+23:13:07:644 (8771): selectserver: new connection from 127.0.0.1 on socket 13
+
+23:13:07:646 (8771): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+23:13:51:950 (8771): recibi el tcb porque finalizo proceso por XXXX
+23:13:51:950 (8771): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+23:13:51:950 (8771): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1216973712" 
+23:17:40:760 (8875): ************** Comienza el planificador!(PID: 8887) ***************
+23:17:52:247 (8875): selectserver: new connection from 127.0.0.1 on socket 13
+
+23:17:52:247 (8875): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+23:18:01:538 (8875): recibi el tcb porque finalizo proceso por XXXX
+23:18:01:538 (8875): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+23:18:01:538 (8875): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1216916368" 
+12:23:49:319 (2064): ************** Comienza el planificador!(PID: 2077) ***************
+12:24:53:206 (2119): ************** Comienza el planificador!(PID: 2137) ***************
+12:26:59:859 (2183): ************** Comienza el planificador!(PID: 2199) ***************
+12:29:22:856 (2255): ************** Comienza el planificador!(PID: 2275) ***************
+12:30:11:403 (2309): ************** Comienza el planificador!(PID: 2323) ***************
+14:22:58:327 (4027): ************** Comienza el planificador!(PID: 4044) ***************
+14:23:14:439 (4027): selectserver: new connection from 127.0.0.1 on socket 13
+
+14:23:14:442 (4027): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+14:23:37:397 (4027): recibi el tcb porque finalizo proceso por XXXX
+14:23:37:397 (4027): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+14:23:37:397 (4027): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1216920464" 
+14:31:03:483 (4501): ************** Comienza el planificador!(PID: 4512) ***************
+14:31:08:622 (4501): selectserver: new connection from 127.0.0.1 on socket 13
+
+14:31:08:622 (4501): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+14:31:12:863 (4501): recibi el tcb porque finalizo proceso por XXXX
+14:31:12:863 (4501): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+14:31:12:863 (4501): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1216957328" 
+14:35:12:263 (4585): ************** Comienza el planificador!(PID: 4598) ***************
+14:35:16:863 (4585): selectserver: new connection from 127.0.0.1 on socket 13
+
+14:35:16:866 (4585): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+14:35:25:133 (4585): recibi el tcb porque finalizo proceso por XXXX
+14:35:25:133 (4585): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+14:35:25:133 (4585): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1217022864" 
+14:37:50:609 (4653): ************** Comienza el planificador!(PID: 4665) ***************
+14:37:54:160 (4653): selectserver: new connection from 127.0.0.1 on socket 13
+
+14:37:54:161 (4653): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+14:38:52:775 (4653): recibi el tcb porque finalizo proceso por XXXX
+14:39:04:879 (4653): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+14:39:39:481 (4653): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1216707472" 
+15:57:02:638 (6321): ************** Comienza el planificador!(PID: 6336) ***************
+15:57:18:559 (6321): selectserver: new connection from 127.0.0.1 on socket 13
+
+15:57:18:562 (6321): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+15:57:44:233 (6321): recibi el tcb porque finalizo proceso por XXXX
+15:57:44:233 (6321): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+15:57:44:234 (6321): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_IMPR_VARIABLES MENSAJE:"-1217473424" 
+18:00:05:533 (3759): ************** Comienza el planificador!(PID: 3774) ***************
+18:00:19:372 (3759): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:00:19:373 (3759): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:02:48:980 (3985): ************** Comienza el planificador!(PID: 4000) ***************
+18:02:53:289 (3985): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:02:53:289 (3985): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:05:41:92 (3985): El socket 13 cerró la conexion.
+18:05:41:92 (3985): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+18:06:37:530 (4126): ************** Comienza el planificador!(PID: 4140) ***************
+18:06:43:432 (4126): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:06:50:718 (4126): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+16:53:32:930 (4125): ************** Comienza el planificador!(PID: 4138) ***************
+16:53:36:436 (4125): selectserver: new connection from 127.0.0.1 on socket 13
+
+16:53:36:438 (4125): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+16:53:38:793 (4125): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+16:53:47:166 (4125): recibi el tcb porque finalizo proceso por XXXX
+16:53:48:764 (4125): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+16:53:55:191 (4125): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+16:53:58:359 (4125): recibi el tcb porque finalizo proceso por XXXX
+16:54:01:522 (4125): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+16:54:40:356 (4125): El socket 13 cerró la conexion.
+16:54:40:357 (4125): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+16:56:31:201 (4228): ************** Comienza el planificador!(PID: 4237) ***************
+16:56:34:746 (4228): selectserver: new connection from 127.0.0.1 on socket 11
+
+16:56:34:747 (4228): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+16:56:38:116 (4228): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:56:38:131 (4228): recibi el tcb porque finalizo proceso por XXXX
+16:56:38:131 (4228): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:56:38:133 (4228): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:56:38:175 (4228): recibi el tcb porque finalizo proceso por XXXX
+16:56:38:175 (4228): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:56:38:318 (4228): El socket 11 cerró la conexion.
+16:56:38:318 (4228): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+17:01:54:61 (4523): ************** Comienza el planificador!(PID: 4535) ***************
+17:02:12:107 (4523): selectserver: new connection from 127.0.0.1 on socket 13
+
+17:02:12:108 (4523): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+17:02:17:963 (4523): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:02:22:623 (4523): recibi el tcb porque finalizo proceso por XXXX
+17:02:22:624 (4523): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:02:25:52 (4523): termine de agregarlo a la cola de exec
+17:02:25:53 (4523): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:02:26:415 (4523): recibi el tcb porque finalizo proceso por XXXX
+17:02:26:415 (4523): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:02:30:715 (4523): termine de agregarlo a la cola de exec
+17:02:30:715 (4523): El socket 13 cerró la conexion.
+17:02:30:716 (4523): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+18:16:09:779 (3661): ************** Comienza el planificador!(PID: 3674) ***************
+18:17:04:937 (3661): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:17:04:937 (3661): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:17:15:702 (3661): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:17:15:702 (3661): 
+Agrego proceso tcb km a READY
+
+18:17:17:715 (3661): recibi el tcb porque finalizo proceso por XXXX
+18:17:17:715 (3661): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:17:17:715 (3661): termine de agregarlo a la cola de exec
+18:17:18:873 (3661): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:17:18:873 (3661): 
+Agrego proceso tcb km a READY
+
+18:17:19:968 (3661): recibi el tcb porque finalizo proceso por XXXX
+18:17:19:968 (3661): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:17:19:968 (3661): termine de agregarlo a la cola de exec
+18:17:21:168 (3661): recibi el tcb porque finalizo proceso por XXXX
+18:17:21:168 (3661): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:17:21:168 (3661): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:17:21:168 (3661): termine de agregarlo a la cola de exec
+18:21:27:272 (3808): ************** Comienza el planificador!(PID: 3822) ***************
+18:21:30:928 (3808): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:21:30:930 (3808): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:21:33:417 (3808): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:21:33:418 (3808): 
+Agrego proceso tcb km a READY
+
+18:21:33:429 (3808): recibi el tcb porque finalizo proceso por XXXX
+18:21:33:429 (3808): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:21:33:429 (3808): termine de agregarlo a la cola de exec
+18:21:33:432 (3808): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:21:33:432 (3808): 
+Agrego proceso tcb km a READY
+
+18:21:33:476 (3808): recibi el tcb porque finalizo proceso por XXXX
+18:21:33:476 (3808): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:21:33:476 (3808): termine de agregarlo a la cola de exec
+18:21:33:518 (3808): recibi el tcb porque finalizo proceso por XXXX
+18:21:33:518 (3808): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:21:33:518 (3808): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:21:33:518 (3808): termine de agregarlo a la cola de exec
+18:24:54:868 (4070): ************** Comienza el planificador!(PID: 4083) ***************
+18:24:59:803 (4070): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:24:59:803 (4070): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:25:02:199 (4070): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:25:02:199 (4070): 
+Agrego proceso tcb km a READY
+
+18:25:02:202 (4070): recibi el tcb porque finalizo proceso por XXXX
+18:25:02:202 (4070): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:25:02:202 (4070): termine de agregarlo a la cola de exec
+18:25:02:204 (4070): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:25:02:204 (4070): 
+Agrego proceso tcb km a READY
+
+18:25:02:244 (4070): recibi el tcb porque finalizo proceso por XXXX
+18:25:02:244 (4070): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:25:02:244 (4070): termine de agregarlo a la cola de exec
+18:25:02:381 (4070): El socket 13 cerró la conexion.
+18:25:02:381 (4070): se desconecta el proceso de PID 13
+18:25:02:381 (4070): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+01:58:01:945 (4580): ************** Comienza el planificador!(PID: 4593) ***************
+01:58:17:275 (4580): selectserver: new connection from 127.0.0.1 on socket 13
+
+01:58:17:277 (4580): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+01:58:17:277 (4580): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"4" 
+01:58:30:103 (4580): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+01:58:33:104 (4580): PID ES 14, Program_counter es 0 ,modo es 0
+01:58:33:104 (4580): Los registros son : A es 0 B es 65 C es 32 D es 1048576 E es 0
+01:58:33:104 (4580): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+01:58:36:110 (4580): recibi el tcb porque finalizo proceso por XXXX
+01:58:36:110 (4580): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+01:58:36:110 (4580): termine de agregarlo a la cola de exec
+01:58:39:153 (4580): recibi el tcb porque finalizo proceso por XXXX
+01:58:39:154 (4580): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+01:58:39:154 (4580): Se ENVIA por SOCKET:14 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+01:58:39:154 (4580): termine de agregarlo a la cola de exec

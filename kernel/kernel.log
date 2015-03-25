@@ -1,0 +1,177 @@
+14:04:18:587 (16622): ************** WELCOME TO KERNEL V1.0! (PID: 16622) ***************
+
+14:04:18:587 (16622): Se inicializa el kernel con parametros desde: kernel.conf
+14:04:18:588 (16622): Se ENVIA por SOCKET:6 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+14:04:18:589 (16622): Se ha establecido conexion con el proceso MSP
+14:04:18:589 (16622): Solicitamos segmento de codigo para pid -1
+14:04:18:589 (16622): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[-1,332]" 
+14:04:18:590 (16622): Estoy en espera
+14:04:18:590 (16622): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+14:04:18:590 (16622): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[-1,332,0]" 
+14:04:18:590 (16622): Estoy en espera
+14:04:18:590 (16622): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"" 
+14:04:18:593 (16622): respuesta de la msp: 
+14:04:18:593 (16622): Estoy en espera
+14:04:18:593 (16622): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+14:04:18:593 (16622): Se generó la estructura del proceso con éxito! NOMBRE: /home/utnso/kernel/systemCalls.bc; PID: -1
+14:04:18:594 (16622): Bloqueamos el proceso Kernel
+14:04:18:635 (16622): ************** El Thread del Loder comenzó!(PID: 16632) ***************
+14:04:18:645 (16622): ************** Comienza el planificador!(PID: 16633) ***************
+14:04:18:647 (16622): **************Ready Queue Manager Thread Started (PID: 16634) ***************
+14:04:18:649 (16622): ************** Exit Manager Thread Started (TID: 16635) ***************
+14:04:21:289 (16622): selectserver: new connection from 127.0.0.1 on socket 10
+
+14:04:21:298 (16622): Estoy en espera
+14:04:21:298 (16622): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+14:04:21:298 (16622): Planificador Thread dice: Nuevo CPU conectado (PID: 10) aguarda instrucciones
+14:04:21:298 (16622): Se ENVIA por SOCKET:10 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+14:04:21:298 (16622): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/ cpu es null?
+14:04:21:298 (16622): CPU (PID: 10) aguarda instrucciones!
+14:04:23:330 (16622): selectserver: new connection from 127.0.0.1 on socket 11
+
+14:04:23:332 (16622): Estoy en espera
+14:04:23:332 (16622): Se RECIBE por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+14:04:23:332 (16622): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+14:04:23:337 (16622): Estoy en espera
+14:04:23:337 (16622): Se RECIBE por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"[../EjemplosESO/arithmetics.bc,98]" 
+14:04:23:337 (16622): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+14:04:23:338 (16622): Solicitamos segmento de codigo para pid 11
+14:04:23:338 (16622): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[11,98]" 
+14:04:23:338 (16622): Estoy en espera
+14:04:23:339 (16622): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+14:04:23:339 (16622): Solicitamos segmento de stack para pid 11
+14:04:23:339 (16622): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[11,100]" 
+14:04:23:339 (16622): Estoy en espera
+14:04:23:339 (16622): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+14:04:23:339 (16622): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[11,98,0]" 
+14:04:23:340 (16622): Estoy en espera
+14:04:23:340 (16622): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"" 
+14:04:23:340 (16622): respuesta de la msp: 
+14:04:23:340 (16622): Estoy en espera
+14:04:23:341 (16622): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_ENVIO_BYTES  MENSAJE:"0" 
+14:04:23:341 (16622): Se generó la estructura del proceso con éxito! NOMBRE: ../EjemplosESO/arithmetics.bc; PID: 11
+14:04:23:341 (16622): Inserto en la cola de NEW el programa con FD: 11
+14:04:23:341 (16622): Me tiró un signal el cond_ready_producer
+14:04:23:341 (16622): Pusheo en la cola de Ready y le mando un signal al cond_ready_consumer
+14:04:23:341 (16622): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+14:04:23:341 (16622): El proceso (PID: 11) era Nuevo y está Listo para ejecutarse en Procesador PID: 10
+14:04:23:342 (16622): hola
+14:04:23:342 (16622): Procede a ejecutarse el proceso (PID: 11) en Procesador PID: 10
+14:04:23:342 (16622): Se ENVIA por SOCKET:10 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[11, 0, 0, 0, 98, 0, 1048576, 0,0,0,0,0,0]" 
+14:04:23:344 (16622): Se envía un TCB al CPU libre elegido
+14:04:27:356 (16622): Estoy en espera
+14:04:27:356 (16622): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KERNEL_FINALIZO_QUANTUM_NORMALMENTE  MENSAJE:"[11,0,0,0,98,33,1048576,0,630,5,0,0,0]" 
+14:04:33:429 (16622): PID ES 11, Program_counter es 0 ,modo es 0
+14:04:33:429 (16622): Los registros son : A es 0 B es 98 C es 0 D es 1048576 E es 0
+14:04:33:430 (16622): CPU PID:10, informa que termino de ejecutar el quantum del proceso PID:11
+14:04:33:430 (16622): pincha aca?
+14:04:33:430 (16622): Me tiró un signal el cond_ready_producer
+14:04:33:430 (16622): Pusheo en la cola de Ready y le mando un signal al cond_ready_consumer
+19:21:00:941 (4057): ************** WELCOME TO KERNEL V1.0! (PID: 4057) ***************
+
+19:21:00:954 (4057): Se inicializa el kernel con parametros desde: kernel.conf
+19:21:00:966 (4057): Se ENVIA por SOCKET:6 - HEADER:KERNEL_TO_MSP_HANDSHAKE  MENSAJE:"" 
+19:21:00:967 (4057): Se ha establecido conexion con el proceso MSP
+19:21:00:974 (4057): Solicitamos segmento de codigo para pid -1
+19:21:00:974 (4057): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[-1,332]" 
+19:21:00:975 (4057): Estoy en espera
+19:21:00:977 (4057): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+19:21:00:978 (4057): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[-1,332,1048576]" 
+19:21:00:978 (4057): Estoy en espera
+19:21:00:993 (4057): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_ESPERO_BYTES MENSAJE:"Ahora esperamos el buffer de escritura del proceso -1" 
+19:21:00:994 (4057): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso -1
+19:21:00:994 (4057): Estoy en espera
+19:21:00:997 (4057): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_MEMORIA_ESCRITA MENSAJE:"" 
+19:21:00:998 (4057): Se generó la estructura del proceso con éxito! NOMBRE: /home/utnso/kernel/systemCalls.bc; PID: -1
+19:21:00:998 (4057): Bloqueamos el proceso Kernel
+19:21:01:146 (4057): ************** El Thread del Loder comenzó!(PID: 4068) ***************
+19:21:01:197 (4057): ************** Comienza el planificador!(PID: 4070) ***************
+19:21:01:253 (4057): **************Ready Queue Manager Thread Started (PID: 4071) ***************
+19:21:01:320 (4057): ************** Exit Manager Thread Started (TID: 4072) ***************
+19:21:14:230 (4057): selectserver: new connection from 127.0.0.1 on socket 10
+
+19:21:14:245 (4057): Me voy a poner en espera en 3 2 1 ....
+19:21:14:245 (4057): Estoy en espera
+19:21:14:245 (4057): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"hola" 
+19:21:14:246 (4057): procesos en ready 0
+19:21:14:246 (4057): procesos en exec 0
+19:21:14:246 (4057): Planificador Thread dice: Nuevo CPU conectado (PID: 10) aguarda instrucciones
+19:21:14:246 (4057): Se ENVIA por SOCKET:10 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+19:21:14:247 (4057): Se intentó poner en ejecución un nuevo programa, pero no había ninguno en READY. :/
+19:21:14:247 (4057): CPU (PID: 10) aguarda instrucciones!
+19:21:14:247 (4057): procesos en ready 0
+19:21:14:247 (4057): procesos en exec 0
+19:21:17:908 (4057): selectserver: new connection from 127.0.0.1 on socket 11
+
+19:21:17:938 (4057): Estoy en espera
+19:21:17:938 (4057): Se RECIBE por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+19:21:17:940 (4057): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+19:21:17:961 (4057): Estoy en espera
+19:21:17:962 (4057): Se RECIBE por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"[../prueba_forES.bc,69]" 
+19:21:17:962 (4057): Se ENVIA por SOCKET:11 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+19:21:17:974 (4057): Solicitamos segmento de codigo para pid 11
+19:21:17:974 (4057): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[11,69]" 
+19:21:17:975 (4057): Estoy en espera
+19:21:17:981 (4057): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"0" 
+19:21:17:982 (4057): Solicitamos segmento de stack para pid 11
+19:21:17:982 (4057): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_MEM_REQ  MENSAJE:"[11,100]" 
+19:21:17:982 (4057): Estoy en espera
+19:21:17:984 (4057): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_SEGMENTO_CREADO  MENSAJE:"1048576" 
+19:21:17:985 (4057): Se ENVIA por SOCKET:6 - HEADER:KRN_TO_MSP_ENVIAR_BYTES  MENSAJE:"[11,69,0]" 
+19:21:17:986 (4057): Estoy en espera
+19:21:17:990 (4057): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_ESPERO_BYTES MENSAJE:"Ahora esperamos el buffer de escritura del proceso 11" 
+19:21:17:997 (4057): respuesta de la msp: Ahora esperamos el buffer de escritura del proceso 11
+19:21:17:999 (4057): Estoy en espera
+19:21:18:11 (4057): Se RECIBE por SOCKET:6 - HEADER:MSP_TO_KERNEL_MEMORIA_ESCRITA MENSAJE:"" 
+19:21:18:11 (4057): Se generó la estructura del proceso con éxito! NOMBRE: ../prueba_forES.bc; PID: 11
+19:21:18:11 (4057): Inserto en la cola de NEW el programa con FD: 11
+19:21:18:11 (4057): Un nuevo en estado NEW! Lo paso a READY
+19:21:18:13 (4057): Queue Manager Thread Says: Un nuevo proceso listo! Voy a pasarlo a ejecución!
+19:21:18:15 (4057): 
+
+procesos que se manda a la cpu (PID: 10) : ../prueba_forES.bc
+
+19:21:18:21 (4057): Procede a ejecutarse el proceso (PID: 11) en Procesador PID: 10
+19:21:18:23 (4057): Se ENVIA por SOCKET:10 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[11, 0, 0, 0, 69, 0, 1048576, 1048576,0,0,0,0,0]" 
+19:21:18:38 (4057): Se envía un TCB al CPU libre elegido
+19:21:21:329 (4057): Me voy a poner en espera en 3 2 1 ....
+19:21:21:329 (4057): Estoy en espera
+19:21:21:329 (4057): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KERNEL_END_PROC_QUANTUM  MENSAJE:"[11,0,0,0,69,32,1048576,1048576,0,1,20,27,0]" 
+19:21:21:329 (4057): PID ES 11, Program_counter es 0 ,modo es 0
+19:21:21:330 (4057): Los registros son : A es 0 B es 69 C es 32 D es 1048576 E es 1048576
+19:21:21:330 (4057): manejo el fin de quantum...
+19:21:21:330 (4057): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 10) aguarda instrucciones
+19:21:21:330 (4057): 
+
+el proceso liberado es ../prueba_forES.bc
+
+19:21:21:330 (4057): 
+
+procesos que se manda a la cpu (PID: 10) : ../prueba_forES.bc
+
+19:21:21:330 (4057): Procede a ejecutarse el proceso (PID: 11) en Procesador PID: 10
+19:21:21:330 (4057): Se ENVIA por SOCKET:10 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[11, 0, 0, 0, 69, 32, 1048576, 1048576,0,1,20,27,0]" 
+19:21:21:330 (4057): Se envía un TCB al CPU libre elegido
+19:21:22:946 (4057): Me voy a poner en espera en 3 2 1 ....
+19:21:22:946 (4057): Estoy en espera
+19:21:22:946 (4057): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KERNEL_INTERRUPCION MENSAJE:"[11,0,0,0,69,46,1048576,1048576,1,1,20,27,0,76]" 
+19:21:22:946 (4057): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 10) aguarda instrucciones
+19:21:22:946 (4057): 
+
+procesos que se manda a la cpu (PID: 10) : /home/utnso/kernel/systemCalls.bc
+
+19:21:22:947 (4057): Procede a ejecutarse el proceso (PID: 11) en Procesador PID: 10
+19:21:22:947 (4057): Se ENVIA por SOCKET:10 - HEADER:KERNEL_TO_CPU_TCB MENSAJE:"[11, 0, 1, 1048576, 332, 76, 0, 0,1,1,20,27,0]" 
+19:21:22:947 (4057): Se envía un TCB al CPU libre elegido
+19:21:24:603 (4057): Me voy a poner en espera en 3 2 1 ....
+19:21:24:603 (4057): Estoy en espera
+19:21:24:603 (4057): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KERNEL_SALIDA_ESTANDAR MENSAJE:"[11,1,0]" 
+19:21:24:603 (4057): Entre al if de la salida estandar
+19:21:24:604 (4057): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 10) aguarda instrucciones
+19:21:24:604 (4057): Se ENVIA por SOCKET:11 - HEADER:KERNEL_TO_CONSOLA_SALIDA_ESTANDAR MENSAJE:"[11,1,0]" 
+19:21:24:641 (4057): Me voy a poner en espera en 3 2 1 ....
+19:21:24:641 (4057): Estoy en espera
+19:21:24:641 (4057): Se RECIBE por SOCKET:10 - HEADER:CPU_TO_KRN_END_PROC  MENSAJE:"[11,0,1,1048576,332,76,0,0,1,1,20,27,0]" 
+19:21:24:642 (4057): recibi el tcb porque finalizo proceso por XXXX
+19:21:49:485 (4057): manejo el fin del proceso...
+19:22:50:61 (4057): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 10) aguarda instrucciones

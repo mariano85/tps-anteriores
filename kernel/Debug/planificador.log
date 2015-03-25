@@ -1,0 +1,401 @@
+04:24:34:827 (2793): ************** Comienza el planificador!(PID: 2798) ***************
+04:25:40:112 (2793): selectserver: new connection from 127.0.0.1 on socket 11
+
+04:25:40:135 (2793): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+04:25:40:136 (2793): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+04:26:08:566 (2793): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+04:26:10:392 (2793): recibi el tcb porque finalizo proceso por XXXX
+04:26:10:392 (2793): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+04:26:10:393 (2793): termine de agregarlo a la cola de exec
+04:26:11:230 (2793): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+04:26:13:9 (2793): recibi el tcb porque finalizo proceso por XXXX
+04:26:13:12 (2793): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+04:26:13:15 (2793): termine de agregarlo a la cola de exec
+04:26:15:768 (2793): El socket 11 cerró la conexion.
+04:26:15:771 (2793): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+09:59:55:229 (4045): ************** Comienza el planificador!(PID: 4050) ***************
+10:00:00:358 (4045): selectserver: new connection from 127.0.0.1 on socket 11
+
+10:00:00:386 (4045): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+10:00:00:388 (4045): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+10:00:07:314 (4045): PID ES 12, Program_counter es 0 ,modo es 0
+10:00:07:318 (4045): Los registros son : A es 0 B es 39 C es 16 D es 1048576 E es 0
+10:00:07:321 (4045): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:00:11:439 (4045): PID ES 12, Program_counter es 0 ,modo es 0
+10:00:11:445 (4045): Los registros son : A es 0 B es 39 C es 32 D es 1048576 E es 0
+10:00:11:450 (4045): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:00:15:584 (4045): PID ES 12, Program_counter es 0 ,modo es 0
+10:00:15:585 (4045): Los registros son : A es 0 B es 39 C es 36 D es 1048576 E es 0
+10:00:15:588 (4045): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:00:19:802 (4045): El socket 11 cerró la conexion.
+10:00:19:806 (4045): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+10:04:14:230 (4142): ************** Comienza el planificador!(PID: 4147) ***************
+10:04:20:675 (4142): selectserver: new connection from 127.0.0.1 on socket 11
+
+10:04:20:705 (4142): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+10:04:20:710 (4142): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+10:04:28:172 (4142): PID ES 12, Program_counter es 0 ,modo es 0
+10:04:28:177 (4142): Los registros son : A es 0 B es 39 C es 16 D es 1048576 E es 0
+10:04:28:178 (4142): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:04:32:284 (4142): PID ES 12, Program_counter es 0 ,modo es 0
+10:04:32:285 (4142): Los registros son : A es 0 B es 39 C es 32 D es 1048576 E es 0
+10:04:32:288 (4142): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:04:37:382 (4142): El socket 11 cerró la conexion.
+10:04:37:394 (4142): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+10:10:14:161 (4240): ************** Comienza el planificador!(PID: 4245) ***************
+10:10:17:152 (4240): selectserver: new connection from 127.0.0.1 on socket 11
+
+10:10:17:168 (4240): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+10:10:17:169 (4240): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+10:10:23:177 (4240): PID ES 12, Program_counter es 0 ,modo es 0
+10:10:23:178 (4240): Los registros son : A es 0 B es 39 C es 16 D es 1048576 E es 0
+10:10:23:182 (4240): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:10:27:290 (4240): PID ES 12, Program_counter es 0 ,modo es 0
+10:10:27:291 (4240): Los registros son : A es 0 B es 39 C es 32 D es 1048576 E es 0
+10:10:27:296 (4240): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:10:32:408 (4240): El socket 11 cerró la conexion.
+10:10:32:413 (4240): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+10:12:41:589 (4315): ************** Comienza el planificador!(PID: 4320) ***************
+10:12:44:706 (4315): selectserver: new connection from 127.0.0.1 on socket 11
+
+10:12:44:734 (4315): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+10:12:44:741 (4315): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+10:12:49:557 (4315): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:12:51:444 (4315): recibi el tcb porque finalizo proceso por XXXX
+10:12:51:448 (4315): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:12:51:449 (4315): termine de agregarlo a la cola de exec
+10:12:52:322 (4315): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:12:54:214 (4315): recibi el tcb porque finalizo proceso por XXXX
+10:12:54:221 (4315): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:12:54:234 (4315): termine de agregarlo a la cola de exec
+10:12:58:14 (4315): El socket 11 cerró la conexion.
+10:12:58:16 (4315): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+10:21:21:932 (4566): ************** Comienza el planificador!(PID: 4571) ***************
+10:21:24:726 (4566): selectserver: new connection from 127.0.0.1 on socket 11
+
+10:21:24:762 (4566): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+10:21:24:765 (4566): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+10:21:28:558 (4566): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:21:30:460 (4566): recibi el tcb porque finalizo proceso por XXXX
+10:21:30:461 (4566): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:21:30:490 (4566): termine de agregarlo a la cola de exec
+10:21:31:289 (4566): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:21:33:168 (4566): recibi el tcb porque finalizo proceso por XXXX
+10:21:33:172 (4566): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:21:33:177 (4566): termine de agregarlo a la cola de exec
+10:21:37:546 (4566): El socket 11 cerró la conexion.
+10:21:37:548 (4566): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+10:29:14:298 (4819): ************** Comienza el planificador!(PID: 4824) ***************
+10:29:16:844 (4819): selectserver: new connection from 127.0.0.1 on socket 11
+
+10:29:16:870 (4819): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+10:29:16:871 (4819): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+10:29:21:509 (4819): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:29:23:385 (4819): recibi el tcb porque finalizo proceso por XXXX
+10:29:23:392 (4819): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:29:23:420 (4819): termine de agregarlo a la cola de exec
+10:29:24:273 (4819): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:29:26:122 (4819): recibi el tcb porque finalizo proceso por XXXX
+10:29:26:126 (4819): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+10:29:26:144 (4819): termine de agregarlo a la cola de exec
+10:29:30:234 (4819): El socket 11 cerró la conexion.
+10:29:30:237 (4819): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+14:18:08:533 (2114): ************** Comienza el planificador!(PID: 2119) ***************
+14:21:31:604 (2114): selectserver: new connection from 127.0.0.1 on socket 11
+
+14:21:31:621 (2114): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+14:21:31:622 (2114): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+14:21:59:192 (2114): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+14:22:00:917 (2114): recibi el tcb porque finalizo proceso por XXXX
+14:22:00:918 (2114): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+14:22:00:918 (2114): termine de agregarlo a la cola de exec
+14:22:01:754 (2114): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+14:22:03:546 (2114): recibi el tcb porque finalizo proceso por XXXX
+14:22:03:546 (2114): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+14:22:03:546 (2114): termine de agregarlo a la cola de exec
+14:22:17:909 (2114): El socket 11 cerró la conexion.
+14:22:17:912 (2114): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+14:37:01:315 (2626): ************** Comienza el planificador!(PID: 2643) ***************
+14:38:05:239 (2626): selectserver: new connection from 127.0.0.1 on socket 13
+
+14:38:05:253 (2626): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+14:38:05:253 (2626): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+16:52:53:313 (3646): ************** Comienza el planificador!(PID: 3651) ***************
+16:52:59:970 (3646): selectserver: new connection from 127.0.0.1 on socket 11
+
+16:52:59:985 (3646): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+16:52:59:986 (3646): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+16:53:11:26 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:12:803 (3646): recibi el tcb porque finalizo proceso por XXXX
+16:53:12:805 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:12:807 (3646): termine de agregarlo a la cola de exec
+16:53:13:655 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:15:366 (3646): recibi el tcb porque finalizo proceso por XXXX
+16:53:15:366 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:15:366 (3646): termine de agregarlo a la cola de exec
+16:53:19:431 (3646): PID ES 12, Program_counter es 0 ,modo es 0
+16:53:19:431 (3646): Los registros son : A es 0 B es 39 C es 43 D es 1048576 E es 0
+16:53:19:431 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:23:461 (3646): PID ES 12, Program_counter es 0 ,modo es 0
+16:53:23:461 (3646): Los registros son : A es 0 B es 39 C es 43 D es 1048576 E es 0
+16:53:23:461 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:27:489 (3646): PID ES 12, Program_counter es 0 ,modo es 0
+16:53:27:489 (3646): Los registros son : A es 0 B es 39 C es 43 D es 1048576 E es 0
+16:53:27:489 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:31:514 (3646): PID ES 12, Program_counter es 0 ,modo es 0
+16:53:31:514 (3646): Los registros son : A es 0 B es 39 C es 43 D es 1048576 E es 0
+16:53:31:514 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:35:536 (3646): PID ES 12, Program_counter es 0 ,modo es 0
+16:53:35:537 (3646): Los registros son : A es 0 B es 39 C es 43 D es 1048576 E es 0
+16:53:35:537 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:39:565 (3646): PID ES 12, Program_counter es 0 ,modo es 0
+16:53:39:565 (3646): Los registros son : A es 0 B es 39 C es 43 D es 1048576 E es 0
+16:53:39:565 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:43:593 (3646): PID ES 12, Program_counter es 0 ,modo es 0
+16:53:43:593 (3646): Los registros son : A es 0 B es 39 C es 43 D es 1048576 E es 0
+16:53:43:593 (3646): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:53:43:972 (3646): #######################################################
+16:53:43:973 (3646): ##    ERROR en el recibo de mensaje del socket 11    ##
+16:53:43:973 (3646): #######################################################
+16:53:43:973 (3646): El socket 11 cerró la conexion.
+16:53:43:973 (3646): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+16:59:19:998 (3785): ************** Comienza el planificador!(PID: 3790) ***************
+16:59:35:886 (3785): selectserver: new connection from 127.0.0.1 on socket 11
+
+16:59:35:900 (3785): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+16:59:35:900 (3785): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+16:59:44:652 (3785): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:59:46:390 (3785): recibi el tcb porque finalizo proceso por XXXX
+16:59:46:391 (3785): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:59:46:391 (3785): termine de agregarlo a la cola de exec
+16:59:47:231 (3785): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:59:48:993 (3785): recibi el tcb porque finalizo proceso por XXXX
+16:59:48:994 (3785): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:59:48:995 (3785): termine de agregarlo a la cola de exec
+16:59:51:482 (3785): recibi el tcb porque finalizo proceso por XXXX
+16:59:51:482 (3785): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+16:59:51:482 (3785): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+17:05:25:542 (3869): ************** Comienza el planificador!(PID: 3874) ***************
+17:05:36:478 (3869): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:05:36:489 (3869): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:05:36:497 (3869): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:05:56:183 (3869): PID ES 12, Program_counter es 0 ,modo es 0
+17:05:56:184 (3869): Los registros son : A es 0 B es 72 C es 30 D es 1048576 E es 0
+17:05:56:184 (3869): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:06:00:381 (3869): PID ES 12, Program_counter es 0 ,modo es 0
+17:06:00:381 (3869): Los registros son : A es 0 B es 72 C es 50 D es 1048576 E es 4
+17:06:00:381 (3869): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:06:04:480 (3869): PID ES 12, Program_counter es 0 ,modo es 0
+17:06:04:481 (3869): Los registros son : A es 0 B es 72 C es 67 D es 1048576 E es 0
+17:06:04:481 (3869): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:06:05:297 (3869): recibi el tcb porque finalizo proceso por XXXX
+17:06:05:297 (3869): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:06:05:303 (3869): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+17:17:00:835 (3981): ************** Comienza el planificador!(PID: 3986) ***************
+17:17:05:730 (3981): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:17:05:739 (3981): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:17:05:739 (3981): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:17:13:481 (3981): PID ES 12, Program_counter es 0 ,modo es 0
+17:17:13:481 (3981): Los registros son : A es 1048576 B es 72 C es 16 D es 2097152 E es 0
+17:17:13:481 (3981): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:17:17:565 (3981): PID ES 12, Program_counter es 0 ,modo es 0
+17:17:17:566 (3981): Los registros son : A es 1048576 B es 72 C es 32 D es 2097152 E es 0
+17:17:17:566 (3981): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:17:21:704 (3981): PID ES 12, Program_counter es 0 ,modo es 0
+17:17:21:704 (3981): Los registros son : A es 1048576 B es 72 C es 50 D es 2097152 E es 4
+17:17:21:704 (3981): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:17:25:763 (3981): PID ES 12, Program_counter es 0 ,modo es 0
+17:17:25:763 (3981): Los registros son : A es 1048576 B es 72 C es 67 D es 2097152 E es 0
+17:17:25:763 (3981): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:17:26:590 (3981): recibi el tcb porque finalizo proceso por XXXX
+17:17:26:590 (3981): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+17:17:26:590 (3981): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+17:17:26:599 (3981): termine de agregarlo a la cola de exec
+17:18:12:797 (4040): ************** Comienza el planificador!(PID: 4045) ***************
+17:18:22:227 (4040): selectserver: new connection from 127.0.0.1 on socket 13
+
+17:18:22:241 (4040): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+17:18:22:241 (4040): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:18:25:608 (4040): PID ES 11, Program_counter es 0 ,modo es 0
+17:18:25:609 (4040): Los registros son : A es 0 B es 72 C es 30 D es 1048576 E es 0
+17:18:25:609 (4040): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:18:29:800 (4040): PID ES 11, Program_counter es 0 ,modo es 0
+17:18:29:800 (4040): Los registros son : A es 0 B es 72 C es 50 D es 1048576 E es 4
+17:18:29:801 (4040): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:18:33:891 (4040): PID ES 11, Program_counter es 0 ,modo es 0
+17:18:33:891 (4040): Los registros son : A es 0 B es 72 C es 67 D es 1048576 E es 0
+17:18:33:891 (4040): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:18:34:708 (4040): recibi el tcb porque finalizo proceso por XXXX
+17:18:34:709 (4040): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:18:34:719 (4040): Se ENVIA por SOCKET:11 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+17:19:37:209 (4092): ************** Comienza el planificador!(PID: 4097) ***************
+17:19:51:318 (4092): selectserver: new connection from 127.0.0.1 on socket 13
+
+17:19:51:326 (4092): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+17:19:51:326 (4092): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:20:01:199 (4092): recibi el tcb porque finalizo proceso por XXXX
+17:20:01:199 (4092): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:20:01:202 (4092): Se ENVIA por SOCKET:0 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+17:20:01:203 (4092): #######################################################################
+17:20:01:204 (4092): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+17:20:01:205 (4092): #######################################################################
+17:20:01:208 (4092): termine de agregarlo a la cola de exec
+17:24:06:657 (4092): El socket 13 cerró la conexion.
+17:24:06:658 (4092): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+17:24:34:207 (4249): ************** Comienza el planificador!(PID: 4254) ***************
+17:24:42:740 (4249): selectserver: new connection from 127.0.0.1 on socket 13
+
+17:24:42:762 (4249): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+17:24:42:763 (4249): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:25:08:120 (4249): recibi el tcb porque finalizo proceso por XXXX
+17:25:08:121 (4249): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+17:25:08:135 (4249): Se ENVIA por SOCKET:11 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+17:26:05:812 (4271): ************** Comienza el planificador!(PID: 4276) ***************
+17:26:10:30 (4271): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:26:10:38 (4271): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:26:10:39 (4271): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:28:03:198 (4353): ************** Comienza el planificador!(PID: 4358) ***************
+17:28:07:98 (4353): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:28:07:113 (4353): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:28:07:113 (4353): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:45:02:433 (4697): ************** Comienza el planificador!(PID: 4702) ***************
+17:45:08:189 (4697): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:45:08:196 (4697): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:45:08:196 (4697): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:49:41:972 (4789): ************** Comienza el planificador!(PID: 4794) ***************
+17:49:49:116 (4789): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:49:49:133 (4789): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:49:49:134 (4789): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:54:01:973 (4913): ************** Comienza el planificador!(PID: 4918) ***************
+17:54:08:285 (4913): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:54:08:299 (4913): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:54:08:300 (4913): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+17:56:01:955 (5017): ************** Comienza el planificador!(PID: 5022) ***************
+17:56:06:128 (5017): selectserver: new connection from 127.0.0.1 on socket 11
+
+17:56:06:146 (5017): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+17:56:06:146 (5017): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:03:42:915 (5107): ************** Comienza el planificador!(PID: 5112) ***************
+18:03:47:666 (5107): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:03:47:671 (5107): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+18:03:47:672 (5107): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:04:44:287 (5119): ************** Comienza el planificador!(PID: 5124) ***************
+18:04:47:791 (5119): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:04:47:806 (5119): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+18:04:47:807 (5119): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:04:50:785 (5119): El socket 11 cerró la conexion.
+18:04:50:786 (5119): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+18:10:47:294 (5138): ************** Comienza el planificador!(PID: 5143) ***************
+18:10:55:374 (5138): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:10:55:390 (5138): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:10:55:391 (5138): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:11:20:844 (5138): recibi el tcb porque finalizo proceso por XXXX
+18:11:20:844 (5138): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:11:20:856 (5138): Se ENVIA por SOCKET:0 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:11:20:867 (5138): #######################################################################
+18:11:20:872 (5138): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+18:11:20:873 (5138): #######################################################################
+18:11:20:873 (5138): termine de agregarlo a la cola de exec
+18:27:16:673 (5138): El socket 13 cerró la conexion.
+18:27:16:687 (5138): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+18:27:59:613 (5720): ************** Comienza el planificador!(PID: 5725) ***************
+18:28:13:228 (5720): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:28:13:248 (5720): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:28:13:249 (5720): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:28:15:20 (5720): recibi el tcb porque finalizo proceso por XXXX
+18:28:15:21 (5720): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:28:15:48 (5720): Se ENVIA por SOCKET:11 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:28:15:120 (5720): termine de agregarlo a la cola de exec
+18:40:16:253 (5796): ************** Comienza el planificador!(PID: 5801) ***************
+18:40:35:935 (5796): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:40:35:955 (5796): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+18:40:35:956 (5796): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:40:50:571 (5796): recibi el tcb porque finalizo proceso por XXXX
+18:40:50:571 (5796): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:40:50:583 (5796): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:40:50:594 (5796): termine de agregarlo a la cola de exec
+18:48:08:902 (5970): ************** Comienza el planificador!(PID: 5975) ***************
+18:48:17:39 (5970): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:48:17:57 (5970): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+18:48:17:58 (5970): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:48:23:650 (5970): recibi el tcb porque finalizo proceso por XXXX
+18:48:23:651 (5970): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:48:23:665 (5970): Se ENVIA por SOCKET:0 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:48:23:669 (5970): #######################################################################
+18:48:23:670 (5970): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+18:48:23:673 (5970): #######################################################################
+18:48:23:677 (5970): termine de agregarlo a la cola de exec
+18:49:47:782 (5970): El socket 11 cerró la conexion.
+18:49:47:785 (5970): El hilo de planificador dice (?) : Alguien mató al CPU (PID:11)
+18:50:26:197 (6035): ************** Comienza el planificador!(PID: 6040) ***************
+18:51:03:26 (6035): selectserver: new connection from 127.0.0.1 on socket 13
+
+18:51:03:46 (6035): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+18:51:03:47 (6035): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:51:06:461 (6035): recibi el tcb porque finalizo proceso por XXXX
+18:51:06:461 (6035): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+18:51:06:474 (6035): Se ENVIA por SOCKET:0 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:51:06:474 (6035): #######################################################################
+18:51:06:475 (6035): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+18:51:06:478 (6035): #######################################################################
+18:51:06:478 (6035): termine de agregarlo a la cola de exec
+18:52:15:773 (6035): El socket 13 cerró la conexion.
+18:52:15:785 (6035): El hilo de planificador dice (?) : Alguien mató al CPU (PID:13)
+18:52:46:57 (6145): ************** Comienza el planificador!(PID: 6150) ***************
+18:52:56:661 (6145): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:52:56:670 (6145): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+18:52:56:671 (6145): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:53:09:39 (6145): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:53:10:787 (6145): recibi el tcb porque finalizo proceso por XXXX
+18:53:10:788 (6145): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:53:10:788 (6145): termine de agregarlo a la cola de exec
+18:53:11:639 (6145): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:53:13:377 (6145): recibi el tcb porque finalizo proceso por XXXX
+18:53:13:378 (6145): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:53:13:378 (6145): termine de agregarlo a la cola de exec
+18:53:15:870 (6145): recibi el tcb porque finalizo proceso por XXXX
+18:53:15:871 (6145): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:53:15:876 (6145): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+18:56:42:194 (6188): ************** Comienza el planificador!(PID: 6193) ***************
+18:57:01:381 (6188): selectserver: new connection from 127.0.0.1 on socket 11
+
+18:57:01:398 (6188): Planificador Thread dice: Nuevo CPU conectado (PID: 11) aguarda instrucciones
+18:57:01:398 (6188): Se ENVIA por SOCKET:11 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+18:57:13:389 (6188): recibi el tcb porque finalizo proceso por XXXX
+18:57:13:389 (6188): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 11) aguarda instrucciones
+18:57:13:399 (6188): Se ENVIA por SOCKET:12 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+19:06:39:594 (6244): ************** Comienza el planificador!(PID: 6249) ***************
+19:08:49:83 (6244): selectserver: new connection from 127.0.0.1 on socket 13
+
+19:08:49:112 (6244): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+19:08:49:116 (6244): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+19:08:50:851 (6244): recibi el tcb porque finalizo proceso por XXXX
+19:08:50:852 (6244): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+19:08:50:870 (6244): Se ENVIA por SOCKET:11 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+19:15:25:658 (6302): ************** Comienza el planificador!(PID: 6307) ***************
+19:15:48:340 (6302): selectserver: new connection from 127.0.0.1 on socket 13
+
+19:15:48:359 (6302): Planificador Thread dice: Nuevo CPU conectado (PID: 13) aguarda instrucciones
+19:15:48:360 (6302): Se ENVIA por SOCKET:13 - HEADER:CPU_TO_KERNEL_HANDSHAKE  MENSAJE:"[4,100]" 
+19:15:52:574 (6302): recibi el tcb porque finalizo proceso por XXXX
+19:15:52:574 (6302): El hilo del Planificador dice: Cpu libre, espera instrucciones (PID: 13) aguarda instrucciones
+19:15:52:587 (6302): Se ENVIA por SOCKET:0 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+19:15:52:591 (6302): #######################################################################
+19:15:52:592 (6302): ##    ERROR en el envío de mensajes: no se envió todo. socket: 0    ##
+19:15:52:596 (6302): #######################################################################
+19:15:52:597 (6302): termine de agregarlo a la cola de exec
+19:19:12:261 (6331): ************** Comienza el planificador!(PID: 6336) ***************

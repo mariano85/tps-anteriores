@@ -1,0 +1,21 @@
+[INFO] 19:10:46:57 Proceso Consola/(4595:4595): ip y puerto del server: '127.0.0.1', '6667'
+[INFO] 19:10:46:66 Proceso Consola/(4595:4595): ************** Programa BESO ../beso.bc (PID: 4595) (TID: 4595)***************
+
+[INFO] 19:11:27:251 Proceso Consola/(4641:4641): ip y puerto del server: '127.0.0.1', '6667'
+[INFO] 19:11:27:260 Proceso Consola/(4641:4641): ************** Programa BESO ../free.bc (PID: 4641) (TID: 4641)***************
+
+[INFO] 19:11:51:48 Proceso Consola/(4678:4678): ip y puerto del server: '127.0.0.1', '6667'
+[INFO] 19:11:51:55 Proceso Consola/(4678:4678): ************** Programa BESO free.bc (PID: 4678) (TID: 4678)***************
+
+[INFO] 19:11:51:56 Proceso Consola/(4678:4678): Se ENVIA por SOCKET:7 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"Test message" 
+[DEBUG] 19:11:51:56 Proceso Consola/(4678:4678): Estoy en espera
+[DEBUG] 19:11:51:57 Proceso Consola/(4678:4678): Se RECIBE por SOCKET:7 - HEADER:PRG_TO_KRN_HANDSHAKE MENSAJE:"KERNEL - Handshake Response" 
+[INFO] 19:11:51:57 Proceso Consola/(4678:4678): Se ENVIA por SOCKET:7 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"[4678,4678,39]" 
+[DEBUG] 19:11:51:57 Proceso Consola/(4678:4678): Estoy en espera
+[DEBUG] 19:11:51:57 Proceso Consola/(4678:4678): Se RECIBE por SOCKET:7 - HEADER:PRG_TO_KRN_CODE  MENSAJE:"Se espera el codigo BESO..." 
+[DEBUG] 19:11:51:65 Proceso Consola/(4678:4678): Estoy en espera
+[DEBUG] 19:11:51:66 Proceso Consola/(4678:4678): Se RECIBE por SOCKET:7 - HEADER:KERNEL_TO_PRG_NO_MEMORY  MENSAJE:"No hay memoria suficiente" 
+[INFO] 19:11:51:67 Proceso Consola/(4678:4678): Se ENVIA por SOCKET:7 - HEADER:CODE_FIN_LINEAS  MENSAJE:"LOADA" 
+[DEBUG] 19:11:56:388 Proceso Consola/(4678:4678): Estoy en espera
+[DEBUG] 19:11:56:388 Proceso Consola/(4678:4678): Se RECIBE por SOCKET:7 - HEADER:KERNEL_TO_PRG_END_PRG  MENSAJE:"0" 
+[INFO] 19:12:27:250 Proceso Consola/(4678:4678): Mi ejecución ha finalizado según el Kernel! Cierro el socket, no lloren por mi...ya estoy muerto :(
